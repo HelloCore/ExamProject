@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-	<!-- <definition name=".template" template="/WEB-INF/jsp/template/body.jsp">
-		<put-attribute name="header" value="/WEB-INF/jsp/template/header.jsp"/>
+	<definition name=".template" template="/WEB-INF/jsp/template/body.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/template/head.jsp"/>
 	</definition>
-	 -->
-	<definition name="/main/index.page" template="/WEB-INF/jsp/index/index.jsp"/>
+	
+	<definition name="/main/home.page" extends=".template">
+		<put-attribute name="title" value="Home"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/home/home-body.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/home/home-footer.jsp"/>
+		<put-attribute name="less" value="/less/home.less"/>
+	</definition>
 	
 </tiles-definitions>
