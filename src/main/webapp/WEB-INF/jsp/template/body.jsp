@@ -69,9 +69,26 @@
 							</sec:authorize>
 			          		<div class="nav-collapse">
 			            		<ul class="nav">
-						            <li class="index"><a href="${contextPath}/main/home.html"> Home</a></li>
-						            <li class="news"><a href="#news">News</a></li>
-						            <li class="contact"><a href="#contact">Contact</a></li>
+						            <li class="index"><a href="${contextPath}/main/home.html"> หน้าแรก</a></li>
+						            <li class="news"><a href="#news">ข่าว</a></li>
+						            <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')">
+										<li class="dropdown management">
+										    <a href="#"
+										          class="dropdown-toggle"
+										          data-toggle="dropdown">
+										          จัดการ
+										          <b class="caret"></b>
+										    </a>
+										    <ul class="dropdown-menu">
+										    		<li><a href="${contextPath}/management/section.html">จัดการ Section</a></li>
+				    								<li><a href="${contextPath}/management/questionGroup.html">จัดการกลุ่มคำถาม</a></li>
+				    								<li><a href="${contextPath}/management/question.html">จัดการคำถาม</a></li>
+				    								<li><a href="${contextPath}/management/question/add.html">เพิ่มคำถาม</a></li>
+				    								<li><a href="${contextPath}/management/exam.html">จัดการการสอบ</a></li>
+				    								<li><a href="${contextPath}/management/exam/add.html">สร้างกำหนดการสอบ</a></li>
+											</ul>
+										</li>
+									</sec:authorize>
 			            		</ul>
 			          		</div>
 			          		<!--/.nav-collapse -->

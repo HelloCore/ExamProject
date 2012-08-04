@@ -8,6 +8,8 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/home"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/sectionManagement"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/login"/>
         <property name="context-root" value="ExamProject"/>
         <property name="java-output-path" value="/ExamProject/target/classes"/>
     </wb-module>
