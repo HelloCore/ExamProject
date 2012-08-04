@@ -106,4 +106,10 @@
 		    <property name="basename" value="classpath:messages" />
 		    <property name="defaultEncoding" value="UTF-8"/>
 		</bean>
+		
+		 <bean id="validator"
+		      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+		      
+		    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+		
 </beans>
