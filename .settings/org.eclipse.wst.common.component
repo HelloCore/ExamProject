@@ -10,6 +10,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/home"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/sectionManagement"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/login"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/component"/>
         <property name="context-root" value="ExamProject"/>
         <property name="java-output-path" value="/ExamProject/target/classes"/>
     </wb-module>

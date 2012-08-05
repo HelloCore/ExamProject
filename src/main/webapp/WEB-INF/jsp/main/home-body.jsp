@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="${contextPath}/css/main/home.css">
 <div class="row">
 	<div class="span8 news-column">
 		<div class="page-header">

@@ -11,8 +11,6 @@
 	<head>
 		<title><tiles:insertAttribute name="title"/></title>
 		<tiles:insertAttribute name="head"/>
-		<link rel="stylesheet/less" href="${contextPath}<tiles:getAsString name="less"/>" />
-		<script src="${contextPath}/resources/less-1.3.0.min.js"></script>
 	</head>
 	<body>
 	<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -26,7 +24,7 @@
 					            <span class="icon-bar"></span>
 					            <span class="icon-bar"></span>
 			          		</a>
-			          		<a class="brand" href="${contextPath}/main/index.html">ExamProject</a>
+			          		<a class="brand" href="${contextPath}/main/home.html">ExamProject</a>
 							<sec:authorize access="isAnonymous()">
 				          		<ul class="nav pull-right">
 				          			<li class="signUp"><a href="#signUp">Sign Up</a></li>
@@ -47,6 +45,7 @@
 									    </div>
 									    <div class="pagination-centered">
 									    	<button type="submit" class="btn btn-primary login-btn">Sign In </button>
+									    	<a href="#">forgot password ?</a>
 									    </div>
 			            			</form>
 				          			</li>
@@ -62,6 +61,8 @@
 						            </a>
 						            <ul class="dropdown-menu">
 						              <li><a href="#">Profile</a></li>
+						              <li><a href="#">Settings</a></li>
+						              <li><a href="#">Change Password</a></li>
 						              <li class="divider"></li>
 						              <li><a href="${contextPath}/main/logout.do">Sign Out</a></li>
 						            </ul>
@@ -111,16 +112,22 @@
 			</div> <!-- /container -->
 		
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="${contextPath}/resources/jquery-1.7.2.min.js"><\/script>')</script>
+		<!--  Google Api
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+			<script>window.jQuery || document.write('<script src="${contextPath}/resources/jquery-1.7.2.min.js"><\/script>')</script>
+		-->
+		<script src="${contextPath}/resources/jquery-1.7.2.min.js"></script>
 		<script src="${contextPath}/resources/bootstrap/bootstrap.min.js"></script>
 		<script src="${contextPath}/scripts/mainScript.js"></script>
-		<script>
-			var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-			g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-			s.parentNode.insertBefore(g,s)}(document,'script'));
-		</script>
+		<!-- 
+			Google Analytics
+			<script>
+				var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+				(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+				g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+				s.parentNode.insertBefore(g,s)}(document,'script'));
+			</script> 
+		-->
 		<tiles:insertAttribute name="footerFile"/>
 		
 	</body>

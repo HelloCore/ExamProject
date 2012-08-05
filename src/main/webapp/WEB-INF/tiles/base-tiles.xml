@@ -9,28 +9,34 @@
 		<put-attribute name="title" value="Home"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/main/home-body.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/home-footer.jsp"/>
-		<put-attribute name="less" value="/less/main/home.less"/>
 	</definition>
 	
 	<definition name="/main/login.page" extends=".template">
 		<put-attribute name="title" value="Sign In"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/main/login-body.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/login-footer.jsp"/>
-		<put-attribute name="less" value="/less/main/login.less"/>
 	</definition>
 	
 	<definition name="/main/loginFail.page" extends=".template">
 		<put-attribute name="title" value="Sign In"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/main/login-body.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/login-footer.jsp"/>
-		<put-attribute name="less" value="/less/main/login.less"/>
 	</definition>
 	
 	<definition name="/management/section.page" extends=".template">
 		<put-attribute name="title" value="Section Management"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/management/section-body.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/section-footer.jsp"/>
-		<put-attribute name="less" value="/less/management/section.less"/>
 	</definition>
 	
+	<definition name=".comboBoxTemplate" template="/WEB-INF/jsp/template/empty.jsp">
+	</definition>
+	
+	<definition name="/management/courseComboBox.page" extends=".comboBoxTemplate" >
+		<put-attribute name="content" value="/WEB-INF/jsp/combobox/courseComboBox.jsp"/>
+	</definition>
+	
+	<definition name="/management/questionGroupComboBox.page" extends=".comboBoxTemplate" >
+		<put-attribute name="content" value="/WEB-INF/jsp/combobox/questionGroupComboBox.jsp"/>
+	</definition>
 </tiles-definitions>

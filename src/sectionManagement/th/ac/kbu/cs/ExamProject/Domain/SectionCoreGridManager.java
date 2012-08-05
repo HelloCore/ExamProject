@@ -55,6 +55,7 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 		if(BeanUtils.isNotEmpty(domain.getCourseCodeSearch())){
 			criteria.add(Restrictions.ilike("course.courseCode", domain.getCourseCodeSearch(), MatchMode.ANYWHERE));
 		}
+		criteria.add(Restrictions.eq("section.flag",true));
 	}
 
 	@Override
@@ -90,7 +91,14 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 		if(BeanUtils.isNotNull(domain.getCourseId())){
 			section.setCourseId(domain.getCourseId());
 		}
+		section.setFlag(true);
 		return section;
 	}
+	
+	@Override
+	public String getDeletString(SectionDomain domain) {
+		return "UPDATE Section section SET flag=false WHERE section.sectionId="+domain.getSectionId();
+	}
+
 
 }

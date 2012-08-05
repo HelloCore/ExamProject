@@ -29,7 +29,18 @@ public class Course implements Serializable{
 
 	@Column(name = "COURSE_NAME",length=50)
 	private String courseName;
+
+	@Column(name = "FLAG")
+	private Boolean flag;
 	
+	public Boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
+	}
+
 	@OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="COURSE_ID")
 	private List<Section> section;

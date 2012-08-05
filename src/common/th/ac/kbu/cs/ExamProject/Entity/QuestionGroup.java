@@ -28,7 +28,18 @@ public class QuestionGroup implements Serializable{
 	
 	@Column(name = "COURSE_ID")
 	private Long courseId;
+
+	@Column(name = "FLAG")
+	private Boolean flag;
 	
+	public Boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID", insertable = false, updatable = false)
 	private Course course;

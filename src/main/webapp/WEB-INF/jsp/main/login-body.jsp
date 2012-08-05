@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<link rel="stylesheet" href="${contextPath}/css/main/login.css">
 
 
 <div class="well pagination-centered login-main-Form">
@@ -11,15 +12,15 @@
 	</c:if>
 	<form action="${contextPath}/main/login.do" method="POST">
 		<div class="control-group">
-	    	<label class="control-label" for="studentIdForm">Student ID</label>
+	    	<!-- <label class="control-label" for="studentIdForm">Student ID</label> -->
 	      	<div class="controls">
-	        	<input type="text" class="input-medium" id="studentIdForm" name="username">
+	        	<input type="text" class="input-medium" id="studentIdForm" name="username" placeholder="Student ID">
 	     	</div>
 	    </div>
        	<div class="control-group">
-	    	<label class="control-label" for="passwordForm">Password</label>
+	    	<!-- <label class="control-label" for="passwordForm">Password</label> -->
 	      	<div class="controls">
-	        	<input type="password" class="input-medium" id="passwordForm" name="password">
+	        	<input type="password" class="input-medium" id="passwordForm" name="password" placeholder="Password">
 	     	</div>
 	    </div>
 	    <div class="pagination-centered">

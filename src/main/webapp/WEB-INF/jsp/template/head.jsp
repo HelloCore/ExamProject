@@ -6,7 +6,11 @@
 
 <meta name="viewport" content="width=device-width">
 
-<link rel="stylesheet/less" href="${contextPath}/less/style.less">
+
+<link rel="stylesheet" href="${contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${contextPath}/css/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="${contextPath}/css/style.css">
+
 <script src="${contextPath}/resources/modernizr-2.5.3-respond-1.1.0.min.js"></script>
 
 <script type="text/javascript">

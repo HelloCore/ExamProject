@@ -12,6 +12,29 @@ sectionManagement.orderBy = 'sectionId';
 sectionManagement.order = 'asc';
 sectionManagement.pagination = $('.grid-pagination');
 
+sectionManagement.saveComplete = function(){
+	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> save complete. </div>').insertBefore("#pageHeader");
+	alert.fadeIn('fast',function(){
+		window.setTimeout(function(){
+			alert.alert('close');
+		},3000);
+	});
+};
+
+sectionManagement.deleteComplete = function(){
+	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> delete complete. </div>').insertBefore("#pageHeader");
+	alert.fadeIn('fast',function(){
+		window.setTimeout(function() { alert.alert('close'); }, 3000);
+	});
+};
+
+sectionManagement.errorAlert = function(){
+	var alert = $('<div class="alert alert-block alert-error fade in alertBox" style="display:none;"><strong>Error</strong> please contact to admin. </div>').insertBefore("#pageHeader");
+	alert.fadeIn('fast',function(){
+		window.setTimeout(function() { alert.alert('close'); }, 3000);
+	});
+};
+
 sectionManagement.getGrid = function(){
 	$.ajax({
 		url: application.contextPath + '/management/section.html',
@@ -107,6 +130,7 @@ changePage = function(page){
 	}
 };
 $(document).ready(function(){
+	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){$(this).chosen();});
 	sectionManagement.getDefaultGrid();
 	$("#prevPageButton").click(function(e){
 		e.preventDefault();
@@ -160,4 +184,94 @@ $(document).ready(function(){
 //		$('#searchButton').removeClass('ui-state-active-search');
 		sectionManagement.getDefaultGrid();
 	});
+	
+	$("#addButton").click(function(e){
+		e.preventDefault();
+		$("#sectionModal h3").text("Add Section");
+		$("#sectionModal input").val('');
+		$('#sectionForm').validate().resetForm();
+		$('#sectionForm .control-group').removeClass('success').removeClass('error');
+		$("#sectionModal").modal('show');
+	});
+	$('#sectionForm').validate({
+		rules: {
+			sectionName: {
+				rangelength: [3,4],
+		        required: true
+			},
+			sectionYear: {
+				range: [2555,2565],
+		        required: true
+			},
+			sectionSemester: {
+				range: [1,3],
+		        required: true
+			},
+			courseId: {
+		        required: true
+			}
+		},
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass('success').addClass('error');
+	    },
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').removeClass('error').addClass('success');
+	    },
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				type:'post',
+				url: application.contextPath + '/management/section/save.html',
+				clearForm: true,
+				success: function(){
+					$('#sectionModal').modal('hide');
+					sectionManagement.saveComplete();
+					sectionManagement.getGrid();
+					$("#saveButton").button('reset');
+				},
+				error: function(){
+					$('#sectionModal').modal('hide');
+					sectionManagement.errorAlert();
+					$("#saveButton").button('reset');
+				}
+			});
+		}
+	});
+	
+	$("#saveButton").click(function(e){
+		e.preventDefault();
+		if ($("#sectionForm").valid()){
+			$("#saveButton").button('loading');
+			$("#sectionForm").submit();		
+		}
+	});
+	
+	$("#deleteButton").click(function(e){
+		$("#deleteButton").button('loading');
+		e.preventDefault();
+		$.ajax({
+			url: application.contextPath + '/management/section/delete.html',
+			type: 'POST',
+			data: {
+				sectionId: sectionManagement.sectionId
+			},
+			success: function(){
+				$("#confirmDelete").modal('hide');
+				sectionManagement.deleteComplete();
+				sectionManagement.getGrid();
+				$("#deleteButton").button('reset');
+			},
+			error: function(){
+				$("#confirmDelete").modal('hide');
+				sectionManagement.errorAlert();
+				$("#deleteButton").button('reset');
+			}
+		});
+	});
 });
+
+deleteSection = function(sectionId){
+	$("#confirmDelete").modal();
+	sectionManagement.sectionId = sectionId;
+};

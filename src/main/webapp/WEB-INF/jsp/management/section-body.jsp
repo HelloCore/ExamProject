@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/css/management/section.css">
 <div>
-	<div class="page-header pagination-centered">
-		<h2><a class="red-color">Section</a> Management</h2>
+		
+	<div class="page-header pagination-centered" id="pageHeader">
+		<h2><font class="red-color">Section</font> Management</h2>
 	</div>
 	<div class="grid-toolbar ">
 		 
-		<button class="btn btn-info" id="addButton"><i class="icon-plus icon-white"></i> Add</button>
+		<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
 		<button class="btn btn-primary" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</button>
 		<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
 	</div>
@@ -44,4 +47,57 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+
+<div class="modal hide fade" id="confirmDelete">
+	<div class="modal-header">
+		<h3>Delete Section ?</h3>
+	</div>
+	<div class="modal-body">
+		please confirm
+	</div>
+  	<div class="modal-footer">
+    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." >Delete</a>
+  	</div>
+</div>
+<div class="modal hide fade" id="sectionModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Add Section</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" id="sectionForm">
+    	<input type="hidden" id="sectionId" name="sectionId" />
+    	<div class="control-group">
+	     	<label class="control-label" for="courseId">Course Code</label>
+	      	<div class="controls">
+	        	<select id="courseId" class="input-medium" data-placeholder="Choose a course..." name="courseId"></select>
+	        </div>
+	    </div>
+    	<div class="control-group">
+	     	<label class="control-label" for="sectionName">Section Name</label>
+	      	<div class="controls">
+	        	<input type="text" class="input-medium" id="sectionName" name="sectionName">
+	        </div>
+	    </div>
+    	<div class="control-group">
+	     	<label class="control-label" for="sectionYear">Section Year</label>
+	      	<div class="controls">
+	        	<input type="text" class="input-medium numeric" id="sectionYear" name="sectionYear">
+	        </div>
+	    </div>
+    	<div class="control-group">
+	     	<label class="control-label" for="sectionSemester">Section Semester</label>
+	      	<div class="controls">
+	        	<input type="text" class="input-medium numeric" id="sectionSemester" name="sectionSemester">
+	        </div>
+	    </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-primary" id="saveButton" data-loading-text="Saving...">Save changes</a>
+  </div>
 </div>

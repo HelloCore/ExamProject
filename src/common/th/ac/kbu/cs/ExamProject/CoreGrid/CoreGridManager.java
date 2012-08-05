@@ -22,18 +22,17 @@ public abstract class CoreGridManager<T> {
 	protected BasicFinderService basicFinderService;
 	
 	@Autowired
-	private BasicEntityService basicEntityService;
+	protected BasicEntityService basicEntityService;
 	
 	public void save(final T domain) {
 		Object entity = this.toEntity(domain);
 		basicEntityService.saveOrUpdate(entity);
 	}
 	
-	public void delete(final T domain) {
-		Object entity = this.toEntity(domain);
-		basicEntityService.delete(entity);
+	public void delete(final T domain){
+		basicEntityService.bulkUpdate(this.getDeletString(domain));
 	}
-	
+	public abstract String getDeletString(final T domain);
 	public abstract Object toEntity(final T domain);
 	
 	public CoreGrid<HashMap<String,Object>> searchTeacher(final T domain,String username){
