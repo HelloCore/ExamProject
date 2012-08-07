@@ -1,24 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
-<link rel="stylesheet" href="${contextPath}/css/management/section.css">
+<link rel="stylesheet" href="${contextPath}/css/management/questionGroup.css">
 <div>
 		
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Section</font> Management</h2>
+		<h2><font class="red-color">Question Group</font> Management</h2>
 	</div>
 	<div class="grid-toolbar ">
 		 
 		<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
-		<a class="btn btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> Search</a>
+		<a class="btn btn-primary" data-toggle="modal" href="#searchQuestionGroupModal"><i class="icon-zoom-in icon-white"></i> Search</a>
 		<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
 	</div>
-	<table class="table table-striped table-bordered table-grid" id="sectionGrid">
+	<table class="table table-striped table-bordered table-grid" id="questionGroupGrid">
 		<thead>
 			<tr>
-				<th class="sort-both sortable" id="sectionIdHeader">Section ID</th>
-				<th class="sort-both sortable" id="sectionNameHeader">Section Name</th>
-				<th class="sort-both sortable" id="sectionYearHeader">Section Year</th>
-				<th class="sort-both sortable" id="sectionSemesterHeader">Section Semester</th>
+				<th class="sort-both sortable" id="questionGroupIdHeader">Question Group ID</th>
+				<th class="sort-both sortable" id="questionGroupNameHeader">Question Group Name</th>
 				<th class="sort-both sortable" id="courseCodeHeader">Course Code</th>
 				<th>Action</th>
 			</tr>
@@ -52,7 +50,7 @@
 
 <div class="modal hide fade" id="confirmDelete">
 	<div class="modal-header">
-		<h3>Delete Section ?</h3>
+		<h3>Delete Question Group ?</h3>
 	</div>
 	<div class="modal-body">
 		please confirm
@@ -62,14 +60,15 @@
     	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." >Delete</a>
   	</div>
 </div>
-<div class="modal hide fade" id="sectionModal">
+
+<div class="modal hide fade" id="questionGroupModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Add Section</h3>
+    <h3>Add Question Group</h3>
   </div>
   <div class="modal-body">
-    <form class="form-horizontal" id="sectionForm">
-    	<input type="hidden" id="sectionId" name="sectionId" />
+    <form class="form-horizontal" id="questionGroupForm">
+    	<input type="hidden" id="questionGroupId" name="questionGroupId" />
     	<div class="control-group">
 	     	<label class="control-label" for="courseId">Course Code</label>
 	      	<div class="controls">
@@ -77,21 +76,9 @@
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="sectionName">Section Name</label>
+	     	<label class="control-label" for="questionGroupName">Question Group Name</label>
 	      	<div class="controls">
-	        	<input type="text" class="input-medium" id="sectionName" name="sectionName">
-	        </div>
-	    </div>
-    	<div class="control-group">
-	     	<label class="control-label" for="sectionYear">Section Year</label>
-	      	<div class="controls">
-	        	<input type="text" class="input-medium numeric" id="sectionYear" name="sectionYear">
-	        </div>
-	    </div>
-    	<div class="control-group">
-	     	<label class="control-label" for="sectionSemester">Section Semester</label>
-	      	<div class="controls">
-	        	<input type="text" class="input-medium numeric" id="sectionSemester" name="sectionSemester">
+	        	<input type="text" class="input-medium" id="questionGroupName" name="questionGroupName">
 	        </div>
 	    </div>
     </form>
@@ -102,13 +89,13 @@
   </div>
 </div>
 
-<div class="modal hide fade" id="searchSectionModal">
+<div class="modal hide fade" id="searchQuestionGroupModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Search Section</h3>
+    <h3>Search Question Group</h3>
   </div>
   <div class="modal-body">
-    <form class="form-horizontal" id="searchSectionForm">
+    <form class="form-horizontal" id="searchQuestionGroupForm">
     	<div class="control-group">
 	     	<label class="control-label" for="courseCodeSearch">Course Code</label>
 	      	<div class="controls">
@@ -116,21 +103,9 @@
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="sectionNameSearch">Section Name</label>
+	     	<label class="control-label" for="questionGroupNameSearch">Question Group Name</label>
 	      	<div class="controls">
-	        	<input type="text" class="input-medium" id="sectionNameSearch" name="sectionNameSearch">
-	        </div>
-	    </div>
-    	<div class="control-group">
-	     	<label class="control-label" for="sectionYearSearch">Section Year</label>
-	      	<div class="controls">
-	        	<input type="text" class="input-medium numeric" id="sectionYearSearch" name="sectionYearSearch">
-	        </div>
-	    </div>
-    	<div class="control-group">
-	     	<label class="control-label" for="sectionSemesterSearch">Section Semester</label>
-	      	<div class="controls">
-	        	<input type="text" class="input-medium numeric" id="sectionSemesterSearch" name="sectionSemesterSearch">
+	        	<input type="text" class="input-medium" id="questionGroupNameSearch" name="questionGroupNameSearch">
 	        </div>
 	    </div>
     </form>

@@ -11,6 +11,12 @@
 		</div>
 	</c:if>
 	<form action="${contextPath}/main/login.do" method="POST">
+		<c:if test="${not empty target}">
+			<input type="hidden" name="target" value="${target}"/>
+		</c:if>
+		<c:if test="${empty target}">
+			<input type="hidden" name="target" value="/main/home.html"/>
+		</c:if>
 		<div class="control-group">
 	    	<!-- <label class="control-label" for="studentIdForm">Student ID</label> -->
 	      	<div class="controls">

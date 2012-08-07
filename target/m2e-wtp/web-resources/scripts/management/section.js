@@ -10,7 +10,6 @@ sectionManagement.sectionSemester = '';
 sectionManagement.courseCode = '';
 sectionManagement.orderBy = 'sectionId';
 sectionManagement.order = 'asc';
-sectionManagement.pagination = $('.grid-pagination');
 
 sectionManagement.saveComplete = function(){
 	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> save complete. </div>').insertBefore("#pageHeader");
@@ -73,8 +72,11 @@ sectionManagement.getGrid = function(){
 			sectionManagement.lastPage = data.totalPages;
 			sectionManagement.setPagination();
 		},
-		error: function(){
-			
+		statusCode: {
+			401: function(){
+				alert("Session Timeout");
+				window.location = application.contextPath+'/main/login.html?target=/management/section.html';
+			}
 		}
 	});
 };
@@ -184,11 +186,18 @@ $(document).ready(function(){
 //		$('#searchButton').removeClass('ui-state-active-search');
 		sectionManagement.getDefaultGrid();
 	});
-	
+	$('#searchButton').click(function(){
+		sectionManagement.sectionName = $("#sectionNameSearch").val();
+		sectionManagement.sectionYear = $("#sectionYearSearch").val();
+		sectionManagement.sectionSemester = $("#sectionSemesterSearch").val();
+		sectionManagement.courseCode = $("#courseCodeSearch").val();
+		sectionManagement.getGrid();
+		$("#searchSectionModal").modal('hide');
+	});
 	$("#addButton").click(function(e){
 		e.preventDefault();
-		$("#sectionModal h3").text("Add Section");
 		$("#sectionModal input").val('');
+		$("#sectionModal h3").text("Add Section");
 		$('#sectionForm').validate().resetForm();
 		$('#sectionForm .control-group').removeClass('success').removeClass('error');
 		$("#sectionModal").modal('show');
@@ -269,9 +278,30 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	$('.numeric').numeric();
 });
 
 deleteSection = function(sectionId){
 	$("#confirmDelete").modal();
 	sectionManagement.sectionId = sectionId;
+};
+
+editSection = function(sectionId){
+	sectionManagement.sectionId = sectionId;
+	$("#sectionId").val(sectionId);
+	$("#sectionName").val($("#section-name-"+sectionId).text());
+	$("#sectionYear").val($("#section-year-"+sectionId).text());
+	$("#sectionSemester").val($("#section-semester-"+sectionId).text());
+	
+	var optionText = $("#course-code-"+sectionId).text();
+	$("#courseId option").filter(function() {
+	    return $(this).text() == optionText; 
+	}).attr('selected', true);
+
+	$("#courseId").trigger("liszt:updated");
+	
+	$("#sectionModal h3").text("Edit Section");
+	$('#sectionForm .control-group').removeClass('success').removeClass('error');
+	$("#sectionModal").modal('show');
 };

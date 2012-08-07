@@ -4,4 +4,4 @@
 <script src="${contextPath}/resources/jquery.form.js"></script>
 <script src="${contextPath}/resources/jquery.numeric.js"></script>
 <script src="${contextPath}/resources/chosen/chosen.jquery.js"></script>
-<script src="${contextPath}/scripts/management/section.js"></script>
+<script src="${contextPath}/scripts/management/questionGroup.js"></script>

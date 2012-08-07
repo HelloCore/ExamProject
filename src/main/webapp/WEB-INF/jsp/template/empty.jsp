@@ -3,4 +3,5 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<c:set var="contextPath" scope="request" value="${pageContext.request.contextPath}"></c:set>
 <tiles:insertAttribute name="content"/>

@@ -2,12 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src/common"/>
 	<classpathentry kind="src" path="src/index"/>
-	<classpathentry kind="src" output="target/test-classes" path="src/test"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="src/home"/>
 	<classpathentry kind="src" path="src/sectionManagement"/>
 	<classpathentry kind="src" path="src/login"/>
 	<classpathentry kind="src" path="src/component"/>
+	<classpathentry kind="src" path="src/questionGroupManagement"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
