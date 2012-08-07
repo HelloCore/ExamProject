@@ -125,6 +125,7 @@ changePage = function(page){
 	}
 };
 $(document).ready(function(){
+
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){$(this).chosen();});
 	questionGroupManagement.getDefaultGrid();
 	$("#prevPageButton").click(function(e){

@@ -11,6 +11,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/login"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/component"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/questionGroupManagement"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/questionManagement"/>
         <property name="context-root" value="ExamProject"/>
         <property name="java-output-path" value="/ExamProject/target/classes"/>
     </wb-module>

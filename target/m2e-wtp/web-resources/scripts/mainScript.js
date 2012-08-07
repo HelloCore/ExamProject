@@ -8,4 +8,9 @@ $(document).ready(function(){
 	$('.dropdown .login-form input, .dropdown .login-form label').click(function(e) {
 		e.stopPropagation();
 	});
+	$("div.modal").modal({
+		backdrop: 'static',
+		keyboard: true,
+		show:false
+	});
 });
