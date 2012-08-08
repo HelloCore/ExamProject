@@ -110,7 +110,7 @@
 	        	<p>&copy; Core 2012</p>
 	      	</footer>
 			</div> <!-- /container -->
-		
+			<div id="loadMask" style="display:none"></div>
 		<!-- Placed at the end of the document so the pages load faster -->
 		<!--  Google Api
 			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -118,6 +118,11 @@
 		-->
 		<script src="${contextPath}/resources/jquery-1.7.2.min.js"></script>
 		<script src="${contextPath}/resources/bootstrap/bootstrap.min.js"></script>
+		<script src="${contextPath}/resources/jquery.jgrowl.js"></script>
+		<script src="${contextPath}/resources/jquery.blockUI.js"></script>
+		<script src="${contextPath}/resources/spin.min.js"></script>
+		<script src="${contextPath}/resources/jquery.spin.js"></script>
+		<script src="${contextPath}/scripts/applicationScript.js"></script>
 		<script src="${contextPath}/scripts/mainScript.js"></script>
 		
 		<sec:authorize access="isAuthenticated()">

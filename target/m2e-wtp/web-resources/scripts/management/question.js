@@ -5,20 +5,6 @@ questionManagement.page = 1;
 questionManagement.lastPage = 1;
 questionManagement.questionId = null;
 
-questionManagement.deleteComplete = function(){
-	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> delete complete. </div>').insertBefore("#pageHeader");
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function() { alert.alert('close'); }, 3000);
-	});
-};
-
-questionManagement.errorAlert = function(){
-	var alert = $('<div class="alert alert-block alert-error fade in alertBox" style="display:none;"><strong>Error</strong> please contact to admin. </div>').insertBefore("#pageHeader");
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function() { alert.alert('close'); }, 3000);
-	});
-};
-
 questionManagement.getDefaultGrid = function(){
 	$('.search-active').removeClass('search-active').addClass('search-inactive');
 	$("#questionText").val('');
@@ -26,6 +12,7 @@ questionManagement.getDefaultGrid = function(){
 };
 
 questionManagement.getGrid = function(){
+	$("#questionDivHolder").block(application.blockOption);
 	$.ajax({
 		url: application.contextPath + '/management/question.html',
 		type: 'POST',
@@ -68,6 +55,7 @@ questionManagement.getGrid = function(){
 			}			
 			questionManagement.lastPage = data.totalPages;
 			questionManagement.setPagination();
+			$("#questionDivHolder").unblock();
 		},
 		statusCode: {
 			401: function(){
@@ -160,13 +148,13 @@ $(document).ready(function(){
 			},
 			success: function(){
 				thisButton.button('reset');
-				questionManagement.deleteComplete();
+				applicationScript.deleteComplete();
 				$("#confirmDelete").modal('hide');
 				questionManagement.getGrid();
 			},
 			error: function(){
 				thisButton.button('reset');
-				questionManagement.errorAlert();
+				applicationScript.errorAlert();
 				$("#confirmDelete").modal('hide');
 			}
 		});

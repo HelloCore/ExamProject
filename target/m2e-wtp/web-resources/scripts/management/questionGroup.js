@@ -8,30 +8,8 @@ questionGroupManagement.courseCode = '';
 questionGroupManagement.orderBy = 'questionGroupId';
 questionGroupManagement.order = 'asc';
 
-questionGroupManagement.saveComplete = function(){
-	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> save complete. </div>').insertBefore("#pageHeader");
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function(){
-			alert.alert('close');
-		},3000);
-	});
-};
-
-questionGroupManagement.deleteComplete = function(){
-	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> delete complete. </div>').insertBefore("#pageHeader");
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function() { alert.alert('close'); }, 3000);
-	});
-};
-
-questionGroupManagement.errorAlert = function(){
-	var alert = $('<div class="alert alert-block alert-error fade in alertBox" style="display:none;"><strong>Error</strong> please contact to admin. </div>').insertBefore("#pageHeader");
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function() { alert.alert('close'); }, 3000);
-	});
-};
-
 questionGroupManagement.getGrid = function(){
+	$("#questionGroupGrid").block(application.blockOption);
 	$.ajax({
 		url: application.contextPath + '/management/questionGroup.html',
 		type: 'POST',
@@ -68,6 +46,7 @@ questionGroupManagement.getGrid = function(){
 			}
 			questionGroupManagement.lastPage = data.totalPages;
 			questionGroupManagement.setPagination();
+			$("#questionGroupGrid").unblock();
 		},
 		statusCode: {
 			401: function(){
@@ -216,13 +195,13 @@ $(document).ready(function(){
 				clearForm: true,
 				success: function(){
 					$('#questionGroupModal').modal('hide');
-					questionGroupManagement.saveComplete();
+					applicationScript.saveComplete();
 					questionGroupManagement.getGrid();
 					$("#saveButton").button('reset');
 				},
 				error: function(){
 					$('#questionGroupModal').modal('hide');
-					questionGroupManagement.errorAlert();
+					applicationScript.errorAlert();
 					$("#saveButton").button('reset');
 				}
 			});
@@ -248,13 +227,13 @@ $(document).ready(function(){
 			},
 			success: function(){
 				$("#confirmDelete").modal('hide');
-				questionGroupManagement.deleteComplete();
+				applicationScript.deleteComplete();
 				questionGroupManagement.getGrid();
 				$("#deleteButton").button('reset');
 			},
 			error: function(){
 				$("#confirmDelete").modal('hide');
-				questionGroupManagement.errorAlert();
+				applicationScript.errorAlert();
 				$("#deleteButton").button('reset');
 			}
 		});

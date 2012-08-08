@@ -11,30 +11,8 @@ sectionManagement.courseCode = '';
 sectionManagement.orderBy = 'sectionId';
 sectionManagement.order = 'asc';
 
-sectionManagement.saveComplete = function(){
-	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> save complete. </div>').insertBefore("#pageHeader");
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function(){
-			alert.alert('close');
-		},3000);
-	});
-};
-
-sectionManagement.deleteComplete = function(){
-	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> delete complete. </div>').insertBefore("#pageHeader");
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function() { alert.alert('close'); }, 3000);
-	});
-};
-
-sectionManagement.errorAlert = function(){
-	var alert = $('<div class="alert alert-block alert-error fade in alertBox" style="display:none;"><strong>Error</strong> please contact to admin. </div>').insertBefore("#pageHeader");
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function() { alert.alert('close'); }, 3000);
-	});
-};
-
 sectionManagement.getGrid = function(){
+	$("#sectionGrid").block(application.blockOption);
 	$.ajax({
 		url: application.contextPath + '/management/section.html',
 		type: 'POST',
@@ -75,6 +53,7 @@ sectionManagement.getGrid = function(){
 			}
 			sectionManagement.lastPage = data.totalPages;
 			sectionManagement.setPagination();
+			$("#sectionGrid").unblock();
 		},
 		statusCode: {
 			401: function(){
@@ -245,13 +224,13 @@ $(document).ready(function(){
 				clearForm: true,
 				success: function(){
 					$('#sectionModal').modal('hide');
-					sectionManagement.saveComplete();
+					applicationScript.saveComplete();
 					sectionManagement.getGrid();
 					$("#saveButton").button('reset');
 				},
 				error: function(){
 					$('#sectionModal').modal('hide');
-					sectionManagement.errorAlert();
+					applicationScript.errorAlert();
 					$("#saveButton").button('reset');
 				}
 			});
@@ -277,13 +256,13 @@ $(document).ready(function(){
 			},
 			success: function(){
 				$("#confirmDelete").modal('hide');
-				sectionManagement.deleteComplete();
+				applicationScript.deleteComplete();
 				sectionManagement.getGrid();
 				$("#deleteButton").button('reset');
 			},
 			error: function(){
 				$("#confirmDelete").modal('hide');
-				sectionManagement.errorAlert();
+				applicationScript.errorAlert();
 				$("#deleteButton").button('reset');
 			}
 		});

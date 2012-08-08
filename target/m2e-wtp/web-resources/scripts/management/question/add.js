@@ -11,33 +11,6 @@ var ckOptions = {
 	 	filebrowserFlashUploadUrl :   application.contextPath+'/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
 };
 
-
-addQuestion.saveComplete = function(){
-	var alert = $('<div class="alert alert-block alert-success fade in alertBox" style="display:none;"><strong>Success</strong> save complete. </div>').insertBefore("#pageHeader");
-	$('html body').scrollTop(0);
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function(){
-			alert.alert('close');
-		},3000);
-	});
-};
-
-addQuestion.errorAlert = function(){
-	var alert = $('<div class="alert alert-block alert-error fade in alertBox" style="display:none;"><strong>Error</strong> please contact to admin. </div>').insertBefore("#pageHeader");
-	$('html body').scrollTop(0);
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function() { alert.alert('close'); }, 3000);
-	});
-};
-
-addQuestion.errorAlertWithString = function(str){
-	var alert = $('<div class="alert alert-block alert-error fade in alertBox" style="display:none;"><strong>เกิดข้อผิดพลาด ! </strong> '+str+' </div>').insertBefore("#pageHeader");
-	$('html body').scrollTop(0);
-	alert.fadeIn('fast',function(){
-		window.setTimeout(function() { alert.alert('close'); }, 3000);
-	});
-};
-
 addQuestion.setDefaultForm = function(){
 	addQuestion.clearTextBox();
 	$('#questionTabNav a:first').tab('show');
@@ -59,10 +32,10 @@ addQuestion.validateForm = function(){
 	var haveError = false;
 	if($("#courseId").val() ==0 || $("#questionGroupId").val()==0)
 	{
-		addQuestion.errorAlertWithString("คุณยังไม่ได้เลือกวิชาหรือกลุ่มคำถาม");
+		applicationScript.errorAlertWithStringTH("คุณยังไม่ได้เลือกวิชาหรือกลุ่มคำถาม");
 		haveError = true;
 	}else if ($("#questionTextArea").val().length==0){
-		addQuestion.errorAlertWithString("กรุณากรอกคำถาม");
+		applicationScript.errorAlertWithStringTH("กรุณากรอกคำถาม");
 		haveError = true;
 	}else{
 		var errorId=null;
@@ -77,17 +50,17 @@ addQuestion.validateForm = function(){
 		});
 		if(haveError==true)
 		{	
-			addQuestion.errorAlertWithString("กรุณากรอกคำตอบให้ครบทุกข้อ");
+			applicationScript.errorAlertWithStringTH("กรุณากรอกคำตอบให้ครบทุกข้อ");
 			$('#questionTabNav a:eq('+errorId+')').tab('show');
 		}else
 		{
 			if(parseInt($("#numOfCorrectAnswer").val(), 10) < 1)
 			{
-				addQuestion.errorAlertWithString("ต้องมีคำตอบที่ถูกต้องอย่างน้อย 1 ข้อ");
+				applicationScript.errorAlertWithStringTH("ต้องมีคำตอบที่ถูกต้องอย่างน้อย 1 ข้อ");
 				haveError = true;
 			}else if (parseInt($("#numOfFoolAnswer").val(), 10) < 3)
 			{
-				addQuestion.errorAlertWithString("ต้องมีคำตอบหลอกอย่างน้อย 3 ข้อ");
+				applicationScript.errorAlertWithStringTH("ต้องมีคำตอบหลอกอย่างน้อย 3 ข้อ");
 				haveError = true;
 			}
 		}
@@ -215,12 +188,12 @@ $(document).ready(function(){
 				thisButton.button('reset');
 				$('#confirmModal').modal('hide');
 				addQuestion.setDefaultForm();
-				addQuestion.saveComplete();
+				applicationScript.saveComplete();
 			}
 			,error: function(){
 				thisButton.button('reset');
 				$('#confirmModal').modal('hide');
-				addQuestion.errorAlert();
+				applicationScript.errorAlert();
 			}
 		});
 	});

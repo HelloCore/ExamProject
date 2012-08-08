@@ -13,5 +13,14 @@ $(document).ready(function(){
 		keyboard: true,
 		show:false
 	});
-	
+	$("#loadMask").spin("large");
+	application.blockOption = {
+			message:$("#loadMask"),
+			css:{ 
+				'width':'0px',
+				'background-color':'transparent',
+				'border':'none',
+				'margin':'auto'
+			}
+	}
 });
