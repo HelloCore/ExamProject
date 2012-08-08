@@ -2,12 +2,12 @@ package th.ac.kbu.cs.ExamProject.Controller;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginController {
@@ -32,5 +32,10 @@ public class LoginController {
 	public ModelMap loginTimeOut(ModelMap model,HttpServletResponse response){
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		return model;
+	}
+	
+	@RequestMapping(value="/main/keepAlive.html")
+	public @ResponseBody String keepAlive(){
+		return "OK";
 	}
 }

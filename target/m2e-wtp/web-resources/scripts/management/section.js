@@ -68,7 +68,11 @@ sectionManagement.getGrid = function(){
 				$("#sectionGrid tbody").append(strHtml);
 			}
 			var startRecord = (((sectionManagement.rows)*(sectionManagement.page-1))+1);
-			$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
+			if(data.totalRecords==0){
+				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
+			}else{
+				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
+			}
 			sectionManagement.lastPage = data.totalPages;
 			sectionManagement.setPagination();
 		},
@@ -187,6 +191,7 @@ $(document).ready(function(){
 		sectionManagement.getDefaultGrid();
 	});
 	$('#searchButton').click(function(){
+		sectionManagement.page =1;
 		sectionManagement.sectionName = $("#sectionNameSearch").val();
 		sectionManagement.sectionYear = $("#sectionYearSearch").val();
 		sectionManagement.sectionSemester = $("#sectionSemesterSearch").val();

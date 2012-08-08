@@ -1,69 +1,18 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
-import java.util.HashMap;
-import java.util.List;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGridManager;
 import th.ac.kbu.cs.ExamProject.Entity.Answer;
 import th.ac.kbu.cs.ExamProject.Entity.Question;
-import th.ac.kbu.cs.ExamProject.Service.QuestionAnswerService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
 public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
-
-	@Autowired
-	private QuestionAnswerService basicEntityService;
-
-	@Override 
-	public CoreGrid<HashMap<String,Object>> searchAdmin(QuestionDomain domain){
-		StringBuilder sqlString = new StringBuilder();
-		sqlString.append(" SELECT ").append("question.questionId").append(" as ").append("questionId")
-								.append(",").append("question.questionText").append(" as ").append("questionText")
-								.append(",").append("questionGroup.questionGroupName").append(" as ").append("questionGroupName")
-								.append(",").append("course.courseCode").append(" as ").append("courseCode")
-								.append(",").append("( SELECT COUNT(*) FROM Answer answer Where answer.questionId=question.questionId ")
-											.append(" AND answer.flag=1 AND answer.answerScore=0 ").append(") as numOfFoolAnswer")
-								.append(",").append("( SELECT COUNT(*) FROM Answer answer Where answer.questionId=question.questionId ")
-											.append(" AND answer.flag=1 AND answer.answerScore=1 ").append(") as numOfCorrectAnswer ")
-				.append(" FROM ").append(" Question question ")
-				.append(" JOIN question.questionGroup questionGroup ")
-				.append(" JOIN questionGroup.course course ")
-				.append(" WHERE ").append(" question.flag=1 ").append("AND course.courseId=").append(domain.getCourseId());
-
-		if(BeanUtils.isNotEmpty(domain.getQuestionGroupId()) && (domain.getQuestionGroupId() != 0)){
-			sqlString.append(" AND questionGroup.questionGroupId=").append(domain.getQuestionGroupId());
-		}
-		if(BeanUtils.isNotEmpty(domain.getQuestionText())){
-			sqlString.append(" AND question.questionText like %").append(domain.getQuestionText()).append("%");
-		}
-		List<HashMap<String,Object>> records =  basicFinderService.find(sqlString.toString());
-		CoreGrid<HashMap<String,Object>> gridData = new CoreGrid<HashMap<String,Object>>();
-		gridData.setRecords(records);
-		Integer totalRecord = this.getTotal(domain);
-		gridData.setTotalRecords(totalRecord);
-		gridData.setPage(this.getPage());
-		Double totalPages = Math.ceil(totalRecord.doubleValue() / this.getRows().doubleValue());
-		gridData.setTotalPages(totalPages.intValue());
-		
-		
-		return gridData;
-	}
-	
-	@Override
-	public void delete(QuestionDomain domain) {
-		Question entity = this.toEntity(domain);
-		entity.setFlag(false);
-		basicEntityService.updateQuestion(entity);
-	}
 	
 	@Override
 	public Question toEntity(QuestionDomain domain) {
@@ -134,8 +83,7 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 	}
 
 	@Override
-	public String getDeletString(QuestionDomain domain) {
-		return null;
+	public String getDeleteString(QuestionDomain domain) {
+		return "UPDATE Question question SET flag=false WHERE question.questionId="+domain.getQuestionId();
 	}
-
 }

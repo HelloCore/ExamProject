@@ -49,4 +49,5 @@ public interface BasicFinderService
     <T> List<T> findByCriteria(DetachedCriteria detachedCriteria, int firstResult, int maxResults);
     
     <T> T findUniqueByCriteria(DetachedCriteria detachedCriteria);
+    
 }

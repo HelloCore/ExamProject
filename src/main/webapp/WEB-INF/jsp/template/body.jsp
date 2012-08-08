@@ -119,6 +119,12 @@
 		<script src="${contextPath}/resources/jquery-1.7.2.min.js"></script>
 		<script src="${contextPath}/resources/bootstrap/bootstrap.min.js"></script>
 		<script src="${contextPath}/scripts/mainScript.js"></script>
+		
+		<sec:authorize access="isAuthenticated()">
+			<script src="${contextPath}/resources/jquery.idletimer.js"></script>
+			<script src="${contextPath}/resources/jquery.idletimeout.js"></script>
+			<script src="${contextPath}/scripts/checkSession.js"></script>
+		</sec:authorize>
 		<!-- 
 			Google Analytics
 			<script>

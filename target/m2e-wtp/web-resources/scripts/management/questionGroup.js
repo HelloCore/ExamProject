@@ -61,7 +61,11 @@ questionGroupManagement.getGrid = function(){
 				$("#questionGroupGrid tbody").append(strHtml);
 			}
 			var startRecord = (((questionGroupManagement.rows)*(questionGroupManagement.page-1))+1);
-			$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
+			if(data.totalRecords==0){
+				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
+			}else{
+				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
+			}
 			questionGroupManagement.lastPage = data.totalPages;
 			questionGroupManagement.setPagination();
 		},
@@ -176,6 +180,7 @@ $(document).ready(function(){
 		questionGroupManagement.getDefaultGrid();
 	});
 	$('#searchButton').click(function(){
+		questionGroupManagement.page =1;
 		questionGroupManagement.questionGroupName = $("#questionGroupNameSearch").val();
 		questionGroupManagement.courseCode = $("#courseCodeSearch").val();
 		questionGroupManagement.getGrid();

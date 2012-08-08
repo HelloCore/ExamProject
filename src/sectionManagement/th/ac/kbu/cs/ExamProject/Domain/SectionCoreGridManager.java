@@ -96,7 +96,7 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 	}
 	
 	@Override
-	public String getDeletString(SectionDomain domain) {
+	public String getDeleteString(SectionDomain domain) {
 		return "UPDATE Section section SET flag=false WHERE section.sectionId="+domain.getSectionId();
 	}
 

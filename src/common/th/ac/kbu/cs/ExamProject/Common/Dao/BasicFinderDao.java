@@ -49,4 +49,5 @@ public interface BasicFinderDao {
     <E> List<E> findByCriteria(DetachedCriteria detachedCriteria, int firstResult, int maxResults);
 
     <E> E findUniqueByCriteria(DetachedCriteria detachedCriteria);
+    
 }

@@ -74,7 +74,7 @@ public class QuestionGroupCoreGridManager extends CoreGridManager<QuestionGroupD
 	}
 
 	@Override
-	public String getDeletString(QuestionGroupDomain domain) {
+	public String getDeleteString(QuestionGroupDomain domain) {
 		return "UPDATE QuestionGroup questionGroup SET flag=false WHERE questionGroup.questionGroupId="+domain.getQuestionGroupId();
 	}
 

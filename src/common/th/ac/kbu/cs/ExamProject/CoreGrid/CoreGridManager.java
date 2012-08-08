@@ -30,9 +30,10 @@ public abstract class CoreGridManager<T> {
 	}
 	
 	public void delete(final T domain){
-		basicEntityService.bulkUpdate(this.getDeletString(domain));
+		basicEntityService.bulkUpdate(this.getDeleteString(domain));
 	}
-	public abstract String getDeletString(final T domain);
+	
+	public abstract String getDeleteString(final T domain);
 	public abstract Object toEntity(final T domain);
 	
 	public CoreGrid<HashMap<String,Object>> searchTeacher(final T domain,String username){
