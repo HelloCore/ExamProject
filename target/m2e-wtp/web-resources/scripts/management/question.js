@@ -12,6 +12,7 @@ questionManagement.getDefaultGrid = function(){
 };
 
 questionManagement.getGrid = function(){
+	$("#questionDivHolder").empty();
 	$("#questionDivHolder").block(application.blockOption);
 	$.ajax({
 		url: application.contextPath + '/management/question.html',
@@ -26,7 +27,6 @@ questionManagement.getGrid = function(){
 		},
 		dataType: 'json',
 		success: function(data,status){
-			$("#questionDivHolder").empty();
 			var strHtml ;
 			for(keyArray in data.records){
 				strHtml = '<table class="table table-bordered question-table">'
@@ -61,16 +61,26 @@ questionManagement.getGrid = function(){
 			401: function(){
 				alert("Session Timeout");
 				window.location = application.contextPath+'/main/login.html?target=/management/question.html';
+				$("#questionDivHolder").unblock();
 			}
 		}
 	});
 };
-
+questionManagement.getQuestionGroupComboBox = function(callback){
+	$("#questionGroupId").load(application.contextPath+"/management/questionGroupComboBox.html",{courseId:$("#courseId").val(),optionAll:true},function(){
+		$(this).trigger("liszt:updated");
+		$("#filterPanel").unblock();
+		if(typeof(callback)=='function'){
+			callback();
+		}
+	});
+	
+};
 questionManagement.initFunction = function(){
+	$("#filterPanel").block(application.blockOption);
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){
 		$(this).trigger("liszt:updated");
-		$("#questionGroupId").load(application.contextPath+"/management/questionGroupComboBox.html",{courseId:$("#courseId").val()},function(){
-			$(this).trigger("liszt:updated");
+		questionManagement.getQuestionGroupComboBox(function(){
 			questionManagement.getDefaultGrid();
 		});
 	});
@@ -115,7 +125,12 @@ changePage = function(page){
 };
 
 $(document).ready(function(){
-	$("#courseId").chosen();
+	$("#courseId").chosen().change(function(){
+		$("#questionGroupId_chzn").block(application.blockOption);
+		questionManagement.getQuestionGroupComboBox(function(){
+			$("#questionGroupId_chzn").unblock();
+		});
+	});
 	$("#questionGroupId").chosen();
 	questionManagement.initFunction();
 	$("#refreshButton").click(function(){
@@ -162,7 +177,8 @@ $(document).ready(function(){
 });
 
 viewQuestion = function(questionId){
-	
+	$("#questionId").val(questionId);
+	$("#viewQuestionForm").submit();
 };
 
 deleteQuestion = function(questionId){

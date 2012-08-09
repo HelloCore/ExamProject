@@ -16,14 +16,6 @@ import th.ac.kbu.cs.ExamProject.Entity.Answer;
 
 @Controller
 public class ViewQuestionController {
-
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
-	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.GET)
-	public ModelMap init(@ModelAttribute ViewQuestionDomain domain,ModelMap modelMap,HttpServletRequest request){
-		modelMap.addAttribute("questionData", domain.getQuestionData());
-		modelMap.addAttribute("answerData", domain.getAnswerData());
-		return modelMap;
-	}
 	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.POST,params="method=View")

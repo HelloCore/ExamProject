@@ -7,7 +7,7 @@
 	</div>
 	<div class="fixed-content">
 		<div class="row-fluid grid-toolbar">
-			<div class="span7" >
+			<div class="span7" id="filterPanel">
 					<div class="control-group">
 						<label for="courseId">วิชา : </label><select id="courseId" name="courseId" style="width:140px;"></select>
 						<label for="questionGroupId">กลุ่ม : </label><select id="questionGroupId" name="questionGroupId" style="width:140px;"></select><br>	
@@ -81,3 +81,8 @@
     	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." >Delete</a>
   	</div>
 </div>
+
+<form id="viewQuestionForm" action="${contextPath}/management/question/view.html" method="POST" style="display:none;">
+	<input type="hidden" name="method" value="View" />
+	<input type="hidden" id="questionId" name="questionId"/>
+</form>
