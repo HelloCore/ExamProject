@@ -1,5 +1,6 @@
 package th.ac.kbu.cs.ExamProject.Service.Impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import th.ac.kbu.cs.ExamProject.Common.Dao.BasicFinderDao;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 
-@Service(value="basicFinderService")
+@Service
 public class BasicFinderServiceImpl implements BasicFinderService
 {
     private BasicFinderDao basicFinderDao;
@@ -143,7 +144,6 @@ public class BasicFinderServiceImpl implements BasicFinderService
     }
 
     @SuppressWarnings("unchecked")
-    
     public <T> T findUniqueByCriteria(DetachedCriteria detachedCriteria)
     {
         return (T) getBasicFinderDao().findUniqueByCriteria(detachedCriteria);
@@ -216,5 +216,9 @@ public class BasicFinderServiceImpl implements BasicFinderService
     public <T> T findUniqueByValueBean(String queryString, Object valueBean)
     {
         return (T) getBasicFinderDao().findUniqueByValueBean(queryString, valueBean);
+    }
+    
+    public <T> T get(Class<T> entityClass,Serializable id){
+    	return (T) getBasicFinderDao().get(entityClass, id);
     }
 }

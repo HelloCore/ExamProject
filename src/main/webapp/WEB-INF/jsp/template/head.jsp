@@ -17,4 +17,5 @@
 <script type="text/javascript">
 var application = {};
 application.contextPath = '${contextPath}';
+
 </script>

@@ -30,8 +30,9 @@ import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Util.MethodUtils;
 
 
-@Service(value="basicEntityService")
+@Service
 public class BasicEntityServiceImpl implements BasicEntityService {
+	
 	private BasicEntityDao basicEntityDao;
 
 	@Autowired

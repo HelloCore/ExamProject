@@ -160,7 +160,7 @@ $(document).ready(function(){
 												+'</tr>'
 											+'</table>'
 										+'</div>');
-		$('#questionTabNav').append('<li><a href="#answer-tab'+addQuestion.tabCounter+'" data-toggle="tab" id="answer-tab-content'+addQuestion.tabCounter+'">Answer <button class="close" onClick="closeTab('+addQuestion.tabCounter+')">×</button></a></li>');
+		$('#questionTabNav').append('<li id="answer-tab-content'+addQuestion.tabCounter+'"><a href="#answer-tab'+addQuestion.tabCounter+'" data-toggle="tab" >Answer <button class="close" onClick="closeTab('+addQuestion.tabCounter+')">×</button></a></li>');
 		$('#answerTextArea'+addQuestion.tabCounter).ckeditor(ckOptions);
 		$('#questionTabNav a:last').tab('show');
 		addQuestion.tabCounter++;

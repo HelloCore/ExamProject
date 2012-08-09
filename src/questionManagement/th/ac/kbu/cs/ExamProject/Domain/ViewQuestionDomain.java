@@ -34,7 +34,9 @@ public class ViewQuestionDomain extends ViewQuestionPrototype{
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("question.questionId"), "questionId");
 		projectionList.add(Projections.property("question.questionText"), "questionText");
+		projectionList.add(Projections.property("questionGroup.questionGroupId"), "questionGroupId");
 		projectionList.add(Projections.property("questionGroup.questionGroupName"), "questionGroupName");
+		projectionList.add(Projections.property("course.courseId"), "courseId");
 		projectionList.add(Projections.property("course.courseCode"), "courseCode");
 		
 		criteria.setProjection(projectionList);

@@ -1,5 +1,6 @@
 package th.ac.kbu.cs.ExamProject.Common.Dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -49,5 +50,5 @@ public interface BasicFinderDao {
     <E> List<E> findByCriteria(DetachedCriteria detachedCriteria, int firstResult, int maxResults);
 
     <E> E findUniqueByCriteria(DetachedCriteria detachedCriteria);
-    
+    <E> E get(Class<E> entityClass,Serializable id);
 }

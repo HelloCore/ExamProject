@@ -86,26 +86,28 @@
 		    </property>
 		  </bean>
 		  
-		<bean id="serviceLoggingInterceptor" class="th.ac.kbu.cs.ExamProject.Listener.LoggingInterceptor"/>
+		<!-- <bean id="serviceLoggingInterceptor" class="th.ac.kbu.cs.ExamProject.Listener.LoggingInterceptor"/>
 		<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
 		    <property name="beanNames">
 		        <value>*Service</value>
-		       <!--  <value>*Controller</value>
+		        <value>*Controller</value>
 		        <value>*Domain</value>
-		        <value>*Manager</value> -->
+		        <value>*Manager</value>
 		    </property>
+		    <property name="proxyTargetClass" value="true" />
 		    <property name="interceptorNames">
 		        <list>
 		            <value>serviceLoggingInterceptor</value>
 		        </list>
 		    </property>
-		</bean>
+		</bean> -->
 		
-		<bean id="messageSource"
-		    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		    <property name="basename" value="classpath:messages" />
-		    <property name="defaultEncoding" value="UTF-8"/>
-		</bean>
+		<!-- <aop:aspectj-autoproxy proxy-target-class="false">
+			<aop:include name="loggerAspect"/>
+		</aop:aspectj-autoproxy>
+		<bean id="loggerAspect" class="th.ac.kbu.cs.ExamProject.Util.LoggerAspect" /> -->
+		
+		
 		
 		 <bean id="validator"
 		      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>

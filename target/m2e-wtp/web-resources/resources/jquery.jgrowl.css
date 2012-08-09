@@ -134,9 +134,6 @@ div.jGrowl div.jGrowl-closer {
 		display: 			none;
 	}
 }
-div.jGrowl{
-	margin-top:40px;
-}
 div.jGrowl div.alert-success{
 	background-color: #DFF0D8;
 	border-color:#D6E9C6;

@@ -48,12 +48,18 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question-footer.jsp"/>
 	</definition>
 	
-	
 	<definition name="/management/question/add.page" extends=".template">
 		<put-attribute name="title" value="Add Question"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/management/question/add-body.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question/add-footer.jsp"/>
 	</definition>
+	
+	<definition name="/management/question/view.page" extends=".template">
+		<put-attribute name="title" value="Question Answer Detail"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/question/view-body.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question/view-footer.jsp"/>
+	</definition>
+	
 	
 	
 	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">

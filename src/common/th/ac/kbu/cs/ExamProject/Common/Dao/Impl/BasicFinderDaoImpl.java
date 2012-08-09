@@ -1,5 +1,6 @@
 package th.ac.kbu.cs.ExamProject.Common.Dao.Impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -12,6 +13,7 @@ import th.ac.kbu.cs.ExamProject.Common.Dao.BasicFinderDao;
 @Repository
 public class BasicFinderDaoImpl extends CustomHibernateDaoSupport implements
 		BasicFinderDao {
+	
 	@SuppressWarnings("unchecked")
 	public <T> List<T> find(String queryString) {
 		return this.getHibernateTemplate().find(queryString);
@@ -94,7 +96,9 @@ public class BasicFinderDaoImpl extends CustomHibernateDaoSupport implements
 		return this.getHibernateTemplate().findByValueBean(queryString,
 				valueBean);
 	}
-
+	public <T> T get(Class<T> entityClass,Serializable id){
+		return this.getHibernateTemplate().get(entityClass, id);
+	}
 	@SuppressWarnings("unchecked")
 	public <T> T findUnique(String queryString) {
 		return (T) ensureUniqureResult(find(queryString));

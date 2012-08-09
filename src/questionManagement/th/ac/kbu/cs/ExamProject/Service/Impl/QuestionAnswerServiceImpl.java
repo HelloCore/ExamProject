@@ -13,7 +13,7 @@ import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.QuestionAnswerService;
 
 
-@Service(value="questionAnswerService")
+@Service
 public class QuestionAnswerServiceImpl implements QuestionAnswerService{
 	
 	@Autowired

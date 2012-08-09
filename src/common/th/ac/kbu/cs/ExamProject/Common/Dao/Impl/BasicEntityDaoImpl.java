@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.LockMode;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,4 +103,5 @@ public class BasicEntityDaoImpl extends CustomHibernateDaoSupport implements Bas
 	public void clear() {
 		this.getHibernateTemplate().clear();
 	}
+	
 }

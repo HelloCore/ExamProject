@@ -62,6 +62,7 @@
     	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." >Delete</a>
   	</div>
 </div>
+
 <div class="modal hide fade" id="sectionModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
