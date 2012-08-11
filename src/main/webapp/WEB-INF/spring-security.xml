@@ -17,7 +17,7 @@
 			<security:form-login 
 				login-page="/main/login.html" 
 				default-target-url="/main/home.html"
-				authentication-failure-url="/main/loginFail.html" 
+				authentication-failure-url="/main/login.html?error=1" 
 				login-processing-url="/main/login.do"
 				username-parameter="username"
 				password-parameter="password"

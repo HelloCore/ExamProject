@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
-<link rel="stylesheet" href="${contextPath}/css/management/question/view.css">
+<link rel="stylesheet" href="${contextPath}/css/management/question/viewQuestion.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
 		<h2><font class="red-color">Question & Answer</font> Detail</h2>

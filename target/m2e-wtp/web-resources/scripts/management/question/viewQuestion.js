@@ -1,3 +1,4 @@
+application.page='management';
 viewQuestion = {};
 viewQuestion.numOfAnswer = 0;
 viewQuestion.numOfCorrectAnswer = 0;

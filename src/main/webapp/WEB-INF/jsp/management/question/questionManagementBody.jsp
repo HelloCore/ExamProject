@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
-<link rel="stylesheet" href="${contextPath}/css/management/question.css">
+<link rel="stylesheet" href="${contextPath}/css/management/question/questionManagement.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
 		<h2><font class="red-color">Question </font> Management</h2>

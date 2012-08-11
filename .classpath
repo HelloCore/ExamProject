@@ -9,6 +9,7 @@
 	<classpathentry kind="src" path="src/component"/>
 	<classpathentry kind="src" path="src/questionGroupManagement"/>
 	<classpathentry kind="src" path="src/questionManagement"/>
+	<classpathentry kind="src" path="src/examManagement"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

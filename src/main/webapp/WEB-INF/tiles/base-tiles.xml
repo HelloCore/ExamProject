@@ -7,60 +7,64 @@
 	
 	<definition name="/main/home.page" extends=".template">
 		<put-attribute name="title" value="Home"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/main/home-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/home-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/homeBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/homeFooter.jsp"/>
 	</definition>
 	
 	<definition name="/main/login.page" extends=".template">
 		<put-attribute name="title" value="Sign In"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/main/login-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/login-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/loginBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/loginFooter.jsp"/>
 	</definition>
 	
 	<definition name="/main/loginFail.page" extends=".template">
 		<put-attribute name="title" value="Sign In"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/main/login-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/login-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/loginBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/loginFooter.jsp"/>
 	</definition>
 	
 	<definition name="/main/loginTimeout.page" extends=".template">
 		<put-attribute name="title" value="Sign In"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/main/login-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/login-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/loginBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/loginFooter.jsp"/>
 	</definition>
 	
 	
 	<definition name="/management/section.page" extends=".template">
 		<put-attribute name="title" value="Section Management"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/management/section-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/section-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/section/sectionManagementBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/section/sectionManagementFooter.jsp"/>
 	</definition>
 	
 	<definition name="/management/questionGroup.page" extends=".template">
 		<put-attribute name="title" value="Question Group Management"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/management/questionGroup-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/questionGroup-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/questionGroup/questionGroupManagementBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/questionGroup/questionGroupManagementFooter.jsp"/>
 	</definition>
 	
 	<definition name="/management/question.page" extends=".template">
 		<put-attribute name="title" value="Question Management"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/management/question-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/question/questionManagementBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question/questionManagementFooter.jsp"/>
 	</definition>
 	
 	<definition name="/management/question/add.page" extends=".template">
 		<put-attribute name="title" value="Add Question"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/management/question/add-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question/add-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/question/addQuestionBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question/addQuestionFooter.jsp"/>
 	</definition>
 	
 	<definition name="/management/question/view.page" extends=".template">
 		<put-attribute name="title" value="Question Answer Detail"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/management/question/view-body.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question/view-footer.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/question/viewQuestionBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question/viewQuestionFooter.jsp"/>
 	</definition>
 	
-	
+	<definition name="/management/exam/add.page" extends=".template">
+		<put-attribute name="title" value="Exam Management"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/exam/addExamBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/exam/addExamFooter.jsp"/>
+	</definition>
 	
 	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">
 	</definition>

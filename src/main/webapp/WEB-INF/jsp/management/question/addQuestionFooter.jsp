@@ -5,4 +5,4 @@
 <script type="text/javascript" src="${contextPath}/resources/ckfinder/ckfinder.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/ckeditor/adapters/jquery.js"></script>
 <script src="${contextPath}/resources/chosen/chosen.jquery.js"></script>
-<script src="${contextPath}/scripts/management/question/view.js"></script>
+<script src="${contextPath}/scripts/management/question/addQuestion.js"></script>
