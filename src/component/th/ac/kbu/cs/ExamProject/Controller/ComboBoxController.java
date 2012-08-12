@@ -1,5 +1,8 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -7,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.CourseComboBoxDomain;
 import th.ac.kbu.cs.ExamProject.Domain.QuestionGroupComboBoxDomain;
+import th.ac.kbu.cs.ExamProject.Domain.SectionComboBoxDomain;
 
 @Controller
 public class ComboBoxController {
@@ -40,4 +45,17 @@ public class ComboBoxController {
 		}
 		return modelMap;
 	}
+	
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/sectionComboBox.html" ,method=RequestMethod.POST)
+	public @ResponseBody List<HashMap<String,Object>> getSectionComboBox(SectionComboBoxDomain domain,HttpServletRequest request){
+		List<HashMap<String,Object>> sectionData = null;
+		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
+			sectionData = domain.getSectionComboBoxAdmin();
+		}else{
+			
+		}
+		return sectionData;
+	}
+	
 }

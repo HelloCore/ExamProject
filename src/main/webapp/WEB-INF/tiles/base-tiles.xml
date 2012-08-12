@@ -76,4 +76,5 @@
 	<definition name="/management/questionGroupComboBox.page" extends=".emptyTemplate" >
 		<put-attribute name="content" value="/WEB-INF/jsp/combobox/questionGroupComboBox.jsp"/>
 	</definition>
+	
 </tiles-definitions>

@@ -49,6 +49,9 @@ public class Exam implements Serializable{
 	@JoinColumn(name = "COURSE_ID", insertable = false, updatable = false)
 	private Course course;
 	
+	@Column(name = "EXAM_SEQUENCE")
+	private Boolean examSequence;
+
 	@Column(name = "FLAG")
 	private Boolean flag;
 
@@ -130,6 +133,14 @@ public class Exam implements Serializable{
 
 	public void setFlag(Boolean flag) {
 		this.flag = flag;
+	}
+
+	public Boolean getExamSequence() {
+		return examSequence;
+	}
+
+	public void setExamSequence(Boolean examSequence) {
+		this.examSequence = examSequence;
 	}
 	
 }

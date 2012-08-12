@@ -40,6 +40,9 @@ public class ExamQuestionGroup implements Serializable{
 	@Column(name = "QUESTION_PERCENT")
 	private Integer questionPercent;
 
+	@Column(name = "ORDINAL")
+	private Integer ordinal;
+	
 	public Long getExamQuestionGroupId() {
 		return examQuestionGroupId;
 	}
@@ -86,6 +89,14 @@ public class ExamQuestionGroup implements Serializable{
 
 	public void setQuestionPercent(Integer questionPercent) {
 		this.questionPercent = questionPercent;
+	}
+
+	public Integer getOrdinal() {
+		return ordinal;
+	}
+
+	public void setOrdinal(Integer ordinal) {
+		this.ordinal = ordinal;
 	}
 	
 	
