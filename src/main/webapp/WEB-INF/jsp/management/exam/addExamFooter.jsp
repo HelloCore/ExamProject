@@ -5,6 +5,11 @@
 <script src="${contextPath}/resources/jquery.validate.js"></script>
 <script src="${contextPath}/resources/datepicker/bootstrap-datepicker.js"></script>
 <script src="${contextPath}/resources/datepicker/bootstrap-timepicker.js"></script>
+<script src="${contextPath}/resources/jquery.ui/jquery.ui.core.js"></script>
+<script src="${contextPath}/resources/jquery.ui/jquery.ui.widget.js"></script>
+<script src="${contextPath}/resources/jquery.ui/jquery.ui.mouse.js"></script>
+<script src="${contextPath}/resources/jquery.ui/jquery.ui.sortable.js"></script>
+
 
 
 

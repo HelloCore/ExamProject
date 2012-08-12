@@ -2,3 +2,12 @@
 
 .main-form {width: 500px;margin:auto;}
 .input-xmini {width:20px;}
+.tab-overflow {overflow: visible;}
+.placeholder {border:black dotted 1px;height:38px;}
+#testSort li {margin-top:5px;margin-bottom:5px;}
+#testSort {list-style: decimal;}
+.display-inline label,.display-inline input{display: inline;}
+.display-inline label {margin-left: 2px;margin-right:5px;}
+.display-inline input {margin-left: 5px;margin-right:2px;}
+#totalPercent.error {color:red;}
+#totalPercent.success {color:green;}

@@ -24,7 +24,7 @@ addExam.validateTab1 = function(){
 	validatePass = (validatePass == addExam.validateDate());
 	validatePass = (validatePass ==addExam.validateNumQuestion());
 	validatePass = (validatePass== addExam.validateTestCount());
-	console.log(validatePass);
+	return validatePass;
 };
 
 addExam.validateExamHeader = function(){
@@ -100,6 +100,21 @@ addExam.validateNumQuestion = function(){
 	return !haveError;
 };
 
+addExam.validateQuestionGroup = function(){
+	var haveError = false;
+	$("#questionGroup").removeClass("success").removeClass("error");
+	$("#questionGroupError").remove();
+	if(!$("#questionGroupId").val()){
+		$("#questionGroup").addClass("error");
+		$('<label class="generate-label error" id="questionGroupError">กรุณาเลือกกลุ่มคำถาม</label>').insertAfter('#questionGroupId_chzn');
+		haveError = true;
+	}else{
+		$("#questionGroup").addClass("success");
+	}
+	return !haveError;
+};
+
+
 addExam.validateTestCount = function(){
 	var haveError = false;
 	$("#testCountGroup").removeClass("success").removeClass("error");
@@ -118,9 +133,52 @@ addExam.validateTestCount = function(){
 	return !haveError;
 };
 
+addExam.validateSectionId = function(){
+	var haveError = false;
+	$("#sectionGroup").removeClass("success").removeClass("error");
+	$("#sectionError").remove();
+	if(!$("#sectionId").val()){
+		$("#sectionGroup").addClass("error");
+		$('<label class="generate-label error" id="sectionError">กรุณาเลือกกลุ่มคำถาม</label>').insertAfter('#sectionId_chzn');
+		haveError = true;
+	}else{
+		$("#sectionGroup").addClass("success");
+	}
+	return !haveError;
+};
+
+addExam.validateQuestionPercent = function(){
+	$("#totalPercent").removeClass("success").removeClass("error");
+	
+	var haveError = false;
+	var percent = 0;
+	$('.input-percent').each(function(){
+		percent += parseInt($(this).val());
+	});
+	$("#totalPercent").text(parseInt(percent));
+	if(percent != 100){
+		$("#totalPercent").addClass("error");
+		haveError = true;
+	}else{
+		$("#totalPercent").addClass("success");
+	}
+	return !haveError;
+};
+
 $(document).ready(function(){
 	$("#courseId").chosen();
 	addExam.initToday();
+	$( "#testSort" ).sortable({
+		placeholder: "placeholder"
+	}).disableSelection();
+	$("#tab1NextButton").click(function(){
+//		if(addExam.validateTab1){
+//			$("#tab1").hide();
+//			$("#tab2").show();
+//		}
+		$("#tab1").hide();
+		$("#tab2").show();
+	});
 	
 	$("#examHeader").keyup(function(){addExam.validateExamHeader();});
 	$(".date-check").change(function(){addExam.validateDate();});
@@ -128,4 +186,9 @@ $(document).ready(function(){
 	$("#endDate").on('changeDate',function(){addExam.validateDate();});
 	$(".num-question").numeric().keyup(function(){addExam.validateNumQuestion();});
 	$("#testCountGroup").numeric().keyup(function(){addExam.validateTestCount();});
+	$("#questionGroupId").chosen().change(function(){addExam.validateQuestionGroup();});
+	$("#sectionId").chosen().change(function(){addExam.validateSectionId();});
+	$('.input-percent').numeric().keyup(function(){
+		addExam.validateQuestionPercent();
+	});
 });
