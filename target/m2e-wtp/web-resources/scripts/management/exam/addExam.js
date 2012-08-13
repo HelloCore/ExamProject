@@ -1,18 +1,63 @@
 addExam = {};
 addExam.examHeader;
 addExam.courseId;
+addExam.courseCode;
 addExam.startDate;
 addExam.endDate;
 addExam.minQuestion;
 addExam.maxQuestion;
-addExam.testCount;
+addExam.examCount;
 addExam.questionGroupId;
+addExam.sectionData;
 addExam.sectionId;
 addExam.questionGroupData;
 addExam.examSequence;
 
+addExam.deleteData = function(){
+	delete addExam.examHeader;
+	delete addExam.courseId;
+	delete addExam.courseCode;
+	delete addExam.startDate;
+	delete addExam.endDate;
+	delete addExam.minQuestion;
+	delete addExam.maxQuestion;
+	delete addExam.examCount;
+	delete addExam.questionGroupId;
+	delete addExam.sectionData;
+	delete addExam.sectionId;
+	delete addExam.questionGroupData;
+	delete addExam.examSequence;
+};
+addExam.dateToString = function(date){
+	var year = date.getFullYear();
+	var month = date.getMonth();
+	var day = date.getDate();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	var sec = date.getSeconds();
+	var str = year+'-';
+	if(month<10){ str+='0'; }
+	str+=month+'-';
+	if(day<10){ str+='0'; }
+	str+=day+' ';
+	if(hour<10){ str+='0'; }
+	str+=hour+':';
+	if(min<10){ str+='0'; }
+	str+=min+':';
+	if(sec<10){ str+='0'; }
+	str+=sec;
+	return str;
+};
 
 addExam.initFunction = function(){
+	$(".error").removeClass("error");
+	$(".success").removeClass("success");
+	$("#examHeader").val('');
+	$("#minQuestion").val('');
+	$("#maxQuestion").val('');
+	$("#startTime").val('00:00');
+	$("#endTime").val('00:00');
+	$('input:checkbox:checked').attr('checked',false);
 	$("#courseId").chosen();
 	addExam.initCourseComboBox();
 	addExam.initToday();
@@ -52,7 +97,7 @@ addExam.validateTab1 = function(){
 	if(!addExam.validateNumQuestion()){
 		validatePass = validatePass && false;
 	}
-	if(!addExam.validateTestCount()){
+	if(!addExam.validateExamCount()){
 		validatePass = validatePass && false;
 	}
 	return validatePass;
@@ -88,31 +133,36 @@ addExam.validateExamHeader = function(){
 	}
 	return !haveError;
 };
+addExam.calStartDate = function(){
+	var startDateStr = $("#startDate").val();
+	var startTimeStr = $("#startTime").val();
+	var startDay = startDateStr.substr(0,2);
+	var startMonth = startDateStr.substr(3,2);
+	var startYear = startDateStr.substr(6,4);
+	var startHour = startTimeStr.substr(0,2);
+	var startMin = startTimeStr.substr(3,2);
+	return new Date(startYear,startMonth,startDay,startHour,startMin);
+};
+addExam.calEndDate = function(){
+	var endDateStr = $("#endDate").val();
+	var endTimeStr = $("#endTime").val();
+	var endDay = endDateStr.substr(0,2);
+	var endMonth = endDateStr.substr(3,2);
+	var endYear = endDateStr.substr(6,4);
+	var endHour = endTimeStr.substr(0,2);
+	var endMin = endTimeStr.substr(3,2);
+	return new Date(endYear,endMonth,endDay,endHour,endMin);
+};
 addExam.validateDate = function(){
 	$("#startDateGroup").removeClass('success').removeClass('error');
 	$("#endDateGroup").removeClass('success').removeClass('error');
 	$("#dateError").remove();
 	var haveError = false;
 	if($("#useStartDate").is(":checked") && $("#useEndDate").is(":checked")){
-		var startDateStr = $("#startDate").val();
-		var startTimeStr = $("#startTime").val();
-		var startDay = startDateStr.substr(0,2);
-		var startMonth = startDateStr.substr(3,2);
-		var startYear = startDateStr.substr(6,4);
-		var startHour = startTimeStr.substr(0,2);
-		var startMin = startTimeStr.substr(3,2);
-		
-		var endDateStr = $("#endDate").val();
-		var endTimeStr = $("#endTime").val();
-		var endDay = endDateStr.substr(0,2);
-		var endMonth = endDateStr.substr(3,2);
-		var endYear = endDateStr.substr(6,4);
-		var endHour = endTimeStr.substr(0,2);
-		var endMin = endTimeStr.substr(3,2);
-		
-
-		var startDate = new Date(startYear,startMonth,startDay,startHour,startMin);
-		var endDate = new Date(endYear,endMonth,endDay,endHour,endMin);
+		var startDate = addExam.calStartDate();
+		var endDate = addExam.calEndDate();
+		addExam.startDate = startDate;
+		addExam.endDate = endDate;
 		if(startDate>=endDate){
 			$("#startDateGroup").addClass('error');
 			$("#endDateGroup").addClass('error');
@@ -121,11 +171,13 @@ addExam.validateDate = function(){
 		}else{
 			$("#startDateGroup").addClass('success');
 			$("#endDateGroup").addClass('success');
-			addExam.startDate = startDate;
-			addExam.endDate = endDate;
-			
 		}
 	}else{
+		if($("#useStartDate").is(":checked")){
+			addExam.startDate = addExam.calStartDate();
+		}else if ($("#useEndDate").is(":checked")){
+			addExam.endDate = addExam.calEndDate();
+		}
 		$("#startDateGroup").addClass('success');
 		$("#endDateGroup").addClass('success');
 	}
@@ -140,7 +192,7 @@ addExam.validateNumQuestion = function(){
 		$("#numQuestionGroup").addClass("error");
 		$('<label class="generate-label error" id="numQuestionError">กรุณากรอกจำนวนข้อสอบ</label>').insertAfter('#maxQuestion');
 		haveError = true;
-	}else if ($("#minQuestion").val()>$("#maxQuestion").val()){
+	}else if (parseInt($("#minQuestion").val(),10)>parseInt($("#maxQuestion").val(),10)){
 		$("#numQuestionGroup").addClass("error");
 		$('<label class="generate-label error" id="numQuestionError">กรุณากรอกจำนวนข้อสอบให้ถูกต้อง</label>').insertAfter('#maxQuestion');
 		haveError = true;
@@ -165,20 +217,20 @@ addExam.validateQuestionGroup = function(){
 };
 
 
-addExam.validateTestCount = function(){
+addExam.validateExamCount = function(){
 	var haveError = false;
-	$("#testCountGroup").removeClass("success").removeClass("error");
-	$("#testCountError").remove();
-	if($("#testCount").val().length ==0){
-		$("#testCountGroup").addClass('error');
-		$('<label class="generate-label error" id="testCountError">กรุณากรอกจำนวนครั้งในการสอบ</label>').insertAfter('#testCount');
+	$("#examCountGroup").removeClass("success").removeClass("error");
+	$("#examCountError").remove();
+	if($("#examCount").val().length ==0){
+		$("#examCountGroup").addClass('error');
+		$('<label class="generate-label error" id="examCountError">กรุณากรอกจำนวนครั้งในการสอบ</label>').insertAfter('#examCount');
 		haveError = true;
-	}else if ($("#testCount").val() == 0){
-		$("#testCountGroup").addClass('error');
-		$('<label class="generate-label error" id="testCountError">กรุณากรอกจำนวนครั้งในการสอบให้ถูกต้อง</label>').insertAfter('#testCount');
+	}else if ($("#examCount").val() == 0){
+		$("#examCountGroup").addClass('error');
+		$('<label class="generate-label error" id="examCountError">กรุณากรอกจำนวนครั้งในการสอบให้ถูกต้อง</label>').insertAfter('#examCount');
 		haveError = true;
 	}else{
-		$("#testCountGroup").addClass('success');
+		$("#examCountGroup").addClass('success');
 	}
 	return !haveError;
 };
@@ -228,6 +280,7 @@ $(document).ready(function(){
 		if(addExam.validateTab1()){
 			addExam.examHeader = $("#examHeader").val();
 			addExam.courseId = $("#courseId").val();
+			addExam.courseCode = $("#courseId option:checked").text();
 			if(!$("#useStartDate").is(":checked")){
 				addExam.startDate = '';
 			}
@@ -236,7 +289,7 @@ $(document).ready(function(){
 			}
 			addExam.minQuestion = $("#minQuestion").val();
 			addExam.maxQuestion = $("#maxQuestion").val();
-			addExam.testCount = $("#testCount").val();
+			addExam.examCount = $("#examCount").val();
 			$("#tab1").hide();
 			$("#tab2").show();
 			addExam.tab2Data();
@@ -250,6 +303,13 @@ $(document).ready(function(){
 		if(addExam.validateTab2()){
 			addExam.questionGroupId = $("#questionGroupId").val();
 			addExam.sectionId = $("#sectionId").val();
+			addExam.sectionData = [];
+			var newNumber =0;
+			$.each(addExam.sectionId,function(index,value){
+				addExam.sectionData[newNumber] = {};
+				addExam.sectionData[newNumber].sectionId = value;
+				newNumber ++;
+			});
 			$("#tab2").hide();
 			$("#tab3").show();
 			addExam.tab3Data();
@@ -272,10 +332,20 @@ $(document).ready(function(){
 				numCount++;
 			});
 			addExam.examSequence = $("input[name=examSequence]:checked").val();
-			
+
+			addExam.tab4Data();
 			$("#tab3").hide();
 			$("#tab4").show();
 		}
+	});
+	$("#tab4BackButton").click(function(){
+		$("#tab4").hide();
+		$("#tab3").show();
+	});
+	$("#tab4NextButton").click(function(){
+		$(this).button('loading');
+		$("#tab4BackButton").button('loading');
+		addExam.sendData();
 	});
 	
 	$( "#questionGroupSort" ).sortable({
@@ -286,7 +356,7 @@ $(document).ready(function(){
 	$("#startDate").on('changeDate',function(){addExam.validateDate();});
 	$("#endDate").on('changeDate',function(){addExam.validateDate();});
 	$(".num-question").numeric().keyup(function(){addExam.validateNumQuestion();});
-	$("#testCountGroup").numeric().keyup(function(){addExam.validateTestCount();});
+	$("#examCountGroup").numeric().keyup(function(){addExam.validateExamCount();});
 	$("#questionGroupId").chosen().change(function(){addExam.validateQuestionGroup();});
 	$("#sectionId").chosen().change(function(){addExam.validateSectionId();});
 	$('.input-percent').numeric().live('keyup',function(){
@@ -316,7 +386,12 @@ addExam.tab2Data = function(){
 					}
 					newData += '<optgroup label="เทอม '+nowSemester+' ปี '+nowYear+'">';
 				}
-				newData += '<option value="'+value.sectionId+'">เทอม '+value.sectionSemester+' ปี '+value.sectionYear+' ['+value.sectionName+']</option>';
+				newData += '<option value="'+value.sectionId+'"'
+								+' sectionYear="'+value.sectionYear+'"'
+								+' sectionSemester="'+value.sectionSemester+'"'
+								+' sectionName="'+value.sectionName+'"'
+								+'>เทอม '+value.sectionSemester+' ปี '+value.sectionYear+' ['+value.sectionName+']</option>';
+				
 			});
 			$("#sectionId").empty().html(newData).trigger("liszt:updated");
 			$("#sectionId_chzn").unblock();
@@ -337,4 +412,95 @@ addExam.tab3Data = function(){
 				+'</span> เปอร์เซ็นต์คำถาม <input type="text" class="input-mini input-percent" value="0" id="question-group-'+value+'-percent" questionGroupId="'+value+'" questionGroupName="'+groupName+'"> %</li>';
 	});
 	$("#questionGroupSort").empty().html(str);
+};
+
+addExam.tab4Data = function(){
+	$("#courseIdConfirm").text(addExam.courseCode);
+	$("#examHeaderConfirm").text(addExam.examHeader);
+	if(addExam.startDate == ''){
+		$("#startDateConfirm").text("ไม่กำหนด");
+	}else{
+		$("#startDateConfirm").text(addExam.startDate);
+	}
+	if(addExam.endDate == ''){
+		$("#endDateConfirm").text("ไม่กำหนด");
+	}else{
+		$("#endDateConfirm").text(addExam.endDate);
+	}
+	$("#rangeQuestionConfirm").text(addExam.minQuestion + ' ถึง ' + addExam.maxQuestion+ ' ข้อ');
+	$("#examCountConfirm").text(addExam.examCount);
+	if(addExam.examSequence == 0){
+		$("#examSequenceConfirm").text("สุ่ม");
+	}else{
+		$("#examSequenceConfirm").text("เรียงตามลำดับ");
+	}
+	$(".question-group-table tbody").empty();
+	$.each(addExam.questionGroupData,function(index,value){
+		$(".question-group-table tbody").append('<tr><td>'+value.ordinal+'</td><td>'+value.questionGroupName+'</td><td>'+value.questionPercent+'</td></tr>');
+	});
+
+	$(".section-table tbody").empty();
+	var sectionOption;
+	$.each(addExam.sectionId,function(index,value){
+		sectionOption = $('#sectionId option[value='+value+']');
+		
+		$(".section-table tbody").append('<tr>'
+										+'<td>'+sectionOption.attr('sectionSemester')+'</td>'
+										+'<td>'+sectionOption.attr('sectionYear')+'</td>'
+										+'<td>'+sectionOption.attr('sectionName')+'</td>'
+									+'</tr>');
+	});
+};
+
+addExam.convertQuestionGroupData = function(questionGroupData){
+	var number = 0;
+	var newData = [];
+	$.each(questionGroupData,function(index,value){
+		newData[number] = {};
+		newData[number].questionGroupId = value.questionGroupId;
+		newData[number].questionPercent = value.questionPercent;
+		newData[number].ordinal = value.ordinal;
+		number++;
+	});
+	return newData;
+};
+
+addExam.sendData = function(){
+	var parameter = {};
+	parameter.method = 'addExam';
+	parameter.examHeader = addExam.examHeader;
+	if(addExam.startDate != ''){
+		parameter.startDate = addExam.dateToString(addExam.startDate);
+	}
+	if(addExam.endDate != ''){
+		parameter.endDate = addExam.dateToString(addExam.endDate);
+	}
+	parameter.courseId = addExam.courseId;
+	parameter.minQuestion = addExam.minQuestion;
+	parameter.maxQuestion = addExam.maxQuestion;
+	parameter.examCount = addExam.examCount;
+	parameter.sectionData = JSON.stringify(addExam.sectionData);
+	parameter.questionGroupData = JSON.stringify(addExam.convertQuestionGroupData(addExam.questionGroupData));
+	parameter.examSequence = addExam.examSequence;
+	
+	$.ajax({
+		url: application.contextPath + '/management/exam/add.html',
+		type: 'POST',
+		data: parameter,
+		success: function(){
+			
+			applicationScript.saveComplete();
+			$("#tab4BackButton").button('reset');
+			$("#tab4NextButton").button('reset');
+			$("#tab4").hide();
+			$("#tab1").show();
+			addExam.deleteData();
+			addExam.initFunction();
+		},
+		error : function(){
+			applicationScript.errorAlert();
+			$("#tab4BackButton").button('reset');
+			$("#tab4NextButton").button('reset');
+		}
+	});
 };

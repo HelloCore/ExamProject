@@ -9,7 +9,7 @@
 	</div>
 	
 	<div class="well main-form">
-		<div id="tab1" class="tab-content form-horizontal tab-overflow ">
+		<div id="tab1" class="tab-content form-horizontal tab-overflow">
 			<div class="control-group">
       			<label class="control-label" for="courseId">วิชา</label>
       			<div class="controls">
@@ -49,10 +49,10 @@
         			<input type="text" class="input-xmini num-question" id="maxQuestion" name="maxQuestion">
       			</div>
     		</div>
-			<div class="control-group" id="testCountGroup">
-      			<label class="control-label" for="testCount">จำนวนครั้งที่สอบได้</label>
+			<div class="control-group" id="examCountGroup">
+      			<label class="control-label" for="examCount">จำนวนครั้งที่สอบได้</label>
       			<div class="controls">
-        			<input type="text" class="input-xmini" id="testCount" name="testCount" value="1">
+        			<input type="text" class="input-xmini" id="examCount" name="examCount" value="1">
       			</div>
     		</div>
 	   		<div class="control-button pagination-centered">
@@ -94,7 +94,82 @@
 	   			<button class="btn btn-primary" id="tab3NextButton">Next <i class="icon-chevron-right icon-white"></i></button>
 	   		</div> 
 		</div>
-		<div id="tab4" class="tab-content tab-overflow hide">
+		<div id="tab4" class="tab-content form-horizontal tab-overflow hide">
+			<div class="control-group">
+      			<label class="control-label" for="courseIdConfirm">วิชา</label>
+      			<div class="controls">
+      				<span class="input-medium uneditable-input" id="courseIdConfirm"></span>
+      			</div>
+    		</div>
+			<div class="control-group">
+      			<label class="control-label" for="examHeaderConfirm">หัวข้อ</label>
+      			<div class="controls">
+      				<span class="input-medium uneditable-input" id="examHeaderConfirm"></span>
+      			</div>
+    		</div>
+			<div class="control-group">
+      			<label class="control-label" for="startDateConfirm">วันเริ่มสอบ</label>
+      			<div class="controls">
+      				<span class="input-medium uneditable-input" id="startDateConfirm"></span>
+      			</div>
+    		</div>
+			<div class="control-group">
+      			<label class="control-label" for="endDateConfirm">วันหมดเขตสอบ</label>
+      			<div class="controls">
+      				<span class="input-medium uneditable-input" id="endDateConfirm"></span>
+      			</div>
+    		</div>
+			<div class="control-group">
+      			<label class="control-label" for="rangeQuestionConfirm">จำนวนข้อสอบ</label>
+      			<div class="controls">
+      				<span class="input-small uneditable-input" id="rangeQuestionConfirm"></span>
+      			</div>
+    		</div>
+			<div class="control-group">
+      			<label class="control-label" for="examCountConfirm">จำนวนครั้งที่สอบได้</label>
+      			<div class="controls">
+      				<span class="input-mini uneditable-input" id="examCountConfirm"></span>
+      			</div>
+    		</div>
+			<div class="control-group">
+      			<label class="control-label" for="examSequenceConfirm">การเรียงคำถาม</label>
+      			<div class="controls">
+      				<span class="input-medium uneditable-input" id="examSequenceConfirm"></span>
+      			</div>
+    		</div>
+    		<div class="question-group-div pagination-centered">
+    			<h2>กลุ่มคำถาม</h2>
+    			<table class="table table-striped table-bordered question-group-table">
+    				<thead>
+    					<tr>
+    						<th>ลำดัับ</th>
+    						<th>กลุ่มคำถาม</th>
+    						<th>เปอร์เซ็นต์คำถาม</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+    				</tbody>
+    			</table> 
+    		</div>
+    		<div class="section-div pagination-centered">
+    			<h2>Section ที่มีสิทธิ์สอบ</h2>
+    			<table class="table table-striped table-bordered section-table">
+    				<thead>
+    					<tr>
+    						<th>เทอม</th>
+    						<th>ปี</th>
+    						<th>Section</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+    				</tbody>
+    			</table> 
+    		</div>
+	   		<div class="control-button pagination-centered">
+	   			<button class="btn" id="tab4BackButton" data-loading-text="Back"><i class="icon-chevron-left"></i> Back</button>
+	   			<button class="btn btn-primary" id="tab4NextButton" data-loading-text="กำลังสร้าง..."><i class="icon-ok icon-white"></i> Add</button>
+	   		</div> 
+    		
 		</div>
 	</div>
 </div>

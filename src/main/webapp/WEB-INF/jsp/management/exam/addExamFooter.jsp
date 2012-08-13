@@ -9,8 +9,6 @@
 <script src="${contextPath}/resources/jquery.ui/jquery.ui.widget.js"></script>
 <script src="${contextPath}/resources/jquery.ui/jquery.ui.mouse.js"></script>
 <script src="${contextPath}/resources/jquery.ui/jquery.ui.sortable.js"></script>
-
-
-
+<script src="${contextPath}/resources/json2.js"></script>
 
 <script src="${contextPath}/scripts/management/exam/addExam.js"></script>
