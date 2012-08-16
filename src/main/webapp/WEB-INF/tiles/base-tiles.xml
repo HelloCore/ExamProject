@@ -66,6 +66,12 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/exam/addExamFooter.jsp"/>
 	</definition>
 	
+	<definition name="/management/exam.page" extends=".template">
+		<put-attribute name="title" value="Exam Management"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/exam/examManagementBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/exam/examManagementFooter.jsp"/>
+	</definition>
+	
 	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">
 	</definition>
 	
@@ -77,4 +83,17 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/combobox/questionGroupComboBox.jsp"/>
 	</definition>
 	
+		
+	<definition name="/exam/selectExam.page" extends=".template">
+		<put-attribute name="title" value="Select Exam"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/exam/selectExamBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/selectExamFooter.jsp"/>
+	</definition>
+	
+		
+	<definition name="/exam/doExam.page" extends=".template">
+		<put-attribute name="title" value="Do Exam"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/exam/doExamBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/doExamFooter.jsp"/>
+	</definition>
 </tiles-definitions>

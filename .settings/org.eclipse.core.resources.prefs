@@ -1,9 +1,3 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/WEB-INF/jsp/main/homeBody.jsp=UTF-8
 encoding//src/questionManagement/th/ac/kbu/cs/ExamProject/Controller/ViewQuestionController.java=UTF-8
-encoding//target/m2e-wtp/web-resources/resources/datepicker/bootstrap-timepicker.js=UTF-8
-encoding//target/m2e-wtp/web-resources/scripts/applicationScript.js=UTF-8
-encoding//target/m2e-wtp/web-resources/scripts/management/exam/addExam.js=UTF-8
-encoding//target/m2e-wtp/web-resources/scripts/management/question/addQuestion.js=UTF-8
-encoding//target/m2e-wtp/web-resources/scripts/management/question/questionManagement.js=UTF-8
-encoding//target/m2e-wtp/web-resources/scripts/management/question/viewQuestion.js=UTF-8

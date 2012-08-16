@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+.exam-table {width: 652px;margin:auto;margin-top:20px;margin-bottom:20px;}
+.exam-table tr td .btn {width:80px;}
+.exam-table .sub-column {width: 217px;}
+.fixed-content {width: 654px; margin:auto;}
+.fixed-content select,.fixed-content label,.fixed-content .input-prepend {display:inline;}
+.grid-toolbar button.btn {width: 90px;margin-bottom:5px;}
+.grid-toolbar .control-group {display:inline;}
+.exam-header {width:150px;}
+.search-btn{ width:70px;}
+.form-horizontal .control-group {margin-bottom: 10px;}
+.search-inactive i { display:none;}
+.grid-info {display:inline-block;}

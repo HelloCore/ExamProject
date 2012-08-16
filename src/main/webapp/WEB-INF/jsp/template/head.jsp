@@ -8,7 +8,7 @@
 
 
 <link rel="stylesheet" href="${contextPath}/css/bootstrap.min.css">
-<link rel="stylesheet" href="${contextPath}/css/bootstrap-responsive.min.css">
+<%-- <link rel="stylesheet" href="${contextPath}/css/bootstrap-responsive.min.css"> --%>
 <link rel="stylesheet" href="${contextPath}/css/style.css">
 <link rel="stylesheet" href="${contextPath}/resources/jquery.jgrowl.css">
 

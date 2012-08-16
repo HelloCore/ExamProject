@@ -43,6 +43,10 @@ public class ExamQuestionGroup implements Serializable{
 	@Column(name = "ORDINAL")
 	private Integer ordinal;
 	
+	
+	@Column(name = "SECOND_PER_QUESTION")
+	private Integer secondPerQuestion;
+	
 	public Long getExamQuestionGroupId() {
 		return examQuestionGroupId;
 	}
@@ -97,6 +101,14 @@ public class ExamQuestionGroup implements Serializable{
 
 	public void setOrdinal(Integer ordinal) {
 		this.ordinal = ordinal;
+	}
+
+	public Integer getSecondPerQuestion() {
+		return secondPerQuestion;
+	}
+
+	public void setSecondPerQuestion(Integer secondPerQuestion) {
+		this.secondPerQuestion = secondPerQuestion;
 	}
 	
 	

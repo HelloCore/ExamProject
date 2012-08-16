@@ -1,6 +1,5 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
-import java.util.Date;
 
 public class AddExamPrototype {
 	private String examHeader;
@@ -9,7 +8,7 @@ public class AddExamPrototype {
 	private String endDate;
 	private Integer minQuestion;
 	private Integer maxQuestion;
-	private Integer examCount;
+	private Integer examLimit;
 	private String sectionData;
 	private String questionGroupData;
 	private Boolean examSequence;
@@ -61,11 +60,12 @@ public class AddExamPrototype {
 	public void setMaxQuestion(Integer maxQuestion) {
 		this.maxQuestion = maxQuestion;
 	}
-	public Integer getExamCount() {
-		return examCount;
+	
+	public Integer getExamLimit() {
+		return examLimit;
 	}
-	public void setExamCount(Integer examCount) {
-		this.examCount = examCount;
+	public void setExamLimit(Integer examLimit) {
+		this.examLimit = examLimit;
 	}
 	public String getSectionData() {
 		return sectionData;

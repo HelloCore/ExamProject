@@ -71,18 +71,18 @@ public class AddExamDomain extends AddExamPrototype {
 		if(BeanUtils.isNotEmpty(this.getMaxQuestion())){
 			exam.setMaxQuestion(this.getMaxQuestion());
 		}
-		if(BeanUtils.isNotEmpty(this.getExamCount())){
-			exam.setExamCount(this.getExamCount());
+		if(BeanUtils.isNotEmpty(this.getExamLimit())){
+			exam.setExamLimit(this.getExamLimit());
 		}
 		if(BeanUtils.isNotEmpty(this.getExamSequence())){
 			exam.setExamSequence(this.getExamSequence());
 		}
+		exam.setExamCount(0);
 		exam.setFlag(true);
 		return exam;
 	}
 	
 	public void addExam() throws ParseException{
-		System.out.println("Domain1");
 		examService.addExam(this.toEntiy(), createExamSectionList(this.getSectionData()), createExamQuestionGroupList(this.getQuestionGroupData()));
 	}
 }

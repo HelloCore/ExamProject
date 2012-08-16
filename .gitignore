@@ -5,3 +5,4 @@
 !CKFinder*.jar
 *.war
 *.ear
+/pom.xml

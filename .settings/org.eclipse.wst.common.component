@@ -5,7 +5,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/index"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/home"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/sectionManagement"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/login"/>
@@ -13,6 +13,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/questionGroupManagement"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/questionManagement"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/examManagement"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/exam"/>
         <property name="context-root" value="ExamProject"/>
         <property name="java-output-path" value="/ExamProject/target/classes"/>
     </wb-module>

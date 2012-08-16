@@ -10,8 +10,8 @@
 		</c:if>
 	</c:if>
 	<c:if test="${not empty questionGroupData}">
-			<c:forEach items="${questionGroupData}" var="data">
-				<option value="${data.questionGroupId}">${data.questionGroupName}</option>
-			</c:forEach>
+		<c:forEach items="${questionGroupData}" var="data">
+			<option value="${data.questionGroupId}">${data.questionGroupName}</option>
+		</c:forEach>
 	</c:if>
 </select>

@@ -21,10 +21,19 @@
 		">
 		<context:annotation-config />
 		<context:spring-configured />
-		<context:load-time-weaver />
-		<context:component-scan base-package="th.ac.kbu.cs.ExamProject" />
+		<context:load-time-weaver 
+			weaver-class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver"
+		 />
+		<context:component-scan base-package="th.ac.kbu.cs.ExamProject.Common.Dao
+				,th.ac.kbu.cs.ExamProject.Controller
+				,th.ac.kbu.cs.ExamProject.Domain
+				,th.ac.kbu.cs.ExamProject.CoreGrid
+				,th.ac.kbu.cs.ExamProject.Entity
+				,th.ac.kbu.cs.ExamProject.Service
+				,th.ac.kbu.cs.ExamProject.Security
+				,th.ac.kbu.cs.ExamProject.Listener
+				,th.ac.kbu.cs.ExamProject.Util" />
 		
-		<security:global-method-security secured-annotations="enabled" mode="aspectj" pre-post-annotations="enabled" />
 		<bean id="viewResolver"
 		    class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		    <property name="prefix" value="/" />
@@ -47,7 +56,7 @@
 		
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
 			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-			<property name="url"  value="jdbc:mysql://localhost/examProject?characterEncoding=UTF-8" />
+			<property name="url"  value="jdbc:mysql://localhost/examProject" />
 			<property name="username" value="root" />
 			<property name="password" value="1234" />
 		</bean>
@@ -66,7 +75,7 @@
 			</property>
 		</bean>
 	
-		<tx:annotation-driven />
+		<tx:annotation-driven  />
 		<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 			<property name="sessionFactory" >
 				<ref bean="sessionFactory" />
@@ -101,13 +110,12 @@
 		        </list>
 		    </property>
 		</bean> -->
-		
-		<!-- <aop:aspectj-autoproxy proxy-target-class="false">
+	  	<aop:aspectj-autoproxy proxy-target-class="true">
 			<aop:include name="loggerAspect"/>
-		</aop:aspectj-autoproxy>
-		<bean id="loggerAspect" class="th.ac.kbu.cs.ExamProject.Util.LoggerAspect" /> -->
+		</aop:aspectj-autoproxy> 
+		<bean id="loggerAspect" class="th.ac.kbu.cs.ExamProject.Util.LoggerAspect" />  
 		
-		
+		<bean class="th.ac.kbu.cs.ExamProject.Listener.SecurityLoggerListener" />
 		
 		 <bean id="validator"
 		      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>

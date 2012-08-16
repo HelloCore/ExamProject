@@ -49,10 +49,10 @@
         			<input type="text" class="input-xmini num-question" id="maxQuestion" name="maxQuestion">
       			</div>
     		</div>
-			<div class="control-group" id="examCountGroup">
-      			<label class="control-label" for="examCount">จำนวนครั้งที่สอบได้</label>
+			<div class="control-group" id="examLimitGroup">
+      			<label class="control-label" for="examLimit">จำนวนครั้งที่สอบได้</label>
       			<div class="controls">
-        			<input type="text" class="input-xmini" id="examCount" name="examCount" value="1">
+        			<input type="text" class="input-xmini" id="examLimit" name="examLimit" value="1">
       			</div>
     		</div>
 	   		<div class="control-button pagination-centered">
@@ -126,9 +126,9 @@
       			</div>
     		</div>
 			<div class="control-group">
-      			<label class="control-label" for="examCountConfirm">จำนวนครั้งที่สอบได้</label>
+      			<label class="control-label" for="examLimitConfirm">จำนวนครั้งที่สอบได้</label>
       			<div class="controls">
-      				<span class="input-mini uneditable-input" id="examCountConfirm"></span>
+      				<span class="input-mini uneditable-input" id="examLimitConfirm"></span>
       			</div>
     		</div>
 			<div class="control-group">
@@ -145,6 +145,7 @@
     						<th>ลำดัับ</th>
     						<th>กลุ่มคำถาม</th>
     						<th>เปอร์เซ็นต์คำถาม</th>
+    						<th>เวลาสอบ(วินาที ต่อ1ข้อ)</th>
     					</tr>
     				</thead>
     				<tbody>
