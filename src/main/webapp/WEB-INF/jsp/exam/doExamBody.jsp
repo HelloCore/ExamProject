@@ -25,22 +25,22 @@
    	</div>
 	<div class="span9">
   		  <div class="scrollspy-example" >
-  		  	<c:forEach var="i" begin="1" end="50" step="1" varStatus ="status">
+  		  	<c:forEach var="i" begin="50" end="100" step="1" varStatus ="status">
 			<section id="tab${i}">
-	          <br><h2>ข้อที่<font color="f16325"> ${i}</font></h2>
-				<div id="question-panel-1" class="question-panel">
+	          <br><h2>ข้อที่<font color="f16325"> ${i-49}</font></h2>
+				<div id="question-panel-${i}" class="question-panel">
 					<p> ${i}+1=? </p>
 				</div>
-				<div id="answer-panel-1" class="answer-panel">
+				<div id="answer-panel-${((i-1)*4)}" class="answer-panel">
 					<p> ${i} </p>
 				</div>
-				<div id="answer-panel-2" class="answer-panel">
+				<div id="answer-panel-${((i-1)*4)+1}" class="answer-panel">
 					<p> ${i+1} </p>
 				</div>
-				<div id="answer-panel-3" class="answer-panel">
+				<div id="answer-panel-${((i-1)*4)+2}" class="answer-panel">
 					<p> ${i+2} </p>
 				</div>
-				<div id="answer-panel-4" class="answer-panel">
+				<div id="answer-panel-${((i-1)*4)+3}" class="answer-panel">
 					<p> ${i+3} </p>
 				</div>
             </section>
@@ -51,9 +51,9 @@
 <br>
 <div id="navbarExample" class="pagination-centered">
 	<ul class="nav nav-pills">
-		<li class="active"><a href="#tab1">1</a></li>
-		<c:forEach var="i" begin="2" end="50" step="1" varStatus ="status">
-			<li><a href="#tab${i}">${i}</a></li>
+		<li class="active" id="nav-id-50"><a href="#tab50">1</a></li>
+		<c:forEach var="i" begin="51" end="99" step="1" varStatus ="status">
+			<li id="nav-id-${i}"><a href="#tab${i}">${i-49}</a></li>
 		</c:forEach>
     </ul>
 </div>

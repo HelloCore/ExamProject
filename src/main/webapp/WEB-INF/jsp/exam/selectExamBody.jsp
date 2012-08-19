@@ -9,6 +9,7 @@
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
+						<th>วิชา</th>
 						<th>หัวข้อการสอบ</th>
 						<th>วันหมดเขตสอบ</th>
 						<th>สอบได้(ครั้ง)</th>
@@ -17,8 +18,9 @@
 				</thead>
 				<tbody>
 					<tr>
+						<td>CS.111</td>
 						<td>ทดสอบสร้าง 1</td>
-						<td> 01-09-2012 </td>
+						<td> 01-09-2012 12:15 </td>
 						<td> 1 </td>
 						<td><button class="btn btn-info"><i class="icon-edit icon-white"></i> สอบ</button></td>
 					</tr>

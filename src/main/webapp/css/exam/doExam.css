@@ -85,3 +85,4 @@ overflow-x:hidden;
 	width: 100%;
 }
 section {padding-top:50px;}
+.did-answer > a,.did-answer > a:hover,.did-answer.active > a {color:black;}

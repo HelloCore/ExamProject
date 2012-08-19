@@ -82,17 +82,29 @@
 			</property>
 		</bean>
 		
+		<bean id="stringHttpMessageConverter"
+class="org.springframework.http.converter.StringHttpMessageConverter" />
+
 		<bean id="jsonHttpMessageConverter"
 		        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		    <property name="supportedMediaTypes" value="application/json"/>
 		  </bean>
-		  <bean
-		    class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		  
+		  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		    <property name="messageConverters">
 		      <util:list id="beanList">
 		        <ref bean="jsonHttpMessageConverter"/>
 		      </util:list>
 		    </property>
+		  </bean>
+		  
+		  <bean id="methodHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
+		  	 <property name="messageConverters">
+		      <util:list>
+		        <ref bean="jsonHttpMessageConverter"/>
+		        <ref bean="stringHttpMessageConverter" />
+		      </util:list>
+		   	</property>
 		  </bean>
 		  
 		<!-- <bean id="serviceLoggingInterceptor" class="th.ac.kbu.cs.ExamProject.Listener.LoggingInterceptor"/>

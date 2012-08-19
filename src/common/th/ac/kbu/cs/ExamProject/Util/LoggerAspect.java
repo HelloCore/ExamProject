@@ -1,6 +1,8 @@
 package th.ac.kbu.cs.ExamProject.Util;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -46,4 +48,9 @@ public class LoggerAspect {
 		return obj;
 	}
 	
+	
+	@AfterThrowing(pointcut ="execution(* th.ac.kbu.cs.ExamProject.Service..*.*(..))" ,throwing="exception")
+	public void serviceExceptionHandling(JoinPoint joinPoint, Exception exception) {
+		exception.printStackTrace();
+	}
 }
