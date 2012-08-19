@@ -41,6 +41,7 @@ doExam.checkDidAnswer = function(){
 };
 
 $(document).ready(function(){
+	$("#navbarExample li:first a").tab('show');
 	$('.answer-panel').click(function(){
 		$(this).parent().find('.choosed').removeClass('choosed');
 		$(this).addClass('choosed');
@@ -55,7 +56,7 @@ $(document).ready(function(){
 		
 	});
 	
-	$('#countDown').countdown({until: 300, compact:true});
+	$('#countDown').countdown({until: application.timeLimit, compact:true});
 	$('[data-spy="scroll"]').each(function () {
 		  $(this).scrollspy('refresh');
 		});

@@ -41,7 +41,7 @@ public class DoExamTest {
 		
 		Integer size = 3;
 		
-		doExamDomain.updateNumOfQuestion(numOfQuestion, fragment, size);
+//		doExamDomain.updateNumOfQuestion(numOfQuestion, fragment, size);
 		
 		for(Long key : numOfQuestion.keySet()){
 			System.out.println("key : " + key + " num : "+ numOfQuestion.get(key));

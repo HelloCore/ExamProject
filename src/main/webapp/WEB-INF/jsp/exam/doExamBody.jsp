@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-
+<script>
+	application.timeLimit = ${timeLimit};
+</script>
+<c:set var="myNumber" value="0"/>
 <link rel="stylesheet" href="${contextPath}/css/exam/doExam.css">
 <div class="row">
    	<div class="span3">
@@ -18,42 +21,37 @@
    			</div>
    			<br>
    			<div>
-   				<label for="doQuestion">คุณทำข้อสอบไปแล้ว </label> <span id="doQuestion" class="input-mini  uneditable-input" >0 / 50</span> <label for="doQuestion">ข้อ </label>
+   				<label for="doQuestion">คุณทำข้อสอบไปแล้ว </label> <span id="doQuestion" class="input-mini  uneditable-input" >0 / ${numOfQuestion}</span> <label for="doQuestion">ข้อ </label>
    			</div>
    		</div>
    		<br>
    	</div>
 	<div class="span9">
-  		  <div class="scrollspy-example" >
-  		  	<c:forEach var="i" begin="50" end="100" step="1" varStatus ="status">
-			<section id="tab${i}">
-	          <br><h2>ข้อที่<font color="f16325"> ${i-49}</font></h2>
-				<div id="question-panel-${i}" class="question-panel">
-					<p> ${i}+1=? </p>
-				</div>
-				<div id="answer-panel-${((i-1)*4)}" class="answer-panel">
-					<p> ${i} </p>
-				</div>
-				<div id="answer-panel-${((i-1)*4)+1}" class="answer-panel">
-					<p> ${i+1} </p>
-				</div>
-				<div id="answer-panel-${((i-1)*4)+2}" class="answer-panel">
-					<p> ${i+2} </p>
-				</div>
-				<div id="answer-panel-${((i-1)*4)+3}" class="answer-panel">
-					<p> ${i+3} </p>
-				</div>
-            </section>
+  		<div class="scrollspy-example" >
+  			<c:forEach items="${questionData}" var="data">
+  				<c:set var="myNumber" value="${myNumber+1}"/>
+				<section id="tab${data.questionId}">
+	          		<br><h2>ข้อที่<font color="f16325"> ${myNumber}</font></h2>
+					<div id="question-panel-${data.questionId}" class="question-panel">
+						${data.questionText}
+					</div>
+					<c:forEach items="${data.answerData}" var="answerData">
+						<div id="answer-panel-${answerData.answerId}" class="answer-panel">
+							${answerData.answerText}
+						</div>
+					</c:forEach>
+            	</section>
 			</c:forEach>
-  		  </div>
+  		</div>
   	</div>
 </div>
 <br>
+<c:set var="myNumber" value="0"/>
 <div id="navbarExample" class="pagination-centered">
 	<ul class="nav nav-pills">
-		<li class="active" id="nav-id-50"><a href="#tab50">1</a></li>
-		<c:forEach var="i" begin="51" end="99" step="1" varStatus ="status">
-			<li id="nav-id-${i}"><a href="#tab${i}">${i-49}</a></li>
+		<c:forEach items="${questionData}" var="data">
+  				<c:set var="myNumber" value="${myNumber+1}"/>
+			<li id="nav-id-${data.questionId}"><a href="#tab${data.questionId}">${myNumber}</a></li>
 		</c:forEach>
     </ul>
 </div>
