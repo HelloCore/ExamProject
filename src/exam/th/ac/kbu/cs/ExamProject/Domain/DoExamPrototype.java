@@ -4,6 +4,15 @@ public class DoExamPrototype{
 	private Integer numOfQuestion;
 	private Long examId;
 	private Integer examCount;
+	private Long examResultId;
+	private String examResultAnswerData;
+	
+	public Long getExamResultId() {
+		return examResultId;
+	}
+	public void setExamResultId(Long examResultId) {
+		this.examResultId = examResultId;
+	}
 	public Integer getExamCount() {
 		return examCount;
 	}
@@ -22,4 +31,12 @@ public class DoExamPrototype{
 	public void setExamId(Long examId) {
 		this.examId = examId;
 	}
+	public String getExamResultAnswerData() {
+		return examResultAnswerData;
+	}
+	public void setExamResultAnswerData(String examResultAnswerData) {
+		this.examResultAnswerData = examResultAnswerData;
+	}
+	
+	
 }

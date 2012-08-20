@@ -8,17 +8,17 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import th.ac.kbu.cs.ExamProject.Domain.DoExamDomain;
+import th.ac.kbu.cs.ExamProject.Domain.CreateExamDomain;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/application-context.xml"})
 public class DoExamTest {
 	
-	public static DoExamDomain doExamDomain;
+	public static CreateExamDomain doExamDomain;
 	
 	@BeforeClass
 	public static void beforeClass(){
-		doExamDomain = new DoExamDomain();
+		doExamDomain = new CreateExamDomain();
 		doExamDomain.setExamId(4L);
 		doExamDomain.setNumOfQuestion(12);
 	}

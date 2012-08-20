@@ -3,6 +3,9 @@ if(typeof($.jGrowl)!='undefined'){
 	applicationScript.saveComplete = function(){
 		$.jGrowl('Save Complete.',{header:'Success',theme:'alert alert-block alert-success'});
 	};
+	applicationScript.autoSaveComplete = function(){
+		$.jGrowl('Auto Save Complete.',{header:'Success',theme:'alert alert-block alert-success'});
+	};
 	applicationScript.saveCompleteTH = function(){
 		$.jGrowl('บันทึกสำเร็จ',{header:'Success',theme:'alert alert-block alert-success'});
 	};
@@ -23,6 +26,9 @@ if(typeof($.jGrowl)!='undefined'){
 	};
 	applicationScript.errorAlertWithStringTH = function(str){
 		$.jGrowl(str,{header:'เกิดข้อผิดพลาด',theme:'alert alert-block alert-error'});
+	};
+	applicationScript.errorAlertWithStringHeader = function(str,header){
+		$.jGrowl(str,{header:header,theme:'alert alert-block alert-error'});
 	};
 	
 	applicationScript.setPagination = function(page,lastPage){

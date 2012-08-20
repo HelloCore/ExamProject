@@ -1,5 +1,4 @@
 doExam = {};
-doExam.numOfQuestion = 50;
 doExam.nowAnswer = 0;
 doExam.questionAnswerData = [];
 var windowHeight = $(window).height();
@@ -8,55 +7,139 @@ var windowHeight = $(window).height();
 	}else{
 		$('.scrollspy-example').attr('data-spy','scroll').attr('data-target','#navbarExample').attr('data-offset',300).css('height',windowHeight-20);
 	}
-doExam.convertToJSON = function(){
-	var jsonstr = "[" , first=true;
-
-	for(key in doExam.questionAnswerData){
-		if(!first){
-			jsonstr+=',';
-		}else{
-			first  = false;
-		}
-		jsonstr+='{'
-					+'"questionId":'+key
-					+',"answerId":'+doExam.questionAnswerData[key]
-				+'}';
+doExam.convertToJSON = function(data){
+	var newData = [],i=0;
+	for(key in data){
+		newData[i] = {};
+		newData[i].questionId = data[key].questionId;
+		newData[i].answerId = data[key].answerId;
+		newData[i].examResultAnswerId = data[key].examResultAnswerId;
+		newData[i].examResultId = data[key].examResultId;
+		i++;
 	}
-	jsonstr+= "]";
-	console.log(jsonstr);
+	return JSON.stringify(newData);
+};
+
+doExam.sendExam = function(){
+	var examResultAnswerData = doExam.convertToJSON(doExam.questionAnswerData);
+	doExam.questionAnswerData = [];
+	$("body").block(application.blockOption);
+	$('#countDown').countdown('pause');
+	$("#sendExamButton").attr('data-loading-text','ส่งข้อสอบ...').button('loading');
+	
+	$.ajax({
+		url: application.contextPath + '/exam/doExam.html',
+		type: 'POST',
+		data: {
+			method:'sendExam',
+			examResultAnswerData: examResultAnswerData,
+			examResultId:application.examResultId
+		},
+		success: function(){
+			applicationScript.autoSaveComplete();
+			$("#sendExamButton").button('reset');
+		},
+		error : function(){
+			applicationScript.errorAlertWithStringTH("เกิดข้อผิดพลาด ไม่สามารถส่งข้อสอบได้");
+			$("#sendExamButton").button('reset');
+		}
+	});
+};
+doExam.autoSave = function(){
+	var examResultAnswerData = doExam.convertToJSON(doExam.questionAnswerData);
+	doExam.questionAnswerData = [];
+	doExam.nowRate += doExam.saveRate;
+	if(doExam.nowRate >= application.numOfQuestion){
+		doExam.nowRate = application.numOfQuestion +1;
+	}
+	
+	$("#sendExamButton").attr('data-loading-text','Auto Save...').button('loading');
+	
+	$.ajax({
+		url: application.contextPath + '/exam/doExam.html',
+		type: 'POST',
+		data: {
+			method:'autoSave',
+			examResultAnswerData: examResultAnswerData,
+			examResultId:application.examResultId
+		},
+		success: function(){
+			applicationScript.autoSaveComplete();
+			$("#sendExamButton").button('reset');
+		},
+		error : function(){
+			applicationScript.errorAlertWithStringTH("เกิดข้อผิดพลาด ไม่สามารถเซฟได้");
+			$("#sendExamButton").button('reset');
+		}
+	});
 };
 	
-doExam.checkAndEditData = function(questionId,answerId){
-	if(typeof(doExam.questionAnswerData[questionId.toString()]) == 'undefined'){
-		doExam.questionAnswerData[questionId.toString()] = answerId;
+doExam.checkAndEditData = function(questionId,answerId,examResultAnswerId){
+	if($("#exam-choose-"+questionId).val().length==0){
+		doExam.questionAnswerData[questionId.toString()] = {
+				questionId:questionId,
+				answerId:answerId,
+				examResultAnswerId:examResultAnswerId,
+				examResultId:application.examResultId
+		};
+		$("#exam-choose-"+questionId).val(answerId);
 		doExam.nowAnswer++;
 		doExam.checkDidAnswer();
 	}else{
-		doExam.questionAnswerData[questionId.toString()] = answerId;
+		doExam.questionAnswerData[questionId.toString()] = {
+				questionId:questionId,
+				answerId:answerId,
+				examResultAnswerId:examResultAnswerId,
+				examResultId:application.examResultId
+		};
+		$("#exam-choose-"+questionId).val(answerId);
+		
 	}
 };
 
 doExam.checkDidAnswer = function(){
-	$("#doQuestion").text(doExam.nowAnswer+" / "+doExam.numOfQuestion);
+	$("#doQuestion").text(doExam.nowAnswer+" / "+application.numOfQuestion);
+	if(doExam.nowAnswer >= doExam.nowRate){
+		doExam.autoSave();
+	}
 };
 
 $(document).ready(function(){
+	doExam.saveRate = Math.round(application.numOfQuestion /5 );
+	doExam.nowRate = doExam.saveRate;
+	
+	var questionId,questionIdRaw;
+	$('input[id^=exam-choose][value!=""]').each(function(){
+		doExam.nowAnswer++;
+		if(doExam.nowAnswer >= doExam.nowRate){
+			doExam.nowRate+=doExam.saveRate;
+		}
+		questionIdRaw = $(this).attr('id');
+		questionId = questionIdRaw.substring(12,questionIdRaw.length);
+		$("#answer-panel-"+$(this).val()).addClass('choosed');
+		if( !$('#nav-id-'+questionId).hasClass('did-answer')){$('#nav-id-'+questionId).addClass('did-answer');}
+		$('a[href=#tab'+questionId+']').addClass('choosedA');
+	});
+	
+	$("#doQuestion").text(doExam.nowAnswer+" / "+application.numOfQuestion);
 	$("#navbarExample li:first a").tab('show');
 	$('.answer-panel').click(function(){
 		$(this).parent().find('.choosed').removeClass('choosed');
 		$(this).addClass('choosed');
-		var answerClass,answerId,questionClass,questionId;
+		var answerClass,answerId,questionClass,questionId,examResultAnswerId;
 		answerClass = $(this).attr('id');
 		answerId = answerClass.substring(13,answerClass.length);
 		questionClass = $(this).parent().attr('id');
 		questionId = questionClass.substring(3,questionClass.length);
-		doExam.checkAndEditData(questionId,answerId);
+		examResultAnswerId = $('#exam-result-answer-id-'+questionId).val();
+		
+		doExam.checkAndEditData(questionId,answerId,examResultAnswerId);
+		
 		if( !$('#nav-id-'+questionId).hasClass('did-answer')){$('#nav-id-'+questionId).addClass('did-answer');}
 		$('a[href=#'+$(this).parent().attr('id')+']').addClass('choosedA');
-		
 	});
 	
-	$('#countDown').countdown({until: application.timeLimit, compact:true});
+	$('#countDown').countdown({until: new Date(application.expireDate), compact:true});
 	$('[data-spy="scroll"]').each(function () {
 		  $(this).scrollspy('refresh');
 		});
@@ -65,5 +148,16 @@ $(document).ready(function(){
 		$(".scrollspy-example").scrollTo($(this).attr('href'),'fast');
 	});
 	
-	
+	$("#sendExamButton").click(function(){
+		if(doExam.nowAnswer < application.numOfQuestion){
+			$("#errorItem").html('คุณยังทำข้อสอบไม่ครบทุกข้อ ');
+		}else{
+			$("#errorItem").text('');
+		}
+		$("#sendExamConfirm").modal('show');
+	});
+	$("#sendExamConfirmButton").click(function(){
+		$("#sendExamConfirm").modal('hide');
+		doExam.sendExam();
+	});
 });

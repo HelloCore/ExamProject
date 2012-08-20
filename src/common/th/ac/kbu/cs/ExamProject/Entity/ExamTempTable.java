@@ -1,6 +1,7 @@
 package th.ac.kbu.cs.ExamProject.Entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,70 +14,107 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "EXAM_RESULT_ANSWER")
+@Table(name = "EXAM_TEMP_TABLE")
 @org.hibernate.annotations.Entity(dynamicUpdate=true)
-public class ExamResultAnswer implements Serializable {
-
-	private static final long serialVersionUID = -5489874895704717923L;
+public class ExamTempTable implements Serializable{
+	private static final long serialVersionUID = -3277103727100268391L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "EXAM_RESULT_ANSWER_ID")
-	private Long examResultAnswerId;
+	@Column(name = "EXAM_TEMP_TABLE_ID")
+	private Long examTempTableId;
 	
-	@Column(name = "EXAM_RESULT_ID" ,updatable = false)
+	@Column(name = "EXAM_RESULT_ID")
 	private Long examResultId;
 	
-	@Column(name = "ORDINAL",updatable = false)
-	private Integer ordinal;
-	
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "EXAM_RESULT_ID", insertable = false, updatable = false)
 	private ExamResult examResult;
 	
-	@Column(name = "QUESTION_ID",updatable=false)
+	@Column(name = "QUESTION_ID")
 	private Long questionId;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "QUESTION_ID", insertable = false, updatable = false)
 	private Question question;
-
-	@Column(name = "ANSWER_ID")
-	private Long answerId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ANSWER_ID", insertable = false, updatable = false)
-	private Answer answer;
 	
-	@Column(name = "ANSWER_ID_1",updatable = false)
+	@Column(name = "ANSWER_ID_1")
 	private Long answerId1;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANSWER_ID_1", insertable = false, updatable = false)
 	private Answer answer1;
 	
-	@Column(name = "ANSWER_ID_2",updatable = false)
+	@Column(name = "ANSWER_ID_2")
 	private Long answerId2;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANSWER_ID_2", insertable = false, updatable = false)
 	private Answer answer2;
 	
-	@Column(name = "ANSWER_ID_3",updatable = false)
+	@Column(name = "ANSWER_ID_3")
 	private Long answerId3;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANSWER_ID_3", insertable = false, updatable = false)
 	private Answer answer3;
 	
-	@Column(name = "ANSWER_ID_4",updatable = false)
+	@Column(name = "ANSWER_ID_4")
 	private Long answerId4;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANSWER_ID_4", insertable = false, updatable = false)
 	private Answer answer4;
 	
+	@Column(name = "EXPIRE_DATE")
+	private Date expireDate;
+	
+	@Column(name = "Ordinal")
+	private Integer ordinal;
+	
+	@Column(name = "NOW_CHOOSE")
+	private Long nowChoose;
+
+	public Long getExamTempTableId() {
+		return examTempTableId;
+	}
+
+	public void setExamTempTableId(Long examTempTableId) {
+		this.examTempTableId = examTempTableId;
+	}
+
+	public Long getExamResultId() {
+		return examResultId;
+	}
+
+	public void setExamResultId(Long examResultId) {
+		this.examResultId = examResultId;
+	}
+
+	public ExamResult getExamResult() {
+		return examResult;
+	}
+
+	public void setExamResult(ExamResult examResult) {
+		this.examResult = examResult;
+	}
+
+	public Long getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
 	public Long getAnswerId1() {
 		return answerId1;
 	}
@@ -141,62 +179,13 @@ public class ExamResultAnswer implements Serializable {
 		this.answer4 = answer4;
 	}
 
-	public Long getExamResultAnswerId() {
-		return examResultAnswerId;
+	public Date getExpireDate() {
+		return expireDate;
 	}
 
-	public void setExamResultAnswerId(Long examResultAnswerId) {
-		this.examResultAnswerId = examResultAnswerId;
+	public void setExpireDate(Date expireDate) {
+		this.expireDate = expireDate;
 	}
-
-	public Long getExamResultId() {
-		return examResultId;
-	}
-
-	public void setExamResultId(Long examResultId) {
-		this.examResultId = examResultId;
-	}
-
-	public ExamResult getExamResult() {
-		return examResult;
-	}
-
-	public void setExamResult(ExamResult examResult) {
-		this.examResult = examResult;
-	}
-
-	public Long getQuestionId() {
-		return questionId;
-	}
-
-	public void setQuestionId(Long questionId) {
-		this.questionId = questionId;
-	}
-
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-
-	public Long getAnswerId() {
-		return answerId;
-	}
-
-	public void setAnswerId(Long answerId) {
-		this.answerId = answerId;
-	}
-
-	public Answer getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(Answer answer) {
-		this.answer = answer;
-	}
-	
 
 	public Integer getOrdinal() {
 		return ordinal;
@@ -205,4 +194,13 @@ public class ExamResultAnswer implements Serializable {
 	public void setOrdinal(Integer ordinal) {
 		this.ordinal = ordinal;
 	}
+
+	public Long getNowChoose() {
+		return nowChoose;
+	}
+
+	public void setNowChoose(Long nowChoose) {
+		this.nowChoose = nowChoose;
+	}
+	
 }

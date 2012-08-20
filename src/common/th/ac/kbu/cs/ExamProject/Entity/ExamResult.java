@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "EXAM_RESULT")
+@org.hibernate.annotations.Entity(dynamicUpdate=true)
 public class ExamResult implements Serializable{
 
 	private static final long serialVersionUID = -6231334594396043773L;
@@ -47,8 +48,8 @@ public class ExamResult implements Serializable{
 	@Column(name = "EXAM_START_DATE")
 	private Date examStartDate;
 	
-	@Column(name = "EXAM_LIMIT_TIME")
-	private Integer examLimitTime;
+	@Column(name = "EXAM_EXPIRE_DATE")
+	private Date examExpireDate;
 	
 	@Column(name = "EXAM_COMPLETE_DATE")
 	private Date examCompleteDate;
@@ -123,12 +124,12 @@ public class ExamResult implements Serializable{
 		this.examStartDate = examStartDate;
 	}
 
-	public Integer getExamLimitTime() {
-		return examLimitTime;
+	public Date getExamExpireDate() {
+		return examExpireDate;
 	}
 
-	public void setExamLimitTime(Integer examLimitTime) {
-		this.examLimitTime = examLimitTime;
+	public void setExamExpireDate(Date examExpireDate) {
+		this.examExpireDate = examExpireDate;
 	}
 
 	public Date getExamCompleteDate() {
