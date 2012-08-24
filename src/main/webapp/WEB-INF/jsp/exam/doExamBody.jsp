@@ -29,10 +29,11 @@
    		<br>
    	</div>
 	<div class="span9">
-  		<div class="scrollspy-example" >
+  		<div class="scrollspy-example" data-target="#navbarExample" data-offset="70" data-spy="scroll" >
   			<c:forEach items="${questionAnswerData}" var="data">
   				<c:set var="myNumber" value="${myNumber+1}"/>
-				<section id="tab${data.questionId}">
+				<hr class="hr-pagging" id="tab${data.questionId}">
+  				<section id="tab-section${data.questionId}">
 					<input type="hidden" id="exam-choose-${data.questionId}"  value="${data.answerId}"/>
 					<input type="hidden" id="exam-result-answer-id-${data.questionId}"  value="${data.examResultAnswerId}"/>
 	          		<br><h2>ข้อที่<font color="f16325"> ${myNumber}</font></h2>
@@ -53,6 +54,7 @@
 					</div>
             	</section>
 			</c:forEach>
+			<div class="blockPage"></div>
   		</div>
   	</div>
 </div>
@@ -76,8 +78,13 @@
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">ยกเลิก</a>
-    	<a href="#" class="btn btn-success" id="sendExamConfirmButton" data-loading-text="กำลังส่ง..." >ส่งข้อสอบ</a>
+    	<a href="#" class="btn btn-success" id="sendExamConfirmButton" data-loading-text="กำลังส่ง..." ><i class="icon-check icon-white"></i> ส่งข้อสอบ</a>
   	</div>
 </div>
+
+<form class="hide" action="${contextPath}/exam/viewResult.html" method="POST" id="viewResultForm">
+	<input type="hidden" name="method" value="viewResult">
+	<input type="hidden" name="examResultId" value="${examResultId}">
+</form>
 
 

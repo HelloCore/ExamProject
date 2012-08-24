@@ -14,7 +14,7 @@
 	</head>
 	<body>
 	<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-		<div class="navbar navbar-fixed-top">
+		<div class="navbar navbar-fixed-top navbar-inverse">
 	    	<div class="navbar-inner">
 	        	<div class="container">
 	          		<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -58,11 +58,11 @@
 				              <span class="caret"></span>
 				            </a>
 				            <ul class="dropdown-menu">
-				              <li><a href="#">Profile</a></li>
-				              <li><a href="#">Settings</a></li>
-				              <li><a href="#">Change Password</a></li>
+				              <li><a tabindex="-1" href="#">Profile</a></li>
+				              <li><a tabindex="-1" href="#">Settings</a></li>
+				              <li><a tabindex="-1" href="#">Change Password</a></li>
 				              <li class="divider"></li>
-				              <li><a href="${contextPath}/main/logout.do">Sign Out</a></li>
+				              <li><a tabindex="-1" href="${contextPath}/main/logout.do">Sign Out</a></li>
 				            </ul>
 				    	</div>
 					</sec:authorize>
@@ -70,7 +70,7 @@
 	            		<ul class="nav">
 				            <li class="index"><a href="${contextPath}/main/home.html"> หน้าแรก</a></li>
 				            <li class="news"><a href="#news">ข่าว</a></li>
-				            <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_STUDENT')">
+				            <sec:authorize access="hasRole('ROLE_STUDENT')" >
 								<li class="dropdown exam">
 								    <a href="#"
 								          class="dropdown-toggle"
@@ -78,10 +78,10 @@
 								          สอบ
 								          <b class="caret"></b>
 								    </a>
-								    <ul class="dropdown-menu">
-								    		<li><a href="${contextPath}/exam/examSchedule.html">ตารางสอบ</a></li>
-		    								<li><a href="${contextPath}/exam/selectExam.html">ทำการสอบ</a></li>
-		    								<li><a href="${contextPath}/exam/report.html">ผลการสอบ</a></li>
+								    <ul class="dropdown-menu " >
+								    		<li><a tabindex="-1" href="${contextPath}/exam/examSchedule.html">ตารางสอบ</a></li>
+		    								<li><a tabindex="-1" href="${contextPath}/exam/selectExam.html">ทำการสอบ</a></li>
+		    								<li><a tabindex="-1" href="${contextPath}/exam/examReport.html">ผลการสอบ</a></li>
 									</ul>
 								</li>
 				            </sec:authorize>
@@ -94,9 +94,9 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-								    		<li><a href="${contextPath}/management/section.html">จัดการ Section</a></li>
-								    		<li><a href="${contextPath}/management/news.html">จัดการข่าวประชาสัมพันธ์</a></li>
-								    		<li><a href="${contextPath}/management/news/add.html">เพิ่มข่าวประชาสัมพันธ์</a></li>
+								    		<li><a tabindex="-1" href="${contextPath}/management/section.html">จัดการ Section</a></li>
+								    		<li><a tabindex="-1" href="${contextPath}/management/news.html">จัดการข่าวประชาสัมพันธ์</a></li>
+								    		<li><a tabindex="-1" href="${contextPath}/management/news/add.html">เพิ่มข่าวประชาสัมพันธ์</a></li>
 									</ul>
 								</li>
 								<li class="dropdown examManagement">
@@ -107,11 +107,11 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a href="${contextPath}/management/questionGroup.html">จัดการกลุ่มคำถาม</a></li>
-	    								<li><a href="${contextPath}/management/question.html">จัดการคำถาม</a></li>
-	    								<li><a href="${contextPath}/management/question/add.html">เพิ่มคำถาม</a></li>
-	    								<li><a href="${contextPath}/management/exam.html">จัดการการสอบ</a></li>
-	    								<li><a href="${contextPath}/management/exam/add.html">สร้างกำหนดการสอบ</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/management/questionGroup.html">จัดการกลุ่มคำถาม</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/management/question.html">จัดการคำถาม</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/management/question/add.html">เพิ่มคำถาม</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/management/exam.html">จัดการการสอบ</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/management/exam/add.html">สร้างกำหนดการสอบ</a></li>
 									</ul>
 								</li>
 								<li class="dropdown assignmentManagement">
@@ -122,11 +122,11 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a href="${contextPath}/management/assignment.html">จัดการการบ้าน</a></li>
-	    								<li><a href="${contextPath}/management/assignment/add.html">สั่งการบ้าน</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/management/assignment.html">จัดการการบ้าน</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/management/assignment/add.html">สั่งการบ้าน</a></li>
 									</ul>
 								</li>
-								<li class="dropdown report">
+								<li class="dropdown report hide">
 								    <a href="#"
 								          class="dropdown-toggle"
 								          data-toggle="dropdown">
@@ -134,8 +134,8 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a href="${contextPath}/report/student.html">จำนวนสมาชิก</a></li>
-	    								<li><a href="${contextPath}/report/exam.html">ผลการสอบ</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/report/student.html">จำนวนสมาชิก</a></li>
+	    								<li><a tabindex="-1" href="${contextPath}/report/exam.html">ผลการสอบ</a></li>
 									</ul>
 								</li>
 								

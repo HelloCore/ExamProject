@@ -13,6 +13,7 @@ import th.ac.kbu.cs.ExamProject.Entity.ExamQuestionGroup;
 import th.ac.kbu.cs.ExamProject.Entity.ExamSection;
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.ExamService;
+import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
 @Service
 public class ExamServiceImpl implements ExamService{
@@ -51,6 +52,26 @@ public class ExamServiceImpl implements ExamService{
 		Long examId = (Long) this.saveExam(exam);
 		this.saveExamSection(examId, examSections);
 		this.saveExamQuestionGroup(examId, examQuestionGroups);
+	}
+
+	@Transactional(rollbackFor=Exception.class)
+	public List<ExamQuestionGroup> updateExamQuestionGroup(
+			List<ExamQuestionGroup> examQuestionGroupList,
+			List<ExamQuestionGroup> deletedExamQuestionGroupList ) {
+		Long examQuestionGroupId;
+		if(BeanUtils.isNotEmpty(deletedExamQuestionGroupList)){
+			basicEntityService.deleteAll(deletedExamQuestionGroupList);
+		}
+		for(ExamQuestionGroup examQuestionGroup : examQuestionGroupList){
+			if(BeanUtils.isNotNull(examQuestionGroup.getExamQuestionGroupId())){
+				basicEntityService.update(examQuestionGroup);
+			}else{
+				examQuestionGroupId = BeanUtils.toLong(basicEntityService.save(examQuestionGroup));
+				examQuestionGroup.setExamQuestionGroupId(examQuestionGroupId);
+			}
+		}
+		
+		return examQuestionGroupList;
 	}
 
 }

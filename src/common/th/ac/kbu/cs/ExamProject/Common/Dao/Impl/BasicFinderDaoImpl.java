@@ -3,9 +3,11 @@ package th.ac.kbu.cs.ExamProject.Common.Dao.Impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import th.ac.kbu.cs.ExamProject.Common.CustomHibernateDaoSupport;
 import th.ac.kbu.cs.ExamProject.Common.Dao.BasicFinderDao;
@@ -200,5 +202,9 @@ public class BasicFinderDaoImpl extends CustomHibernateDaoSupport implements
 					findedResults.size());
 		}
 	}
-
+	@Transactional(readOnly=true)
+	public Session getCurrentSession(){
+		return this.getSession(true);
+	}
+	
 }

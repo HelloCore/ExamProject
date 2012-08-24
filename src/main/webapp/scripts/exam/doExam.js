@@ -1,9 +1,11 @@
 doExam = {};
 doExam.nowAnswer = 0;
 doExam.questionAnswerData = [];
-var windowHeight = $(window).height();
+var windowHeight = $(window).height()
+	,navHeight = $("#navbarExample").height();
 	if(windowHeight >= 600){
-		$('.scrollspy-example').attr('data-spy','scroll').attr('data-target','#navbarExample').attr('data-offset',70).css('height',windowHeight-280);
+		$('.scrollspy-example').attr('data-target','#navbarExample').attr('data-offset',70).css('height',windowHeight-175-navHeight).attr('data-spy','scroll');
+		$('.blockPage').css('height',140-navHeight);
 	}else{
 		$('.scrollspy-example').attr('data-spy','scroll').attr('data-target','#navbarExample').attr('data-offset',300).css('height',windowHeight-20);
 	}
@@ -21,6 +23,7 @@ doExam.convertToJSON = function(data){
 };
 
 doExam.sendExam = function(){
+	$('.scrollspy-example').scrollspy('refresh');
 	var examResultAnswerData = doExam.convertToJSON(doExam.questionAnswerData);
 	doExam.questionAnswerData = [];
 	$("body").block(application.blockOption);
@@ -28,7 +31,7 @@ doExam.sendExam = function(){
 	$("#sendExamButton").attr('data-loading-text','ส่งข้อสอบ...').button('loading');
 	
 	$.ajax({
-		url: application.contextPath + '/exam/doExam.html',
+		url: application.contextPath + '/exam/sendExam.html',
 		type: 'POST',
 		data: {
 			method:'sendExam',
@@ -36,8 +39,9 @@ doExam.sendExam = function(){
 			examResultId:application.examResultId
 		},
 		success: function(){
-			applicationScript.autoSaveComplete();
+			applicationScript.saveComplete();
 			$("#sendExamButton").button('reset');
+			$("#viewResultForm").submit();
 		},
 		error : function(){
 			applicationScript.errorAlertWithStringTH("เกิดข้อผิดพลาด ไม่สามารถส่งข้อสอบได้");
@@ -46,8 +50,8 @@ doExam.sendExam = function(){
 	});
 };
 doExam.autoSave = function(){
-	var examResultAnswerData = doExam.convertToJSON(doExam.questionAnswerData);
-	doExam.questionAnswerData = [];
+	var examResultAnswerData = doExam.convertToJSON(doExam.questionAnswerData)
+		,tempArray = doExam.questionAnswerData;
 	doExam.nowRate += doExam.saveRate;
 	if(doExam.nowRate >= application.numOfQuestion){
 		doExam.nowRate = application.numOfQuestion +1;
@@ -56,7 +60,7 @@ doExam.autoSave = function(){
 	$("#sendExamButton").attr('data-loading-text','Auto Save...').button('loading');
 	
 	$.ajax({
-		url: application.contextPath + '/exam/doExam.html',
+		url: application.contextPath + '/exam/autoSaveExam.html',
 		type: 'POST',
 		data: {
 			method:'autoSave',
@@ -64,6 +68,10 @@ doExam.autoSave = function(){
 			examResultId:application.examResultId
 		},
 		success: function(){
+			for(key in tempArray){
+				delete doExam.questionAnswerData[key];
+			}
+			
 			applicationScript.autoSaveComplete();
 			$("#sendExamButton").button('reset');
 		},
@@ -105,6 +113,8 @@ doExam.checkDidAnswer = function(){
 };
 
 $(document).ready(function(){
+	$('.navbar .btn').attr('disabled',true).removeAttr('data-toggle').click(function(e){e.preventDefault();});
+	$('.navbar a').removeAttr('href');
 	doExam.saveRate = Math.round(application.numOfQuestion /5 );
 	doExam.nowRate = doExam.saveRate;
 	
@@ -113,6 +123,9 @@ $(document).ready(function(){
 		doExam.nowAnswer++;
 		if(doExam.nowAnswer >= doExam.nowRate){
 			doExam.nowRate+=doExam.saveRate;
+			if(doExam.nowRate >= application.numOfQuestion){
+				doExam.nowRate = application.numOfQuestion+1;
+			}
 		}
 		questionIdRaw = $(this).attr('id');
 		questionId = questionIdRaw.substring(12,questionIdRaw.length);
@@ -130,7 +143,7 @@ $(document).ready(function(){
 		answerClass = $(this).attr('id');
 		answerId = answerClass.substring(13,answerClass.length);
 		questionClass = $(this).parent().attr('id');
-		questionId = questionClass.substring(3,questionClass.length);
+		questionId = questionClass.substring(11,questionClass.length);
 		examResultAnswerId = $('#exam-result-answer-id-'+questionId).val();
 		
 		doExam.checkAndEditData(questionId,answerId,examResultAnswerId);

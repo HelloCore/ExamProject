@@ -218,6 +218,8 @@ deleteQuestionGroup = function(questionGroupId){
 };
 
 editQuestionGroup = function(questionGroupId){
+	$('#questionGroupForm').validate().resetForm();
+	$('#questionGroupForm .control-group').removeClass('success').removeClass('error');
 	questionGroupManagement.questionGroupId = questionGroupId;
 	$("#questionGroupId").val(questionGroupId);
 	$("#questionGroupName").val($("#question-group-name-"+questionGroupId).text());
@@ -230,6 +232,5 @@ editQuestionGroup = function(questionGroupId){
 	$("#courseId").trigger("liszt:updated");
 	
 	$("#questionGroupModal h3").text("Edit QuestionGroup");
-	$('#questionGroupForm .control-group').removeClass('success').removeClass('error');
 	$("#questionGroupModal").modal('show');
 };

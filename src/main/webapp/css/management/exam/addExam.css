@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .main-form {width: 500px;margin:auto;}
-.input-xmini {width:20px;}
+.input-xmini {width:25px;}
 .tab-overflow {overflow: visible;}
 .placeholder {border:black dotted 1px;height:38px;}
 #testSort li {margin-top:5px;margin-bottom:5px;}

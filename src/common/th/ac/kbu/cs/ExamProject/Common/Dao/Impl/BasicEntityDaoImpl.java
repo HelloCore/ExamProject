@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.LockMode;
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,4 +105,9 @@ public class BasicEntityDaoImpl extends CustomHibernateDaoSupport implements Bas
 		this.getHibernateTemplate().clear();
 	}
 	
+
+	@Transactional(readOnly=true)
+	public Session getCurrentSession(){
+		return this.getSession(true);
+	}
 }

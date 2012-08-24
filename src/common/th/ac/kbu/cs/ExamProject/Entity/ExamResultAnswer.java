@@ -29,7 +29,6 @@ public class ExamResultAnswer implements Serializable {
 	
 	@Column(name = "ORDINAL",updatable = false)
 	private Integer ordinal;
-	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "EXAM_RESULT_ID", insertable = false, updatable = false)

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 public interface BasicEntityDao {
@@ -36,4 +37,6 @@ public interface BasicEntityDao {
 	void clear();
 
 	<T> T execute(HibernateCallback<T> action);
+
+	Session getCurrentSession();
 }

@@ -21,10 +21,12 @@ import th.ac.kbu.cs.ExamProject.Domain.SectionDomain;
 @Controller
 public class SectionManagementController {
 
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/section.html")
 	public ModelMap init(ModelMap modelMap){
 		return modelMap;
 	}
+	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/section.html" ,method=RequestMethod.POST,params={"method=getSectionTable"})
 	public @ResponseBody CoreGrid<HashMap<String,Object>> search(@ModelAttribute SectionDomain domain,@ModelAttribute SectionCoreGridManager gridManager,HttpServletResponse reponse,HttpServletRequest request) {

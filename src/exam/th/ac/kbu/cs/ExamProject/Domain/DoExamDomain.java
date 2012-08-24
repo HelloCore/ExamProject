@@ -93,7 +93,7 @@ public class DoExamDomain extends DoExamPrototype{
 		if(BeanUtils.isNotEmpty(examResult.getExamExpireDate())){
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(examResult.getExamExpireDate());
-			cal.add(Calendar.MINUTE, 5);
+			cal.add(Calendar.MINUTE, 3);
 			Date nowToday = new Date();
 			if(nowToday.after(cal.getTime())){
 				throw new ExamIsExpiredException("Exam is expired");

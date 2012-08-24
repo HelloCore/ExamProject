@@ -72,6 +72,13 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/exam/examManagementFooter.jsp"/>
 	</definition>
 	
+	<definition name="/management/exam/view.page" extends=".template">
+		<put-attribute name="title" value="Exam Management"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/exam/viewExamBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/exam/viewExamFooter.jsp"/>
+	</definition>
+	
+	
 	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">
 	</definition>
 	
@@ -90,10 +97,28 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/selectExamFooter.jsp"/>
 	</definition>
 	
-		
 	<definition name="/exam/doExam.page" extends=".template">
 		<put-attribute name="title" value="Do Exam"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/exam/doExamBody.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/doExamFooter.jsp"/>
 	</definition>
+	
+	<definition name="/exam/viewResult.page" extends=".template">
+		<put-attribute name="title" value="Result Exam"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/exam/viewResultBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/viewResultFooter.jsp"/>
+	</definition>
+	
+	<definition name="/exam/resultList.page" extends=".template">
+		<put-attribute name="title" value="Result Exam"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/exam/resultListBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/resultListFooter.jsp"/>
+	</definition>
+	
+	<definition name="/exam/examReport.page" extends=".template">
+		<put-attribute name="title" value="Exam Report"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/exam/examReportBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/examReportFooter.jsp"/>
+	</definition>
+	
 </tiles-definitions>

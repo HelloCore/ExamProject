@@ -30,7 +30,7 @@ public class QuestionManagementController {
 
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/question/add.html" ,method=RequestMethod.POST)
-	public void saveQuestion(@ModelAttribute AddQuestionDomain domain,HttpServletRequest request){
+	public void saveQuestion(@ModelAttribute AddQuestionDomain domain,HttpServletRequest request,HttpServletResponse reponse){
 		domain.saveQuestion();
 	}
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)

@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="${contextPath}/css/exam/selectExam.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Select</font> Exam</h2>
+		<h2><font class="red-color">Select</font> Examinations</h2>
 	</div>
 	<div class="row">
-		<div class="span10 offset1">
+		<div class="span12">
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
@@ -45,10 +45,10 @@
 	
 	<c:if test="${not empty examResult}">
 		<div class="page-header pagination-centered" id="pageHeader">
-			<h2><font class="red-color">Incomplete</font> Exam</h2>
+			<h2><font class="red-color">Incomplete</font> Examinations</h2>
 		</div>
 		<div class="row">
-			<div class="span10 offset1">
+			<div class="span12">
 				<table class="table table-striped table-bordered" id="incomplete-table">
 					<thead>
 						<tr>
@@ -116,5 +116,21 @@
   </div>
 </div>
 
+<form class="hide" action="${contextPath}/exam/viewResult.html" method="POST" id="viewResultForm">
+	<input type="hidden" name="method" value="viewResult">
+	<input type="hidden" name="examResultId" value="${examResultId}" id="examResultIdView">
+</form>
 
-
+<div class="modal hide fade" id="sendExamConfirm">
+	<div class="modal-header">
+		<h3>ส่งข้อสอบ ?</h3>
+	</div>
+	<div class="modal-body" id="confirmBody">
+		<font class="error" id="errorItem">การสอบนี้ยังไม่หมดเวลา</font> คุณต้องการส่งข้อสอบใช่หรือไม่ โปรดยืนยัน
+	</div>
+  	<div class="modal-footer">
+    	<a href="#" class="btn" data-dismiss="modal">ยกเลิก</a>
+    	<a href="#" class="btn btn-info" id="continueExamConfirmButton" data-loading-text="กำลังโหลดข้อมูล..." ><i class="icon-edit icon-white"></i> ทำต่อ </a>
+    	<a href="#" class="btn btn-success" id="sendExamConfirmButton" data-loading-text="กำลังส่ง..." ><i class="icon-check icon-white"></i> ส่งข้อสอบ</a>
+  	</div>
+</div>

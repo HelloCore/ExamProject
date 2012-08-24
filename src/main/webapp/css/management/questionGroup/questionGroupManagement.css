@@ -1,1 +1,6 @@
 @CHARSET "UTF-8";
+
+#questionGroupForm > .control-group > .control-label 
+,#searchQuestionGroupForm > .control-group > .control-label {width:180px;}
+#questionGroupForm > .control-group > .controls 
+,#searchQuestionGroupForm > .control-group > .controls {margin-left: 200px;}

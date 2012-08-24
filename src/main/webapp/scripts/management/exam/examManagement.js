@@ -60,15 +60,16 @@ examManagement.getGrid = function(){
 									+'<td colspan="3">หัวข้อ : '+data.records[keyArray].examHeader+'</td>'
 								+'</tr>'
 								+'<tr>'
-									+'<td class="sub-column">วิชา : '+data.records[keyArray].courseCode+'</td>'
-									+'<td class="sub-column">วันเริ่มสอบ : '+startDateStr+'</td>'
-									+'<td class="sub-column">วันหมดเขตสอบ : '+endDateStr+'</td>'
+									+'<td class="sub-column1">วิชา : '+data.records[keyArray].courseCode+'</td>'
+									+'<td class="sub-column2">วันเริ่มสอบ : '+startDateStr+'</td>'
+									+'<td class="sub-column3">'
+										+'<button class="btn btn-info" onClick="viewExam('+data.records[keyArray].examId+')"><i class="icon-edit icon-white"></i> View</button> '
+									+'</td>'
 								+'</tr>'
 								+'<tr>'
-									+'<td class="sub-column">จำนวนคำถาม : '+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
-									+'<td class="sub-column">มีการสอบไปแล้ว : '+data.records[keyArray].examCount+' ครั้ง</td>'
-									+'<td class="sub-column">'
-										+'<button class="btn btn-info" onClick="viewExam('+data.records[keyArray].examId+')"><i class="icon-edit icon-white"></i> View</button> '
+									+'<td class="sub-column1">จำนวนคำถาม : '+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
+									+'<td class="sub-column2">วันหมดเขตสอบ : '+endDateStr+'</td>'
+									+'<td class="sub-column3">'
 										+'<button class="btn btn-danger" onClick="deleteExam('+data.records[keyArray].examId+')"><i class="icon-trash icon-white"></i> Delete</button>'
 									+'</td>'
 								+'</tr>'
@@ -166,4 +167,8 @@ $(document).ready(function(){
 deleteExam = function(examId){
 	examManagement.examId = examId;
 	$("#confirmDelete").modal('show');
+};
+
+viewExam = function(examId){
+	
 };

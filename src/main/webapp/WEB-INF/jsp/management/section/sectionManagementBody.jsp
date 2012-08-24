@@ -1,53 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
-<link rel="stylesheet" href="${contextPath}/css/management/section/sectionManagement.css">
-<div>
-		
+<link rel="stylesheet" href="${contextPath}/css/management/section/sectionManagement.css">		
 	<div class="page-header pagination-centered" id="pageHeader">
 		<h2><font class="red-color">Section</font> Management</h2>
 	</div>
-	<div class="grid-toolbar ">
-		 
-		<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
-		<a class="btn btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> Search</a>
-		<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
-	</div>
-	<table class="table table-striped table-bordered table-grid" id="sectionGrid">
-		<thead>
-			<tr>
-				<th class="sort-both sortable" id="sectionIdHeader">Section ID</th>
-				<th class="sort-both sortable" id="sectionNameHeader">Section Name</th>
-				<th class="sort-both sortable" id="sectionYearHeader">Section Year</th>
-				<th class="sort-both sortable" id="sectionSemesterHeader">Section Semester</th>
-				<th class="sort-both sortable" id="courseCodeHeader">Course Code</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
-	<div class="row">
-		<div class="span4">
-			<div class="grid-info" id="gridInfo"></div>
-		</div>
-		<div class="span4">
-			<select id="pageSize" name="pageSize" class="page-size">
-		 	<option value="5">5</option>
-		 	<option value="10">10</option>
-		 	<option value="20">20</option>
-		 	<option value="50">50</option>
-		 </select> records per page
-		</div>
-		<div class="span4">
-			<div class="grid-pagination pagination pull-right">
-				<ul>
-					<li class="prev disabled"><a href="#" id="prevPageButton">&larr; Prev</a></li>
-					<li class="next"><a href="#" id="nextPageButton">Next &rarr;</a></li>
-				</ul>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="grid-toolbar ">
+				<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
+				<a class="btn btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> Search</a>
+				<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
+			</div>
+			<table class="table table-striped table-bordered table-grid" id="sectionGrid">
+				<thead>
+					<tr>
+						<th class="sort-both sortable" id="sectionIdHeader">ID </th>
+						<th class="sort-both sortable" id="sectionNameHeader">Name </th>
+						<th class="sort-both sortable" id="sectionYearHeader">Year </th>
+						<th class="sort-both sortable" id="sectionSemesterHeader">Semester </th>
+						<th class="sort-both sortable" id="courseCodeHeader">Course </th>
+						<th >Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<div class="row-fluid">
+				<div class="span3">
+					<div class="grid-info" id="gridInfo"></div>
+				</div>
+				<div class="span4 page-size-div">
+					<select id="pageSize" name="pageSize" class="page-size">
+						<option value="5">5</option>
+				 		<option value="10">10</option>
+				 		<option value="20">20</option>
+				 		<option value="50">50</option>
+				 	</select> items per page
+				</div>
+				<div class="span5">
+					<div class="grid-pagination pagination pull-right">
+						<ul>
+							<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>
+							<li class="next"><a href="#" id="nextPageButton">»</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 
 <div class="modal hide fade" id="confirmDelete">
@@ -59,7 +59,7 @@
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." >Delete</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
   	</div>
 </div>
 
@@ -99,7 +99,7 @@
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="saveButton" data-loading-text="Saving...">Save changes</a>
+    <a href="#" class="btn btn-primary" id="saveButton" data-loading-text="Saving..."><i class="icon-pencil icon-white"></i> Save changes</a>
   </div>
 </div>
 
@@ -138,6 +138,6 @@
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="searchButton">Search</a>
+    <a href="#" class="btn btn-primary" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</a>
   </div>
 </div>

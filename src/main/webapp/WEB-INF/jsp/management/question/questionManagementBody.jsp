@@ -44,7 +44,7 @@
 		
 		<br>
 		<div class="row-fluid">
-			<div class="span5">
+			<div class="span4">
 				<select id="pageSize" name="pageSize" class="page-size">
 			 	<option value="5">5</option>
 			 	<option value="10">10</option>
@@ -52,7 +52,7 @@
 			 	<option value="50">50</option>
 			 </select> records per page
 			</div>
-			<div class="span7">
+			<div class="span8">
 				<div class="grid-pagination pagination pull-right">
 					<ul>
 						<li class="prev disabled"><a href="#" id="prevPageButton">&larr; Prev</a></li>
@@ -78,7 +78,7 @@
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." >Delete</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
   	</div>
 </div>
 

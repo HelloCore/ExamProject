@@ -30,13 +30,30 @@ if(typeof($.jGrowl)!='undefined'){
 	applicationScript.errorAlertWithStringHeader = function(str,header){
 		$.jGrowl(str,{header:header,theme:'alert alert-block alert-error'});
 	};
-	
+	applicationScript.successAlertWithStringHeader = function(str,header){
+		$.jGrowl(str,{header:header,theme:'alert alert-block alert-success'});
+	};
+	applicationScript.secondsToTime= function(secs){
+	    var t = new Date(1970,0,1);
+	    t.setSeconds(secs);
+	    var s = t.toTimeString().substr(0,8);
+	    if(secs > 86399)
+	        s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
+	    return s;
+	};
 	applicationScript.setPagination = function(page,lastPage){
 		var sClass;
-		var first = (page-2);
-		if( first < 1){ first = 1;} 
-		var last = (page+2);
-		if( last > lastPage){ last = lastPage;} 
+		var first = (parseInt(page)-2);
+		if( first < 1){ first = 1;}
+		var last = (parseInt(page)+2);
+		if( last > lastPage){ last = lastPage;}
+		if( first <= 1 && lastPage >= 5){
+			last = 5;
+		}
+		if($(window).width() >= 768 && $(window).width()<= 979){
+			first = page;
+			last= page;
+		}
 		
 		$('.grid-pagination li:gt(0)').filter(':not(:last)').remove();
 

@@ -47,9 +47,9 @@ sectionManagement.getGrid = function(){
 			}
 			var startRecord = (((sectionManagement.rows)*(sectionManagement.page-1))+1);
 			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
+				$("#gridInfo").text('Record 0 - 0 of 0 ');		
 			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
+				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords);
 			}
 			sectionManagement.lastPage = data.totalPages;
 			applicationScript.setPagination(sectionManagement.page,sectionManagement.lastPage);
@@ -246,6 +246,8 @@ deleteSection = function(sectionId){
 
 editSection = function(sectionId){
 	sectionManagement.sectionId = sectionId;
+	$('#sectionForm').validate().resetForm();
+	$('#sectionForm .control-group').removeClass('success').removeClass('error');
 	$("#sectionId").val(sectionId);
 	$("#sectionName").val($("#section-name-"+sectionId).text());
 	$("#sectionYear").val($("#section-year-"+sectionId).text());
@@ -259,6 +261,5 @@ editSection = function(sectionId){
 	$("#courseId").trigger("liszt:updated");
 	
 	$("#sectionModal h3").text("Edit Section");
-	$('#sectionForm .control-group').removeClass('success').removeClass('error');
 	$("#sectionModal").modal('show');
 };

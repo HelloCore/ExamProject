@@ -4,16 +4,16 @@
 <div>
 		
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Exam</font> Management</h2>
+		<h2><font class="red-color">Examinations</font> Management</h2>
 	</div>
 	<div class="fixed-content">
 		<div class="row-fluid grid-toolbar ">
-			<div class="span5">
+			<div class="span4">
 				<div class="control-group">
 					<label for="courseId">วิชา : </label><select id="courseId" name="courseId" style="width:150px;"><option></option></select>
 				</div>
 			</div>
-			<div class="span7 pagination-right">
+			<div class="span8 pagination-right">
 				<div class="control-group">
 					<label for="examHeader" class="search-box-label">หัวข้อการสอบ : </label>
 					<div class="input-prepend input-append">
@@ -25,12 +25,12 @@
 			</div>
 		</div>
 		<div class="row-fluid grid-toolbar">
-			<div class="span7">
+			<div class="span4">
 				<div class="control-group">
 					<div class="grid-info" id="gridInfo"> Record 1-5 of 12 Records</div>
 				</div>
 			</div>
-			<div class="span5 pagination-right">
+			<div class="span8 pagination-right">
 				<div class="control-group ">
 					<button class="btn btn-info" id="addButton"><i class="icon-plus icon-white"></i> Add</button>
 					<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
@@ -78,6 +78,6 @@
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." >Delete</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
   	</div>
 </div>

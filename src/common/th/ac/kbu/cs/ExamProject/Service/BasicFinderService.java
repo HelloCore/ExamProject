@@ -3,6 +3,7 @@ package th.ac.kbu.cs.ExamProject.Service;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 
 public interface BasicFinderService
@@ -52,4 +53,6 @@ public interface BasicFinderService
     <T> T findUniqueByCriteria(DetachedCriteria detachedCriteria);
     
     <T> T get(Class<T> entityClass,Serializable id);
+
+    Session getCurrentSession();
 }

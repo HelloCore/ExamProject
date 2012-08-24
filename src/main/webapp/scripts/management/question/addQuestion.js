@@ -2,14 +2,14 @@ application.page='examManagement';
 addQuestion = {};
 addQuestion.tabCounter = 5;
 
-var ckOptions = {
-		filebrowserBrowseUrl : application.contextPath+'/resources/ckfinder/ckfinder.htm',
-	 	filebrowserImageBrowseUrl :  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Images',
-	 	filebrowserFlashBrowseUrl :  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Flash',
-	 	filebrowserUploadUrl :  application.contextPath+'/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
-	 	filebrowserImageUploadUrl :   application.contextPath+'/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
-	 	filebrowserFlashUploadUrl :   application.contextPath+'/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
-};
+//var ckOptions = {
+//		filebrowserBrowseUrl : application.contextPath+'/resources/ckfinder/ckfinder.htm',
+//	 	filebrowserImageBrowseUrl :  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Images',
+//	 	filebrowserFlashBrowseUrl :  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Flash',
+//	 	filebrowserUploadUrl :  application.contextPath+'/resources/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
+//	 	filebrowserImageUploadUrl :   application.contextPath+'/resources/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
+//	 	filebrowserFlashUploadUrl :   application.contextPath+'/resources/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
+//};
 
 addQuestion.setDefaultForm = function(){
 	addQuestion.clearTextBox();
@@ -129,7 +129,8 @@ addQuestion.initFunction = function(){
 			$(this).trigger("liszt:updated");
 		});
 	});
-	$(".ckeditorarea").ckeditor(ckOptions);
+	$(".ckeditorarea").ckeditor();
+//	$(".ckeditorarea").ckeditor(ckOptions);
 };
 
 $(document).ready(function(){
@@ -150,7 +151,7 @@ $(document).ready(function(){
 													+'<td colspan="2"><textarea id="answerTextArea'+addQuestion.tabCounter+'" name="answerTextArea'+addQuestion.tabCounter+'"></textarea></td>'
 												+'</tr>'
 												+'<tr>'
-													+'<td align="right" width="120">เป็นคำตอบที่ถูกต้อง&nbsp;:&nbsp;</td>'
+													+'<td align="right" width="130">เป็นคำตอบที่ถูกต้อง&nbsp;:&nbsp;</td>'
 													+'<td align="left">'
 														+'<input type="radio" id="answerScoreCorrect'+addQuestion.tabCounter+'" name="answerScore'+addQuestion.tabCounter+'" value="1">'
 														+'<label for="answerScoreCorrect'+addQuestion.tabCounter+'">&nbsp;ใช่&nbsp;</label>'
@@ -161,7 +162,8 @@ $(document).ready(function(){
 											+'</table>'
 										+'</div>');
 		$('#questionTabNav').append('<li id="answer-tab-content'+addQuestion.tabCounter+'"><a href="#answer-tab'+addQuestion.tabCounter+'" data-toggle="tab" >Answer <button class="close" onClick="closeTab('+addQuestion.tabCounter+')">×</button></a></li>');
-		$('#answerTextArea'+addQuestion.tabCounter).ckeditor(ckOptions);
+//		$('#answerTextArea'+addQuestion.tabCounter).ckeditor(ckOptions);
+		$('#answerTextArea'+addQuestion.tabCounter).ckeditor();
 		$('#questionTabNav a:last').tab('show');
 		addQuestion.tabCounter++;
 		addQuestion.calAnswer();
@@ -205,4 +207,6 @@ closeTab = function(tabNumber){
 	}
 	$('#answer-tab'+tabNumber).remove();
 	$('#answer-tab-content'+tabNumber).remove();
+	addQuestion.calAnswer();
+	
 };

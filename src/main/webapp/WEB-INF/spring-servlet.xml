@@ -90,7 +90,12 @@ class="org.springframework.http.converter.StringHttpMessageConverter" />
 		    <property name="supportedMediaTypes" value="application/json"/>
 		  </bean>
 		  
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="alwaysUseFullPath" value="true" /> 
+	</bean>
+	<bean id="defaultRequestToViewNameTranslator" class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator"/>
 		  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		  	<property name="alwaysUseFullPath" value="true" />
 		    <property name="messageConverters">
 		      <util:list id="beanList">
 		        <ref bean="jsonHttpMessageConverter"/>

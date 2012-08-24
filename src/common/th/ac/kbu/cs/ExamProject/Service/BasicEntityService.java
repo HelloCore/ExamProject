@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
@@ -60,4 +61,6 @@ public interface BasicEntityService {
 	<T> void saveAndUpdate(List<T> saveObjects, List<T> updateObjects);
 
 	void delete(DetachedCriteria detachedCriteria);
+	
+	Session getCurrentSession();
 }

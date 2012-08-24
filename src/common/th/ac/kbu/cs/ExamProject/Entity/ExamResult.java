@@ -59,7 +59,18 @@ public class ExamResult implements Serializable{
 
 	@Column(name= "EXAM_USED_TIME")
 	private Integer examUsedTime;
+
+	@Column(name= "EXAM_SCORE")
+	private Integer examScore;
 	
+	public Integer getExamScore() {
+		return examScore;
+	}
+
+	public void setExamScore(Integer examScore) {
+		this.examScore = examScore;
+	}
+
 	public Long getExamResultId() {
 		return examResultId;
 	}

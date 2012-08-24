@@ -57,7 +57,7 @@
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." >Delete</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
   	</div>
 </div>
 
@@ -85,7 +85,7 @@
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="saveButton" data-loading-text="Saving...">Save changes</a>
+    <a href="#" class="btn btn-primary" id="saveButton" data-loading-text="Saving..."><i class="icon-pencil icon-white"></i>  Save changes</a>
   </div>
 </div>
 
@@ -112,6 +112,6 @@
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="searchButton">Search</a>
+    <a href="#" class="btn btn-primary" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</a>
   </div>
 </div>

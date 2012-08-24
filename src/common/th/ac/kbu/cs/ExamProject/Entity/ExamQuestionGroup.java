@@ -23,14 +23,14 @@ public class ExamQuestionGroup implements Serializable{
 	@Column(name = "EXAM_QUESTION_GROUP_ID")
 	private Long examQuestionGroupId;
 	
-	@Column(name = "EXAM_ID")
+	@Column(name = "EXAM_ID", updatable = false)
 	private Long examId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "EXAM_ID", insertable = false, updatable = false)
 	private Exam exam;
 	
-	@Column(name = "QUESTION_GROUP_ID")
+	@Column(name = "QUESTION_GROUP_ID", updatable = false)
 	private Long questionGroupId;
 
 	@ManyToOne(fetch = FetchType.LAZY)

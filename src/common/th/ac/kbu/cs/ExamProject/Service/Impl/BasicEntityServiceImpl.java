@@ -220,4 +220,8 @@ public class BasicEntityServiceImpl implements BasicEntityService {
 		});
 	}
 
+	@Transactional(readOnly=true)
+	public Session getCurrentSession(){
+		return getBasicEntityDao().getCurrentSession();
+	}
 }

@@ -1,6 +1,11 @@
-
+application.page='exam';
+selectExam = {};
+selectExam.nowExamResultId = null;
 $(document).ready(function(){	
-	$('.havePopover').popover();
+	$('.havePopover').popover({
+		trigger:'hover',
+		placement:'bottom'
+	});
 	$("#createExamButton").click(function(e){
 		e.preventDefault();
 		$('#createExamForm').submit();
@@ -25,7 +30,7 @@ $(document).ready(function(){
 			$("#createExamButton").button('loading');
 			$(form).ajaxSubmit({
 				type:'post',
-				url: application.contextPath + '/exam/doExam.html',
+				url: application.contextPath + '/exam/createExam.html',
 				clearForm: false,
 				success: function(data){
 					$("#createExamModal").modal('show');
@@ -40,6 +45,14 @@ $(document).ready(function(){
 				}
 			});
 		}
+	});
+	$("#sendExamConfirmButton").click(function(){
+		$("#sendExamConfirm").modal('hide');
+		forceSendExam(selectExam.nowExamResultId);
+	});
+	$("#continueExamConfirmButton").click(function(){
+		$("#continueExamConfirmButton").button('loading');
+		continueExam(selectExam.nowExamResultId);
 	});
 });
 
@@ -67,7 +80,7 @@ continueExam = function(examResultId){
 	$("#continue-exam-"+examResultId).button('loading');
 	$("#incomplete-table").block(application.blockOption);
 	$.ajax({
-		url: application.contextPath + '/exam/selectExam.html',
+		url: application.contextPath + '/exam/validateExam.html',
 		type: 'POST',
 		data: {
 			method:'validateExamResult',
@@ -85,14 +98,14 @@ continueExam = function(examResultId){
 	});
 };
 
-sendExam = function(examResultId){
+forceSendExam = function(examResultId){
 	$("#send-exam-"+examResultId).button('loading');
 	$("#incomplete-table").block(application.blockOption);
 	$.ajax({
-		url: application.contextPath + '/exam/selectExam.html',
+		url: application.contextPath + '/exam/finishExam.html',
 		type: 'POST',
 		data: {
-			method:'sendExam',
+			method:'finishExam',
 			examResultId:examResultId
 		},
 		success: function(isExpired){
@@ -105,8 +118,9 @@ sendExam = function(examResultId){
 				applicationScript.saveComplete();
 				$("#send-exam-"+examResultId).button('reset');
 				$("#incomplete-table").unblock();
-				
+				$("#examResultIdView").val(examResultId);
 				// redirect to showResult
+				$("#viewResultForm").submit();
 			}
 		},
 		error : function(a){
@@ -114,4 +128,13 @@ sendExam = function(examResultId){
 			$("#send-exam-"+examResultId).button('reset');
 		}
 	});
+};
+
+sendExam = function(examResultId){
+	if($('#continue-exam-'+examResultId).length > 0){
+		selectExam.nowExamResultId = examResultId;
+		$("#sendExamConfirm").modal('show');
+	}else{
+		forceSendExam(examResultId);
+	}
 };

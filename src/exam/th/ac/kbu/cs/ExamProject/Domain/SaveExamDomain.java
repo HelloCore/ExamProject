@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -39,7 +41,7 @@ public class SaveExamDomain extends DoExamPrototype {
 		ExamResult examResult = getExamResult(this.getExamResultId());
 		List<ExamResultAnswer> examResultAnswers = convertExamData(this.getExamResultAnswerData());
 		validateAnswerData(examResultAnswers,this.getExamResultId());
-		doExamService.updateExamResult(examResult, examResultAnswers);
+		doExamService.updateExamResult(examResult, examResultAnswers,false,true);
 	}
 	
 	public void validParameter(){
@@ -62,7 +64,7 @@ public class SaveExamDomain extends DoExamPrototype {
 		if(BeanUtils.isNotEmpty(examResult.getExamExpireDate())){
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(examResult.getExamExpireDate());
-			cal.add(Calendar.MINUTE, 5);
+			cal.add(Calendar.MINUTE, 3);
 			Date nowToday = new Date();
 			if(nowToday.after(cal.getTime())){
 				throw new ExamIsExpiredException("Exam is expired");
@@ -96,13 +98,30 @@ public class SaveExamDomain extends DoExamPrototype {
 	public void sendExam() {
 		validParameter();
 		ExamResult examResult = getExamResult(this.getExamResultId());
-		setCompleteExam(examResult);
+		Boolean isExpired = setCompleteExam(examResult);
 		List<ExamResultAnswer> examResultAnswers = convertExamData(this.getExamResultAnswerData());
 		validateAnswerData(examResultAnswers,this.getExamResultId());
-		doExamService.updateExamResult(examResult, examResultAnswers);
+		doExamService.updateExamResult(examResult, examResultAnswers,isExpired,false);
 	}
 	
-	private void setCompleteExam(ExamResult examResult){
+	private void calScore(ExamResult examResult,Boolean isExpired){
+		if(isExpired){
+			examResult.setExamScore(0);
+		}else{
+			DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
+			criteria.createAlias("examResultAnswer.answer","answer");
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.rowCount());
+			criteria.setProjection(projectionList);
+			criteria.add(Restrictions.eq("examResultAnswer.examResultId", examResult.getExamResultId()));
+			criteria.add(Restrictions.ge("answer.answerScore", 1));
+			Integer score = BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
+		
+			examResult.setExamScore(score);
+		}
+	}
+	
+	private Boolean setCompleteExam(ExamResult examResult){
 		Date nowToday = new Date();
 		examResult.setExamCompleted(true);
 		examResult.setExamCompleteDate(nowToday);
@@ -110,27 +129,24 @@ public class SaveExamDomain extends DoExamPrototype {
 		Long usedTimeMillis = nowToday.getTime() - examResult.getExamStartDate().getTime();
 		Integer usedTimeSec = BeanUtils.toInteger(Math.floor(usedTimeMillis.doubleValue() / 1000));
 		examResult.setExamUsedTime(usedTimeSec);
-	}
-
-	public Boolean sendExamFromSelect() {
-		validParameterFromSelect();
-		ExamResult examResult = this.getExamResultFromSelect(this.getExamResultId());
-		examResult.setExamCompleted(true);
-		Date nowToday = new Date();
-		examResult.setExamCompleteDate(nowToday);
-		Integer usedTime = BeanUtils.toInteger(nowToday.getTime() - examResult.getExamStartDate().getTime());
-		examResult.setExamUsedTime(usedTime);
 		
+
 		Boolean isExpired = false;
 		if(BeanUtils.isNotEmpty(examResult.getExamExpireDate())){
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(examResult.getExamExpireDate());
-			cal.add(Calendar.MINUTE, 5);
+			cal.add(Calendar.MINUTE, 3);
 			if(nowToday.after(cal.getTime())){
 				isExpired = true;
 			}
 		}
-		
+		return isExpired;
+	}
+
+	public Boolean finishExamFromSelect() {
+		validParameterFromSelect();
+		ExamResult examResult = this.getExamResultFromSelect(this.getExamResultId());
+		Boolean isExpired = setCompleteExam(examResult);
 		doExamService.setCompleteExamFromSelect(examResult, isExpired);
 		return isExpired;
 	}

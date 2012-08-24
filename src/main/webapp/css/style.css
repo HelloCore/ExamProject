@@ -1,10 +1,20 @@
-@media (min-width: 979px){
+@media (max-width: 767px){
 	body {
+		display: none;
+	}
+}
+@media (min-width: 768px) and (max-width: 979px){
+	body {
+		padding-top:0px;
+	}
+}
+@media (min-width: 980px){
+	body {
+  		padding-top: 60px;
+  		padding-bottom: 40px;
 	}
 }
 body {
-  		padding-top: 60px;
-  padding-bottom: 40px;
 }
 
 .header-logo {
@@ -17,19 +27,20 @@ body {
 .navbar .login-form .login-btn { margin-bottom:10px; }
 .red-color { color: #F16325; } 
 
-.sort-both { background: url('img/sort_both.png') no-repeat center right }
-.sort-asc { background: url('img/sort_asc.png') no-repeat center right }
-.sort-desc { background: url('img/sort_desc.png') no-repeat center right }
+.sort-both { background: url('../img/sort_both.png') no-repeat center right }
+.sort-asc { background: url('../img/sort_asc.png') no-repeat center right }
+.sort-desc { background: url('../img/sort_desc.png') no-repeat center right }
 .sortable { cursor: pointer;}
 .grid-info {margin-top:10px;}
 .grid-toolbar {margin-bottom:10px;}
 .grid-pagination,.page-size { margin:0px;}
 .page-size {width:75px;}
+.page-size-div {vertical-align: bottom;}
 .table-grid {margin-bottom:5px;}
 label.valid {
   width: 16px;
   height: 16px;
-  background: url('img/famfamfam/accept.png') center center no-repeat;
+  background: url('../img/famfamfam/accept.png') center center no-repeat;
   display: inline-block;
   text-indent: -9999px;
 }
@@ -39,7 +50,6 @@ label.error {
   padding: 2px 8px;
   margin-top: 2px;
 }
-
 .alertBox{ width:300px; margin:auto; margin-bottom: 10px;}
 /* ===== Primary Styles ========================================================
    Author:

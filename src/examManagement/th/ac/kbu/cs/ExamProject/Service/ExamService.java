@@ -12,4 +12,5 @@ public interface ExamService {
 	void saveExamSection(Long examId,List<ExamSection> examSections);
 	void saveExamQuestionGroup(Long examId,List<ExamQuestionGroup> examQuestionGroups);
 	void addExam(Exam exam,List<ExamSection> examSections,List<ExamQuestionGroup> examQuestionGroups);
+	List<ExamQuestionGroup> updateExamQuestionGroup(List<ExamQuestionGroup> examQuestionGroupList,List<ExamQuestionGroup> deletedExamQuestionGroupList);
 }

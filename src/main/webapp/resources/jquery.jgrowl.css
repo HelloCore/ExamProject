@@ -160,8 +160,8 @@ div.jGrowl div.alert div.jGrowl-close {
 	opacity: 0.2;
 }
 div.jGrowl div.alert-success div.jGrowl-header { 
-	background-image: url('../css/img/famfamfam/accept.png');
+	background-image: url('../img/famfamfam/accept.png');
 }
 div.jGrowl div.alert-error div.jGrowl-header { 
-	background-image: url('../css/img/famfamfam/cancel.png');
+	background-image: url('../img/famfamfam/cancel.png');
 }	

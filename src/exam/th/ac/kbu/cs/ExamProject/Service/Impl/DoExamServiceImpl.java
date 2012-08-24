@@ -2,10 +2,17 @@ package th.ac.kbu.cs.ExamProject.Service.Impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,10 +80,20 @@ public class DoExamServiceImpl implements DoExamService{
 
 	@Transactional(rollbackFor=Exception.class)
 	public void updateExamResult(ExamResult examResult,
-			List<ExamResultAnswer> examResultAnswers) {
-		basicEntityService.update(examResult);
-		if(BeanUtils.isNotEmpty(examResultAnswers)){
-			basicEntityService.update(examResultAnswers);
+			List<ExamResultAnswer> examResultAnswers,
+			Boolean isExpired,
+			Boolean isAutoSave) {
+		if(isExpired){
+			String queryString = "UPDATE ExamResultAnswer examResultAnswer SET examResultAnswer.answerId=null WHERE examResultAnswer.examResultId = ?";
+			basicEntityService.bulkUpdate(queryString, examResult.getExamResultId());
+		}else{
+			if(BeanUtils.isNotEmpty(examResultAnswers)){
+				basicEntityService.update(examResultAnswers);
+			}
+		}
+		if(!isAutoSave){
+			calScore(examResult,isExpired);
+			basicEntityService.update(examResult);
 		}
 	}
 
@@ -85,11 +102,69 @@ public class DoExamServiceImpl implements DoExamService{
 	}
 
 	@Transactional(rollbackFor=Exception.class)
-	public void setCompleteExamFromSelect(ExamResult examResult,Boolean isExpired){
-		basicEntityService.update(examResult);
+	public void setCompleteExamFromSelect(ExamResult examResult,Boolean isExpired){	
 		if(isExpired){
 			String queryString = "UPDATE ExamResultAnswer examResultAnswer SET examResultAnswer.answerId=null WHERE examResultAnswer.examResultId = ?";
 			basicEntityService.bulkUpdate(queryString, examResult.getExamResultId());
 		}
+		calScore(examResult,isExpired);
+		basicEntityService.update(examResult);
+	}
+	
+	public <T> T execute(HibernateCallback<T> action){
+		return basicEntityService.execute(action);
+	}
+
+	@Transactional(rollbackFor=Exception.class)
+	public Long createExamResultObj(ExamResult examResult,
+			List<Object[]> questionData) {
+		Long examResultId = BeanUtils.toLong(this.saveExamResult(examResult));
+		Long examResultAnswerId ;
+		List<ExamResultAnswer> examResultAnswerList = new ArrayList<ExamResultAnswer>();
+		
+		Integer ordinal = 0;
+		for(Object[] questionAnswer : questionData){
+			ExamResultAnswer examResultAnswer = this.toExamResultAnswerObj(examResultId, questionAnswer);
+			examResultAnswer.setOrdinal(ordinal);
+			examResultAnswerId = BeanUtils.toLong(basicEntityService.save(examResultAnswer));
+			examResultAnswer.setExamResultAnswerId(examResultAnswerId);
+			examResultAnswerList.add(examResultAnswer);
+			ordinal++;
+		}
+		return examResultId;
+	}
+	
+	private void calScore(ExamResult examResult,Boolean isExpired){
+		if(isExpired){
+			examResult.setExamScore(0);
+		}else{
+			DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
+			criteria.createAlias("examResultAnswer.answer","answer");
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.rowCount());
+			criteria.setProjection(projectionList);
+			criteria.add(Restrictions.eq("examResultAnswer.examResultId", examResult.getExamResultId()));
+			criteria.add(Restrictions.ge("answer.answerScore", 1));
+			Integer score = BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
+		
+			examResult.setExamScore(score);
+		}
+	}
+	
+	private ExamResultAnswer toExamResultAnswerObj(Long examResultId,Object[] questionData){
+		ExamResultAnswer examResultAnswer = new ExamResultAnswer();
+		examResultAnswer.setExamResultId(examResultId);
+		examResultAnswer.setQuestionId(BeanUtils.toLong(questionData[0]));
+		List<Long> answerList = new ArrayList<Long>();
+		answerList.add(BeanUtils.toLong(questionData[1]));
+		answerList.add(BeanUtils.toLong(questionData[2]));
+		answerList.add(BeanUtils.toLong(questionData[3]));
+		answerList.add(BeanUtils.toLong(questionData[4]));
+		Collections.shuffle(answerList);
+		examResultAnswer.setAnswerId1(answerList.get(0));
+		examResultAnswer.setAnswerId2(answerList.get(1));
+		examResultAnswer.setAnswerId3(answerList.get(2));
+		examResultAnswer.setAnswerId4(answerList.get(3));
+		return examResultAnswer;
 	}
 }

@@ -3,6 +3,7 @@ package th.ac.kbu.cs.ExamProject.Common.Dao;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 
 public interface BasicFinderDao {
@@ -51,4 +52,6 @@ public interface BasicFinderDao {
 
     <E> E findUniqueByCriteria(DetachedCriteria detachedCriteria);
     <E> E get(Class<E> entityClass,Serializable id);
+
+    Session getCurrentSession();
 }

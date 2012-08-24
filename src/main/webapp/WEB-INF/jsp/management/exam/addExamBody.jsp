@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/exam/addExam.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Add </font> Exam</h2>
+		<h2><font class="red-color">Add </font> Examinations</h2>
 	</div>
 	
 	<div class="well main-form">
@@ -13,7 +13,7 @@
 			<div class="control-group">
       			<label class="control-label" for="courseId">วิชา</label>
       			<div class="controls">
-        			<select id="courseId" name="courseId">
+        			<select id="courseId" name="courseId" >
         			</select>
       			</div>
     		</div>

@@ -3,6 +3,7 @@ package th.ac.kbu.cs.ExamProject.Service.Impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -221,4 +222,9 @@ public class BasicFinderServiceImpl implements BasicFinderService
     public <T> T get(Class<T> entityClass,Serializable id){
     	return (T) getBasicFinderDao().get(entityClass, id);
     }
+    
+    public Session getCurrentSession(){
+    	return getBasicFinderDao().getCurrentSession();
+    }
+    
 }

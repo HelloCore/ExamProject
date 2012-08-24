@@ -8,10 +8,10 @@
 	</div>
 	<div class="well form-inline parent-holder">
 		<input type="hidden" id="questionId" name="questionId" value="${questionData.questionId}">
-		<label for="courseCode">วิชา : </label><select id="courseId" name="courseId" class="select-box" disabled="disabled"><option value="${questionData.courseId}" selected="selected">${questionData.courseCode}</option></select>
+		<label for="courseCode">วิชา : </label><select id="courseId" name="courseId" class="select-box course-select-box" disabled="disabled"><option value="${questionData.courseId}" selected="selected">${questionData.courseCode}</option></select>
 		<label for="questionGroupName">กลุ่มคำถาม : </label><select  id="questionGroupId" name="questionGroupId" class="select-box" disabled="disabled"><option value="${questionData.questionGroupId}" selected="selected">${questionData.questionGroupName}</option></select>
 		<button class="btn btn-info" id="editParentButton"><i class="icon-edit icon-white"></i> Edit</button>
-		<button class="btn btn-primary hide" id="saveParentButton">Save</button>
+		<button class="btn btn-primary hide" id="saveParentButton"><i class=" icon-pencil icon-white"></i> Save</button>
 		<button class="btn hide" id="cancelParentButton">Cancel</button>
 	</div>
 	<ul class="nav nav-tabs">
@@ -71,7 +71,7 @@
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="saveQuestionButton" data-loading-text="กำลังบันทึก...">Save</a>
+    <a href="#" class="btn btn-primary" id="saveQuestionButton" data-loading-text="กำลังบันทึก..."><i class=" icon-pencil icon-white"></i> Save</a>
   </div>
 </div>
 
@@ -91,7 +91,7 @@
     	<input type="radio" name="answerScore" id="answerScoreFool" value="0" /><label for="answerScoreFool">ไม่ใช่</label>
   	</div>
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="saveAnswerButton" data-loading-text="กำลังบันทึก...">Save</a>
+    <a href="#" class="btn btn-primary" id="saveAnswerButton" data-loading-text="กำลังบันทึก..."><i class=" icon-pencil icon-white"></i> Save</a>
   </div>
 </div>
 
@@ -104,7 +104,7 @@
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">Cancel</a>
-    	<a href="#" class="btn btn-danger" id="deleteAnswerButton" data-loading-text="Deleting..." >Delete</a>
+    	<a href="#" class="btn btn-danger" id="deleteAnswerButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
   	</div>
 </div>
 
