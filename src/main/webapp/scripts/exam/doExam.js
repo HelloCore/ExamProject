@@ -8,6 +8,7 @@ var windowHeight = $(window).height()
 		$('.blockPage').css('height',140-navHeight);
 	}else{
 		$('.scrollspy-example').attr('data-spy','scroll').attr('data-target','#navbarExample').attr('data-offset',300).css('height',windowHeight-20);
+		$('.blockPage').css('height',30+navHeight);
 	}
 doExam.convertToJSON = function(data){
 	var newData = [],i=0;
