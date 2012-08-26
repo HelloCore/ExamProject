@@ -6,43 +6,54 @@
 	</div>
 	<div class="row-fluid">
 		<div class="span12">
-			<div class="grid-toolbar ">
-				<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
-				<a class="btn btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> Search</a>
-				<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
-			</div>
-			<table class="table table-striped table-bordered table-grid" id="sectionGrid">
-				<thead>
-					<tr>
-						<th class="sort-both sortable" id="sectionIdHeader">ID </th>
-						<th class="sort-both sortable" id="sectionNameHeader">Name </th>
-						<th class="sort-both sortable" id="sectionYearHeader">Year </th>
-						<th class="sort-both sortable" id="sectionSemesterHeader">Semester </th>
-						<th class="sort-both sortable" id="courseCodeHeader">Course </th>
-						<th >Action</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
 			<div class="row-fluid">
-				<div class="span3">
-					<div class="grid-info" id="gridInfo"></div>
+				<div class="span2">
+					<div class="grid-toolbar">
+						<div class="button-holder">
+							<button class="btn  btn-block btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
+						</div>
+						<div class="button-holder">
+							<a class="btn  btn-block btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> Search</a>
+						</div>
+						<div class="button-holder">
+							<button class="btn  btn-block btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
+						</div>
+					</div>
 				</div>
-				<div class="span4 page-size-div">
-					<select id="pageSize" name="pageSize" class="page-size">
-						<option value="5">5</option>
-				 		<option value="10">10</option>
-				 		<option value="20">20</option>
-				 		<option value="50">50</option>
-				 	</select> items per page
-				</div>
-				<div class="span5">
-					<div class="grid-pagination pagination pull-right">
-						<ul>
-							<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>
-							<li class="next"><a href="#" id="nextPageButton">»</a></li>
-						</ul>
+				<div class="span10">
+					<table class="table table-striped table-bordered table-grid" id="sectionGrid">
+						<thead>
+							<tr>
+								<th class="sort-both sortable" id="sectionNameHeader">Section<i></i></th>
+								<th class="sort-both sortable" id="sectionYearHeader">ปี<i></i></th>
+								<th class="sort-both sortable" id="sectionSemesterHeader">เทอม<i></i></th>
+								<th class="sort-both sortable" id="courseCodeHeader">วิชา<i></i></th>
+								<th class="action-column" >Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<div class="row-fluid">
+						<div class="span3">
+							<div class="grid-info" id="gridInfo"></div>
+						</div>
+						<div class="span4 page-size-div hidden-phone">
+							<select id="pageSize" name="pageSize" class="page-size ">
+								<option value="5">5</option>
+						 		<option value="10">10</option>
+						 		<option value="20">20</option>
+						 		<option value="50">50</option>
+						 	</select> items per page
+						</div>
+						<div class="span5">
+							<div class="grid-pagination pagination pagination-centered">
+								<ul>
+									<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>
+									<li class="next"><a href="#" id="nextPageButton">»</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

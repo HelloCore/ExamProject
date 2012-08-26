@@ -62,16 +62,33 @@ public class ExamServiceImpl implements ExamService{
 		if(BeanUtils.isNotEmpty(deletedExamQuestionGroupList)){
 			basicEntityService.deleteAll(deletedExamQuestionGroupList);
 		}
-		for(ExamQuestionGroup examQuestionGroup : examQuestionGroupList){
-			if(BeanUtils.isNotNull(examQuestionGroup.getExamQuestionGroupId())){
-				basicEntityService.update(examQuestionGroup);
-			}else{
-				examQuestionGroupId = BeanUtils.toLong(basicEntityService.save(examQuestionGroup));
-				examQuestionGroup.setExamQuestionGroupId(examQuestionGroupId);
+		if(BeanUtils.isNotEmpty(examQuestionGroupList)){
+			for(ExamQuestionGroup examQuestionGroup : examQuestionGroupList){
+				if(BeanUtils.isNotNull(examQuestionGroup.getExamQuestionGroupId())){
+					basicEntityService.update(examQuestionGroup);
+				}else{
+					examQuestionGroupId = BeanUtils.toLong(basicEntityService.save(examQuestionGroup));
+					examQuestionGroup.setExamQuestionGroupId(examQuestionGroupId);
+				}
 			}
 		}
-		
 		return examQuestionGroupList;
+	}
+
+	public List<ExamSection> updateExamSection(
+			List<ExamSection> savedExamSection,
+			List<ExamSection> deletedExamSection) {
+		Long examSectionId;
+		if(BeanUtils.isNotEmpty(deletedExamSection)){
+			basicEntityService.deleteAll(deletedExamSection);
+		}
+		if(BeanUtils.isNotEmpty(savedExamSection)){
+			for(ExamSection examSection : savedExamSection){
+				examSectionId = BeanUtils.toLong(basicEntityService.save(examSection));
+				examSection.setExamSectionId(examSectionId);
+			}
+		}
+		return savedExamSection;
 	}
 
 }

@@ -60,19 +60,27 @@ createExam = function(examId){
 	var button = $('#do-exam-'+examId);
 		minQuestion = button.attr('min-question'),
 		maxQuestion = button.attr('max-question');
-	$("#examId").val(examId);
-	$("#examCount").val(button.attr('exam-count'));
-	$("#numOfQuestion").val('').attr('placeHolder',minQuestion+' - '+maxQuestion);
+
+		$("#examId").val(examId);
+		$("#examCount").val(button.attr('exam-count'));
+
+		$('#createExamForm').validate().resetForm();
+	if(minQuestion == maxQuestion){
+		$("#numOfQuestion").val(maxQuestion).attr('readonly',true);
+	}else{
+		$("#numOfQuestion").val('').attr('placeHolder',minQuestion+' - '+maxQuestion).attr('readonly',false);
+	}
 	$("#numOfQuestion").rules("remove","range");
 	$("#numOfQuestion").rules("add",{
 		range:[minQuestion,maxQuestion],
-		
 		messages: {
 			range: "ต้องมีจำนวนคำถาม {0} ถึง {1} ข้อ"
 		}
 	});
-	$('#createExamForm').validate().resetForm();
+
+	
 	$('#createExamForm .control-group').removeClass('success').removeClass('error');
+	
 	$("#createExamModal").modal('show');
 };
 

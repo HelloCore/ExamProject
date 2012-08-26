@@ -33,7 +33,7 @@ sectionManagement.getGrid = function(){
 			var strHtml ;
 			for(keyArray in data.records){
 				strHtml = '<tr>'+
-							'<td id="section-id-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionId+'</td>'+
+//							'<td id="section-id-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionId+'</td>'+
 							'<td id="section-name-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionName+'</td>'+
 							'<td id="section-year-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionYear+'</td>'+
 							'<td id="section-semester-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionSemester+'</td>'+

@@ -7,6 +7,9 @@ public class ExamPrototype {
 	private String examQuestionGroupSaveStr;
 	private String examQuestionGroupDeleteStr;
 	
+	private String saveSectionDataStr;
+	private String deletedSectionDataStr;
+	
 	public String getExamQuestionGroupSaveStr() {
 		return examQuestionGroupSaveStr;
 	}
@@ -45,6 +48,22 @@ public class ExamPrototype {
 
 	public void setExamHeader(String examHeader) {
 		this.examHeader = examHeader;
+	}
+
+	public String getSaveSectionDataStr() {
+		return saveSectionDataStr;
+	}
+
+	public void setSaveSectionDataStr(String saveSectionDataStr) {
+		this.saveSectionDataStr = saveSectionDataStr;
+	}
+
+	public String getDeletedSectionDataStr() {
+		return deletedSectionDataStr;
+	}
+
+	public void setDeletedSectionDataStr(String deletedSectionDataStr) {
+		this.deletedSectionDataStr = deletedSectionDataStr;
 	}
 
 }

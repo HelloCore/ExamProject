@@ -33,6 +33,10 @@ if(typeof($.jGrowl)!='undefined'){
 	applicationScript.successAlertWithStringHeader = function(str,header){
 		$.jGrowl(str,{header:header,theme:'alert alert-block alert-success'});
 	};
+	applicationScript.warningAlertWithString = function(str,header){
+		$.jGrowl(str,{header:"Warning ",theme:'alert alert-block alert-warning'});
+	};
+	
 	applicationScript.secondsToTime= function(secs){
 	    var t = new Date(1970,0,1);
 	    t.setSeconds(secs);

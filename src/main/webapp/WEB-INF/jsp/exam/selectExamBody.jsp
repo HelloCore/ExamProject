@@ -15,8 +15,8 @@
 				<thead>
 					<tr>
 						<th>วิชา</th>
-						<th>หัวข้อการสอบ</th>
-						<th>วันหมดเขตสอบ</th>
+						<th>หัวข้อ</th>
+						<th>หมดเขต</th>
 						<th>สอบได้(ครั้ง)</th>
 						<th></th>
 					</tr>
@@ -28,7 +28,7 @@
 								<td>${data[0]}</td>
 								<td>${data[1]}</td>
 								<c:if test="${not empty data[2]}">
-									<td>${data[2]}</td>
+									<td><fmt:formatDate value="${data[2]}"  pattern="dd-MM-yyyy HH:mm"/></td>
 								</c:if>
 								<c:if test="${empty data[2]}">
 									<td>ไม่กำหนด</td>
@@ -53,11 +53,11 @@
 					<thead>
 						<tr>
 							<th>วิชา</th>
-							<th>หัวข้อการสอบ</th>
+							<th>หัวข้อ</th>
 							<th>ครั้งที่</th>
-							<th>หมดเวลาสอบ</th>
-							<th>จำนวนคำถาม(ข้อ)</th>
-							<th>ทำไปแล้ว(ข้อ)</th>
+							<th>หมดเวลา</th>
+							<th>จำนวนคำถาม</th>
+							<th>ทำไปแล้ว</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -65,10 +65,11 @@
 						<c:forEach items="${examResult}" var="data">
 							<tr id="exam-incomplete-${data[6]}">
 								<fmt:parseDate var="expireDate" value="${data[3]}" pattern="yyyy-MM-dd HH:mm:ss"/>
+								
 								<td>${data[0]}</td>
 								<td>${data[1]}</td>
 								<td>${data[2]}</td>
-								<td>${data[3]}</td>
+								<td><fmt:formatDate value="${expireDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 								<td>${data[4]}</td>
 								<td>${data[5]}</td>
 								<td>

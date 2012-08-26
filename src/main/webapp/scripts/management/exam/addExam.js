@@ -447,12 +447,12 @@ addExam.tab4Data = function(){
 	if(addExam.startDate == ''){
 		$("#startDateConfirm").text("ไม่กำหนด");
 	}else{
-		$("#startDateConfirm").text(addExam.startDate);
+		$("#startDateConfirm").text(Globalize.format(new Date(addExam.startDate),'dd-MM-yyyy HH:mm'));
 	}
 	if(addExam.endDate == ''){
 		$("#endDateConfirm").text("ไม่กำหนด");
 	}else{
-		$("#endDateConfirm").text(addExam.endDate);
+		$("#endDateConfirm").text(Globalize.format(new Date(addExam.endDate),'dd-MM-yyyy HH:mm'));
 	}
 	$("#rangeQuestionConfirm").text(addExam.minQuestion + ' ถึง ' + addExam.maxQuestion+ ' ข้อ');
 	$("#examLimitConfirm").text(addExam.examLimit);

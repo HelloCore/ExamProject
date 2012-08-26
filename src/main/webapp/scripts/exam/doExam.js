@@ -3,11 +3,22 @@ doExam.nowAnswer = 0;
 doExam.questionAnswerData = [];
 var windowHeight = $(window).height()
 	,navHeight = $("#navbarExample").height();
-	if(windowHeight >= 600){
-		$('.scrollspy-example').attr('data-target','#navbarExample').attr('data-offset',70).css('height',windowHeight-175-navHeight).attr('data-spy','scroll');
+	if(windowHeight >= 767){
+		var questionHeight = (windowHeight-175-navHeight);
+		$('.scrollspy-example').attr('data-target','#navbarExample').css('height',questionHeight).scrollspy({
+			offset:70
+		});
+		
 		$('.blockPage').css('height',140-navHeight);
 	}else{
-		$('.scrollspy-example').attr('data-spy','scroll').attr('data-target','#navbarExample').attr('data-offset',300).css('height',windowHeight-20);
+		var questionHeight = (windowHeight-10-navHeight);
+		if(questionHeight <= 100){
+			questionHeight=200 ;
+		}
+		$('.scrollspy-example').attr('data-target','#navbarExample').css('height',questionHeight).scrollspy({
+			offset:250
+		});
+		
 		$('.blockPage').css('height',30+navHeight);
 	}
 doExam.convertToJSON = function(data){
@@ -153,7 +164,7 @@ $(document).ready(function(){
 		$('a[href=#'+$(this).parent().attr('id')+']').addClass('choosedA');
 	});
 	
-	$('#countDown').countdown({until: new Date(application.expireDate), compact:true});
+	$('#countDown').countdown({until: new Date(application.expireDate), compact:true,onExpiry:examExpire,onTick:watching});
 	$('[data-spy="scroll"]').each(function () {
 		  $(this).scrollspy('refresh');
 		});
@@ -175,3 +186,20 @@ $(document).ready(function(){
 		doExam.sendExam();
 	});
 });
+
+examExpire = function(){
+	applicationScript.errorAlertWithStringHeader("บังคับส่งข้อสอบ","หมดเวลาสอบ");
+	doExam.sendExam();
+};
+
+
+watching = function(periods){
+	if(periods[6] == 0 && ( periods[5]==3
+			|| periods[5]==2 || periods[5]==1 )){
+		applicationScript.warningAlertWithString("เหลือเวลาอีก "+periods[5]+" นาที");
+	}
+	if(periods[5] == 0 && periods[6] % 5 ==0){
+		applicationScript.warningAlertWithString("เหลือเวลาอีก "+periods[6]+" วินาที");
+	}
+	
+};

@@ -115,7 +115,7 @@ public class ViewExamDomain extends ExamPrototype{
 		return basicFinderService.findByCriteria(criteria);
 	}
 
-	public void validateExamData(List<ExamQuestionGroup> examQuestionGroupList,Long examId){
+	public void validateExamQuestionGroupData(List<ExamQuestionGroup> examQuestionGroupList,Long examId){
 		for(ExamQuestionGroup examQuestionGroup : examQuestionGroupList){
 			if(examQuestionGroup.getExamId() != examId){
 				throw new DataInValidException("data is invalid");
@@ -124,21 +124,60 @@ public class ViewExamDomain extends ExamPrototype{
 	}
 	
 	public List<ExamQuestionGroup> editExamQuestionGroup() throws JsonParseException, JsonMappingException, IOException {
-		if(BeanUtils.isEmpty(this.getExamId())){
+		if(BeanUtils.isEmpty(this.getExamId())
+			&& BeanUtils.isEmpty(this.getExamQuestionGroupSaveStr())
+			&& BeanUtils.isEmpty(this.getExamQuestionGroupDeleteStr())
+		){
 			throw new ParameterNotFoundException("Parameter not found!!");
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
 		List<ExamQuestionGroup> examQuestionGroupList = null;
 		List<ExamQuestionGroup> deletedExamQuestionGroupList = null;
-		if(BeanUtils.isNotEmpty(getExamQuestionGroupDeleteStr())){
-			deletedExamQuestionGroupList = mapper.readValue(getExamQuestionGroupDeleteStr(), new TypeReference<ArrayList<ExamQuestionGroup>>(){});
+		
+		if(BeanUtils.isNotEmpty(this.getExamQuestionGroupDeleteStr())){
+			deletedExamQuestionGroupList = mapper.readValue(this.getExamQuestionGroupDeleteStr(), new TypeReference<ArrayList<ExamQuestionGroup>>(){});
+			validateExamQuestionGroupData(deletedExamQuestionGroupList,this.getExamId());
 		}
-		if(BeanUtils.isNotEmpty(getExamQuestionGroupSaveStr())){
-			examQuestionGroupList = mapper.readValue(getExamQuestionGroupSaveStr(), new TypeReference<ArrayList<ExamQuestionGroup>>(){});
-			validateExamData(examQuestionGroupList,this.getExamId());
+		if(BeanUtils.isNotEmpty(this.getExamQuestionGroupSaveStr())){
+			examQuestionGroupList = mapper.readValue(this.getExamQuestionGroupSaveStr(), new TypeReference<ArrayList<ExamQuestionGroup>>(){});
+			validateExamQuestionGroupData(examQuestionGroupList,this.getExamId());
 		}
 		return examService.updateExamQuestionGroup(examQuestionGroupList,deletedExamQuestionGroupList);
+	}
+
+
+	public void validateExamSectionData(List<ExamSection> examSectionList,Long examId){
+		for(ExamSection examSection : examSectionList){
+			if(examSection.getExamId() != examId){
+				throw new DataInValidException("data is invalid");
+			}
+		}
+	}
+	public List<ExamSection> editExamSection() throws JsonParseException, JsonMappingException, IOException {
+		if(BeanUtils.isEmpty(this.getExamId())
+			&& BeanUtils.isEmpty(this.getSaveSectionDataStr())
+			&& BeanUtils.isEmpty(this.getDeletedSectionDataStr())
+		){
+			throw new ParameterNotFoundException("Parameter not found!!");
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		List<ExamSection> savedExamSectionList = null;
+		List<ExamSection> deletedExamSectionList = null;
+		
+		if(BeanUtils.isNotEmpty(this.getSaveSectionDataStr())){
+			savedExamSectionList = mapper.readValue(this.getSaveSectionDataStr(), new TypeReference<ArrayList<ExamSection>>(){});
+			validateExamSectionData(savedExamSectionList,this.getExamId());
+		}
+
+		if(BeanUtils.isNotEmpty(this.getDeletedSectionDataStr())){
+			deletedExamSectionList = mapper.readValue(this.getDeletedSectionDataStr(), new TypeReference<ArrayList<ExamSection>>(){});
+			validateExamSectionData(deletedExamSectionList,this.getExamId());
+		}
+		
+		
+		return examService.updateExamSection(savedExamSectionList, deletedExamSectionList);
 	}
 
 	

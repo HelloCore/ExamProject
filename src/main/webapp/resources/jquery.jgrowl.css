@@ -144,6 +144,11 @@ div.jGrowl div.alert-error{
 	border-color:#EED3D7;
 	color: #B94A48;
 }
+div.jGrowl div.alert-warning{
+	background-color: #FCF8E3;
+	border-color:#FBEED5;
+	color: #C09853;
+}
 div.jGrowl div.alert div.jGrowl-message{
 	font-size:13px;
 }
@@ -164,4 +169,12 @@ div.jGrowl div.alert-success div.jGrowl-header {
 }
 div.jGrowl div.alert-error div.jGrowl-header { 
 	background-image: url('../img/famfamfam/cancel.png');
-}	
+}
+div.jGrowl div.alert-warning div.jGrowl-header { 
+	background-image: url('../img/famfamfam/error.png');
+}
+
+
+
+
+

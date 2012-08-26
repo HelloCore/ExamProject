@@ -20,5 +20,18 @@
 .edit-panel {background-color:whiteSmoke;display:none;}
 #questionGroupModal {height:auto;width:400px;margin-left:-200px;}
 #questionGroupId_chzn {position:fixed;}
-
+#sectionModal {height:auto;width:500px;margin-left:-250px;}
+#sectionId_chzn {position: fixed;}
+.sortable { cursor: move;}
+.sortable .questionPercent,.sortable .secondPerQuestion{ cursor: text;}
 .secondPerQuestion.error ,.questionPercent.error{color:#B94A48;}
+.wrapper {display:inline-block;}
+@media (max-width: 767px) {
+	.wrapper {
+		margin-top: 10px;	
+	}
+	.wrapper .uneditable-input {
+		width:auto;
+		display: inline-block;
+	}
+}

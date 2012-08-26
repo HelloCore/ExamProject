@@ -2,9 +2,17 @@
 viewExam.questionGroup = {};
 viewExam.questionGroup.questionGroupData = [];
 viewExam.questionGroup.examQuestionGroupData = [];
-viewExam.questionGroup.oldEditTabe = null;
+viewExam.questionGroup.oldEditTable = null;
 viewExam.questionGroup.backupExamQuestionGroupData = [];
 viewExam.questionGroup.removedData = [];
+
+viewExam.questionGroup.runNumber = function(){
+	var number = 1;
+	$(".number-ordinal").each(function(){
+		$(this).text(number);
+		number++;
+	});
+};
 
 viewExam.questionGroup.compareIsDirty = function(var1,var2){
 	var isDirty = false;
@@ -54,6 +62,7 @@ viewExam.questionGroup.checkDirtyQuestionGroup = function(questionGroupId){
 	}
 	return isDirty;
 };
+
 viewExam.questionGroup.getExamQuestionGroupString = function(){
 	var examQuestionGroupTemp = [];
 	for (key in viewExam.questionGroup.examQuestionGroupData){
@@ -240,7 +249,6 @@ viewExam.questionGroup.validateTotalPercent = function(){
 viewExam.questionGroup.createQuestionGroupTable = function(){
 	$(".editable-question").block(application.blockOption);
 	$(".editable-question thead tr th:eq(4)").remove();
-	$(".editable-question tfoot tr td").attr('colspan',4);
 	$(".editable-question tbody").empty().removeClass('sortable');
 	$("#normal-question-group-panel").show();
 	$("#edit-question-group-panel").hide();
@@ -267,17 +275,16 @@ viewExam.questionGroup.beginEdit = function(){
 	$("#totalPercent").text("100").removeClass("error").removeClass("success");
 	viewExam.questionGroup.backupExamQuestionGroupData = $.extend(true,{},viewExam.questionGroup.examQuestionGroupData);
 	$(".editable-question").block(application.blockOption);
-	viewExam.questionGroup.oldEditTabe = $(".editable-question tbody").html();
+	viewExam.questionGroup.oldEditTable = $(".editable-question tbody").html();
 	$("#normal-question-group-panel").hide();
 	$("#edit-question-group-panel").show();
 	$(".editable-question thead tr").append('<th>Action</th>');
-	$(".editable-question tfoot tr td").attr('colspan',5);
 	$(".editable-question tbody").empty().addClass('sortable');
 	var nowData,rawHtml = '',strHtml = [],i=1;
 	for(key in viewExam.questionGroup.examQuestionGroupData){
 		nowData = viewExam.questionGroup.examQuestionGroupData[key];
 		strHtml[nowData.ordinal] = '<tr id="question-group-'+nowData.questionGroupId+'">'
-					+'<td>'+nowData.ordinal+'</td>'
+					+'<td class="number-ordinal">'+nowData.ordinal+'</td>'
 					+'<td>'+nowData.questionGroupName+'</td>'
 					+'<td class="questionPercent">'+nowData.questionPercent+'</td>'
 					+'<td class="secondPerQuestion">'+nowData.secondPerQuestion+'</td>'
@@ -291,6 +298,7 @@ viewExam.questionGroup.beginEdit = function(){
 	viewExam.questionGroup.setEditable();
 	$('.sortable').sortable({
 		placeholder: "placeholder"
+		,update: viewExam.questionGroup.runNumber
 	}).disableSelection();
 	viewExam.questionGroup.validateTotalPercent();
 	$(".editable-question").unblock();
@@ -301,8 +309,7 @@ viewExam.questionGroup.cancelEdit = function(){
 	$(".editable-question").block(application.blockOption);
 	$('.sortable').sortable( "destroy" );
 	$(".editable-question thead tr th:last").remove();
-	$(".editable-question tfoot tr td").attr('colspan',4);
-	$(".editable-question tbody").removeClass('sortable').html(viewExam.questionGroup.oldEditTabe);
+	$(".editable-question tbody").removeClass('sortable').html(viewExam.questionGroup.oldEditTable);
 	$("#normal-question-group-panel").show();
 	$("#edit-question-group-panel").hide();
 	$(".editable-question").unblock();
@@ -335,7 +342,7 @@ viewExam.questionGroup.addQuestionGroup = function(questionGroupId){
 	if(result){
 		viewExam.questionGroup.examQuestionGroupData[result.questionGroupId] = result;
 		strHtml = '<tr id="question-group-'+result.questionGroupId+'">'
-			+'<td>'+result.ordinal+'</td>'
+			+'<td class="number-ordinal">'+result.ordinal+'</td>'
 			+'<td>'+result.questionGroupName+'</td>'
 			+'<td class="questionPercent">'+result.questionPercent+'</td>'
 			+'<td class="secondPerQuestion">'+result.secondPerQuestion+'</td>'
@@ -350,7 +357,7 @@ viewExam.questionGroup.addQuestionGroup = function(questionGroupId){
 				questionGroupName: result.questionGroupName
 			};
 			strHtml = '<tr id="question-group-'+result.questionGroupId+'">'
-				+'<td>0</td>'
+				+'<td class="number-ordinal">0</td>'
 				+'<td>'+result.questionGroupName+'</td>'
 				+'<td class="questionPercent">0</td>'
 				+'<td class="secondPerQuestion">60</td>'
@@ -360,11 +367,13 @@ viewExam.questionGroup.addQuestionGroup = function(questionGroupId){
 		}
 	}
 	$("#questionGroupModal").modal("hide");
+
+	viewExam.questionGroup.runNumber();
 	viewExam.questionGroup.setEditable(questionGroupId);
 	viewExam.questionGroup.validateTotalPercent();
 };
 
-viewExam.questionGroup.findNotInQuestionGroup = function(questionGroupId){
+viewExam.questionGroup.findNotInQuestionGroup = function(){
 	var strHtml= '',newData;
 	for(findKey in viewExam.questionGroup.questionGroupData){
 		if(!viewExam.questionGroup.examQuestionGroupData[findKey]){
@@ -381,7 +390,7 @@ viewExam.questionGroup.initQuestionGroupComboBoxModal = function(){
 		$("#questionGroupId").empty().append(result.toString()).trigger('liszt:updated');
 		$("#questionGroupModal").modal("show");
 	}else{
-		alert("non data");
+		applicationScript.errorAlertWithStringTH("ไม่พบข้อมูลกลุ่มคำถาม");
 	}
 };
 viewExam.questionGroup.setEditable = function(questionGroupId){
@@ -411,18 +420,7 @@ viewExam.questionGroup.setEditable = function(questionGroupId){
 	});
 };
 $(document).ready(function(){
-	if(application.exam.startDate){
-		$("#startDate").val(Globalize.format(new Date(application.exam.startDate),'dd-MM-yyyy HH:mm'));
-	}else{
-		$("#startDate").val("ไม่กำหนด");
-	}
-	if(application.exam.endDate == ''){
-		$("#endDate").val(Globalize.format(new Date(application.exam.endDate),'dd-MM-yyyy HH:mm'));
-	}else{
-		$("#endDate").val("ไม่กำหนด");
-	}
 	viewExam.questionGroup.iniQuestionGroupData();
-	
 	viewExam.questionGroup.createQuestionGroupTable();
 	$("#editQuestionGroupButton").click(function(){ viewExam.questionGroup.beginEdit(); });
 	$("#cancelEditQuestionGroupButton").click(function(){ viewExam.questionGroup.cancelEdit(); });
@@ -438,6 +436,7 @@ removeQuestionGroup = function(questionGroupId){
 	$("#question-group-"+questionGroupId).remove();
 	viewExam.questionGroup.removedData[questionGroupId] = $.extend(true,{},viewExam.questionGroup.examQuestionGroupData[questionGroupId]);
 	delete viewExam.questionGroup.examQuestionGroupData[questionGroupId];
+	viewExam.questionGroup.runNumber();
 	$(".editable-question").unblock();
 	viewExam.questionGroup.validateTotalPercent();
 };

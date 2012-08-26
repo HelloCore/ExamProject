@@ -29,6 +29,7 @@ import th.ac.kbu.cs.ExamProject.Domain.ExamDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ViewExamDomain;
 import th.ac.kbu.cs.ExamProject.Entity.Exam;
 import th.ac.kbu.cs.ExamProject.Entity.ExamQuestionGroup;
+import th.ac.kbu.cs.ExamProject.Entity.ExamSection;
 
 @Controller
 public class ExamManagementController {
@@ -61,6 +62,14 @@ public class ExamManagementController {
 		modelMap.addAttribute("examSectionData", examSectionData);
 		return modelMap;
 	}
+	
+
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamSection")
+	public @ResponseBody List<ExamSection> editExamSection(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{
+		return domain.editExamSection();
+	}
+	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamQuestionGroup")
 	public @ResponseBody List<ExamQuestionGroup> editExamQuestionGroup(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{
@@ -89,4 +98,5 @@ public class ExamManagementController {
 	public void delete(@ModelAttribute ExamDomain domain,@ModelAttribute ExamCoreGridManager gridManager,HttpServletResponse reponse,HttpServletRequest request) {
 		domain.delete(gridManager);
 	}
+	
 }

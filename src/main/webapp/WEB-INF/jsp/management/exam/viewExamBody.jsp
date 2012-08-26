@@ -38,13 +38,14 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="span2">
-				<div class="tabbable tabs-left">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href='#tab1' data-toggle="tab">ข้อมูลการสอบ</a></li>
-						<li><a href='#tab2' data-toggle="tab">กลุ่มคำถาม</a></li>
-						<li><a href='#tab3' data-toggle="tab">Section</a></li>					
-					</ul>
-				</div>
+					<div class="tabbable">
+						<ul class="nav nav-list">
+							<li class="nav-header">Menu</li>
+							<li class="active"><a href='#tab1' data-toggle="tab">การสอบ</a></li>
+							<li><a href='#tab2' data-toggle="tab">กลุ่มคำถาม</a></li>
+							<li><a href='#tab3' data-toggle="tab">Section</a></li>					
+						</ul>
+					</div>
 			</div>
 			<div class="span10">
 				<div class="tab-content">
@@ -56,7 +57,7 @@
 								<label class="control-label" for="courseCode">รหัสวิชา :</label>
 								<div class="controls controls-row">
 									<div class="input-append span11">
-										<input class="span9 " id="courseCode" type="text" value="${examData.course.courseCode}" disabled="disabled"/><button class="btn btn-info" disabled="disabled"><i class="icon-ban-circle icon-white"></i> Edit</button>
+										<input class="span9 " size="40"  id="courseCode" type="text" value="${examData.course.courseCode}" disabled="disabled"/><button class="btn btn-info" disabled="disabled"><i class="icon-ban-circle icon-white"></i> Edit</button>
 									</div>
 							    </div>
 							</div>
@@ -64,7 +65,7 @@
 								<label class="control-label" for="examHeader">หัวข้อการสอบ :</label>
 								<div class="controls controls-row">
 									<div class="input-append span11">
-										<input id="examHeader" class="span9" size="20" name="examHeader" type="text" value="${examData.examHeader}" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
+										<input id="examHeader" class="span9" size="40" name="examHeader" type="text" value="${examData.examHeader}" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
 									</div>
 							    </div>
 							</div>
@@ -72,7 +73,7 @@
 								<label class="control-label" for="examStartDate">วันเริ่มสอบ :</label>
 								<div class="controls controls-row">
 									<div class="input-append span11">
-										<input id="startDate" class="span9" size="20" name="startDate" type="text" value="" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
+										<input id="startDate" class="span9" size="40" name="startDate" type="text" value="" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
 									</div>
 							    </div>
 							</div>
@@ -80,7 +81,7 @@
 								<label class="control-label" for="examEndDate">วันหมดเขตสอบ :</label>
 								<div class="controls controls-row">
 									<div class="input-append span11">
-										<input id="endDate" class="span9" size="20" name="endDate" type="text" value="" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
+										<input id="endDate" class="span9" size="40" name="endDate" type="text" value="" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
 									</div>
 							    </div>
 							</div>
@@ -88,7 +89,7 @@
 								<label class="control-label" for="numOfQuestion">จำนวนคำถาม :</label>
 								<div class="controls controls-row">
 									<div class="input-append span11">
-										<input id="numOfQuestion" class="span9" size="20" name="numOfQuestion" type="text" value="${examData.minQuestion} ถึง ${examData.maxQuestion} ข้อ" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
+										<input id="numOfQuestion" class="span9" size="40" name="numOfQuestion" type="text" value="${examData.minQuestion} ถึง ${examData.maxQuestion} ข้อ" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
 									</div>
 							    </div>
 							</div>
@@ -96,7 +97,7 @@
 								<label class="control-label" for="examLimit">สอบได้ :</label>
 								<div class="controls controls-row">
 									<div class="input-append span11">
-										<input id="examLimit" class="span9" size="20" name="examLimit" type="text" value="${examData.examLimit} ครั้ง" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
+										<input id="examLimit" class="span9" size="40" name="examLimit" type="text" value="${examData.examLimit} ครั้ง" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
 									</div>
 							    </div>
 							</div>
@@ -105,10 +106,10 @@
 								<div class="controls controls-row">
 									<div class="input-append span11">
 										<c:if test="${examData.examSequence==true}">
-											<input id="examSequence" class="span9" size="20" name="examSequence" type="text" value="เรียงตามลำดับ" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
+											<input id="examSequence" class="span9" size="40" name="examSequence" type="text" value="เรียงตามลำดับ" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
 										</c:if>
 										<c:if test="${examData.examSequence==false}">
-											<input id="examSequence" class="span9" size="20" name="examSequence" type="text" value="สุ่ม" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
+											<input id="examSequence" class="span9" size="40" name="examSequence" type="text" value="สุ่ม" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
 										</c:if>
 									</div>
 							    </div>
@@ -137,11 +138,13 @@
 									</td>
 								</tr>
 								<tr class="edit-panel" id="edit-question-group-panel"> 
-									<td colspan="4" class="center-row">
+									<td colspan="5" class="center-row">
 										<button class="btn btn-info" id="addQuestionGroupButton"><i class="icon-plus icon-white"></i> Add</button>
 										<button class="btn btn-primary" id="saveEditQuestionGroupButton"><i class="icon-pencil icon-white"></i> Save</button>
 										<button class="btn" id="cancelEditQuestionGroupButton">Cancel</button>
-										<span class="help-inline">เปอร์เซ็นต์รวม </span> <span class="uneditable-input" id="totalPercent"> 100</span> <span class="help-inline">%</span>
+										<div class="wrapper">
+											<span class="help-inline">เปอร์เซ็นต์รวม </span> <span class="uneditable-input" id="totalPercent"> 100</span> <span class="help-inline">%</span>
+										</div>
 									</td>
 								</tr>
 							</tfoot>
@@ -150,7 +153,7 @@
 					<div class="tab-pane" id="tab3">
 						<h3>Section ที่มีสิทธิ์สอบ</h3>
 						<hr>
-						<table class="table table-striped">
+						<table class="table table-striped editable-section">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -160,29 +163,18 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>010</td>
-									<td>1</td>
-									<td>2555</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>020</td>
-									<td>1</td>
-									<td>2555</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>030</td>
-									<td>1</td>
-									<td>2555</td>
-								</tr>
 							</tbody>
 							<tfoot>
-								<tr>
-									<td colspan="4" class="center-row">
-										<button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
+								<tr class="normal-panel" id="normal-section-panel">
+									<td colspan="4" class="center-row" >
+										<button class="btn btn-info" id="editSectionButton"><i class="icon-edit icon-white"></i> Edit</button>
+									</td>
+								</tr>
+								<tr class="edit-panel" id="edit-section-panel"> 
+									<td colspan="5" class="center-row">
+										<button class="btn btn-info" id="addSectionButton"><i class="icon-plus icon-white"></i> Add</button>
+										<button class="btn btn-primary" id="saveEditSectionButton"><i class="icon-pencil icon-white"></i> Save</button>
+										<button class="btn" id="cancelEditSectionButton">Cancel</button>
 									</td>
 								</tr>
 							</tfoot>
@@ -194,13 +186,13 @@
 	</div>
 </div>
 
-<div class="modal hide fade" id="questionGroupModal" tabindex="-1" role="dialog">
+<div class="modal hide fade" id="questionGroupModal" tabindex="-1" >
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Choose Question Group</h3>
   </div>
   <div class="modal-body">
-    <form class="form-horizontal" id="searchSectionForm">	
+    <form class="form-horizontal" id="searchQuestionGroupForm">	
     	<div class="control-group">
 	     	<label class="control-label" for="questionGroupId">Course Code</label>
 	      	<div class="controls">
@@ -212,6 +204,27 @@
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
     <a href="#" class="btn btn-info" id="addQuestionGroupConfirmButton" ><i class="icon-plus icon-white"></i> Add </a>
+  </div>
+</div>
+
+<div class="modal hide fade" id="sectionModal" tabindex="-1" >
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Choose Section</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" id="searchSectionForm">	
+    	<div class="control-group">
+	     	<label class="control-label" for="sectionId">Section</label>
+	      	<div class="controls">
+	        	<select id="sectionId" class="input-medium" data-placeholder="Choose a section..." name="sectionId"></select>
+	        </div>
+	    </div>
+	  </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-info" id="addSectionConfirmButton" ><i class="icon-plus icon-white"></i> Add </a>
   </div>
 </div>
 
@@ -228,3 +241,19 @@
     <a href="#" class="btn btn-primary" id="confirmQuestionGroupButton" data-loading-text="กำลังแก้ไข..."><i class="icon-pencil icon-white"></i> Confirm</a>
   </div>
 </div>
+
+
+<div class="modal hide fade" id="confirmSectionModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Confirm Edit Section?</h3>
+  </div>
+  <div class="modal-body">
+    <p>ต้องการแก้ไข Section ที่มีสิทธิ์สอบใช่หรือไม่</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-primary" id="confirmSectionButton" data-loading-text="กำลังแก้ไข..."><i class="icon-pencil icon-white"></i> Confirm</a>
+  </div>
+</div>
+

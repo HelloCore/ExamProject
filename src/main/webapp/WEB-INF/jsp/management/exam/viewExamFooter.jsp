@@ -14,3 +14,4 @@
 <script src="${contextPath}/resources/jquery.globalize.js"></script>
 <script src="${contextPath}/scripts/management/exam/viewExam.js"></script> 
 <script src="${contextPath}/scripts/management/exam/viewExam.questionGroup.js"></script> 
+<script src="${contextPath}/scripts/management/exam/viewExam.section.js"></script> 
