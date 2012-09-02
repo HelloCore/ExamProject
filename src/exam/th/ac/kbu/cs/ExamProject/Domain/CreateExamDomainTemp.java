@@ -43,7 +43,15 @@ import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
  */
 @Configurable
 public class CreateExamDomainTemp extends DoExamPrototype{
-	
+	private Integer examCounted;
+	public Integer getExamCounted() {
+		return examCounted;
+	}
+
+	public void setExamCounted(Integer examCounted) {
+		this.examCounted = examCounted;
+	}
+
 	@Autowired
 	private BasicFinderService basicFinderService;
 	
@@ -87,7 +95,7 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 		if(BeanUtils.isNotNull(exam.getEndDate()) && exam.getEndDate().before(nowToday)){
 			throw new ExamIsExpiredException("Exam is expired!!");
 		}
-		if(BeanUtils.isNotNull(exam.getExamLimit()) && exam.getExamLimit() <= exam.getExamCount()){
+		if(BeanUtils.isNotNull(exam.getExamLimit()) && exam.getExamLimit() <= this.getExamCounted()){
 			throw new CantExamEnoughException("Cant exam anymore!!");
 		}
 		return exam;
@@ -139,7 +147,7 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 		exam.setMaxQuestion(BeanUtils.toInteger(examObj[6]));
 		exam.setCourseId(BeanUtils.toLong(examObj[7]));
 		exam.setExamSequence(BeanUtils.toBoolean(examObj[8]));
-		exam.setExamCount(BeanUtils.toInteger(examObj[9]));
+		this.setExamCounted(BeanUtils.toInteger(examObj[9]));
 		return exam;
 	}
 	

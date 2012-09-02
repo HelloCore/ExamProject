@@ -51,9 +51,6 @@ public class Exam implements Serializable{
 	
 	@Column(name = "EXAM_SEQUENCE")
 	private Boolean examSequence;
-
-	@Column(name = "EXAM_COUNT")
-	private Integer examCount;
 	
 	@Column(name = "FLAG")
 	private Boolean flag;
@@ -88,14 +85,6 @@ public class Exam implements Serializable{
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	public Integer getExamCount() {
-		return examCount;
-	}
-
-	public void setExamCount(Integer examCount) {
-		this.examCount = examCount;
 	}
 
 	public Integer getMinQuestion() {

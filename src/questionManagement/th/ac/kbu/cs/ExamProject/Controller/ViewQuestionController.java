@@ -1,6 +1,7 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,8 @@ import th.ac.kbu.cs.ExamProject.Entity.Answer;
 public class ViewQuestionController {
 	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
-	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.POST,params="method=View")
-	public ModelMap view(@ModelAttribute ViewQuestionDomain domain,ModelMap modelMap,HttpServletRequest request){
+	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.POST,params="method=viewQuestion")
+	public ModelMap viewQuestion(@ModelAttribute ViewQuestionDomain domain,ModelMap modelMap,HttpServletRequest request){
 		modelMap.addAttribute("questionData", domain.getQuestionData());
 		modelMap.addAttribute("answerData", domain.getAnswerData());
 		return modelMap;
@@ -27,31 +28,31 @@ public class ViewQuestionController {
 	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.POST,params="method=editQuestionParent")
-	public void editQuestionParent(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request){
+	public void editQuestionParent(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.editQuestionParent();
 	}
 
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.POST,params="method=editQuestionText")
-	public void editQuestionText(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request){
+	public void editQuestionText(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.editQuestionText();
 	}
 	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.POST,params="method=deleteAnswer")
-	public void deleteAnswer(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request){
+	public void deleteAnswer(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.deleteAnswer();
 	}
 
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.POST,params="method=editAnswer")
-	public void editAnswer(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request){
+	public void editAnswer(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.editAnswer();
 	}
 
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/question/view.html" ,method=RequestMethod.POST,params="method=addAnswer")
-	public @ResponseBody Answer addAnswer(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request) throws Exception{
+	public @ResponseBody Answer addAnswer(@ModelAttribute ViewQuestionDomain domain,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		return domain.addAnswer();
 	}
 }

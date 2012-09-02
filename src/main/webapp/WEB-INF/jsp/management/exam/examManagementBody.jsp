@@ -81,3 +81,10 @@
     	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
   	</div>
 </div>
+<form id="viewExamForm" action="${contextPath}/management/exam/view.html" method="POST" style="display:none;">
+	<input type="hidden" name="method" value="viewExam" />
+	<input type="hidden" id="examId" name="examId"/>
+</form>
+
+
+

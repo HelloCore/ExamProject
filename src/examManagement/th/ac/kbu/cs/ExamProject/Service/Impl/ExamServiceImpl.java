@@ -91,4 +91,8 @@ public class ExamServiceImpl implements ExamService{
 		return savedExamSection;
 	}
 
+	public void updateExam(Exam exam) {
+		basicEntityService.update(exam);
+	}
+
 }

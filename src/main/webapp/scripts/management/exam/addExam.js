@@ -31,24 +31,7 @@ addExam.deleteData = function(){
 	delete addExam.examSequence;
 };
 addExam.dateToString = function(date){
-	var year = date.getFullYear();
-	var month = date.getMonth();
-	var day = date.getDate();
-	var hour = date.getHours();
-	var min = date.getMinutes();
-	var sec = date.getSeconds();
-	var str = year+'-';
-	if(month<10){ str+='0'; }
-	str+=month+'-';
-	if(day<10){ str+='0'; }
-	str+=day+' ';
-	if(hour<10){ str+='0'; }
-	str+=hour+':';
-	if(min<10){ str+='0'; }
-	str+=min+':';
-	if(sec<10){ str+='0'; }
-	str+=sec;
-	return str;
+	return Globalize.format( date, "yyyy-MM-dd HH:mm:ss");
 };
 
 addExam.initFunction = function(){
@@ -73,14 +56,7 @@ addExam.initCourseComboBox = function(){
 };
 addExam.initToday = function(){
 	var today = new Date();
-	var date = today.getDate();
-	var month = today.getMonth() +1;
-	var year = today.getFullYear();
-	var todayStr = null;
-	if(date<10){ todayStr = "0"+date; }else{ todayStr = date; }
-	if(month<10){ todayStr += "/0"+month; }else{ todayStr += "/"+month; }
-	todayStr += "/"+year;
-	
+	todayStr = Globalize.format( today, "dd/MM/yyyy");
 	$("#startDate").val(todayStr).datepicker();
 	$("#endDate").val(todayStr).datepicker();
 
@@ -138,34 +114,21 @@ addExam.validateExamHeader = function(){
 	}
 	return !haveError;
 };
-addExam.calStartDate = function(){
-	var startDateStr = $("#startDate").val();
-	var startTimeStr = $("#startTime").val();
-	var startDay = startDateStr.substr(0,2);
-	var startMonth = startDateStr.substr(3,2);
-	var startYear = startDateStr.substr(6,4);
-	var startHour = startTimeStr.substr(0,2);
-	var startMin = startTimeStr.substr(3,2);
-	return new Date(startYear,startMonth,startDay,startHour,startMin);
+
+addExam.globalCalDate = function(dateStr,timeStr){
+	var dateTimeStr = dateStr+' '+timeStr;
+	return Globalize.parseDate( dateTimeStr, "dd/MM/yyyy HH:mm");
 };
-addExam.calEndDate = function(){
-	var endDateStr = $("#endDate").val();
-	var endTimeStr = $("#endTime").val();
-	var endDay = endDateStr.substr(0,2);
-	var endMonth = endDateStr.substr(3,2);
-	var endYear = endDateStr.substr(6,4);
-	var endHour = endTimeStr.substr(0,2);
-	var endMin = endTimeStr.substr(3,2);
-	return new Date(endYear,endMonth,endDay,endHour,endMin);
-};
+
 addExam.validateDate = function(){
 	$("#startDateGroup").removeClass('success').removeClass('error');
 	$("#endDateGroup").removeClass('success').removeClass('error');
 	$("#dateError").remove();
 	var haveError = false;
 	if($("#useStartDate").is(":checked") && $("#useEndDate").is(":checked")){
-		var startDate = addExam.calStartDate();
-		var endDate = addExam.calEndDate();
+		//var startDate = addExam.calStartDate();
+		var startDate = addExam.globalCalDate($("#startDate").val(),$("#startTime").val());
+		var endDate = addExam.globalCalDate($("#endDate").val(),$("#endTime").val());
 		addExam.startDate = startDate;
 		addExam.endDate = endDate;
 		if(startDate>=endDate){
@@ -179,9 +142,9 @@ addExam.validateDate = function(){
 		}
 	}else{
 		if($("#useStartDate").is(":checked")){
-			addExam.startDate = addExam.calStartDate();
+			addExam.startDate = addExam.globalCalDate($("#startDate").val(),$("#startTime").val());
 		}else if ($("#useEndDate").is(":checked")){
-			addExam.endDate = addExam.calEndDate();
+			addExam.endDate =  addExam.globalCalDate($("#endDate").val(),$("#endTime").val());
 		}
 		$("#startDateGroup").addClass('success');
 		$("#endDateGroup").addClass('success');

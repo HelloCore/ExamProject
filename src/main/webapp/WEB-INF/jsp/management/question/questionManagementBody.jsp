@@ -83,6 +83,6 @@
 </div>
 
 <form id="viewQuestionForm" action="${contextPath}/management/question/view.html" method="POST" style="display:none;">
-	<input type="hidden" name="method" value="View" />
+	<input type="hidden" name="method" value="viewQuestion" />
 	<input type="hidden" id="questionId" name="questionId"/>
 </form>

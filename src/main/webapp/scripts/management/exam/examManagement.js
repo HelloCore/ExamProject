@@ -170,5 +170,6 @@ deleteExam = function(examId){
 };
 
 viewExam = function(examId){
-	
+	$("#examId").val(examId);
+	$("#viewExamForm").submit();
 };

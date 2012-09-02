@@ -47,7 +47,7 @@ public class ExamManagementController {
 	}
 
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
-	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.GET,params="method=viewExam")
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=viewExam")
 	public ModelMap initViewExam(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,ModelMap modelMap) throws JsonGenerationException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		Exam exam = domain.getExamData();
@@ -62,8 +62,36 @@ public class ExamManagementController {
 		modelMap.addAttribute("examSectionData", examSectionData);
 		return modelMap;
 	}
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamHeader")
+	public void editExamHeader(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response){
+		domain.editExamHeader();
+	}
 	
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editStartDate")
+	public void editStartDate(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
+		domain.editStartDate();
+	}
 
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editEndDate")
+	public void editEndDate(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
+		domain.editEndDate();
+	}
+
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editNumOfQuestion")
+	public void editNumOfQuestion(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
+		domain.editNumOfQuestion();
+	}
+
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamLimit")
+	public void editExamLimit(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
+		domain.editExamLimit();
+	}
+	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamSection")
 	public @ResponseBody List<ExamSection> editExamSection(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{

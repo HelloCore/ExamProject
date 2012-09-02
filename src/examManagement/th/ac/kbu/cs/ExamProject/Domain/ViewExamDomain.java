@@ -1,7 +1,10 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,6 +41,11 @@ public class ViewExamDomain extends ExamPrototype{
 	
 	@Autowired
 	private ExamService examService;
+	
+	private void checkPermissionFromCourse(Long courseId){
+		
+	}
+	
 	
 	public Exam getExamData(){
 		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
@@ -111,6 +119,9 @@ public class ViewExamDomain extends ExamPrototype{
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("examSection.examId", this.getExamId()));
 		
+		criteria.addOrder(Order.desc("section.sectionYear"));
+		criteria.addOrder(Order.desc("section.sectionSemester"));
+		
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		return basicFinderService.findByCriteria(criteria);
 	}
@@ -178,6 +189,91 @@ public class ViewExamDomain extends ExamPrototype{
 		
 		
 		return examService.updateExamSection(savedExamSectionList, deletedExamSectionList);
+	}
+	
+	public Exam getExamAndValidate(Long examId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
+		criteria.add(Restrictions.eq("exam.examId", examId));
+
+		Exam exam = basicFinderService.findUniqueByCriteria(criteria);
+		checkPermissionFromCourse(exam.getCourseId());
+		
+		return exam;
+	}
+	
+	public void editExamHeader(){
+		if(BeanUtils.isEmpty(this.getExamId()) || BeanUtils.isEmpty(this.getExamHeader())){
+			throw new ParameterNotFoundException("Parameter not found!!");
+		}
+		Exam exam = getExamAndValidate(this.getExamId());
+		exam.setExamHeader(this.getExamHeader());
+		examService.updateExam(exam);
+	}
+
+
+	public void editStartDate() throws ParseException {
+		if(BeanUtils.isEmpty(this.getExamId())){
+			throw new ParameterNotFoundException("Parameter not found!!");
+		}
+		
+		Exam exam = getExamAndValidate(this.getExamId());
+		
+		Date startDate = null;
+		if(BeanUtils.isNotEmpty(this.getStartDateStr())){
+			SimpleDateFormat parserSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			startDate = parserSDF.parse(this.getStartDateStr());
+		}
+		
+		exam.setStartDate(startDate);
+		examService.updateExam(exam);
+		
+	}
+
+
+	public void editEndDate() throws ParseException {
+
+		if(BeanUtils.isEmpty(this.getExamId())){
+			throw new ParameterNotFoundException("Parameter not found!!");
+		}
+		
+		Exam exam = getExamAndValidate(this.getExamId());
+		
+		Date endDate = null;
+		if(BeanUtils.isNotEmpty(this.getEndDateStr())){
+			SimpleDateFormat parserSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			endDate = parserSDF.parse(this.getEndDateStr());
+		}
+		
+		exam.setEndDate(endDate);
+		examService.updateExam(exam);
+	}
+
+
+	public void editNumOfQuestion() {
+		if(BeanUtils.isEmpty(this.getExamId())
+				|| BeanUtils.isEmpty(this.getMinQuestion())
+				|| BeanUtils.isEmpty(this.getMaxQuestion())){
+			throw new ParameterNotFoundException("Parameter not found!!");
+		}
+		
+		Exam exam = getExamAndValidate(this.getExamId());
+		exam.setMinQuestion(this.getMinQuestion());
+		exam.setMaxQuestion(this.getMaxQuestion());
+		
+		examService.updateExam(exam);
+	}
+
+
+	public void editExamLimit() {
+		if(BeanUtils.isEmpty(this.getExamId())
+				|| BeanUtils.isEmpty(this.getExamLimit())){
+			throw new ParameterNotFoundException("Parameter not found!!");
+		}
+		
+		Exam exam = getExamAndValidate(this.getExamId());
+		exam.setExamLimit(this.getExamLimit());
+		
+		examService.updateExam(exam);
 	}
 
 	

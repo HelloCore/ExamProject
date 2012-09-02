@@ -100,15 +100,6 @@ public class DoExamDomain extends DoExamPrototype{
 			}
 		}
 	}
-	public void autoSave(){
-		validateParameter();
-		ExamResult examResult = getExamResult(this.getExamResultId());
-		validateSaveExamExpired(examResult);
-		List<ExamResultAnswer> examResultAnswers = convertExamData(this.getExamResultAnswerData());
-		validateAnswerData(examResultAnswers,this.getExamResultId());
-		doExamService.updateExamResult(examResult, examResultAnswers);
-	}
-	
 	private List<HashMap<String,Object>> getQuestionAnswerData(ExamResult examResult){
 		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
 		criteria.createAlias("examResultAnswer.question", "question");

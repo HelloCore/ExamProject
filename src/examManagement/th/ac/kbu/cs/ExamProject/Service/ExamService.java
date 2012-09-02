@@ -14,4 +14,5 @@ public interface ExamService {
 	void addExam(Exam exam,List<ExamSection> examSections,List<ExamQuestionGroup> examQuestionGroups);
 	List<ExamQuestionGroup> updateExamQuestionGroup(List<ExamQuestionGroup> examQuestionGroupList,List<ExamQuestionGroup> deletedExamQuestionGroupList);
 	List<ExamSection> updateExamSection(List<ExamSection> savedExamSection,List<ExamSection> deletedExamSection);
+	void updateExam(Exam exam);
 }

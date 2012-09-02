@@ -40,7 +40,6 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 		projectionList.add(Projections.property("exam.endDate"),"endDate");
 		projectionList.add(Projections.property("exam.minQuestion"),"minQuestion");
 		projectionList.add(Projections.property("exam.maxQuestion"),"maxQuestion");
-		projectionList.add(Projections.property("exam.examCount"),"examCount");
 		projectionList.add(Projections.property("course.courseCode"),"courseCode");
 		
 	}

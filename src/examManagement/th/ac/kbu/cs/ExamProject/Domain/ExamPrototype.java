@@ -1,8 +1,14 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
+
 public class ExamPrototype {
 	private Long examId;
 	private Long courseId;
+	private Integer minQuestion;
+	private Integer maxQuestion;
+	private Integer examLimit;
+	private String startDateStr;
+	private String endDateStr;
 	private String examHeader;
 	private String examQuestionGroupSaveStr;
 	private String examQuestionGroupDeleteStr;
@@ -65,5 +71,46 @@ public class ExamPrototype {
 	public void setDeletedSectionDataStr(String deletedSectionDataStr) {
 		this.deletedSectionDataStr = deletedSectionDataStr;
 	}
+
+	public String getStartDateStr() {
+		return startDateStr;
+	}
+
+	public void setStartDateStr(String startDateStr) {
+		this.startDateStr = startDateStr;
+	}
+
+	public String getEndDateStr() {
+		return endDateStr;
+	}
+
+	public void setEndDateStr(String endDateStr) {
+		this.endDateStr = endDateStr;
+	}
+
+	public Integer getMinQuestion() {
+		return minQuestion;
+	}
+
+	public void setMinQuestion(Integer minQuestion) {
+		this.minQuestion = minQuestion;
+	}
+
+	public Integer getMaxQuestion() {
+		return maxQuestion;
+	}
+
+	public void setMaxQuestion(Integer maxQuestion) {
+		this.maxQuestion = maxQuestion;
+	}
+
+	public Integer getExamLimit() {
+		return examLimit;
+	}
+
+	public void setExamLimit(Integer examLimit) {
+		this.examLimit = examLimit;
+	}
+
 
 }

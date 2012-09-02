@@ -50,7 +50,6 @@ public class AddExamDomain extends AddExamPrototype {
 		return results;
 	}
 	private Exam toEntiy() throws ParseException{
-		System.out.println("Domain2");
 		Exam exam = new Exam();
 		SimpleDateFormat parserSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(BeanUtils.isNotEmpty(this.getExamHeader())){
@@ -77,7 +76,6 @@ public class AddExamDomain extends AddExamPrototype {
 		if(BeanUtils.isNotEmpty(this.getExamSequence())){
 			exam.setExamSequence(this.getExamSequence());
 		}
-		exam.setExamCount(0);
 		exam.setFlag(true);
 		return exam;
 	}
