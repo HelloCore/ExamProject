@@ -8,14 +8,13 @@ viewQuestion.oldQuestionGroupName = '';
 viewQuestion.saveQuestionButton = {};
 viewQuestion.currentAnswerId = null;
 viewQuestion.isEdit = false;
-var ckOptions = {
-		filebrowserBrowseUrl : application.contextPath+'/resources/ckfinder/ckfinder.htm',
-	 	filebrowserImageBrowseUrl :  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Images',
-	 	filebrowserFlashBrowseUrl :  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Flash',
-	 	filebrowserUploadUrl :  application.contextPath+'/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
-	 	filebrowserImageUploadUrl :   application.contextPath+'/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
-	 	filebrowserFlashUploadUrl :   application.contextPath+'/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
-};
+
+viewQuestion.oldCourseId = '';
+viewQuestion.oldQuestionGroupId = '';
+viewQuestion.oldQuestionText = '';
+viewQuestion.oldAnswerText = '';
+viewQuestion.oldAnswerScore = '';
+
 viewQuestion.addAnswer = function(){
 	$.ajax({
 		url: application.contextPath+'/management/question/view.html'
@@ -56,37 +55,55 @@ viewQuestion.addAnswer = function(){
 		}
 	});
 };
-viewQuestion.editAnswer = function(){
-	$.ajax({
-		url: application.contextPath+'/management/question/view.html'
-		,type: 'POST'
-		,data: {
-			method: 'editAnswer',
-			answerId: viewQuestion.currentAnswerId,
-			answerText: $("#answerText").val(),
-			answerScore: $("input[name=answerScore]:checked").val()
-		},success: function(){
-			$("#saveAnswerButton").button('reset');
-			
-			$("#answer-panel-"+viewQuestion.currentAnswerId).html($("#answerText").val());
-			
-			if($("input[name=answerScore]:checked").val()==0){
-				$("#answer-score-text-"+viewQuestion.currentAnswerId).text('ไม่ใช่');
-				$("#answer-score-"+viewQuestion.currentAnswerId).val(0);
-			}else{
-				$("#answer-score-text-"+viewQuestion.currentAnswerId).text('ใช่');
-				$("#answer-score-"+viewQuestion.currentAnswerId).val(1);
-			}
 
-			applicationScript.saveComplete();
-			$("#editAnswerModal").modal('hide');
-			viewQuestion.calAnswer();
-		},error: function(){
-			$("#saveAnswerButton").button('reset');
-			applicationScript.errorAlert();
-			$("#editAnswerModal").modal('hide');
-		}
-	});
+viewQuestion.checkAnswerDirty = function(){
+	var isDirty = false;
+	if(viewQuestion.oldAnswerText != $("#answerText").val()){
+		isDirty = true;
+	}else if (viewQuestion.oldAnswerScore != $("input[name=answerScore]:checked").val()){
+		isDirty = true;
+	}
+	return isDirty;
+};
+
+viewQuestion.editAnswer = function(){
+	if(viewQuestion.checkAnswerDirty()){
+		$.ajax({
+			url: application.contextPath+'/management/question/view.html'
+			,type: 'POST'
+			,data: {
+				method: 'editAnswer',
+				answerId: viewQuestion.currentAnswerId,
+				answerText: $("#answerText").val(),
+				answerScore: $("input[name=answerScore]:checked").val()
+			},success: function(){
+				$("#saveAnswerButton").button('reset');
+				
+				$("#answer-panel-"+viewQuestion.currentAnswerId).html($("#answerText").val());
+				
+				if($("input[name=answerScore]:checked").val()==0){
+					$("#answer-score-text-"+viewQuestion.currentAnswerId).text('ไม่ใช่');
+					$("#answer-score-"+viewQuestion.currentAnswerId).val(0);
+				}else{
+					$("#answer-score-text-"+viewQuestion.currentAnswerId).text('ใช่');
+					$("#answer-score-"+viewQuestion.currentAnswerId).val(1);
+				}
+	
+				applicationScript.saveComplete();
+				$("#editAnswerModal").modal('hide');
+				viewQuestion.calAnswer();
+			},error: function(){
+				$("#saveAnswerButton").button('reset');
+				applicationScript.errorAlert();
+				$("#editAnswerModal").modal('hide');
+			}
+		});
+	}else{
+		applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+
+		$("#saveAnswerButton").button('reset');
+		$("#editAnswerModal").modal('hide');
+	}
 };
 viewQuestion.calAnswer = function(){
 	viewQuestion.numOfAnswer = 0;
@@ -152,8 +169,9 @@ $(document).ready(function(){
 		viewQuestion.initQuestionGroupComboBox(null);
 	});
 	viewQuestion.calAnswer();
-	$(".ckeditorText").ckeditor(ckOptions);
+	$(".ckeditorText").ckeditor();
 	$("#editQuestionButton").click(function(){
+		viewQuestion.oldQuestionText = $(".question-panel").html();
 		$("#questionText").val($(".question-panel").html());
 		$("#editQuestionModal").modal('show');
 	});
@@ -165,6 +183,8 @@ $(document).ready(function(){
 		viewQuestion.oldCourseCode = $("#courseId option:selected").text();
 		viewQuestion.oldQuestionGroupName = $("#questionGroupId option:selected").text();
 		viewQuestion.initComboBoxWithValue(viewQuestion.oldCourseCode,viewQuestion.oldQuestionGroupName);
+		viewQuestion.oldCourseId = $("#courseId").val();
+		viewQuestion.oldQuestionGroupId = $("#questionGroupId").val();		
 	});
 	$("#cancelParentButton").click(function(){
 		viewQuestion.disableComboBox(false);
@@ -174,27 +194,36 @@ $(document).ready(function(){
 		$("#editParentButton").show();
 	});
 	$("#saveParentButton").click(function(){
-		$('.parent-holder').block(application.blockOption);
-		$.ajax({
-			url: application.contextPath+'/management/question/view.html'
-			,type: 'POST'
-			,data: {
-				method: 'editQuestionParent'
-				,courseId: $("#courseId").val()
-				,questionGroupId: $("#questionGroupId").val()
-				,questionId: $("#questionId").val()
-			},success: function(){
-				viewQuestion.disableComboBox(true);
-				$('.parent-holder').unblock();
-				applicationScript.saveComplete();
-				$("#saveParentButton").hide();
-				$("#cancelParentButton").hide();
-				$("#editParentButton").show();
-			},error: function(){
-				$('.parent-holder').unblock();
-				applicationScript.errorAlert();
-			}
-		});
+		if(viewQuestion.oldCourseId != $("#courseId").val() 
+				|| viewQuestion.oldQuestionGroupId != $("#questionGroupId").val()){
+			$('.parent-holder').block(application.blockOption);
+			$.ajax({
+				url: application.contextPath+'/management/question/view.html'
+				,type: 'POST'
+				,data: {
+					method: 'editQuestionParent'
+					,courseId: $("#courseId").val()
+					,questionGroupId: $("#questionGroupId").val()
+					,questionId: $("#questionId").val()
+				},success: function(){
+					viewQuestion.disableComboBox(true);
+					$('.parent-holder').unblock();
+					applicationScript.saveComplete();
+					$("#saveParentButton").hide();
+					$("#cancelParentButton").hide();
+					$("#editParentButton").show();
+				},error: function(){
+					$('.parent-holder').unblock();
+					applicationScript.errorAlert();
+				}
+			});
+		}else{
+			applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+			$("#saveParentButton").hide();
+			$("#cancelParentButton").hide();
+			$("#editParentButton").show();
+			viewQuestion.disableComboBox(true);
+		}
 	});
 	viewQuestion.saveQuestionButton.click(function(){
 		viewQuestion.saveQuestionButton.button('loading');
@@ -202,27 +231,33 @@ $(document).ready(function(){
 			applicationScript.errorAlertWithStringTH("กรุณากรอกคำถาม");
 			viewQuestion.saveQuestionButton.button('reset');
 		}else{
-			$("#questionHolder").block(application.blockOption);
-			$.ajax({
-				url: application.contextPath+'/management/question/view.html'
-				,type: 'POST'
-				,data: {
-					method: 'editQuestionText'
-					,questionId: $("#questionId").val()
-					,questionText: $("#questionText").val()
-				},success: function(){
-					viewQuestion.saveQuestionButton.button('reset');
-					applicationScript.saveComplete();
-					$("#editQuestionModal").modal("hide");
-					$(".question-panel").html($("#questionText").val());
-					$("#questionHolder").unblock();
-				},error: function(){
-					viewQuestion.saveQuestionButton.button('reset');
-					applicationScript.errorAlert();
-					$("#editQuestionModal").modal("hide");
-					$("#questionHolder").unblock();
-				}
-			});
+			if( viewQuestion.oldQuestionText != $("#questionText").val()){
+				$("#questionHolder").block(application.blockOption);
+				$.ajax({
+					url: application.contextPath+'/management/question/view.html'
+					,type: 'POST'
+					,data: {
+						method: 'editQuestionText'
+						,questionId: $("#questionId").val()
+						,questionText: $("#questionText").val()
+					},success: function(){
+						viewQuestion.saveQuestionButton.button('reset');
+						applicationScript.saveComplete();
+						$("#editQuestionModal").modal("hide");
+						$(".question-panel").html($("#questionText").val());
+						$("#questionHolder").unblock();
+					},error: function(){
+						viewQuestion.saveQuestionButton.button('reset');
+						applicationScript.errorAlert();
+						$("#editQuestionModal").modal("hide");
+						$("#questionHolder").unblock();
+					}
+				});
+			}else{
+				viewQuestion.saveQuestionButton.button('reset');
+				applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+				$("#editQuestionModal").modal("hide");
+			}
 		}
 	});
 	$("#deleteAnswerButton").click(function(){
@@ -276,6 +311,11 @@ editAnswer = function(answerId){
 	viewQuestion.currentAnswerScore =  $("#answer-score-"+answerId).val();
 	$("#answerId").val(answerId);
 	$("#answerText").val($('#answer-panel-'+answerId).text());
+	
+	viewQuestion.oldAnswerText =  $("#answerText").val();
+	viewQuestion.oldAnswerId = answerId;
+	viewQuestion.oldAnswerScore = viewQuestion.currentAnswerScore;
+	
 	if(viewQuestion.currentAnswerScore==0){
 		$("#answerScoreFool").attr('checked',true);
 	}else{

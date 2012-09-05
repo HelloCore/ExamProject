@@ -20,3 +20,4 @@
 <script src="${contextPath}/scripts/management/exam/viewExam.endDate.js"></script>
 <script src="${contextPath}/scripts/management/exam/viewExam.numOfQuestion.js"></script>
 <script src="${contextPath}/scripts/management/exam/viewExam.examLimit.js"></script>
+<script src="${contextPath}/scripts/management/exam/viewExam.examSequence.js"></script>

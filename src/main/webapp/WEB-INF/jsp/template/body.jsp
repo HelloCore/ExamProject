@@ -62,6 +62,12 @@
 				              <li><a tabindex="-1" href="#">Settings</a></li>
 				              <li><a tabindex="-1" href="#">Change Password</a></li>
 				              <li class="divider"></li>
+				              <li class="nav-header">จัดการข้อมูลวิชา</li>
+				              <li><a tabindex="-1" href="#"><i class="icon-ok"></i>  CS.101</a></li>
+				              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.102</a></li>
+				              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.103</a></li>
+				              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.104</a></li>
+				              <li class="divider"></li>
 				              <li><a tabindex="-1" href="${contextPath}/main/logout.do">Sign Out</a></li>
 				            </ul>
 				    	</div>

@@ -276,6 +276,19 @@ public class ViewExamDomain extends ExamPrototype{
 		examService.updateExam(exam);
 	}
 
+
+	public void editExamSequence() {
+		if(BeanUtils.isEmpty(this.getExamId())
+				|| BeanUtils.isNull(this.getExamSequence())){
+			throw new ParameterNotFoundException("Parameter not found!!");
+		}
+
+		Exam exam = getExamAndValidate(this.getExamId());
+		exam.setExamSequence(this.getExamSequence());
+		
+		examService.updateExam(exam);
+	}
+
 	
 	
 }

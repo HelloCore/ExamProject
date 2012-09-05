@@ -8,8 +8,27 @@ sectionManagement.sectionName = '';
 sectionManagement.sectionYear = '';
 sectionManagement.sectionSemester = '';
 sectionManagement.courseCode = '';
-sectionManagement.orderBy = 'sectionId';
+sectionManagement.orderBy = 'sectionName';
 sectionManagement.order = 'asc';
+sectionManagement.currentSection = {};
+
+sectionManagement.checkDirty = function(){
+	var isDirty = false;
+	if(sectionManagement.currentSection.sectionId){
+		if($("#sectionName").val() != sectionManagement.currentSection.sectionName){
+			isDirty = true;
+		}else if ($("#sectionYear").val() != sectionManagement.currentSection.sectionYear){
+			isDirty = true;
+		}else if ($("#sectionSemester").val() != sectionManagement.currentSection.sectionSemester){
+			isDirty = true;
+		}else if ($("#courseId").val() != sectionManagement.currentSection.courseId){
+			isDirty = true;
+		}
+	}else{
+		isDirty = true;
+	}
+	return isDirty;
+};
 
 sectionManagement.getGrid = function(){
 	$("#sectionGrid").block(application.blockOption);
@@ -33,7 +52,6 @@ sectionManagement.getGrid = function(){
 			var strHtml ;
 			for(keyArray in data.records){
 				strHtml = '<tr>'+
-//							'<td id="section-id-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionId+'</td>'+
 							'<td id="section-name-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionName+'</td>'+
 							'<td id="section-year-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionYear+'</td>'+
 							'<td id="section-semester-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionSemester+'</td>'+
@@ -66,12 +84,7 @@ sectionManagement.getGrid = function(){
 
 sectionManagement.getDefaultGrid = function(){
 	$('.current-sort').removeClass('sort-asc').removeClass('sort-desc').addClass('sort-both');
-	$("#sectionIdHeader").addClass('current-sort')
-		.removeClass('sort-asc')
-		.removeClass('sort-desc')
-		.removeClass('sort-both')
-		.addClass('sort-asc');
-	sectionManagement.orderBy = "sectionId";
+	sectionManagement.orderBy = "";
 	sectionManagement.order = "asc";
 	sectionManagement.getGrid();
 };
@@ -122,6 +135,7 @@ $(document).ready(function(){
 		sectionManagement.getGrid();
 	});
 	$("#pageSize").change(function(){
+		sectionManagement.page = 1;
 		sectionManagement.rows = $(this).val();
 		sectionManagement.getGrid();
 	});
@@ -134,7 +148,6 @@ $(document).ready(function(){
 		$("#sectionYearSearch").val('');
 		$("#sectionSemesterSearch").val('');
 		$("#courseCodeSearch").val('');
-//		$('#searchButton').removeClass('ui-state-active-search');
 		sectionManagement.getDefaultGrid();
 	});
 	$('#searchButton').click(function(){
@@ -148,6 +161,7 @@ $(document).ready(function(){
 	});
 	$("#addButton").click(function(e){
 		e.preventDefault();
+		sectionManagement.currentSection = {};
 		$("#sectionModal input").val('');
 		$("#sectionModal h3").text("Add Section");
 		$('#sectionForm').validate().resetForm();
@@ -186,22 +200,29 @@ $(document).ready(function(){
 	    		.closest('.control-group').removeClass('error').addClass('success');
 	    },
 		submitHandler: function(form) {
-			$(form).ajaxSubmit({
-				type:'post',
-				url: application.contextPath + '/management/section/save.html',
-				clearForm: true,
-				success: function(){
-					$('#sectionModal').modal('hide');
-					applicationScript.saveComplete();
-					sectionManagement.getGrid();
-					$("#saveButton").button('reset');
-				},
-				error: function(){
-					$('#sectionModal').modal('hide');
-					applicationScript.errorAlert();
-					$("#saveButton").button('reset');
-				}
-			});
+			
+			if(sectionManagement.checkDirty()){
+				$(form).ajaxSubmit({
+					type:'post',
+					url: application.contextPath + '/management/section/save.html',
+					clearForm: true,
+					success: function(){
+						$('#sectionModal').modal('hide');
+						applicationScript.saveComplete();
+						sectionManagement.getGrid();
+						$("#saveButton").button('reset');
+					},
+					error: function(){
+						$('#sectionModal').modal('hide');
+						applicationScript.errorAlert();
+						$("#saveButton").button('reset');
+					}
+				});
+			}else{
+				$('#sectionModal').modal('hide');
+				applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+				$("#saveButton").button('reset');
+			}
 		}
 	});
 	
@@ -245,20 +266,27 @@ deleteSection = function(sectionId){
 };
 
 editSection = function(sectionId){
-	sectionManagement.sectionId = sectionId;
-	$('#sectionForm').validate().resetForm();
-	$('#sectionForm .control-group').removeClass('success').removeClass('error');
-	$("#sectionId").val(sectionId);
-	$("#sectionName").val($("#section-name-"+sectionId).text());
-	$("#sectionYear").val($("#section-year-"+sectionId).text());
-	$("#sectionSemester").val($("#section-semester-"+sectionId).text());
-	
 	var optionText = $("#course-code-"+sectionId).text();
 	$("#courseId option").filter(function() {
 	    return $(this).text() == optionText; 
 	}).attr('selected', true);
-
 	$("#courseId").trigger("liszt:updated");
+	
+	sectionManagement.currentSection = {
+		sectionId:	sectionId,
+		sectionName: $("#section-name-"+sectionId).text(),
+		sectionYear: $("#section-year-"+sectionId).text(),
+		sectionSemester: $("#section-semester-"+sectionId).text(),
+		courseId: $("#courseId").val()
+	};
+	
+	sectionManagement.sectionId = sectionId;
+	$('#sectionForm').validate().resetForm();
+	$('#sectionForm .control-group').removeClass('success').removeClass('error');
+	$("#sectionId").val(sectionId);
+	$("#sectionName").val(sectionManagement.currentSection.sectionName);
+	$("#sectionYear").val(sectionManagement.currentSection.sectionYear);
+	$("#sectionSemester").val(sectionManagement.currentSection.sectionSemester);
 	
 	$("#sectionModal h3").text("Edit Section");
 	$("#sectionModal").modal('show');

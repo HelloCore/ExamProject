@@ -93,6 +93,11 @@ public class ExamManagementController {
 	}
 	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamSequence")
+	public void editExamSequence(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
+		domain.editExamSequence();
+	}
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamSection")
 	public @ResponseBody List<ExamSection> editExamSection(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{
 		return domain.editExamSection();

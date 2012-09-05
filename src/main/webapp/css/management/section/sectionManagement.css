@@ -1,1 +1,41 @@
 .alertBox{ width:300px; margin:auto; margin-bottom: 10px;}
+
+
+#courseId_chzn {position: absolute;}
+
+@media  (max-width:480px){
+	.withComboBox {
+		padding-bottom:25px;
+	}
+	#sectionModal ,#searchSectionModal{
+		left:50%;
+		margin-left:-125px;
+		width:250px;
+	}
+}
+
+@media  (min-width:481px) and (max-width: 767px){
+	
+	#sectionForm > .control-group > .control-label 
+	,#searchSectionForm > .control-group > .control-label {width:90px;}
+	#sectionForm > .control-group > .controls 
+	,#searchSectionForm > .control-group > .controls {margin-left: 110px;}
+	
+	#sectionModal ,#searchSectionModal{
+		left:50%;
+		margin-left:-180px;
+		width:360px;
+	}
+}
+@media (min-width: 768px){
+	
+	#sectionForm > .control-group > .control-label 
+	,#searchSectionForm > .control-group > .control-label {width:90px;}
+	#sectionForm > .control-group > .controls 
+	,#searchSectionForm > .control-group > .controls {margin-left: 110px;}
+
+	#sectionModal ,#searchSectionModal{
+		margin-left:-180px;
+		width:360px;
+	}
+}

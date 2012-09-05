@@ -127,16 +127,31 @@ class="org.springframework.http.converter.StringHttpMessageConverter" />
 		        </list>
 		    </property>
 		</bean> -->
+		
 	  	<aop:aspectj-autoproxy proxy-target-class="true">
 			<aop:include name="loggerAspect"/>
 		</aop:aspectj-autoproxy> 
+		
 		<bean id="loggerAspect" class="th.ac.kbu.cs.ExamProject.Util.LoggerAspect" />  
 		
 		<bean class="th.ac.kbu.cs.ExamProject.Listener.SecurityLoggerListener" />
 		
-		 <bean id="validator"
+		<bean id="validator"
 		      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 		      
-		    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+		<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
 		
+		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<property name="host" value="smtp.gmail.com" />
+			<property name="port" value="587" />
+			<property name="username" value="noreply.examproject@gmail.com" />
+			<property name="password" value=",sk;bmpk]ypgdK,[yIRb9" />
+		 
+			<property name="javaMailProperties">
+			   <props>
+		       	      <prop key="mail.smtp.auth">true</prop>
+		       	      <prop key="mail.smtp.starttls.enable">true</prop>
+		       	   </props>
+			</property>
+		</bean>
 </beans>

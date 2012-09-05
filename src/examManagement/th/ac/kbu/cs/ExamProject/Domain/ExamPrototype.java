@@ -7,6 +7,7 @@ public class ExamPrototype {
 	private Integer minQuestion;
 	private Integer maxQuestion;
 	private Integer examLimit;
+	private Boolean examSequence;
 	private String startDateStr;
 	private String endDateStr;
 	private String examHeader;
@@ -110,6 +111,14 @@ public class ExamPrototype {
 
 	public void setExamLimit(Integer examLimit) {
 		this.examLimit = examLimit;
+	}
+
+	public Boolean getExamSequence() {
+		return examSequence;
+	}
+
+	public void setExamSequence(Boolean examSequence) {
+		this.examSequence = examSequence;
 	}
 
 

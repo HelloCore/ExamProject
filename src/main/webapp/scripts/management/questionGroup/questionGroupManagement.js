@@ -8,6 +8,24 @@ questionGroupManagement.courseCode = '';
 questionGroupManagement.orderBy = 'questionGroupId';
 questionGroupManagement.order = 'asc';
 
+questionGroupManagement.currentQuestionGroup = {};
+
+questionGroupManagement.checkDirty = function(){
+	var isDirty = false;
+	if(questionGroupManagement.currentQuestionGroup.questionGroupId){
+		if($("#questionGroupName").val() != questionGroupManagement.currentQuestionGroup.questionGroupName){
+			isDirty = true;
+		}else if($("#courseId").val() != questionGroupManagement.currentQuestionGroup.courseId){
+			isDirty = true;
+		}
+		console.log("No");
+	}else{
+		console.log("No2");
+		isDirty = true;
+	}
+	return isDirty;
+};
+
 questionGroupManagement.getGrid = function(){
 	$("#questionGroupGrid").block(application.blockOption);
 	$.ajax({
@@ -137,6 +155,7 @@ $(document).ready(function(){
 	});
 	$("#addButton").click(function(e){
 		e.preventDefault();
+		questionGroupManagement.currentQuestionGroup = {};
 		$("#questionGroupModal input").val('');
 		$("#questionGroupModal h3").text("Add Question Group");
 		$('#questionGroupForm').validate().resetForm();
@@ -159,22 +178,30 @@ $(document).ready(function(){
 	    		.closest('.control-group').removeClass('error').addClass('success');
 	    },
 		submitHandler: function(form) {
-			$(form).ajaxSubmit({
-				type:'post',
-				url: application.contextPath + '/management/questionGroup/save.html',
-				clearForm: true,
-				success: function(){
-					$('#questionGroupModal').modal('hide');
-					applicationScript.saveComplete();
-					questionGroupManagement.getGrid();
-					$("#saveButton").button('reset');
-				},
-				error: function(){
-					$('#questionGroupModal').modal('hide');
-					applicationScript.errorAlert();
-					$("#saveButton").button('reset');
-				}
-			});
+
+			if(questionGroupManagement.checkDirty()){
+				$(form).ajaxSubmit({
+					type:'post',
+					url: application.contextPath + '/management/questionGroup/save.html',
+					clearForm: true,
+					success: function(){
+						$('#questionGroupModal').modal('hide');
+						applicationScript.saveComplete();
+						questionGroupManagement.getGrid();
+						$("#saveButton").button('reset');
+					},
+					error: function(){
+						$('#questionGroupModal').modal('hide');
+						applicationScript.errorAlert();
+						$("#saveButton").button('reset');
+					}
+				});
+			}else{
+				$('#questionGroupModal').modal('hide');
+				applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+				$("#saveButton").button('reset');
+				
+			}
 		}
 	});
 	
@@ -218,18 +245,27 @@ deleteQuestionGroup = function(questionGroupId){
 };
 
 editQuestionGroup = function(questionGroupId){
-	$('#questionGroupForm').validate().resetForm();
-	$('#questionGroupForm .control-group').removeClass('success').removeClass('error');
-	questionGroupManagement.questionGroupId = questionGroupId;
-	$("#questionGroupId").val(questionGroupId);
-	$("#questionGroupName").val($("#question-group-name-"+questionGroupId).text());
-	
+
 	var optionText = $("#course-code-"+questionGroupId).text();
 	$("#courseId option").filter(function() {
 	    return $(this).text() == optionText; 
 	}).attr('selected', true);
 
 	$("#courseId").trigger("liszt:updated");
+	
+	
+	questionGroupManagement.currentQuestionGroup = {
+		questionGroupId : questionGroupId,
+		questionGroupName : $("#question-group-name-"+questionGroupId).text(),
+		courseId : $("#courseId").val()
+	};
+	
+	$('#questionGroupForm').validate().resetForm();
+	$('#questionGroupForm .control-group').removeClass('success').removeClass('error');
+	questionGroupManagement.questionGroupId = questionGroupId;
+	
+	$("#questionGroupId").val(questionGroupId);
+	$("#questionGroupName").val(questionGroupManagement.currentQuestionGroup.questionGroupName);
 	
 	$("#questionGroupModal h3").text("Edit QuestionGroup");
 	$("#questionGroupModal").modal('show');

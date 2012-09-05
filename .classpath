@@ -12,6 +12,7 @@
 	<classpathentry kind="src" path="src/examManagement"/>
 	<classpathentry kind="src" path="src/exam"/>
 	<classpathentry kind="src" path="src/exception"/>
+	<classpathentry kind="src" path="src/signUp"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

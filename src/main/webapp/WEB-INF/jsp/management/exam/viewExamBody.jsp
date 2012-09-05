@@ -141,14 +141,18 @@
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="examSequence">การเรียงคำถาม :</label>
-								<div class="controls controls-row">
-									<div class="input-append span11">
-										<c:if test="${examData.examSequence==true}">
-											<input id="examSequence" class="span8" size="25" name="examSequence" type="text" value="เรียงตามลำดับ" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
-										</c:if>
-										<c:if test="${examData.examSequence==false}">
-											<input id="examSequence" class="span8" size="25" name="examSequence" type="text" value="สุ่ม" disabled="disabled"/><button class="btn btn-info"><i class="icon-edit icon-white"></i> Edit</button>
-										</c:if>
+								<div class="controls normal-exam-sequence-button" >
+									<input id="examSequenceStr" class="span7" size="25" name="examSequenceStr" type="text" disabled="disabled" />
+									<button class="btn btn-info" id="editExamSequenceButton"><i class="icon-edit icon-white"></i> Edit</button>
+								</div>
+								<div class="controls edit-exam-sequence-button" style="display:none;" >
+									<input type="radio" id="examRandom" name="examSequence" value="0" class="sequence-radio"/>
+									<label for="examRandom" class="sequence-radio"> สุ่ม </label>
+									<input type="radio" id="examSequence" name="examSequence" value="1" class="sequence-radio"/>
+									<label for="examSequence" class="sequence-radio"> เรียงตามลำดับ </label>
+									<div class="wrapper" id="editExamSequenceButtonGroup">
+										<button class="btn btn-primary save-exam-sequence-button" id="saveExamSequenceButton"><i class="icon-pencil icon-white"></i> Save</button>
+										<button class="btn" id="cancelExamSequenceButton"> Cancel</button>
 									</div>
 							    </div>
 							</div>

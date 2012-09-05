@@ -6,54 +6,42 @@
 	</div>
 	<div class="row-fluid">
 		<div class="span12">
+			<div class="grid-toolbar">
+				<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
+				<a class="btn btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> Search</a>
+				<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
+			</div>
+			<table class="table table-striped table-bordered table-grid" id="sectionGrid">
+				<thead>
+					<tr>
+						<th class="sort-both sortable" id="sectionNameHeader">Section<i></i></th>
+						<th class="sort-both sortable" id="sectionYearHeader">ปีการศึกษา<i></i></th>
+						<th class="sort-both sortable" id="sectionSemesterHeader">ภาคเรียน<i></i></th>
+						<th class="sort-both sortable" id="courseCodeHeader">วิชา<i></i></th>
+						<th class="action-column" >Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
 			<div class="row-fluid">
-				<div class="span2">
-					<div class="grid-toolbar">
-						<div class="button-holder">
-							<button class="btn  btn-block btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
-						</div>
-						<div class="button-holder">
-							<a class="btn  btn-block btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> Search</a>
-						</div>
-						<div class="button-holder">
-							<button class="btn  btn-block btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
-						</div>
-					</div>
+				<div class="span3">
+					<div class="grid-info" id="gridInfo"></div>
 				</div>
-				<div class="span10">
-					<table class="table table-striped table-bordered table-grid" id="sectionGrid">
-						<thead>
-							<tr>
-								<th class="sort-both sortable" id="sectionNameHeader">Section<i></i></th>
-								<th class="sort-both sortable" id="sectionYearHeader">ปี<i></i></th>
-								<th class="sort-both sortable" id="sectionSemesterHeader">เทอม<i></i></th>
-								<th class="sort-both sortable" id="courseCodeHeader">วิชา<i></i></th>
-								<th class="action-column" >Action</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-					<div class="row-fluid">
-						<div class="span3">
-							<div class="grid-info" id="gridInfo"></div>
-						</div>
-						<div class="span4 page-size-div hidden-phone">
-							<select id="pageSize" name="pageSize" class="page-size ">
-								<option value="5">5</option>
-						 		<option value="10">10</option>
-						 		<option value="20">20</option>
-						 		<option value="50">50</option>
-						 	</select> items per page
-						</div>
-						<div class="span5">
-							<div class="grid-pagination pagination pagination-centered">
-								<ul>
-									<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>
-									<li class="next"><a href="#" id="nextPageButton">»</a></li>
-								</ul>
-							</div>
-						</div>
+				<div class="span4 page-size-div">
+					<select id="pageSize" name="pageSize" class="page-size ">
+						<option value="5">5</option>
+				 		<option value="10">10</option>
+				 		<option value="20">20</option>
+				 		<option value="50">50</option>
+				 	</select> items per page
+				</div>
+				<div class="span5">
+					<div class="grid-pagination pagination pagination-centered">
+						<ul>
+							<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>
+							<li class="next"><a href="#" id="nextPageButton">»</a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -82,26 +70,26 @@
   <div class="modal-body">
     <form class="form-horizontal" id="sectionForm">
     	<input type="hidden" id="sectionId" name="sectionId" />
-    	<div class="control-group">
-	     	<label class="control-label" for="courseId">Course Code</label>
+    	<div class="control-group withComboBox">
+	     	<label class="control-label" for="courseId">วิชา</label>
 	      	<div class="controls">
 	        	<select id="courseId" class="input-medium" data-placeholder="Choose a course..." name="courseId"></select>
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="sectionName">Section Name</label>
+	     	<label class="control-label" for="sectionName">ชื่อ Section</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium" id="sectionName" name="sectionName">
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="sectionYear">Section Year</label>
+	     	<label class="control-label" for="sectionYear">ปีการศึกษา</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium numeric" id="sectionYear" name="sectionYear">
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="sectionSemester">Section Semester</label>
+	     	<label class="control-label" for="sectionSemester">ภาคเรียนที่</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium numeric" id="sectionSemester" name="sectionSemester">
 	        </div>
@@ -122,25 +110,25 @@
   <div class="modal-body">
     <form class="form-horizontal" id="searchSectionForm">
     	<div class="control-group">
-	     	<label class="control-label" for="courseCodeSearch">Course Code</label>
+	     	<label class="control-label" for="courseCodeSearch">รหัสวิชา</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium" id="courseCodeSearch" name="courseCodeSearch" />
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="sectionNameSearch">Section Name</label>
+	     	<label class="control-label" for="sectionNameSearch">ชื่อ Section</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium" id="sectionNameSearch" name="sectionNameSearch">
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="sectionYearSearch">Section Year</label>
+	     	<label class="control-label" for="sectionYearSearch">ปีการศึกษา</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium numeric" id="sectionYearSearch" name="sectionYearSearch">
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="sectionSemesterSearch">Section Semester</label>
+	     	<label class="control-label" for="sectionSemesterSearch">ภาคเรียนที่</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium numeric" id="sectionSemesterSearch" name="sectionSemesterSearch">
 	        </div>

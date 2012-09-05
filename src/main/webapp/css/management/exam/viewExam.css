@@ -25,7 +25,10 @@
 .sortable { cursor: move;}
 .sortable .questionPercent,.sortable .secondPerQuestion{ cursor: text;}
 .secondPerQuestion.error ,.questionPercent.error{color:#B94A48;}
-div.wrapper {display:inline-block;}
+div.wrapper{display:inline-block;}
+.edit-exam-sequence-button label {display:inline-block;}
+input.sequence-radio {margin-left:5px;}
+label.sequence-radio {margin-right:10px;}
 .save-start-date-button ,.save-end-date-button {margin-left:10px;}
 @media (max-width: 767px) {
 	.wrapper {

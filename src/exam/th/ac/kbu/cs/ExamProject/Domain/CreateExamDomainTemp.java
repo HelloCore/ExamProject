@@ -89,7 +89,7 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 		}
 		
 		Exam exam = this.getExam(this.getExamId());
-		if(BeanUtils.isNotNull(exam.getStartDate()) && exam.getStartDate().before(nowToday)){
+		if(BeanUtils.isNotNull(exam.getStartDate()) && exam.getStartDate().after(nowToday)){
 			throw new ExamNotStartedException("Exam not started!!");
 		}
 		if(BeanUtils.isNotNull(exam.getEndDate()) && exam.getEndDate().before(nowToday)){

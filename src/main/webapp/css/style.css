@@ -14,8 +14,15 @@ body {
 	.action-column {
 		width:70px;
 	}
+	.grid-info {
+		text-align:center;
+	}
+	.page-size-div{
+		text-align:center;
+		margin-bottom:15px;
+	}
 }
-@media  (min-width:480px) and (max-width: 767px){
+@media  (min-width:481px) and (max-width: 767px){
 	body {
 		padding-top:0px;
 	}
@@ -25,12 +32,16 @@ body {
 	.action-column {
 		width:170px;
 	}
-	.grid-pagination,.grid-toolbar{
-		text-align: center;
-	}
 	.button-holder{
 		display:inline-block;
 		width: 32%;
+	}
+	.grid-info {
+		text-align:center;
+	}
+	.page-size-div{
+		text-align:center;
+		margin-bottom:15px;
 	}
 }
 
@@ -40,6 +51,9 @@ body {
 	}
 	.grid-pagination{
 		float: right;
+	}
+	.action-column {
+		width:170px;
 	}
 }
 
@@ -85,6 +99,13 @@ label.error {
   padding: 2px 8px;
   margin-top: 2px;
 }
+label.warning {
+  color: #C09853;
+  font-weight: bold;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
 .alertBox{ width:300px; margin:auto; margin-bottom: 10px;}
 /* ===== Primary Styles ========================================================
    Author:

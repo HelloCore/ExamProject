@@ -3,8 +3,9 @@ doExam.nowAnswer = 0;
 doExam.questionAnswerData = [];
 var windowHeight = $(window).height()
 	,navHeight = $("#navbarExample").height();
-	if(windowHeight >= 767){
-		var questionHeight = (windowHeight-175-navHeight);
+	if($(window).width() >= 767){
+		console.log("!!");
+		var questionHeight = (windowHeight-205-navHeight);
 		$('.scrollspy-example').attr('data-target','#navbarExample').css('height',questionHeight).scrollspy({
 			offset:70
 		});

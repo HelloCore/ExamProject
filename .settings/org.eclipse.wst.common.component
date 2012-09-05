@@ -15,6 +15,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/examManagement"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/exam"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/exception"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/signUp"/>
         <property name="context-root" value="ExamProject"/>
         <property name="java-output-path" value="/ExamProject/target/classes"/>
     </wb-module>

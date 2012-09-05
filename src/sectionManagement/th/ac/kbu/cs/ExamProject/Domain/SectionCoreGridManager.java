@@ -60,12 +60,17 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 
 	@Override
 	protected void addOrder(DetachedCriteria criteria) {
-		if(BeanUtils.isNotNull(getOrder()) && BeanUtils.isNotNull(getOrderBy())){
+		if(BeanUtils.isNotEmpty(getOrder()) && BeanUtils.isNotEmpty(getOrderBy())){
 			if(getOrder().equalsIgnoreCase("asc")){
 				criteria.addOrder(Order.asc(getOrderBy()));
 			}else{
 				criteria.addOrder(Order.desc(getOrderBy()));
 			}
+		}else{
+			criteria.addOrder(Order.asc("courseCode"));
+			criteria.addOrder(Order.desc("sectionYear"));
+			criteria.addOrder(Order.asc("sectionSemester"));
+			criteria.addOrder(Order.asc("sectionName"));
 		}
 	}
 

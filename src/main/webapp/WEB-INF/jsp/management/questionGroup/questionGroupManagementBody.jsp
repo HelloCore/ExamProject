@@ -1,51 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/questionGroup/questionGroupManagement.css">
-<div>
 		
 	<div class="page-header pagination-centered" id="pageHeader">
 		<h2><font class="red-color">Question Group</font> Management</h2>
 	</div>
-	<div class="grid-toolbar ">
-		 
-		<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
-		<a class="btn btn-primary" data-toggle="modal" href="#searchQuestionGroupModal"><i class="icon-zoom-in icon-white"></i> Search</a>
-		<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
-	</div>
-	<table class="table table-striped table-bordered table-grid" id="questionGroupGrid">
-		<thead>
-			<tr>
-				<th class="sort-both sortable" id="questionGroupIdHeader">Question Group ID</th>
-				<th class="sort-both sortable" id="questionGroupNameHeader">Question Group Name</th>
-				<th class="sort-both sortable" id="courseCodeHeader">Course Code</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
-	<div class="row">
-		<div class="span4">
-			<div class="grid-info" id="gridInfo"></div>
-		</div>
-		<div class="span4">
-			<select id="pageSize" name="pageSize" class="page-size">
-		 	<option value="5">5</option>
-		 	<option value="10">10</option>
-		 	<option value="20">20</option>
-		 	<option value="50">50</option>
-		 </select> records per page
-		</div>
-		<div class="span4">
-			<div class="grid-pagination pagination pull-right">
-				<ul>
-					<li class="prev disabled"><a href="#" id="prevPageButton">&larr; Prev</a></li>
-					<li class="next"><a href="#" id="nextPageButton">Next &rarr;</a></li>
-				</ul>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="grid-toolbar ">
+				<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
+				<a class="btn btn-primary" data-toggle="modal" href="#searchQuestionGroupModal"><i class="icon-zoom-in icon-white"></i> Search</a>
+				<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
+			</div>
+			<table class="table table-striped table-bordered table-grid" id="questionGroupGrid">
+				<thead>
+					<tr>
+						<th class="sort-both sortable" id="questionGroupIdHeader">#<i></i></th>
+						<th class="sort-both sortable" id="questionGroupNameHeader">ชื่อกลุ่มคำถาม<i></i></th>
+						<th class="sort-both sortable" id="courseCodeHeader">วิชา<i></i></th>
+						<th class="action-column">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<div class="row-fluid">
+				<div class="span3">
+					<div class="grid-info" id="gridInfo"></div>
+				</div>
+				<div class="span4 page-size-div">
+					<select id="pageSize" name="pageSize" class="page-size ">
+						<option value="5">5</option>
+				 		<option value="10">10</option>
+				 		<option value="20">20</option>
+				 		<option value="50">50</option>
+				 	</select> items per page
+				</div>
+				<div class="span5">
+					<div class="grid-pagination pagination pagination-centered">
+						<ul>
+							<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>
+							<li class="next"><a href="#" id="nextPageButton">»</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
 
 
 <div class="modal hide fade" id="confirmDelete">
@@ -69,14 +71,14 @@
   <div class="modal-body">
     <form class="form-horizontal" id="questionGroupForm">
     	<input type="hidden" id="questionGroupId" name="questionGroupId" />
-    	<div class="control-group">
-	     	<label class="control-label" for="courseId">Course Code</label>
+    	<div class="control-group withComboBox">
+	     	<label class="control-label" for="courseId">วิชา</label>
 	      	<div class="controls">
 	        	<select id="courseId" class="input-medium" data-placeholder="Choose a course..." name="courseId"></select>
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="questionGroupName">Question Group Name</label>
+	     	<label class="control-label" for="questionGroupName">ชื่อกลุ่มคำถาม</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium" id="questionGroupName" name="questionGroupName">
 	        </div>
@@ -97,13 +99,13 @@
   <div class="modal-body">
     <form class="form-horizontal" id="searchQuestionGroupForm">
     	<div class="control-group">
-	     	<label class="control-label" for="courseCodeSearch">Course Code</label>
+	     	<label class="control-label" for="courseCodeSearch">รหัสวิชา</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium" id="courseCodeSearch" name="courseCodeSearch" />
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="questionGroupNameSearch">Question Group Name</label>
+	     	<label class="control-label" for="questionGroupNameSearch">ชื่อกลุ่มคำถาม</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium" id="questionGroupNameSearch" name="questionGroupNameSearch">
 	        </div>

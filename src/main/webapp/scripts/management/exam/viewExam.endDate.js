@@ -2,6 +2,7 @@ viewExam.editing;
 viewExam.endDate = {};
 viewExam.endDate.endDate = null;
 viewExam.endDate.backupEndDate = null;
+viewExam.endDate.nowToday = new Date();
 
 viewExam.endDate.toEndDate = function(callback){
 	var endDateStr;
@@ -23,24 +24,28 @@ viewExam.endDate.checkDirty = function(){
 };
 
 viewExam.endDate.validateEndDate = function(){
-	var haveError = false;
-	$("#endDateGroup").removeClass('success').removeClass('error');
+	var haveError = false,haveWarning = false;;
+	$("#endDateGroup").removeClass('success').removeClass('error').removeClass('warning');
 	$("#endDateError").remove();
-	if($("#useEndDate").is(":checked") && application.exam.startDate){
+	$("#endDateWarning").remove();
+	if($("#useEndDate").is(":checked")){
 		viewExam.endDate.toEndDate(function(){
-			if(viewExam.endDate.endDate<=application.exam.startDate){
-				$("#endDateGroup").addClass('error');
-				$('<label class="generate-label error" id="endDateError">วันหมดเขตสอบต้องอยู่หลังวันเริ่มสอบ</label>').insertAfter('#editEndDateButtonGroup');
-				haveError = true;
-			}else{
-				$("#endDateGroup").addClass('success');
+			if(application.exam.startDate){
+				if(viewExam.endDate.endDate<=application.exam.startDate){
+					$("#endDateGroup").addClass('error');
+					$('<label class="generate-label error" id="endDateError">วันหมดเขตสอบต้องอยู่หลังวันเริ่มสอบ</label>').insertAfter('#editEndDateButtonGroup');
+					haveError = true;
+				}
+			}else if(viewExam.endDate.endDate <= viewExam.endDate.nowToday){
+				$("#endDateGroup").addClass('warning');
+				$('<label class="generate-label warning" id="endDateWarning">การสอบนี้หมดเขตแล้ว ?</label>').insertAfter('#editEndDateButtonGroup');
+				haveWarning = true;
 			}
 		});
-	}else if ($("#useEndDate").is(":checked") ){
-		viewExam.endDate.toEndDate();
-		$("#endDateGroup").addClass('success');
 	}else{
 		viewExam.endDate.endDate = null;
+	}
+	if(!haveWarning && !haveError){
 		$("#endDateGroup").addClass('success');
 	}
 	return !haveError;
@@ -56,7 +61,7 @@ viewExam.endDate.beginEdit = function(){
 		$("#editEndTime").val(Globalize.format(viewExam.endDate.endDate,'HH:mm'));
 		$("#useEndDate").attr('checked',true);
 	}else{
-		$("#editEndDate").val(Globalize.format(new Date(),'dd/MM/yyyy')).datepicker('update');
+		$("#editEndDate").val(Globalize.format(viewExam.endDate.nowToday,'dd/MM/yyyy')).datepicker('update');
 		$("#editEndTime").val("00:00");
 		$("#useEndDate").attr('checked',false);
 	}
@@ -74,8 +79,9 @@ viewExam.endDate.cancelEdit = function(){
 		$("#endDate").val("ไม่กำหนด");
 	}
 	
-	$("#editEndDate").closest('.control-group').removeClass('success').removeClass('error');
+	$("#editEndDate").closest('.control-group').removeClass('success').removeClass('error').removeClass('warning');
 	$("#editEndDateError").remove();
+	$("#editEndDateWarning").remove();
 	delete viewExam.endDate.backupEndDate;
 	$("#tab1").unblock();
 };
@@ -137,14 +143,14 @@ editEndDate = function(){
 			applicationScript.saveComplete();
 			application.exam.endDate = viewExam.endDate.endDate;
 
-			$("#endDateGroup").removeClass('success').removeClass('error');
+			$("#endDateGroup").removeClass('success').removeClass('error').removeClass('warning');
 			$("#endDateError").remove();
+			$("#endDateWarning").remove();
 			if(viewExam.endDate.endDate){
 				$("#endDate").val(Globalize.format(viewExam.endDate.endDate,'dd-MM-yyyy HH:mm'));
 			}else{
 				$("#endDate").val("ไม่กำหนด");
 			}
-			$("#endDateError").remove();
 			$(".normal-end-date-button").show();
 			$(".edit-end-date-button").hide();
 			delete viewExam.endDate.backupEndDate;

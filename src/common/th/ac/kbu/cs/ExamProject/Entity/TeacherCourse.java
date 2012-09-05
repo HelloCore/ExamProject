@@ -37,7 +37,8 @@ public class TeacherCourse implements Serializable{
 	@JoinColumn(name = "USERNAME", insertable = false, updatable = false)
 	private User user;
 	
-
+	@Column(name = "VISIBLE")
+	private Boolean visible;
 
 	public User getUser() {
 		return user;
@@ -46,7 +47,6 @@ public class TeacherCourse implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 	public Long getTeacherCourseId() {
 		return teacherCourseId;
@@ -78,6 +78,14 @@ public class TeacherCourse implements Serializable{
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Boolean getVisible() {
+		return visible;
+	}
+
+	public void setVisible(Boolean visible) {
+		this.visible = visible;
 	}
 	
 	

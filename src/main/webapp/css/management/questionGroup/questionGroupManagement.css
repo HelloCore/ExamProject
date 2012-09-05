@@ -1,6 +1,42 @@
 @CHARSET "UTF-8";
 
-#questionGroupForm > .control-group > .control-label 
-,#searchQuestionGroupForm > .control-group > .control-label {width:180px;}
-#questionGroupForm > .control-group > .controls 
-,#searchQuestionGroupForm > .control-group > .controls {margin-left: 200px;}
+
+#courseId_chzn {position: absolute;}
+
+
+@media  (max-width:480px){
+	.withComboBox {
+		padding-bottom:25px;
+	}
+	#questionGroupModal ,#searchQuestionGroupModal{
+		left: 50%;
+		margin-left:-125px;
+		width:250px;
+	}
+
+}
+
+@media  (min-width:481px) and (max-width: 767px){
+	#questionGroupForm > .control-group > .control-label 
+	,#searchQuestionGroupForm > .control-group > .control-label {width:90px;}
+	#questionGroupForm > .control-group > .controls 
+	,#searchQuestionGroupForm > .control-group > .controls {margin-left: 110px;}
+	
+	#questionGroupModal ,#searchQuestionGroupModal{
+		left: 50%;
+		margin-left:-185px;
+		width:340px;
+	}
+}
+
+@media (min-width: 768px){
+	#questionGroupForm > .control-group > .control-label 
+	,#searchQuestionGroupForm > .control-group > .control-label {width:90px;}
+	#questionGroupForm > .control-group > .controls 
+	,#searchQuestionGroupForm > .control-group > .controls {margin-left: 110px;}
+
+	#questionGroupModal ,#searchQuestionGroupModal{
+		margin-left:-185px;
+		width:340px;
+	}
+}

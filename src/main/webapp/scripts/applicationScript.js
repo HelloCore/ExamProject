@@ -54,10 +54,6 @@ if(typeof($.jGrowl)!='undefined'){
 		if( first <= 1 && lastPage >= 5){
 			last = 5;
 		}
-		if($(window).width() >= 768 && $(window).width()<= 979){
-			first = page;
-			last= page;
-		}
 		
 		$('.grid-pagination li:gt(0)').filter(':not(:last)').remove();
 
