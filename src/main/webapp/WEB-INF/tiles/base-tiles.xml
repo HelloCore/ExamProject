@@ -35,6 +35,11 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/signUpFooter.jsp"/>
 	</definition>
 	
+	<definition name="/main/activeUser.page" extends=".template">
+		<put-attribute name="title" value="Active User"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/activeUserBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/activeUserFooter.jsp"/>
+	</definition>
 	
 	<definition name="/management/section.page" extends=".template">
 		<put-attribute name="title" value="Section Management"/>

@@ -2,7 +2,4 @@
 
 <script src="${contextPath}/resources/jquery.validate.js"></script>
 <script src="${contextPath}/resources/jquery.form.js"></script>
-<script src="${contextPath}/resources/jquery.numeric.js"></script>
-
-<script src="${contextPath}/scripts/main/signUp.js"></script>
-
+<script src="${contextPath}/scripts/main/activeUser.js"></script>

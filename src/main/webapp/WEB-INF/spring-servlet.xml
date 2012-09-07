@@ -141,7 +141,7 @@ class="org.springframework.http.converter.StringHttpMessageConverter" />
 		      
 		<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
 		
-		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 			<property name="host" value="smtp.gmail.com" />
 			<property name="port" value="587" />
 			<property name="username" value="noreply.examproject@gmail.com" />

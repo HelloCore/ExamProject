@@ -16,26 +16,30 @@ import th.ac.kbu.cs.ExamProject.Controller.TestItemInteface;
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/application-context.xml"})
 public class IndexControllerTest {
 	
-	@Autowired
-	private TestItemInteface item;
-	
-	@Test
-	public void testIndexController() throws Exception{
-		IndexController controller = new IndexController();
-		ModelMap map = controller.init(new ModelMap());
-		Assert.assertEquals("55555",map.get("strTest"));
+	private String validateMessage(String message){
+		String errMessage = null;
+		Integer length = message.length();
+		if(message.substring(length-7,length).equals("'EMAIL'")){
+			errMessage = "มีผู้ใช้ Email นี้แล้ว";
+		}else if (message.substring(length-10,length).equals("'USERNAME'")){
+			errMessage = "รหัสนักศึกษาซ้ำ กรุณาติดต่ออาจารย์ผู้สอน";
+		}else{
+			errMessage = message;
+		}
+		return errMessage;
 	}
 	
 	@Test
-	public void testUpperItem()  throws Exception{
-		Assert.assertEquals("ASDF", item.getEntity(null));
+	public void testValidateEmail() throws Exception{
+		String message = "Duplicate entry 'aukwat@hotmail.com' for key 'EMAIL'";
+		Assert.assertEquals("มีผู้ใช้ Email นี้แล้ว",this.validateMessage(message));
 	}
+
 	@Test
-	public void testUpperItemNull()  throws Exception{
-		Assert.assertEquals("ASDF", item.convertToUpperCase(null));
+	public void testValidateStudentId() throws Exception{
+		String message = "Duplicate entry '520702478971' for key 'USERNAME'";
+		Assert.assertEquals("รหัสนักศึกษาซ้ำ กรุณาติดต่ออาจารย์ผู้สอน",this.validateMessage(message));
 	}
-	@Test
-	public void testUpperItemBlank()  throws Exception{
-		Assert.assertEquals("ASDF", item.convertToUpperCase(""));
-	}
+	
+	
 }

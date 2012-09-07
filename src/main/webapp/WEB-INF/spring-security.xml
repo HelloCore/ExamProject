@@ -23,7 +23,6 @@
 				password-parameter="password"
 				authentication-success-handler-ref="simpleUrlAuthenticationSuccessHandler"
 			/>
-			<security:session-management invalid-session-url="/main/login.html" />
 			<security:logout logout-url="/main/logout.do" logout-success-url="/main/home.html" />
 		</security:http>
 		<security:authentication-manager>

@@ -25,14 +25,14 @@
 	          		<a class="brand" href="${contextPath}/main/home.html">ExamProject</a>
 					<sec:authorize access="isAnonymous()">
 		          		<ul class="nav pull-right">
-		          			<li class="signUp"><a href="#signUp">Sign Up</a></li>
+		          			<li class="signUp"><a href="${contextPath}/main/signUp.html">Sign Up</a></li>
 		          			<li class="divider-vertical"></li>
 		          			<li class="signIn dropdown"><a href="#signIn" class="dropdown-toggle" data-toggle="dropdown" >Sign In <b class="caret"></b></a>
 		          				<form class="login-form dropdown-menu" action="${contextPath}/main/login.do" method="POST">
 	            				<div class="control-group">
-							      <label class="control-label" for="studentId">Student ID</label>
+							      <label class="control-label" for="username">Student ID</label>
 							      <div class="controls">
-							        <input type="text" class="input-medium" id="studentId" name="username">
+							        <input type="text" class="input-medium" id="username" name="username">
 							      </div>
 							    </div>
 	            				<div class="control-group">
@@ -58,6 +58,9 @@
 				              <span class="caret"></span>
 				            </a>
 				            <ul class="dropdown-menu">
+				              <sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
+				              	<li><a tabindex="-1" href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">Active User</a></li>
+				              </sec:authorize>
 				              <li><a tabindex="-1" href="#">Profile</a></li>
 				              <li><a tabindex="-1" href="#">Settings</a></li>
 				              <li><a tabindex="-1" href="#">Change Password</a></li>
@@ -76,6 +79,9 @@
 	            		<ul class="nav">
 				            <li class="index"><a href="${contextPath}/main/home.html"> หน้าแรก</a></li>
 				            <li class="news"><a href="#news">ข่าว</a></li>
+				            <sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
+				            	<li class="signUp"><a tabindex="-1" href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">ยืนยันการสมัครสมาชิก</a></li>
+				            </sec:authorize>
 				            <sec:authorize access="hasRole('ROLE_STUDENT')" >
 								<li class="dropdown exam">
 								    <a href="#"

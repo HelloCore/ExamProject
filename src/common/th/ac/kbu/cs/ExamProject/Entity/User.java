@@ -33,7 +33,7 @@ public class User implements Serializable{
 	@Column(name = "PASSWORDS",length = 40)
 	private String passwords;
 
-	@Column(name = "EMAIL",length = 100)
+	@Column(name = "EMAIL",length = 100,unique=true)
 	private String email;
 
 	@Column(name = "FIRST_NAME",length = 100)
@@ -47,6 +47,9 @@ public class User implements Serializable{
 	
 	@Column(name = "FLAG")
 	private Boolean flag;
+	
+	@Column(name = "ACTIVE_STR")
+	private String activeStr;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TYPE", insertable = false, updatable = false)
@@ -141,6 +144,24 @@ public class User implements Serializable{
 
 	public void setAuthority(Authority authority) {
 		this.authority = authority;
+	}
+
+	public String getActiveStr() {
+		return activeStr;
+	}
+
+	public void setActiveStr(String activeStr) {
+		this.activeStr = activeStr;
+	}
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password
+				+ ", passwords=" + passwords + ", email=" + email
+				+ ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", type=" + type + ", flag=" + flag + ", activeStr="
+				+ activeStr + ", authority=" + authority + ", authorities="
+				+ authorities + "]";
 	}
 
 }
