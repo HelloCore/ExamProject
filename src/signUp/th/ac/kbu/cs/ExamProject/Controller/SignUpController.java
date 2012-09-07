@@ -43,7 +43,17 @@ public class SignUpController {
 	public void activeUser(@ModelAttribute SignUpDomain domain,HttpServletResponse response,HttpServletRequest request){
 		domain.activeUser();
 	}
-	
+
+	@RequestMapping(value="/main/requestActiveCode.html",method=RequestMethod.GET)
+	public ModelMap requestActiveCodePage(@RequestParam(value="studentId",required=false) String studentId,ModelMap modelMap,HttpServletResponse response,HttpServletRequest request){
+		modelMap.addAttribute("studentId", studentId);
+		return modelMap;
+	}
+
+	@RequestMapping(value="/main/requestActiveCode.html",method=RequestMethod.POST)
+	public void requestActiveCode(@ModelAttribute SignUpDomain domain,HttpServletResponse response,HttpServletRequest request){
+		domain.requestActiveCode();
+	}
 
 	@ExceptionHandler(DataDuplicateException.class)
 	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)

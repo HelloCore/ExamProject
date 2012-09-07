@@ -8,6 +8,7 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 import th.ac.kbu.cs.ExamProject.Entity.User;
 import th.ac.kbu.cs.ExamProject.Exception.ActiveCodeInvalidException;
 import th.ac.kbu.cs.ExamProject.Exception.CantActiveAnymoreException;
+import th.ac.kbu.cs.ExamProject.Exception.DataNotMatchException;
 import th.ac.kbu.cs.ExamProject.Exception.NotFoundStudentException;
 import th.ac.kbu.cs.ExamProject.Exception.NotInFacultyException;
 import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
@@ -121,6 +122,31 @@ public class SignUpDomain extends SignUpPrototype{
 			throw new ActiveCodeInvalidException("Active code invalid!");
 		}
 		
+	}
+	
+	private void validateRequestActiveCodeData(){
+		if(BeanUtils.isEmpty(this.getStudentId())
+				|| BeanUtils.isEmpty(this.getEmail())){
+			throw new ParameterNotFoundException("parameter not found!");
+		}
+	}
+	public void requestActiveCode() {
+		validateRequestActiveCodeData();
+		User user = signUpService.getUser(this.getStudentId());
+		
+		if(BeanUtils.isNull(user)){
+			throw new NotFoundStudentException("Student not found!");
+		}
+		
+		if(user.getType() != 4){
+			throw new CantActiveAnymoreException("Cant active anymore");
+		}
+		
+		if(user.getEmail().equals(this.getEmail())){
+			this.sendActiveEmail(this.getEmail(), user.getActiveStr());
+		}else{
+			throw new DataNotMatchException("Student id and email not match!");
+		}
 	}
 	
 }

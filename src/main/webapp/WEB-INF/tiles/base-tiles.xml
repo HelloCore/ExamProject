@@ -41,6 +41,12 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/activeUserFooter.jsp"/>
 	</definition>
 	
+	<definition name="/main/requestActiveCode.page" extends=".template">
+		<put-attribute name="title" value="Request Active Code"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/requestActiveCodeBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/requestActiveCodeFooter.jsp"/>
+	</definition>
+	
 	<definition name="/management/section.page" extends=".template">
 		<put-attribute name="title" value="Section Management"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/management/section/sectionManagementBody.jsp"/>

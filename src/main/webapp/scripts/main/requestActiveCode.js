@@ -11,7 +11,7 @@ $(document).ready(function(){
 		return application.facultyRule.test(value);
 	},"คุณไม่ได้อยู่ในคณะวิทยาศาสตร์และเทคโนโลยี");
 	
-	$("#activeUserForm").validate({
+	$("#requestActiveCodeForm").validate({
 		rules: {
 			studentId:{
 				required:true,
@@ -21,10 +21,9 @@ $(document).ready(function(){
 				isStudentId:true,
 				isInFaculty:true
 			},
-			activeCode:{
-				minlength:6,
-				maxlength:6,
-				required:true
+			email:{
+				required:true,
+				email:true
 			},
 		},
 	    highlight: function(label) {
@@ -36,19 +35,20 @@ $(document).ready(function(){
 	    		.closest('.control-group').removeClass('error').addClass('success');
 	    },
 		submitHandler: function(form) {
+			var studentId = $("#studentId").val();
 			$(form).block(application.blockOption).ajaxSubmit({
 				type:'post',
-				url: application.contextPath + '/main/activeUser.html',
+				url: application.contextPath + '/main/requestActiveCode.html',
 				clearForm: true,
 				success: function(){
-					applicationScript.successAlertWithStringHeader("กรุณาเข้าสู่ระบบ","ยืนยันการสมัครสมาชิกเสร็จสมบูรณ์");
+					applicationScript.successAlertWithStringHeader("กรุณาเช็คอีเมลล์","ส่งรหัสยืนยันสำเร็จ");
 					setTimeout(function(){
-						window.location = application.contextPath + '/main/logout.do' ;
+						window.location = application.contextPath + '/main/activeUser.html?studentId='+studentId ;
 					},2000);
 				},
 				error: function(a){
 					applicationScript.errorAlertWithString(a.responseText);
-					$("#activeUserForm").unblock();
+					$("#requestActiveCodeForm").unblock();
 				}
 			});
 		}
