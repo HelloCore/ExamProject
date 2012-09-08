@@ -38,6 +38,9 @@ public class Section implements Serializable{
 
 	@Column(name = "FLAG")
 	private Boolean flag;
+
+	@Column(name = "STATUS")
+	private Integer status;
 	
 	public Boolean getFlag() {
 		return flag;
@@ -97,6 +100,14 @@ public class Section implements Serializable{
 
 	public void setSectionSemester(Integer sectionSemester) {
 		this.sectionSemester = sectionSemester;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	
 }

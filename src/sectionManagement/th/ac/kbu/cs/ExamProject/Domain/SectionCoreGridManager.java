@@ -21,6 +21,7 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 		projectionList.add(Projections.property("section.sectionName"),"sectionName");
 		projectionList.add(Projections.property("section.sectionYear"),"sectionYear");
 		projectionList.add(Projections.property("section.sectionSemester"),"sectionSemester");
+		projectionList.add(Projections.property("section.status"),"status");
 		projectionList.add(Projections.property("course.courseCode"),"courseCode");
 	}
 
@@ -67,6 +68,7 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 				criteria.addOrder(Order.desc(getOrderBy()));
 			}
 		}else{
+			criteria.addOrder(Order.desc("status"));
 			criteria.addOrder(Order.asc("courseCode"));
 			criteria.addOrder(Order.desc("sectionYear"));
 			criteria.addOrder(Order.asc("sectionSemester"));
@@ -95,6 +97,9 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 
 		if(BeanUtils.isNotNull(domain.getCourseId())){
 			section.setCourseId(domain.getCourseId());
+		}
+		if(BeanUtils.isNotNull(domain.getStatus())){
+			section.setStatus(domain.getStatus());
 		}
 		section.setFlag(true);
 		return section;

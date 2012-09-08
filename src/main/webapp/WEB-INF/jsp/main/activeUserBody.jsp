@@ -24,9 +24,14 @@
 			 </div>
 			 <div class="form-actions">
 			  <button type="submit" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Active</button>
-			  <button type="button" class="btn">Cancel</button>
+			  <button type="reset" class="btn">Cancel</button>
 			  <div class="link-holder">
-			 	 <a href="${contextPath}/main/requestActiveCode.html?studentId=<sec:authentication property="principal.user.username"/>">ขอรหัสยืนยันอีกครั้ง</a>
+				 <sec:authorize access="isAuthenticated()">
+			 	     <a href="${contextPath}/main/requestActiveCode.html?studentId=<sec:authentication property="principal.user.username" />">ขอรหัสยืนยันอีกครั้ง</a>
+			 	 </sec:authorize>
+				 <sec:authorize access="isAnonymous()">
+				     <a href="${contextPath}/main/requestActiveCode.html">ขอรหัสยืนยันอีกครั้ง</a>
+			 	 </sec:authorize>
 			  </div>
 			</div>
 		</form>

@@ -18,6 +18,7 @@
 						<th class="sort-both sortable" id="sectionYearHeader">ปีการศึกษา<i></i></th>
 						<th class="sort-both sortable" id="sectionSemesterHeader">ภาคเรียน<i></i></th>
 						<th class="sort-both sortable" id="courseCodeHeader">วิชา<i></i></th>
+						<th class="sort-both sortable" id="statusHeader">Status<i></i></th>
 						<th class="action-column" >Action</th>
 					</tr>
 				</thead>
@@ -92,6 +93,13 @@
 	     	<label class="control-label" for="sectionSemester">ภาคเรียนที่</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium numeric" id="sectionSemester" name="sectionSemester">
+	        </div>
+	    </div>
+    	<div class="control-group">
+	     	<label class="control-label" for="status">สถานะ</label>
+	      	<div class="controls status-controls">
+	        	<label for="statusInActive" ><input type="radio" name="status" id="statusInActive" value="0"/> Inactive</label>
+	        	<label for="statusActive" ><input type="radio" name="status" id="statusActive" value="1" checked="checked" /> Active</label>
 	        </div>
 	    </div>
     </form>

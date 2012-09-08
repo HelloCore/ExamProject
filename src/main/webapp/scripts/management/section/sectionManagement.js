@@ -23,6 +23,8 @@ sectionManagement.checkDirty = function(){
 			isDirty = true;
 		}else if ($("#courseId").val() != sectionManagement.currentSection.courseId){
 			isDirty = true;
+		}else if ($("input[name=status]:checked").val() != sectionManagement.currentSection.status){
+			isDirty = true;
 		}
 	}else{
 		isDirty = true;
@@ -49,13 +51,21 @@ sectionManagement.getGrid = function(){
 		dataType: 'json',
 		success: function(data,status){
 			$("#sectionGrid tbody").empty();
-			var strHtml ;
+			var strHtml,labelActive = '<span class="label label-success"><i class="icon-ok icon-white"></i> Active</span>'
+					,labelInActive = '<span class="label label-important"><i class="icon-ban-circle icon-white"></i> Inactive</span>';
 			for(keyArray in data.records){
 				strHtml = '<tr>'+
 							'<td id="section-name-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionName+'</td>'+
 							'<td id="section-year-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionYear+'</td>'+
 							'<td id="section-semester-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionSemester+'</td>'+
 							'<td id="course-code-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].courseCode+'</td>'+
+							'<td><input type="hidden" id="status-'+data.records[keyArray].sectionId+'" value="'+data.records[keyArray].status+'" />';
+				if(data.records[keyArray].status==0){
+					strHtml+=labelInActive;
+				}else{
+					strHtml+=labelActive;
+				}	
+				strHtml += '</td>'+
 							'<td>'+
 								'<button class="btn btn-info" onClick="editSection('+data.records[keyArray].sectionId+')"><i class="icon-edit icon-white"></i> Edit</button> '+
 								'<button class="btn btn-danger" onClick="deleteSection('+data.records[keyArray].sectionId+')"><i class="icon-trash icon-white"></i> Delete</button> '+
@@ -162,9 +172,10 @@ $(document).ready(function(){
 	$("#addButton").click(function(e){
 		e.preventDefault();
 		sectionManagement.currentSection = {};
-		$("#sectionModal input").val('');
+		$("#sectionModal input:text").val('');
 		$("#sectionModal h3").text("Add Section");
 		$('#sectionForm').validate().resetForm();
+		$("#statusActive").attr("checked",true);
 		$('#sectionForm .control-group').removeClass('success').removeClass('error');
 		$("#sectionModal").modal('show');
 	});
@@ -277,7 +288,8 @@ editSection = function(sectionId){
 		sectionName: $("#section-name-"+sectionId).text(),
 		sectionYear: $("#section-year-"+sectionId).text(),
 		sectionSemester: $("#section-semester-"+sectionId).text(),
-		courseId: $("#courseId").val()
+		courseId: $("#courseId").val(),
+		status: $("#status-"+sectionId).val()
 	};
 	
 	sectionManagement.sectionId = sectionId;
@@ -287,7 +299,11 @@ editSection = function(sectionId){
 	$("#sectionName").val(sectionManagement.currentSection.sectionName);
 	$("#sectionYear").val(sectionManagement.currentSection.sectionYear);
 	$("#sectionSemester").val(sectionManagement.currentSection.sectionSemester);
-	
+	if(sectionManagement.currentSection.status==0){
+		$("#statusInActive").attr("checked",true);
+	}else{
+		$("#statusActive").attr("checked",true);		
+	}
 	$("#sectionModal h3").text("Edit Section");
 	$("#sectionModal").modal('show');
 };

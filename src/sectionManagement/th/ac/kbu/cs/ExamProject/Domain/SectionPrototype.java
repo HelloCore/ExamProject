@@ -8,7 +8,13 @@ public class SectionPrototype {
 	private String sectionName;
 	private Integer sectionYear;
 	private Integer sectionSemester;
-	
+	private Integer status;
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 	private String sectionNameSearch;
 	private String sectionYearSearch;
 	private String sectionSemesterSearch;

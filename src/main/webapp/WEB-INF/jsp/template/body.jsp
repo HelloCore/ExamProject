@@ -38,6 +38,7 @@
 	            				<div class="control-group">
 							      <label class="control-label" for="password">Password</label>
 							      <div class="controls">
+							      	<input type="hidden" id="miniLoginTarget" name="target" />
 							        <input type="password" class="input-medium" id="password" name="password">
 							      </div>
 							    </div>

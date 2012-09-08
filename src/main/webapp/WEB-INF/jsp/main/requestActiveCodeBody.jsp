@@ -24,9 +24,14 @@
 			 </div>
 			 <div class="form-actions">
 			  <button type="submit" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Request</button>
-			  <button type="button" class="btn">Cancel</button>
+			  <button type="reset" class="btn">Cancel</button>
 			  <div class="link-holder">
-			 	 <a href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">ได้รับรหัสยืนยันแล้ว</a>
+				 <sec:authorize access="isAuthenticated()">
+			 	     <a href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">ได้รับรหัสยืนยันแล้ว</a>
+			 	 </sec:authorize>
+				 <sec:authorize access="isAnonymous()">
+				     <a href="${contextPath}/main/activeUser.html">ได้รับรหัสยืนยันแล้ว</a>
+			 	 </sec:authorize>
 			  </div>
 			</div>
 		</form>

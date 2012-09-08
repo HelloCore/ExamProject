@@ -2,7 +2,8 @@
 
 
 #courseId_chzn {position: absolute;}
-
+.status-controls label {margin-top:4px;display:inline-block;}
+.status-controls input {margin-top:0px;}
 @media  (max-width:480px){
 	.withComboBox {
 		padding-bottom:25px;
@@ -38,4 +39,5 @@
 		margin-left:-180px;
 		width:360px;
 	}
+	#sectionModal .modal-body { padding:10px;}
 }

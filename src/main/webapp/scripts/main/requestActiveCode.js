@@ -3,6 +3,7 @@ application.studentIdRule = /[5,6][0-9]{10}/;
 application.facultyRule = /[5,6][0-9]07024[0-9]{5}/;
 
 $(document).ready(function(){
+	$("#miniLoginTarget").val("/main/home.html");
 	$.validator.addMethod("isStudentId",function(value) {
 		return application.studentIdRule.test(value);
 	},"กรุณาใส่รหัสนักศึกษาให้ถูกต้อง");
