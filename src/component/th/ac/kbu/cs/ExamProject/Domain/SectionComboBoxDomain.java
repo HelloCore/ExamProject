@@ -41,4 +41,5 @@ public class SectionComboBoxDomain extends ComboBox{
 		
 		return basicFinderService.findByCriteria(criteria);
 	}
+	
 }

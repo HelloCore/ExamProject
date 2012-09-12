@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<c:set var="contextPath" scope="request" value="${pageContext.request.contextPath}"></c:set>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
 <meta name="description" content="">
-<meta name="author" content="">
 
 <meta name="viewport" content="width=device-width">
 
+<c:set var="contextPath" scope="request" value="${pageContext.request.contextPath}"></c:set>
 
 <link rel="stylesheet" href="${contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" href="${contextPath}/css/bootstrap-responsive.min.css">

@@ -62,16 +62,21 @@
 				              <sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
 				              	<li><a tabindex="-1" href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">Active User</a></li>
 				              </sec:authorize>
+					          <sec:authorize access="hasRole('ROLE_STUDENT')" >
+				             	 <li><a tabindex="-1" href="${contextPath}/member/register.html">Register</a></li>
+					          </sec:authorize>
 				              <li><a tabindex="-1" href="#">Profile</a></li>
 				              <li><a tabindex="-1" href="#">Settings</a></li>
 				              <li><a tabindex="-1" href="#">Change Password</a></li>
 				              <li class="divider"></li>
-				              <li class="nav-header">จัดการข้อมูลวิชา</li>
-				              <li><a tabindex="-1" href="#"><i class="icon-ok"></i>  CS.101</a></li>
-				              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.102</a></li>
-				              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.103</a></li>
-				              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.104</a></li>
-				              <li class="divider"></li>
+					          <sec:authorize access="hasRole('ROLE_TEACHER')" >
+					              <li class="nav-header">จัดการข้อมูลวิชา</li>
+					              <li><a tabindex="-1" href="#"><i class="icon-ok"></i>  CS.101</a></li>
+					              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.102</a></li>
+					              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.103</a></li>
+					              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.104</a></li>
+					              <li class="divider"></li>
+				              </sec:authorize>
 				              <li><a tabindex="-1" href="${contextPath}/main/logout.do">Sign Out</a></li>
 				            </ul>
 				    	</div>
@@ -84,7 +89,8 @@
 				            	<li class="signUp"><a tabindex="-1" href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">ยืนยันการสมัครสมาชิก</a></li>
 				            </sec:authorize>
 				            <sec:authorize access="hasRole('ROLE_STUDENT')" >
-								<li class="dropdown exam">
+								<li class="register"><a href="${contextPath}/member/register.html">ลงทะเบียน</a></li>
+				            	<li class="dropdown exam">
 								    <a href="#"
 								          class="dropdown-toggle"
 								          data-toggle="dropdown">
@@ -107,6 +113,7 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
+								    		<li><a tabindex="-1" href="${contextPath}/management/register.html">อนุมัติสิทธิ์นักศึกษา</a></li>
 								    		<li><a tabindex="-1" href="${contextPath}/management/section.html">จัดการ Section</a></li>
 								    		<li><a tabindex="-1" href="${contextPath}/management/news.html">จัดการข่าวประชาสัมพันธ์</a></li>
 								    		<li><a tabindex="-1" href="${contextPath}/management/news/add.html">เพิ่มข่าวประชาสัมพันธ์</a></li>

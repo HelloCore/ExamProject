@@ -47,6 +47,14 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/requestActiveCodeFooter.jsp"/>
 	</definition>
 	
+	
+	<definition name="/member/register.page" extends=".template">
+		<put-attribute name="title" value="Register"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/member/registerBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/member/registerFooter.jsp"/>
+	</definition>
+	
+	
 	<definition name="/management/section.page" extends=".template">
 		<put-attribute name="title" value="Section Management"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/management/section/sectionManagementBody.jsp"/>
@@ -63,6 +71,12 @@
 		<put-attribute name="title" value="Question Management"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/management/question/questionManagementBody.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/question/questionManagementFooter.jsp"/>
+	</definition>
+	
+	<definition name="/management/register.page" extends=".template">
+		<put-attribute name="title" value="Register Management"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/register/registerManagementBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/register/registerManagementFooter.jsp"/>
 	</definition>
 	
 	<definition name="/management/question/add.page" extends=".template">
@@ -107,6 +121,14 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/combobox/questionGroupComboBox.jsp"/>
 	</definition>
 	
+	<definition name="/member/registerCourseComboBox.page" extends=".emptyTemplate" >
+		<put-attribute name="content" value="/WEB-INF/jsp/combobox/registerCourseComboBox.jsp"/>
+	</definition>
+		
+	<definition name="/member/registerSectionComboBox.page" extends=".emptyTemplate" >
+		<put-attribute name="content" value="/WEB-INF/jsp/combobox/registerSectionComboBox.jsp"/>
+	</definition>
+		
 		
 	<definition name="/exam/selectExam.page" extends=".template">
 		<put-attribute name="title" value="Select Exam"/>

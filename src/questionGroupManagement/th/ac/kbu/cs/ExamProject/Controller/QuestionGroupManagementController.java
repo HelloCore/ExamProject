@@ -23,8 +23,7 @@ public class QuestionGroupManagementController {
 	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
 	@RequestMapping(value="/management/questionGroup.html" ,method=RequestMethod.GET)
-	public ModelMap init(HttpServletRequest request){
-		ModelMap modelMap = new ModelMap();
+	public ModelMap init(ModelMap modelMap,HttpServletRequest request){
 		return modelMap;
 	}
 

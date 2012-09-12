@@ -20,7 +20,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.CourseComboBoxDomain;
 import th.ac.kbu.cs.ExamProject.Domain.QuestionGroupComboBoxDomain;
+import th.ac.kbu.cs.ExamProject.Domain.RegisterCourseComboBox;
+import th.ac.kbu.cs.ExamProject.Domain.RegisterSectionComboBox;
 import th.ac.kbu.cs.ExamProject.Domain.SectionComboBoxDomain;
+import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 @Controller
 public class ComboBoxController {
@@ -33,20 +36,7 @@ public class ComboBoxController {
 		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
 			modelMap.addAttribute("courseData", domain.getCourseComboBoxAdmin());
 		}else{
-			
-		}
-		return modelMap;
-	}
-
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
-	@RequestMapping(value="/management/questionGroupComboBox.html" ,method=RequestMethod.POST)
-	public ModelMap getQuestionGroupComboBox(@ModelAttribute QuestionGroupComboBoxDomain domain,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
-		ModelMap modelMap = new ModelMap();
-		modelMap.addAttribute("optionAll", domain.getOptionAll());
-		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
-			modelMap.addAttribute("questionGroupData", domain.getQuestionGroupComboBoxAdmin());
-		}else{
-			
+			modelMap.addAttribute("courseData",domain.getCourseComboBoxTeacher(SecurityUtils.getUsername()));
 		}
 		return modelMap;
 	}
@@ -62,5 +52,38 @@ public class ComboBoxController {
 		}
 		return sectionData;
 	}
-	
+
+
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/questionGroupComboBox.html" ,method=RequestMethod.POST)
+	public ModelMap getQuestionGroupComboBox(@ModelAttribute QuestionGroupComboBoxDomain domain,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		ModelMap modelMap = new ModelMap();
+		modelMap.addAttribute("optionAll", domain.getOptionAll());
+		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
+			modelMap.addAttribute("questionGroupData", domain.getQuestionGroupComboBoxAdmin());
+		}else{
+			
+		}
+		return modelMap;
+	}
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
+	@RequestMapping(value="/member/registerCourseComboBox.html" ,method=RequestMethod.GET)
+	public ModelMap getRegisterCourseComboBox(@ModelAttribute RegisterCourseComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		modelMap.addAttribute("courseData",domain.getCourseData(SecurityUtils.getUsername()));
+		return modelMap;
+	}
+
+	@PreAuthorize(RoleDescription.hasAnyRole.WITHBOTH)
+	@RequestMapping(value="/member/registerSectionComboBox.html" ,method=RequestMethod.POST)
+	public @ResponseBody List<Object[]> getRegisterSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		List<Object[]> result = null;
+		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
+			result = domain.getSectionAdminData();
+		}else if(request.isUserInRole(RoleDescription.Property.TEACHER)){
+			result = domain.getSectionTeacherData(SecurityUtils.getUsername());
+		}else{
+			result =  domain.getSectionStudentData(SecurityUtils.getUsername());
+		}
+		return result;
+	}
 }
