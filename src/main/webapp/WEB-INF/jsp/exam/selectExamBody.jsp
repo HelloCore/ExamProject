@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<c:set var="nowTodayTime" value="<%= new Date()%>" scope="page"/>
+<jsp:useBean id="nowTodayTime" class="java.util.Date" scope="page"/>
 <link rel="stylesheet" href="${contextPath}/css/exam/selectExam.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
@@ -64,16 +64,17 @@
 					<tbody>
 						<c:forEach items="${examResult}" var="data">
 							<tr id="exam-incomplete-${data[6]}">
-								<fmt:parseDate var="expireDate" value="${data[3]}" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<fmt:parseDate var="expireDate" value="${data[3]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
 								
 								<td>${data[0]}</td>
 								<td>${data[1]}</td>
-								<td>${data[2]}</td>
+								<%-- <td>${data[2]}</td> --%>
+								<td><fmt:formatDate value="${nowTodayTime}" pattern="dd-MM-yyyy HH:mm"/></td>
 								<td><fmt:formatDate value="${expireDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 								<td>${data[4]}</td>
 								<td>${data[5]}</td>
 								<td>
-									<c:if test="${nowTodayTime < expireDate}">
+ 									<c:if test="${nowTodayTime < expireDate}">
 										<button class="btn btn-info" id="continue-exam-${data[6]}" data-loading-text="กำลังโหลดข้อมูล..." onClick="continueExam(${data[6]})"><i class="icon-edit icon-white"></i> ทำต่อ </button>
 									</c:if>
 									<button class="btn btn-success"  id="send-exam-${data[6]}" data-loading-text="กำลังส่ง..." onClick="sendExam(${data[6]})" ><i class="icon-check icon-white"></i> ส่งข้อสอบ</button>

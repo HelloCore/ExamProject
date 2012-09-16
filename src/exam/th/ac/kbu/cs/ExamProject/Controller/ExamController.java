@@ -1,7 +1,10 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +32,7 @@ import th.ac.kbu.cs.ExamProject.Exception.ExamException;
 
 @Controller
 public class ExamController {
-
+	
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
 	@RequestMapping(value="/exam/selectExam.html" ,method=RequestMethod.GET)
 	public ModelMap initSelectExam(@ModelAttribute SelectExamDomain domain,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){
@@ -44,6 +47,12 @@ public class ExamController {
 		return domain.createExamResultHql();
 	}
 	
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+	@RequestMapping(value="/exam/doExam.html" ,method=RequestMethod.GET)
+	public String redirect(@ModelAttribute DoExamDomain domain,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){
+		return "redirect:/exam/selectExam.html";
+	}
+		
 	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
 	@RequestMapping(value="/exam/doExam.html" ,method=RequestMethod.POST,params={"method=doExam"})
 	public ModelMap selectExamResult(@ModelAttribute DoExamDomain domain,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){

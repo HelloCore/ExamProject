@@ -51,42 +51,44 @@
 		          		</ul>
 	          		</sec:authorize>
 					<sec:authorize access="isAuthenticated()">
-						<div class="btn-group pull-right">
-				            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-				              <i class="icon-user"></i> 
-				              	<sec:authentication property="principal.user.firstName" />
-								<sec:authentication property="principal.user.lastName" />
-				              <span class="caret"></span>
-				            </a>
-				            <ul class="dropdown-menu">
-				              <sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
-				              	<li><a tabindex="-1" href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">Active User</a></li>
-				              </sec:authorize>
-					          <sec:authorize access="hasRole('ROLE_STUDENT')" >
-				             	 <li><a tabindex="-1" href="${contextPath}/member/register.html">Register</a></li>
-					          </sec:authorize>
-				              <li><a tabindex="-1" href="#">Profile</a></li>
-				              <li><a tabindex="-1" href="#">Settings</a></li>
-				              <li><a tabindex="-1" href="#">Change Password</a></li>
-				              <li class="divider"></li>
-					          <sec:authorize access="hasRole('ROLE_TEACHER')" >
-					              <li class="nav-header">จัดการข้อมูลวิชา</li>
-					              <li><a tabindex="-1" href="#"><i class="icon-ok"></i>  CS.101</a></li>
-					              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.102</a></li>
-					              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.103</a></li>
-					              <li class="disabled"><a tabindex="-1" href="#"><i class="icon-none"></i>  CS.104</a></li>
-					              <li class="divider"></li>
-				              </sec:authorize>
-				              <li><a tabindex="-1" href="${contextPath}/main/logout.do">Sign Out</a></li>
-				            </ul>
-				    	</div>
+						<ul class="nav pull-right">
+				           <li class="dropdown">
+				           		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				           			<i class="icon-user"></i> 
+				              		<sec:authentication property="principal.user.firstName" />
+									<sec:authentication property="principal.user.lastName" />
+								    <b class="caret"></b>
+							   	</a>
+				           	 	<ul class="dropdown-menu">
+				              		<sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
+				              			<li><a  href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">Active User</a></li>
+				              		</sec:authorize>
+					          		<sec:authorize access="hasRole('ROLE_STUDENT')" >
+				             	 		<li><a  href="${contextPath}/member/register.html">Register</a></li>
+					          		</sec:authorize>
+							        <li><a  href="#">Profile</a></li>
+							        <li><a  href="#">Settings</a></li>
+							        <li><a  href="#">Change Password</a></li>
+							        <li class="divider"></li>
+					          		<sec:authorize access="hasRole('ROLE_TEACHER')" >
+					              		<li class="nav-header">จัดการข้อมูลวิชา</li>
+								        <li><a  href="#"><i class="icon-ok"></i>  CS.101</a></li>
+									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.102</a></li>
+									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.103</a></li>
+									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.104</a></li>
+									    <li class="divider"></li>
+				              		</sec:authorize>
+				              		<li><a  href="${contextPath}/main/logout.do">Sign Out</a></li>
+				            	</ul>
+				            </li>
+				    	</ul>
 					</sec:authorize>
 	          		<div class="nav-collapse">
 	            		<ul class="nav">
 				            <li class="index"><a href="${contextPath}/main/home.html"> หน้าแรก</a></li>
 				            <li class="news"><a href="#news">ข่าว</a></li>
 				            <sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
-				            	<li class="signUp"><a tabindex="-1" href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">ยืนยันการสมัครสมาชิก</a></li>
+				            	<li class="signUp"><a  href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">ยืนยันการสมัครสมาชิก</a></li>
 				            </sec:authorize>
 				            <sec:authorize access="hasRole('ROLE_STUDENT')" >
 								<li class="register"><a href="${contextPath}/member/register.html">ลงทะเบียน</a></li>
@@ -98,9 +100,9 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu " >
-								    		<li><a tabindex="-1" href="${contextPath}/exam/examSchedule.html">ตารางสอบ</a></li>
-		    								<li><a tabindex="-1" href="${contextPath}/exam/selectExam.html">ทำการสอบ</a></li>
-		    								<li><a tabindex="-1" href="${contextPath}/exam/examReport.html">ผลการสอบ</a></li>
+								    		<li><a  href="${contextPath}/exam/examSchedule.html">ตารางสอบ</a></li>
+		    								<li><a  href="${contextPath}/exam/selectExam.html">ทำการสอบ</a></li>
+		    								<li><a  href="${contextPath}/exam/examReport.html">ผลการสอบ</a></li>
 									</ul>
 								</li>
 				            </sec:authorize>
@@ -113,10 +115,10 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-								    		<li><a tabindex="-1" href="${contextPath}/management/register.html">อนุมัติสิทธิ์นักศึกษา</a></li>
-								    		<li><a tabindex="-1" href="${contextPath}/management/section.html">จัดการ Section</a></li>
-								    		<li><a tabindex="-1" href="${contextPath}/management/news.html">จัดการข่าวประชาสัมพันธ์</a></li>
-								    		<li><a tabindex="-1" href="${contextPath}/management/news/add.html">เพิ่มข่าวประชาสัมพันธ์</a></li>
+								    		<li><a  href="${contextPath}/management/register.html">อนุมัติสิทธิ์นักศึกษา</a></li>
+								    		<li><a  href="${contextPath}/management/section.html">จัดการ Section</a></li>
+								    		<li><a  href="${contextPath}/management/news.html">จัดการข่าวประชาสัมพันธ์</a></li>
+								    		<li><a  href="${contextPath}/management/news/add.html">เพิ่มข่าวประชาสัมพันธ์</a></li>
 									</ul>
 								</li>
 								<li class="dropdown examManagement">
@@ -127,11 +129,11 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a tabindex="-1" href="${contextPath}/management/questionGroup.html">จัดการกลุ่มคำถาม</a></li>
-	    								<li><a tabindex="-1" href="${contextPath}/management/question.html">จัดการคำถาม</a></li>
-	    								<li><a tabindex="-1" href="${contextPath}/management/question/add.html">เพิ่มคำถาม</a></li>
-	    								<li><a tabindex="-1" href="${contextPath}/management/exam.html">จัดการการสอบ</a></li>
-	    								<li><a tabindex="-1" href="${contextPath}/management/exam/add.html">สร้างกำหนดการสอบ</a></li>
+	    								<li><a  href="${contextPath}/management/questionGroup.html">จัดการกลุ่มคำถาม</a></li>
+	    								<li><a  href="${contextPath}/management/question.html">จัดการคำถาม</a></li>
+	    								<li><a  href="${contextPath}/management/question/add.html">เพิ่มคำถาม</a></li>
+	    								<li><a  href="${contextPath}/management/exam.html">จัดการการสอบ</a></li>
+	    								<li><a  href="${contextPath}/management/exam/add.html">สร้างกำหนดการสอบ</a></li>
 									</ul>
 								</li>
 								<li class="dropdown assignmentManagement">
@@ -142,8 +144,8 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a tabindex="-1" href="${contextPath}/management/assignment.html">จัดการการบ้าน</a></li>
-	    								<li><a tabindex="-1" href="${contextPath}/management/assignment/add.html">สั่งการบ้าน</a></li>
+	    								<li><a  href="${contextPath}/management/assignment.html">จัดการการบ้าน</a></li>
+	    								<li><a  href="${contextPath}/management/assignment/add.html">สั่งการบ้าน</a></li>
 									</ul>
 								</li>
 								<li class="dropdown report hide">
@@ -154,8 +156,8 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a tabindex="-1" href="${contextPath}/report/student.html">จำนวนสมาชิก</a></li>
-	    								<li><a tabindex="-1" href="${contextPath}/report/exam.html">ผลการสอบ</a></li>
+	    								<li><a  href="${contextPath}/report/student.html">จำนวนสมาชิก</a></li>
+	    								<li><a  href="${contextPath}/report/exam.html">ผลการสอบ</a></li>
 									</ul>
 								</li>
 								

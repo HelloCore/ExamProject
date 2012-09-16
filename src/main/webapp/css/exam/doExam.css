@@ -24,10 +24,13 @@ overflow-x:hidden;
 	box-shadow:  rgba(14, 14, 14, 0.492188) 0px 0px 7px 0px; 
 }
 .answer-panel { cursor:pointer;}
-.answer-panel:hover { 
-	border-color: rgba(107, 175, 229, 0.832031) ;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.0742188) 0px 1px 1px 0px inset, rgba(82, 167, 236, 0.492188) 0px 0px 7px 0px;
-	box-shadow:  rgba(82, 167, 236, 0.492188) 0px 0px 7px 0px; 
+
+@media (min-width: 1025px) {
+	.answer-panel:hover { 
+ 		border-color: rgba(107, 175, 229, 0.832031) ;
+		-webkit-box-shadow: rgba(0, 0, 0, 0.0742188) 0px 1px 1px 0px inset, rgba(82, 167, 236, 0.492188) 0px 0px 7px 0px;
+		box-shadow:  rgba(82, 167, 236, 0.492188) 0px 0px 7px 0px;  
+	}
 }
 .choosed {
 	border-color:#f16325 !important;
@@ -97,7 +100,6 @@ overflow-x:hidden;
 	width: 100%;
 }
 .blockPage {height:60px;}
-.scrollspy-example {}
 section {}
 .hr-pagging {margin-top:60px;margin-bottom:0px;}
 .hr-pagging:first-child{margin-top:0px;} 

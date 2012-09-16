@@ -1,10 +1,10 @@
+
 doExam = {};
 doExam.nowAnswer = 0;
 doExam.questionAnswerData = [];
 var windowHeight = $(window).height()
 	,navHeight = $("#navbarExample").height();
 	if($(window).width() >= 767){
-		console.log("!!");
 		var questionHeight = (windowHeight-205-navHeight);
 		$('.scrollspy-example').attr('data-target','#navbarExample').css('height',questionHeight).scrollspy({
 			offset:70
@@ -124,8 +124,15 @@ doExam.checkDidAnswer = function(){
 		doExam.autoSave();
 	}
 };
-
 $(document).ready(function(){
+	$('body').unblock();
+	if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/Andriod/i)) ) {
+		if($(window).width()>=767){
+			$(".question-panel,.answer-panel").css("width","85%");
+		}else{
+			$(".question-panel,.answer-panel").css("width","80%");	
+		}
+	}
 	$('.navbar .btn').attr('disabled',true).removeAttr('data-toggle').click(function(e){e.preventDefault();});
 	$('.navbar a').removeAttr('href');
 	doExam.saveRate = Math.round(application.numOfQuestion /5 );
@@ -149,7 +156,7 @@ $(document).ready(function(){
 	
 	$("#doQuestion").text(doExam.nowAnswer+" / "+application.numOfQuestion);
 	$("#navbarExample li:first a").tab('show');
-	$('.answer-panel').click(function(){
+	$('.answer-panel').on('click touchend',function(){
 		$(this).parent().find('.choosed').removeClass('choosed');
 		$(this).addClass('choosed');
 		var answerClass,answerId,questionClass,questionId,examResultAnswerId;
@@ -158,9 +165,7 @@ $(document).ready(function(){
 		questionClass = $(this).parent().attr('id');
 		questionId = questionClass.substring(11,questionClass.length);
 		examResultAnswerId = $('#exam-result-answer-id-'+questionId).val();
-		
 		doExam.checkAndEditData(questionId,answerId,examResultAnswerId);
-		
 		if( !$('#nav-id-'+questionId).hasClass('did-answer')){$('#nav-id-'+questionId).addClass('did-answer');}
 		$('a[href=#'+$(this).parent().attr('id')+']').addClass('choosedA');
 	});
