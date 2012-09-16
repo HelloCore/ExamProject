@@ -1,0 +1,19 @@
+CREATE TABLE USERS (
+ 	USERNAME VARCHAR(40) NOT NULL,
+ 	PASSWORD VARCHAR(32) NOT NULL,
+ 	PASSWORDS VARCHAR(40) NOT NULL,
+ 	EMAIL VARCHAR(100) NOT NULL,
+ 	FIRST_NAME VARCHAR(100) NOT NULL,
+ 	LAST_NAME VARCHAR(100) NOT NULL,
+ 	TYPE INT(1) UNSIGNED, 
+ 	FLAG TINYINT(1) NOT NULL,
+ 	ACTIVE_STR VARCHAR(6),
+ 	UNIQUE  (EMAIL),
+ 	PRIMARY KEY (USERNAME),
+ 	FOREIGN KEY (TYPE) REFERENCES USER_TYPE(TYPE)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO USERS VALUES('admin','21232f297a57a5a743894a0e4a801fc3','admin','aukwat@hotmail.com','aukwat','chayapiwat',1,1,null);
+INSERT INTO USERS VALUES('teacher','8d788385431273d11e8b43bb78f3aa41','teacher','teacher@hotmail.com','teacher','last',2,1,null);
+INSERT INTO USERS VALUES('student','cd73502828457d15655bbd7a63fb0bc8','student','student@hotmail.com','student','last',3,1,null);
+INSERT INTO USERS VALUES('student2','cd73502828457d15655bbd7a63fb0bc8','student','student2@hotmail.com','student2','last2',3,1,null);
