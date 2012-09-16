@@ -1,7 +1,0 @@
-<aspectj>
-	<weaver options="-showWeaveInfo">
-	</weaver>
-	<aspects>
-		<include within="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect"/>
-	</aspects>
-</aspectj>

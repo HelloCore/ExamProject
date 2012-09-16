@@ -1,3 +1,0 @@
-<Context docBase="ExamProject" path="/ExamProject" reloadable="true" source="org.eclipse.jst.jee.server:ExamProject" >
-	<Loader loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"/>
-</Context>
