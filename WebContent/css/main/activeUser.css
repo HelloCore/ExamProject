@@ -1,0 +1,13 @@
+
+body {
+}
+.link-holder {margin-top:10px;}
+@media (max-width: 480px) {
+}
+
+@media (min-width: 481px) {
+	.active-user-form{
+		width:460px;
+		margin:auto;
+	}
+}

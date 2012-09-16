@@ -1,9 +1,6 @@
 *.class
 
 # Package Files #
-*.jar
-!CKFinder*.jar
-!Thumbnailator*.jar
 *.war
 *.ear
 /pom.xml

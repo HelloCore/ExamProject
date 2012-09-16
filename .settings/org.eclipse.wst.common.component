@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ExamProject">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/common"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/component"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/exam"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/examManagement"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/exception"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/home"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/index"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/login"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/questionGroupManagement"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/questionManagement"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/register"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/registerManagement"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/sectionManagement"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/signUp"/>
+        <property name="context-root" value="ExamProject"/>
+        <property name="java-output-path" value="/ExamProject/build/classes"/>
+    </wb-module>
+</project-modules>

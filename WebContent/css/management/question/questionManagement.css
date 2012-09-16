@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+.question-table {width: 652px;margin:auto;margin-top:20px;margin-bottom:20px;}
+.question-table tr td .btn {width:90px;}
+.question-table .sub-column {width: 326px;}
+.fixed-content {width: 654px; margin:auto;}
+.fixed-content select,.fixed-content label,.fixed-content .input-prepend {display:inline;}
+.grid-toolbar button.btn {width: 100px;margin-bottom:5px;}
+.question-text{width:170px;}
+.search-btn{ width:70px;}
+.form-horizontal .control-group {margin-bottom: 10px;}
+.search-inactive i { display:none;}
+.grid-info {display:inline;}
