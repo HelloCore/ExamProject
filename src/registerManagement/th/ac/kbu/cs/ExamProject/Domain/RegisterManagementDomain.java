@@ -1,5 +1,7 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,15 +15,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.Entity.Register;
+import th.ac.kbu.cs.ExamProject.Entity.TeacherCourse;
+import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
+import th.ac.kbu.cs.ExamProject.Exception.DontHavePermissionException;
 import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
+import th.ac.kbu.cs.ExamProject.Service.RegisterService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configurable
 public class RegisterManagementDomain extends RegisterManagementPrototype{
 	
 	@Autowired
 	private BasicFinderService basicFinderService;
+	
+	@Autowired
+	private RegisterService registerService;
 	
 	private void validateData(){
 		if( BeanUtils.isEmpty(this.getCourseId()) 
@@ -60,5 +74,71 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		criteria.addOrder(Order.asc("register.requestDate"));
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		return basicFinderService.findByCriteria(criteria);
+	}
+	
+	private void validateChangeSection(String username) throws JsonParseException, JsonMappingException, IOException{
+		if( BeanUtils.isEmpty(this.getCourseId()) 
+				|| BeanUtils.isNull(this.getRegisterIdArray())){
+			throw new ParameterNotFoundException("parameter not found!");
+		}
+		
+		if(BeanUtils.isNotNull(username)){
+			this.validateTeacherPermission(username);
+		}
+	}
+	
+	private void validateTeacherPermission(String username) throws JsonParseException, JsonMappingException, IOException{
+		DetachedCriteria criteria = DetachedCriteria.forClass(TeacherCourse.class,"teacherCourse");
+		
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.rowCount());
+		criteria.setProjection(projectionList);
+		
+		criteria.add(Restrictions.eq("teacherCourse.username", username));
+		criteria.add(Restrictions.eq("teacherCourse.courseId", this.getCourseId()));
+	
+		Long result = basicFinderService.findUniqueByCriteria(criteria);
+		
+		if(result <= 0L){
+			throw new DontHavePermissionException("dont have permission");
+		}
+		
+		DetachedCriteria registerCriteria = DetachedCriteria.forClass(Register.class,"register");
+		criteria.createAlias("register.section", "section");
+		criteria.createAlias("section.course", "course");
+		
+		ProjectionList registerProjectionList = Projections.projectionList();
+		registerProjectionList.add(Projections.property("course.courseId"),"courseId");
+		registerCriteria.setProjection(registerProjectionList);
+		
+		criteria.add(Restrictions.in("register.registerId", convertToList()));
+		
+		List<HashMap<String,Object>> records = basicFinderService.findByCriteria(registerCriteria);
+		for(HashMap<String,Object> record: records){
+			if(!record.get("courseId").equals(this.getCourseId())){
+				throw new DataInValidException("Data invalid!");
+			}
+		}
+	}
+	
+	private List<Long> convertToList() throws JsonParseException, JsonMappingException, IOException{
+		ObjectMapper mapper = new ObjectMapper();
+		List<Long> results = mapper.readValue(this.getRegisterIdArray(), new TypeReference<ArrayList<Long>>(){});
+		return results;
+	}
+	
+	public void acceptSection(String username) throws JsonParseException, JsonMappingException, IOException{
+		this.validateChangeSection(username);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Register.class,"register");
+		criteria.add(Restrictions.in("register.registerId", convertToList()));
+		List<Register> results = basicFinderService.findByCriteria(criteria);
+		registerService.acceptSection(results);
+	}
+	public void rejectSection(String username) throws JsonParseException, JsonMappingException, IOException{
+		this.validateChangeSection(username);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Register.class,"register");
+		criteria.add(Restrictions.in("register.registerId", convertToList()));
+		List<Register> results = basicFinderService.findByCriteria(criteria);
+		registerService.rejectSection(results);
 	}
 }

@@ -1,6 +1,19 @@
 application.page='genericManagement';
 registerManagement = {};
 
+registerManagement.getRegisterIdArray = function(){
+	var str = "[",isFirst=true;
+	$('input[name=registerId\\[\\]]:checked').each(function(){
+		if(isFirst){
+			isFirst = false;
+		}else{
+			str+= ",";
+		}
+		str += $(this).val();
+	});
+	return str+"]";
+};
+
 registerManagement.getRegisterTable = function(){
 	$("#registerTable").block(application.blockOption);
 	$.ajax({
@@ -86,8 +99,77 @@ $(document).ready(function(){
 			registerManagement.getRegisterTable();
 		});
 	});
-	$("#registerTable").tablesorter({ headers: { 0: { sorter: false}}}); 
+	$("#registerTable").tablesorter({ headers: { 0: { sorter: false}}});
+	$("#registerTable tbody").on('click','tr',function(e){
+		e.preventDefault();
+		var check = $(this).find('input:checkbox');
+		if(check.is(':checked')){
+			check.attr('checked',false);
+		}else{
+			check.attr('checked',true);
+		}
+	});
 	$("#filterButton").click(function(){
 		registerManagement.getRegisterTable();
+	});
+	$("#approveButton").click(function(){ 
+		if($('input[name=registerId\\[\\]]:checked').length < 1){
+			applicationScript.errorAlertWithStringTH("กรุณาเลือกนักศึกษาที่ต้องการ");
+		}else{
+			$("#confirmApproveModal").modal('show');
+		}
+	});
+	$("#rejectButton").click(function(){
+		if($('input[name=registerId\\[\\]]:checked').length < 1){
+			applicationScript.errorAlertWithStringTH("กรุณาเลือกนักศึกษาที่ต้องการ");
+		}else{
+			$("#confirmRejectModal").modal('show');
+		}
+	});
+	$("#approveConfirmButton").click(function(){
+		var thisButton = $(this).button('loading');
+		$.ajax({
+			url: application.contextPath + '/management/register.html',
+			type: 'POST',
+			data: {
+				method:'acceptSection',
+				courseId: $("#courseId").val(),
+				registerIdArray : registerManagement.getRegisterIdArray()
+			},
+			success: function(data,status){
+				thisButton.button('reset');
+				applicationScript.saveComplete();
+				$("#confirmApproveModal").modal('hide');
+				registerManagement.getRegisterTable();
+			},
+			error: function(){
+				thisButton.button('reset');
+				applicationScript.errorAlert();
+				$("#confirmApproveModal").modal('hide');
+			}
+		});
+	});
+	$("#rejectConfirmButton").click(function(){
+		var thisButton = $(this).button('loading');
+		$.ajax({
+			url: application.contextPath + '/management/register.html',
+			type: 'POST',
+			data: {
+				method: 'rejectSection',
+				courseId: $("#courseId").val(),
+				registerIdArray : registerManagement.getRegisterIdArray()
+			},
+			success: function(data,status){
+				thisButton.button('reset');
+				applicationScript.saveComplete();
+				$("#confirmRejectModal").modal('hide');
+				registerManagement.getRegisterTable();
+			},
+			error: function(){
+				thisButton.button('reset');
+				applicationScript.errorAlert();
+				$("#confirmRejectModal").modal('hide');
+			}
+		});
 	});
 });

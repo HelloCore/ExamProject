@@ -211,7 +211,6 @@ $(document).ready(function(){
 	    		.closest('.control-group').removeClass('error').addClass('success');
 	    },
 		submitHandler: function(form) {
-			
 			if(sectionManagement.checkDirty()){
 				$(form).ajaxSubmit({
 					type:'post',

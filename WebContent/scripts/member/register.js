@@ -26,7 +26,7 @@ register.getGrid = function(){
 					strHtml += '<td><span class="label label-success"><i class="icon-ok icon-white"></i> Accept</span></td>'
 							+	'<td><button class="btn btn-info" onclick="changeSection('+data[key].registerId+')"><i class="icon-edit icon-white"></i> ย้าย Section</button></td>';
 				}else{
-					strHtml += '<td><span class="label label-important"><i class="icon-ban-circle icon-white"></i> Denied</span></td><td></td>';
+					strHtml += '<td><span class="label label-important"><i class="icon-ban-circle icon-white"></i> Reject</span></td><td></td>';
 				}
 				strHtml+='</tr>';
 				$("#registerTable tbody").append(strHtml);

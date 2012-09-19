@@ -1,5 +1,6 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.RegisterManagementDomain;
+import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 @Controller
 public class RegisterManagementController {
@@ -30,5 +35,27 @@ public class RegisterManagementController {
 	@RequestMapping(value="/management/register.html" ,method=RequestMethod.POST,params={"method=getRegisterTable"})
 	public @ResponseBody List<HashMap<String,Object>> getRegisterTable(@ModelAttribute RegisterManagementDomain domain ,HttpServletRequest request,HttpServletResponse response){
 		return domain.getRegisterTable();
+	}
+
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/register.html" ,method=RequestMethod.POST,params={"method=acceptSection"})
+	public void acceptSection(@ModelAttribute RegisterManagementDomain domain ,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{
+		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
+			domain.acceptSection(null);
+		}else{
+			domain.acceptSection(SecurityUtils.getUsername());
+		}
+	
+	}
+	
+	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@RequestMapping(value="/management/register.html" ,method=RequestMethod.POST,params={"method=rejectSection"})
+	public void rejectSection(@ModelAttribute RegisterManagementDomain domain ,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{
+		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
+			domain.rejectSection(null);
+		}else{
+			domain.rejectSection(SecurityUtils.getUsername());
+		}
+	
 	}
 }
