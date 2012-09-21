@@ -61,6 +61,7 @@ registerManagement.initSectionComboBox = function(callback){
 		type: "POST",
 		dataType: 'json',
 		data:{
+			method: "register",
 			courseId : $('#courseId').val()
 		},
 		success: function(data){
@@ -101,12 +102,16 @@ $(document).ready(function(){
 	});
 	$("#registerTable").tablesorter({ headers: { 0: { sorter: false}}});
 	$("#registerTable tbody").on('click','tr',function(e){
-		e.preventDefault();
+		$(this).toggleClass('info');
 		var check = $(this).find('input:checkbox');
 		if(check.is(':checked')){
-			check.attr('checked',false);
+			if(e.target.nodeName != "INPUT"){
+				check.attr('checked',false);
+			}
 		}else{
-			check.attr('checked',true);
+			if(e.target.nodeName != "INPUT"){
+				check.attr('checked',true);
+			}
 		}
 	});
 	$("#filterButton").click(function(){

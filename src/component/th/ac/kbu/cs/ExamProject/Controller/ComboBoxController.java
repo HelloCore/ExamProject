@@ -74,7 +74,7 @@ public class ComboBoxController {
 	}
 
 	@PreAuthorize(RoleDescription.hasAnyRole.WITHBOTH)
-	@RequestMapping(value="/member/registerSectionComboBox.html" ,method=RequestMethod.POST)
+	@RequestMapping(value="/member/registerSectionComboBox.html" ,method=RequestMethod.POST,params={"method=register"})
 	public @ResponseBody List<Object[]> getRegisterSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
 		List<Object[]> result = null;
 		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
@@ -86,4 +86,11 @@ public class ComboBoxController {
 		}
 		return result;
 	}
+	
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
+	@RequestMapping(value="/member/registerSectionComboBox.html" ,method=RequestMethod.POST,params={"method=changeSection"})
+	public @ResponseBody List<Object[]> getChangeSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		return domain.getChangeSectionStudentData(SecurityUtils.getUsername());
+	}
+	
 }

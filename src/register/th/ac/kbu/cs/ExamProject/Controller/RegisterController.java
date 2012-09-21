@@ -49,6 +49,12 @@ public class RegisterController {
 		domain.cancelRegister(SecurityUtils.getUsername());
 	}
 	
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
+	@RequestMapping(value="/member/register.html",method=RequestMethod.POST,params={"method=changeSection"})
+	public void changeSection(@ModelAttribute RegisterDomain domain,HttpServletRequest request,HttpServletResponse response){
+		domain.changeSection(SecurityUtils.getUsername());
+	}
+	
 	@ExceptionHandler(MainException.class)
 	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
 	public @ResponseBody String mainException(MainException ex,HttpServletRequest request,HttpServletResponse response){

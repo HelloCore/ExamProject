@@ -79,6 +79,12 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/register/registerManagementFooter.jsp"/>
 	</definition>
 	
+	<definition name="/management/register/history.page" extends=".template">
+		<put-attribute name="title" value="Register History"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/register/registerHistoryBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/register/registerHistoryFooter.jsp"/>
+	</definition>
+	
 	<definition name="/management/question/add.page" extends=".template">
 		<put-attribute name="title" value="Add Question"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/management/question/addQuestionBody.jsp"/>

@@ -26,14 +26,14 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 	}
 
 	@Override
-	protected DetachedCriteria initCriteria() {
+	protected DetachedCriteria initCriteria(SectionDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
 		criteria.createAlias("section.course", "course");
 		return criteria;
 	}
 
 	@Override
-	protected DetachedCriteria initCriteriaTeacher() {
+	protected DetachedCriteria initCriteriaTeacher(SectionDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(TeacherCourse.class,"teacherCourse");
 		criteria.createAlias("teacherCourse.course", "course");
 		criteria.createAlias("teacherCourse.user", "user");
@@ -109,6 +109,7 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 	public String getDeleteString(SectionDomain domain) {
 		return "UPDATE Section section SET flag=false WHERE section.sectionId="+domain.getSectionId();
 	}
+
 
 
 }

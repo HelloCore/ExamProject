@@ -37,7 +37,7 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 	}
 
 	@Override
-	protected DetachedCriteria initCriteria() {
+	protected DetachedCriteria initCriteria(QuestionDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Answer.class,"answer");
 		criteria.createAlias("answer.question", "question");
 		criteria.createAlias("question.questionGroup", "questionGroup");
@@ -46,7 +46,7 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 	}
 
 	@Override
-	protected DetachedCriteria initCriteriaTeacher() {
+	protected DetachedCriteria initCriteriaTeacher(QuestionDomain domain) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -74,7 +74,7 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 	
 	@Override
 	protected Integer getTotal(QuestionDomain domain){
-		DetachedCriteria criteria = initCriteria();
+		DetachedCriteria criteria = initCriteria(domain);
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.countDistinct("question.questionId"));
 		criteria.setProjection(projectionList);

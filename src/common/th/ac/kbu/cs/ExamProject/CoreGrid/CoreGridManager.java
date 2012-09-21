@@ -37,7 +37,7 @@ public abstract class CoreGridManager<T> {
 	public abstract Object toEntity(final T domain);
 	
 	public CoreGrid<HashMap<String,Object>> searchTeacher(final T domain,String username){
-		DetachedCriteria criteria = initCriteriaTeacher();
+		DetachedCriteria criteria = initCriteriaTeacher(domain);
 		
 		ProjectionList projectionList = Projections.projectionList();
 		this.setProjectionList(projectionList,domain);
@@ -65,7 +65,7 @@ public abstract class CoreGridManager<T> {
 		return gridData;
 	}
 	public CoreGrid<HashMap<String,Object>> searchAdmin(final T domain){
-		DetachedCriteria criteria = initCriteria();
+		DetachedCriteria criteria = initCriteria(domain);
 		
 		ProjectionList projectionList = Projections.projectionList();
 		this.setProjectionList(projectionList,domain);
@@ -92,7 +92,7 @@ public abstract class CoreGridManager<T> {
 	}
 	
 	protected Integer getTotal(final T domain){
-		DetachedCriteria criteria = initCriteria();
+		DetachedCriteria criteria = initCriteria(domain);
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.rowCount());
 		criteria.setProjection(projectionList);
@@ -101,7 +101,7 @@ public abstract class CoreGridManager<T> {
 	}
 
 	protected Integer getTotalTeacher(final T domain,String username){
-		DetachedCriteria criteria = initCriteriaTeacher();
+		DetachedCriteria criteria = initCriteriaTeacher(domain);
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.rowCount());
 		criteria.setProjection(projectionList);
@@ -112,9 +112,9 @@ public abstract class CoreGridManager<T> {
 	
 	protected abstract void setProjectionList(ProjectionList projectionList,final T domain);
 	
-	protected abstract DetachedCriteria initCriteria();
+	protected abstract DetachedCriteria initCriteria(final T domain);
 	
-	protected abstract DetachedCriteria initCriteriaTeacher();
+	protected abstract DetachedCriteria initCriteriaTeacher(final T domain);
 	
 	protected abstract void addOrder(DetachedCriteria criteria);
 	

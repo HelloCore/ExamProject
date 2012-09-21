@@ -15,7 +15,16 @@ import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 public class RegisterSectionComboBox extends ComboBox{
 	
 	private Long courseId;
+	private Long sectionId;
 	
+	public Long getSectionId() {
+		return sectionId;
+	}
+
+	public void setSectionId(Long sectionId) {
+		this.sectionId = sectionId;
+	}
+
 	public Long getCourseId() {
 		return courseId;
 	}
@@ -95,5 +104,26 @@ public class RegisterSectionComboBox extends ComboBox{
 					.append(" ) ");
 		
 		return basicFinderService.find(queryString.toString(),new Object[]{ this.getCourseId(), username, this.getCourseId() });
+	}
+
+	public List<Object[]> getChangeSectionStudentData(String username) {
+		StringBuilder queryString = new StringBuilder();
+		queryString.append(" SELECT ")
+							.append(" section.sectionId ")
+							.append(" ,section.sectionName ")
+							.append(" ,section.sectionYear ")
+							.append(" ,section.sectionSemester ")
+					.append(" FROM Section section ")
+					.append(" WHERE section.flag<>0 ")
+					.append(" AND section.status<>0 ")
+					.append(" AND section.courseId = ? ")
+					.append(" AND CONCAT(section.sectionSemester,section.sectionYear) IN ")
+					.append(" ( SELECT CONCAT(section.sectionSemester,section.sectionYear) ")
+						.append(" FROM StudentSection studentSection ") 
+						.append(" JOIN studentSection.section section ")
+						.append(" WHERE studentSection.username = ? ")
+						.append(" AND section.courseId = ? ")
+					.append(" ) AND section.sectionId <> ?");
+		return basicFinderService.find(queryString.toString(),new Object[]{ this.getCourseId(), username, this.getCourseId(),this.getSectionId() });
 	}
 }

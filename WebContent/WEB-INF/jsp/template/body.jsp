@@ -53,8 +53,8 @@
 					<sec:authorize access="isAuthenticated()">
 						<ul class="nav pull-right">
 				           <li class="dropdown">
-				           		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-				           			<i class="icon-user"></i> 
+				           		<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="personal-data">
+				           			
 				              		<sec:authentication property="principal.user.firstName" />
 									<sec:authentication property="principal.user.lastName" />
 								    <b class="caret"></b>
@@ -116,6 +116,7 @@
 								    </a>
 								    <ul class="dropdown-menu">
 								    		<li><a  href="${contextPath}/management/register.html">อนุมัติสิทธิ์นักศึกษา</a></li>
+								    		<li><a  href="${contextPath}/management/register/history.html">ประวัติการอนุมัติ</a></li>
 								    		<li><a  href="${contextPath}/management/section.html">จัดการ Section</a></li>
 								    		<li><a  href="${contextPath}/management/news.html">จัดการข่าวประชาสัมพันธ์</a></li>
 								    		<li><a  href="${contextPath}/management/news/add.html">เพิ่มข่าวประชาสัมพันธ์</a></li>

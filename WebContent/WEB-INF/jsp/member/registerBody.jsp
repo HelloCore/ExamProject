@@ -16,6 +16,7 @@
 				<label class="control-label" for="sectionId">Section</label>
 				<select id="sectionId" class="input-medium" data-placeholder="Choose a section..." name="sectionId"></select>
 		      	<button class="btn btn-primary" id="registerModalButton"><i class="icon-pencil icon-white"></i> Register</button>
+		      	<button class="btn btn-info" id="changeSectionModalButton"><i class="icon-edit icon-white"></i> Change</button>
 		      	<button class="btn" id="cancelButton">Cancel</button>
 			</div>
 			<div id="normal-button-holder">
@@ -63,5 +64,19 @@
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">Close</a>
     	<a href="#" class="btn btn-danger" id="confirmCancelButton" data-loading-text="ยกเลิก..." ><i class="icon-trash icon-white"></i> ยกเลิก</a>
+  	</div>
+</div>
+
+<div class="modal hide fade" id="confirmChangeSectionModal">
+	<div class="modal-header">
+		<h3>ย้าย Section ?</h3>
+	</div>
+	<div class="modal-body">
+		<font class="error">* สิทธิ์ใน Section เก่าจะถูกลบหากทำการย้าย Section และไม่สามารถยกเลิกได้</font>
+		คุณต้องการย้าย Section ใช่หรือไม่ ?
+	</div>
+  	<div class="modal-footer">
+    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+    	<a href="#" class="btn btn-info" id="confirmChangeSectionButton" data-loading-text="ย้าย..." ><i class="icon-edit icon-white"></i> ย้าย</a>
   	</div>
 </div>

@@ -4,7 +4,7 @@ public class RegisterPrototype {
 	private Long courseId;
 	private Long sectionId;
 	private Long registerId;
-	
+	private Long toSectionId;
 	
 	
 	public Long getRegisterId() {
@@ -25,4 +25,11 @@ public class RegisterPrototype {
 	public void setSectionId(Long sectionId) {
 		this.sectionId = sectionId;
 	}
+	public Long getToSectionId() {
+		return toSectionId;
+	}
+	public void setToSectionId(Long toSectionId) {
+		this.toSectionId = toSectionId;
+	}
+	
 }

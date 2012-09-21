@@ -45,14 +45,14 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 	}
 
 	@Override
-	protected DetachedCriteria initCriteria() {
+	protected DetachedCriteria initCriteria(ExamDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
 		criteria.createAlias("exam.course", "course");
 		return criteria;
 	}
 
 	@Override
-	protected DetachedCriteria initCriteriaTeacher() {
+	protected DetachedCriteria initCriteriaTeacher(ExamDomain domain) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -49,6 +49,13 @@ public class Register implements Serializable{
 	@Column(name = "STATUS")
 	private Integer status;
 
+	@Column(name = "VERIFY_BY")
+	private String verifyBy;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "VERIFY_BY", insertable = false, updatable = false)
+	private User teacher;
+	
 	public Long getRegisterId() {
 		return registerId;
 	}
@@ -95,6 +102,22 @@ public class Register implements Serializable{
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getVerifyBy() {
+		return verifyBy;
+	}
+
+	public void setVerifyBy(String verifyBy) {
+		this.verifyBy = verifyBy;
+	}
+
+	public User getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
 	}
 
 	public Section getSection() {

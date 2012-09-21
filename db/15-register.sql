@@ -5,9 +5,11 @@ CREATE TABLE REGISTER(
  	REQUEST_DATE DATETIME NOT NULL,
  	PROCESS_DATE DATETIME,
  	STATUS INT(1) UNSIGNED NOT NULL,
+ 	VERIFY_BY VARCHAR(40),
  	PRIMARY KEY (REGISTER_ID),
  	FOREIGN KEY (SECTION_ID) REFERENCES SECTION(SECTION_ID),
- 	FOREIGN KEY (USERNAME) REFERENCES USERS(USERNAME)
+ 	FOREIGN KEY (USERNAME) REFERENCES USERS(USERNAME),
+ 	FOREIGN KEY (VERIFY_BY) REFERENCES USERS(USERNAME)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- status
@@ -15,3 +17,12 @@ CREATE TABLE REGISTER(
 -- 1 = accept
 -- 2 = denied
 -- 3 = change section
+
+-- ระหว่างย้าย Section
+-- > ก่อนย้ายขึ้นเตือนว่าสิทธิ์ใน Section เก่าจะถูกลบ ต้องการย้าย Section อีกหรือไม่
+-- > ลบ Section เก่าใน [STUDENT_SECTION] ออก
+-- > จากนั้นเปลี่ยน STATUS เป็น 3 
+-- > แล้วเปลี่ยน SECTION_ID ใน REGISTER เป็น SECTION ใหม่
+-- > รออาจารย์อนุมัติ
+
+

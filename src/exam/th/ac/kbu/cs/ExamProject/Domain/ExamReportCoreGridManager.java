@@ -26,7 +26,7 @@ public class ExamReportCoreGridManager extends CoreGridManager<ResultExamDomain>
 	}
 
 	@Override
-	protected DetachedCriteria initCriteria() {
+	protected DetachedCriteria initCriteria(ResultExamDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResult.class,"examResult");
 		criteria.createAlias("examResult.exam", "exam");
 		criteria.createAlias("exam.course", "course");
@@ -34,7 +34,7 @@ public class ExamReportCoreGridManager extends CoreGridManager<ResultExamDomain>
 	}
 
 	@Override
-	protected DetachedCriteria initCriteriaTeacher() {
+	protected DetachedCriteria initCriteriaTeacher(ResultExamDomain domain) {
 //		DetachedCriteria criteria = DetachedCriteria.forClass(TeacherCourse.class,"teacherCourse");
 //		criteria.createAlias("teacherCourse.course", "course");
 //		criteria.createAlias("teacherCourse.user", "user");

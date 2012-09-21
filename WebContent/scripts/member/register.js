@@ -24,9 +24,13 @@ register.getGrid = function(){
 							+ '<td><button class="btn btn-danger" onclick="cancelRegister('+data[key].registerId+')"><i class="icon-trash icon-white"></i> ยกเลิก</button></td>';
 				}else if (data[key].status==1){
 					strHtml += '<td><span class="label label-success"><i class="icon-ok icon-white"></i> Accept</span></td>'
-							+	'<td><button class="btn btn-info" onclick="changeSection('+data[key].registerId+')"><i class="icon-edit icon-white"></i> ย้าย Section</button></td>';
-				}else{
+							+	'<td><button class="btn btn-info btn-change-section" id="change-section-button-'+data[key].registerId+'" onclick="changeSection('+data[key].registerId+','+data[key].courseId+','+data[key].sectionId+')"><i class="icon-edit icon-white"></i> ย้าย Section</button></td>';
+				}else if (data[key].status==2){
 					strHtml += '<td><span class="label label-important"><i class="icon-ban-circle icon-white"></i> Reject</span></td><td></td>';
+				}else if (data[key].status==3){
+					strHtml += '<td><span class="label label-info"><i class="icon-repeat icon-white"></i> Pending</span></td><td></td>';
+				}else{
+					strHtml += '<td><span class="label label-inverse"><i class="icon-exclamation-sign icon-white"></i> Unknow</span></td><td></td>';
 				}
 				strHtml+='</tr>';
 				$("#registerTable tbody").append(strHtml);
@@ -47,7 +51,7 @@ register.loadCourseIdBox = function(load,callback){
 			applicationScript.errorAlertWithStringTH("คุณไม่สามารถลงทะเบียนได้ เนื่องจากคุณลงทะเบียนไปแล้ว หรืออาจารย์ผู้สอนยังไม่เปิด Section เพิ่ม");
 		}else{
 			if(load){
-				register.loadSectionIdBox(callback);
+				register.loadSectionIdBox($("#courseId").val(),"register",null,callback);
 			}else{
 				if(typeof(callback)=='function'){
 					callback();
@@ -57,15 +61,20 @@ register.loadCourseIdBox = function(load,callback){
 	});
 	$("#courseId_chzn").unblock();
 };
-register.loadSectionIdBox = function(callback){
+register.loadSectionIdBox = function(courseId,method,sectionId,callback){
 	$("#sectionId_chzn").block(application.blockOption);
+	var params = {
+			method:method,
+			courseId:courseId
+	};
+	if(sectionId){
+		params.sectionId = sectionId;
+	}
 	$.ajax({
 		url: application.contextPath+ "/member/registerSectionComboBox.html",
 		type: "POST",
 		dataType: 'json',
-		data:{
-			courseId : $('#courseId').val()
-		},
+		data:params,
 		success: function(data){
 			var newData = '',nowSemester=null,nowYear=null,isFirst=true;
 			for(key in data){
@@ -101,14 +110,18 @@ register.loadSectionIdBox = function(callback){
 $(document).ready(function(){
 	register.getGrid();
 	$("#courseId").chosen().change(function(){
-		register.loadSectionIdBox();
+		register.loadSectionIdBox($(this).val(),"register",null);
 	});
 	$("#sectionId").chosen();
 	$("#registerButton").click(function(){
 		$(".button-holder").block(application.blockOption);
 		register.loadCourseIdBox(true,function(){
+			$("#changeSectionModalButton").hide();
+			$("#registerModalButton").show();
 			$("#normal-button-holder").hide();
 			$("#register-button-holder").show();
+			$("#courseId_chzn").show();
+			$("label[for=courseId]").show();
 		});
 		$(".button-holder").unblock();
 	});
@@ -116,6 +129,7 @@ $(document).ready(function(){
 		$(".button-holder").block(application.blockOption);
 		$("#normal-button-holder").show();
 		$("#register-button-holder").hide();
+		$(".btn-change-section").attr('disabled',false).button('reset');
 		$(".button-holder").unblock();
 	});
 	$("#registerModalButton").click(function(){
@@ -185,11 +199,58 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	$("#changeSectionModalButton").click(function(){ $("#confirmChangeSectionModal").modal('show'); });
+	$("#confirmChangeSectionButton").click(function(){
+		var thisButton = $(this).button('loading');
+		$('body').block(application.blockOption);
+		$.ajax({
+			url: application.contextPath + '/member/register.html',
+			type: 'POST',
+			data: {
+				method: 'changeSection',
+				registerId : register.currentRegisterId,
+				courseId : register.currentCourseId,
+				sectionId : register.currentSectionId,
+				toSectionId : $("#sectionId").val()
+			},
+			success: function(data,status){
+				applicationScript.successAlertWithStringHeader("ย้าย Section สำเร็จ กรุณารออาจารย์ผู้สอนอนุมัติ","Success");
+				$("#confirmChangeSectionModal").modal('hide');
+				thisButton.button('reset');
+				register.getGrid();
+				$("#normal-button-holder").show();
+				$("#register-button-holder").hide();
+				$("body").unblock();
+			},error: function(data){
+				applicationScript.errorAlertWithStringTH(data.responseText);
+				$("#confirmChangeSectionModal").modal('hide');
+				thisButton.button('reset');
+				$("body").unblock();
+			}
+		});
+	});
 });
 
 
 cancelRegister = function(registerId){
 	register.currentRegisterId = registerId;
 	$("#confirmCancelModal").modal('show');
+};
+
+changeSection = function(registerId,courseId,sectionId){
+	$("#courseId_chzn").hide();
+	$("label[for=courseId]").hide();
+	register.loadSectionIdBox(courseId,"changeSection",sectionId,function(){
+		$(".btn-change-section").attr('disabled',true);
+		$("#change-section-button-"+registerId).button('loading');
+		$("#normal-button-holder").hide();
+		$("#register-button-holder").show();
+		$("#changeSectionModalButton").show();
+		$("#registerModalButton").hide();
+	});
+	register.currentRegisterId = registerId;
+	register.currentSectionId = sectionId;
+	register.currentCourseId = courseId;
 };
 

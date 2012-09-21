@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.Entity.Register;
 import th.ac.kbu.cs.ExamProject.Entity.TeacherCourse;
 import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
@@ -22,6 +23,7 @@ import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.RegisterService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
+import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -104,14 +106,15 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		}
 		
 		DetachedCriteria registerCriteria = DetachedCriteria.forClass(Register.class,"register");
-		criteria.createAlias("register.section", "section");
-		criteria.createAlias("section.course", "course");
+		registerCriteria.createAlias("register.section", "section");
+		registerCriteria.createAlias("section.course", "course");
 		
 		ProjectionList registerProjectionList = Projections.projectionList();
 		registerProjectionList.add(Projections.property("course.courseId"),"courseId");
 		registerCriteria.setProjection(registerProjectionList);
 		
-		criteria.add(Restrictions.in("register.registerId", convertToList()));
+		registerCriteria.add(Restrictions.in("register.registerId", convertToList()));
+		registerCriteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		
 		List<HashMap<String,Object>> records = basicFinderService.findByCriteria(registerCriteria);
 		for(HashMap<String,Object> record: records){
@@ -141,4 +144,18 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		List<Register> results = basicFinderService.findByCriteria(criteria);
 		registerService.rejectSection(results);
 	}
+
+	public CoreGrid<HashMap<String, Object>> searchAdmin(
+			RegisterCoreGridManagement gridManager) {
+		// TODO Auto-generated method stub
+		return gridManager.searchAdmin(this);
+	}
+
+	public CoreGrid<HashMap<String, Object>> searchTeacher(
+			RegisterCoreGridManagement gridManager) {
+		return gridManager.searchTeacher(this, SecurityUtils.getUsername());
+	}
+	
+	
+	
 }

@@ -101,13 +101,14 @@ public class RegisterDomain extends RegisterPrototype{
 		projectionList.add(Projections.property("section.sectionYear"),"sectionYear");
 		projectionList.add(Projections.property("register.requestDate"),"requestDate");
 		projectionList.add(Projections.property("register.status"),"status");
+		projectionList.add(Projections.property("course.courseId"),"courseId");
 		projectionList.add(Projections.property("course.courseCode"),"courseCode");
 		
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("register.username", username));
 		
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-		criteria.addOrder(Order.asc("register.requestDate"));
+		criteria.addOrder(Order.desc("register.requestDate"));
 		
 		return basicFinderService.findByCriteria(criteria);
 	}
@@ -133,6 +134,63 @@ public class RegisterDomain extends RegisterPrototype{
 		validateCancelData();
 		Register register = this.getAndValidateRegister(username);
 		basicEntityService.delete(register);
+	}
+
+	private Register validateChangeSectionData(String username){
+		if(BeanUtils.isEmpty(this.getCourseId()) 
+				|| BeanUtils.isEmpty(this.getSectionId())
+				|| BeanUtils.isEmpty(this.getRegisterId())
+				|| BeanUtils.isEmpty(this.getToSectionId())){
+			throw new ParameterNotFoundException("Parameter not found");
+		}
+		DetachedCriteria criteria = DetachedCriteria.forClass(Register.class,"register");
+		criteria.createAlias("register.section", "section");
+		criteria.createAlias("section.course", "course");
+		criteria.add(Restrictions.eq("register.registerId", this.getRegisterId()));
+		
+		Register register = basicFinderService.findUniqueByCriteria(criteria);
+
+		if(! (register.getUsername().equals(username)
+			&& register.getSection().getCourseId().equals(this.getCourseId())
+			&& register.getSectionId().equals(this.getSectionId()) )){
+			throw new DataInValidException("Data is invalid");
+		}
+		
+		validateSectionData(this.getCourseId(),this.getToSectionId());
+		return register;
+	}
+	
+	private Long getStudentSectionId(Long sectionId,String username){
+		DetachedCriteria criteria = DetachedCriteria.forClass(StudentSection.class,"studentSection");
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.property("studentSection.studentSectionId"),"studentSectionId");
+		criteria.setProjection(projectionList);
+		
+		criteria.add(Restrictions.eq("studentSection.username",username));
+		criteria.add(Restrictions.eq("studentSection.sectionId", sectionId));
+		
+		return basicFinderService.findUniqueByCriteria(criteria);
+	}
+	private void removeStudentSection(Long studentSectionId){
+		StudentSection studentSection = new StudentSection();
+		studentSection.setStudentSectionId(studentSectionId);
+		
+		basicEntityService.delete(studentSection);
+	}
+	
+	private void setChangeSection(Register register){
+		Date requestDate = new Date();
+		register.setRequestDate(requestDate);
+		register.setStatus(3);
+		register.setSectionId(this.getToSectionId());
+		basicEntityService.update(register);
+	}
+	
+	public void changeSection(String username) {
+		Register register = validateChangeSectionData(username);
+		Long studentSectionId = this.getStudentSectionId(this.getSectionId(), username);
+		this.removeStudentSection(studentSectionId);
+		this.setChangeSection(register);
 	}
 
 }

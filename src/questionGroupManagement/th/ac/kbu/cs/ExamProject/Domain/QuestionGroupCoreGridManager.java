@@ -38,14 +38,14 @@ public class QuestionGroupCoreGridManager extends CoreGridManager<QuestionGroupD
 	}
 
 	@Override
-	protected DetachedCriteria initCriteria() {
+	protected DetachedCriteria initCriteria(QuestionGroupDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(QuestionGroup.class,"questionGroup");
 		criteria.createAlias("questionGroup.course", "course");
 		return criteria;
 	}
 
 	@Override
-	protected DetachedCriteria initCriteriaTeacher() {
+	protected DetachedCriteria initCriteriaTeacher(QuestionGroupDomain domain) {
 		// TODO Auto-generated method stub
 		return null;
 	}

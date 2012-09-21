@@ -15,10 +15,12 @@ public class RegisterCourseComboBox extends ComboBox{
 						.append(" FROM Register register ")
 						.append(" JOIN register.section section ")
 						.append(" JOIN section.course course ")
-					.append(" WHERE register.status=0 ")
-					.append(" AND section.flag<>0 ")
-					.append(" AND course.flag<>0 ")
-					.append(" AND register.username = ? ")
+						.append(" WHERE ( register.status=0 ")
+						.append(" OR register.status=1 ")
+						.append(" OR register.status=3 )")
+						.append(" AND section.flag<>0 ")
+						.append(" AND course.flag<>0 ")
+						.append(" AND register.username = ? ")
 					.append(" ) ");
 		
 		return basicFinderService.find(queryString.toString(), username);

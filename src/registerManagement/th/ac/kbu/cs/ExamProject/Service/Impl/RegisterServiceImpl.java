@@ -12,6 +12,7 @@ import th.ac.kbu.cs.ExamProject.Entity.Register;
 import th.ac.kbu.cs.ExamProject.Entity.StudentSection;
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.RegisterService;
+import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 @Service
 public class RegisterServiceImpl implements RegisterService{
@@ -21,12 +22,14 @@ public class RegisterServiceImpl implements RegisterService{
 
 	@Transactional(rollbackFor=Exception.class)
 	public void acceptSection(List<Register> registers) {
-
 		Date today = new Date();
+		String username = SecurityUtils.getUsername();
 		List<StudentSection> studentSections = new ArrayList<StudentSection>();
 		for(Register register : registers){
 			register.setProcessDate(today);
 			register.setStatus(1);
+			register.setVerifyBy(username);
+			
 			
 			StudentSection studentSection = new StudentSection();
 			studentSection.setSectionId(register.getSectionId());
@@ -40,9 +43,11 @@ public class RegisterServiceImpl implements RegisterService{
 	@Transactional(rollbackFor=Exception.class)
 	public void rejectSection(List<Register> registers) {
 		Date today = new Date();
+		String username = SecurityUtils.getUsername();
 		for(Register register : registers){
 			register.setProcessDate(today);
 			register.setStatus(2);
+			register.setVerifyBy(username);
 		}
 		basicEntityService.update(registers);
 	}
