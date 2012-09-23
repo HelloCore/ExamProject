@@ -39,6 +39,9 @@ registerManagement.getRegisterTable = function(){
 				$("#registerTable tbody").append(strHtml);
 			}
 			$("#registerTable").trigger("update").unblock();
+		},
+		error: function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
 		}
 	});
 };
@@ -88,6 +91,8 @@ registerManagement.initSectionComboBox = function(callback){
 			if(typeof(callback)=='function'){
 				callback();
 			}
+		},error:function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
 		}
 	});
 };
@@ -147,9 +152,9 @@ $(document).ready(function(){
 				$("#confirmApproveModal").modal('hide');
 				registerManagement.getRegisterTable();
 			},
-			error: function(){
+			error: function(data){
 				thisButton.button('reset');
-				applicationScript.errorAlert();
+				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#confirmApproveModal").modal('hide');
 			}
 		});
@@ -170,9 +175,9 @@ $(document).ready(function(){
 				$("#confirmRejectModal").modal('hide');
 				registerManagement.getRegisterTable();
 			},
-			error: function(){
+			error: function(data){
 				thisButton.button('reset');
-				applicationScript.errorAlert();
+				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#confirmRejectModal").modal('hide');
 			}
 		});

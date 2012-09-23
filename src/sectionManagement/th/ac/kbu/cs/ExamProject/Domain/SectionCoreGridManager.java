@@ -27,13 +27,6 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 
 	@Override
 	protected DetachedCriteria initCriteria(SectionDomain domain) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
-		criteria.createAlias("section.course", "course");
-		return criteria;
-	}
-
-	@Override
-	protected DetachedCriteria initCriteriaTeacher(SectionDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(TeacherCourse.class,"teacherCourse");
 		criteria.createAlias("teacherCourse.course", "course");
 		criteria.createAlias("teacherCourse.user", "user");
@@ -42,8 +35,8 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 	}
 
 	@Override
-	protected void applyCriteria(DetachedCriteria criteria, SectionDomain domain) {
-		// TODO Auto-generated method stub
+	protected void applyCriteria(DetachedCriteria criteria, SectionDomain domain,String username) {
+		criteria.add(Restrictions.eq("teacherCourse.username",username));
 		if(BeanUtils.isNotEmpty(domain.getSectionNameSearch())){
 			criteria.add(Restrictions.ilike("section.sectionName", domain.getSectionNameSearch(), MatchMode.ANYWHERE));
 		}
@@ -105,10 +98,19 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 		return section;
 	}
 	
+
 	@Override
-	public String getDeleteString(SectionDomain domain) {
-		return "UPDATE Section section SET flag=false WHERE section.sectionId="+domain.getSectionId();
+	public Object toEntityDelete(SectionDomain domain) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
+		criteria.add(Restrictions.eq("section.sectionId",domain.getSectionId()));
+		
+		Section section = this.basicFinderService.findUniqueByCriteria(criteria);
+		section.setFlag(false);
+		return section;
 	}
+
+
+
 
 
 

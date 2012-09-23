@@ -48,11 +48,8 @@ examReport.getGrid = function(){
 			applicationScript.setPagination(examReport.page,examReport.lastPage);
 			$("#examReportGrid").unblock();
 		},
-		statusCode: {
-			401: function(){
-				alert("Session Timeout");
-				window.location = application.contextPath+'/main/login.html?target=/exam/examReport.html';
-			}
+		error:function(data){
+			applicationScript.errorAlertWithString(data.responseText);
 		}
 	});
 };

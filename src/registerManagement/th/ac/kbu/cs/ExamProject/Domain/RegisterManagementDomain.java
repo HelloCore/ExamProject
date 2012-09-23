@@ -145,16 +145,11 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		registerService.rejectSection(results);
 	}
 
-	public CoreGrid<HashMap<String, Object>> searchAdmin(
+	public CoreGrid<HashMap<String, Object>> search(
 			RegisterCoreGridManagement gridManager) {
-		// TODO Auto-generated method stub
-		return gridManager.searchAdmin(this);
+		return gridManager.search(this,SecurityUtils.getUsername());
 	}
 
-	public CoreGrid<HashMap<String, Object>> searchTeacher(
-			RegisterCoreGridManagement gridManager) {
-		return gridManager.searchTeacher(this, SecurityUtils.getUsername());
-	}
 	
 	
 	

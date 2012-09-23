@@ -7,12 +7,9 @@ import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 public class SectionDomain extends SectionPrototype{
 	
-	public CoreGrid<HashMap<String,Object>> searchAdmin(SectionCoreGridManager gridManager){
-		return gridManager.searchAdmin(this);
-	}
 
-	public CoreGrid<HashMap<String,Object>> searchTeacher(SectionCoreGridManager gridManager){
-		return gridManager.searchTeacher(this,SecurityUtils.getUsername());
+	public CoreGrid<HashMap<String,Object>> search(SectionCoreGridManager gridManager){
+		return gridManager.search(this,SecurityUtils.getUsername());
 	}
 
 	public void save(SectionCoreGridManager gridManager) {

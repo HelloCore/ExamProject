@@ -16,11 +16,6 @@ import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 
 	@Override
-	public String getDeleteString(ExamDomain domain) {
-		return "UPDATE Exam exam SET flag=false WHERE exam.examId="+domain.getExamId();
-	}
-
-	@Override
 	public Object toEntity(ExamDomain domain) {
 		Exam exam = new Exam();
 		if(BeanUtils.isNotEmpty(domain.getExamId())){
@@ -51,11 +46,6 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 		return criteria;
 	}
 
-	@Override
-	protected DetachedCriteria initCriteriaTeacher(ExamDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	protected void addOrder(DetachedCriteria criteria) {
@@ -64,7 +54,8 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 	}
 
 	@Override
-	protected void applyCriteria(DetachedCriteria criteria, ExamDomain domain) {
+	protected void applyCriteria(DetachedCriteria criteria, ExamDomain domain,String username) {
+		criteria.add(Restrictions.in("exam.courseId", this.teacherService.getCourseId(username)));
 		if(BeanUtils.isNotEmpty(domain.getCourseId()) && domain.getCourseId() !=0){
 			criteria.add(Restrictions.eq("exam.courseId", domain.getCourseId()));
 		}
@@ -75,6 +66,16 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 					Restrictions.ge("exam.endDate", new Date())
 					,Restrictions.isNull("exam.endDate")));
 		criteria.add(Restrictions.eq("exam.flag", true));
+	}
+
+	@Override
+	public Object toEntityDelete(ExamDomain domain) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
+		criteria.add(Restrictions.eq("exam.examId",domain.getExamId()));
+		
+		Exam exam = this.basicFinderService.findUniqueByCriteria(criteria);
+		exam.setFlag(false);
+		return exam;
 	}
 
 }

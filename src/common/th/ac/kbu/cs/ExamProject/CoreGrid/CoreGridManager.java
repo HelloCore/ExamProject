@@ -7,12 +7,12 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
+import th.ac.kbu.cs.ExamProject.Service.TeacherService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
 @Configurable
@@ -24,47 +24,23 @@ public abstract class CoreGridManager<T> {
 	@Autowired
 	protected BasicEntityService basicEntityService;
 	
+	@Autowired
+	protected TeacherService teacherService;
+	
 	public void save(final T domain) {
 		Object entity = this.toEntity(domain);
 		basicEntityService.saveOrUpdate(entity);
 	}
 	
 	public void delete(final T domain){
-		basicEntityService.bulkUpdate(this.getDeleteString(domain));
+		Object entity = this.toEntityDelete(domain);
+		basicEntityService.update(entity);
 	}
 	
-	public abstract String getDeleteString(final T domain);
+	public abstract Object toEntityDelete(final T domain);
 	public abstract Object toEntity(final T domain);
 	
-	public CoreGrid<HashMap<String,Object>> searchTeacher(final T domain,String username){
-		DetachedCriteria criteria = initCriteriaTeacher(domain);
-		
-		ProjectionList projectionList = Projections.projectionList();
-		this.setProjectionList(projectionList,domain);
-		
-		criteria.setProjection(projectionList);
-		
-		this.applyCriteria(criteria,domain);
-
-		criteria.add(Restrictions.eq("teacherCourse.username",username));
-		
-		this.addOrder(criteria);
-		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-		
-		Integer limit = this.getRows();
-		Integer start = (this.getPage() -1) * this.getRows();
-		List<HashMap<String,Object>> records = basicFinderService.findByCriteria(criteria,start,limit);
-		CoreGrid<HashMap<String,Object>> gridData = new CoreGrid<HashMap<String,Object>>();
-		gridData.setRecords(records);
-		Integer totalRecord = this.getTotalTeacher(domain,username);
-		gridData.setTotalRecords(totalRecord);
-		gridData.setPage(this.getPage());
-		Double totalPages = Math.ceil(totalRecord.doubleValue() / this.getRows().doubleValue());
-		gridData.setTotalPages(totalPages.intValue());
-		
-		return gridData;
-	}
-	public CoreGrid<HashMap<String,Object>> searchAdmin(final T domain){
+	public CoreGrid<HashMap<String,Object>> search(final T domain,String username){
 		DetachedCriteria criteria = initCriteria(domain);
 		
 		ProjectionList projectionList = Projections.projectionList();
@@ -72,7 +48,7 @@ public abstract class CoreGridManager<T> {
 		
 		criteria.setProjection(projectionList);
 		
-		this.applyCriteria(criteria,domain);
+		this.applyCriteria(criteria,domain,username);
 		
 		this.addOrder(criteria);
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
@@ -82,43 +58,37 @@ public abstract class CoreGridManager<T> {
 		List<HashMap<String,Object>> records = basicFinderService.findByCriteria(criteria,start,limit);
 		CoreGrid<HashMap<String,Object>> gridData = new CoreGrid<HashMap<String,Object>>();
 		gridData.setRecords(records);
-		Integer totalRecord = this.getTotal(domain);
+		Integer totalRecord = this.getTotal(domain,username);
 		gridData.setTotalRecords(totalRecord);
 		gridData.setPage(this.getPage());
 		Double totalPages = Math.ceil(totalRecord.doubleValue() / this.getRows().doubleValue());
 		gridData.setTotalPages(totalPages.intValue());
 		
 		return gridData;
+	}
+
+	protected Integer getTotal(final T domain,String username){
+		DetachedCriteria criteria = initCriteria(domain);
+		ProjectionList projectionList = Projections.projectionList();
+		
+		this.setProjectionCount(projectionList, domain);
+		
+		criteria.setProjection(projectionList);
+		applyCriteria(criteria,domain,username);
+		return BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
 	}
 	
-	protected Integer getTotal(final T domain){
-		DetachedCriteria criteria = initCriteria(domain);
-		ProjectionList projectionList = Projections.projectionList();
+	protected void setProjectionCount(ProjectionList projectionList,final T domain){
 		projectionList.add(Projections.rowCount());
-		criteria.setProjection(projectionList);
-		applyCriteria(criteria,domain);
-		return BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
-	}
-
-	protected Integer getTotalTeacher(final T domain,String username){
-		DetachedCriteria criteria = initCriteriaTeacher(domain);
-		ProjectionList projectionList = Projections.projectionList();
-		projectionList.add(Projections.rowCount());
-		criteria.setProjection(projectionList);
-		applyCriteria(criteria,domain);
-		criteria.add(Restrictions.eq("teacherCourse.username",username));
-		return BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
 	}
 	
 	protected abstract void setProjectionList(ProjectionList projectionList,final T domain);
 	
 	protected abstract DetachedCriteria initCriteria(final T domain);
 	
-	protected abstract DetachedCriteria initCriteriaTeacher(final T domain);
-	
 	protected abstract void addOrder(DetachedCriteria criteria);
 	
-	protected abstract void applyCriteria(DetachedCriteria criteria,final T domain);
+	protected abstract void applyCriteria(DetachedCriteria criteria,final T domain,String username);
 	
 	private Integer rows;
 	private Integer page;

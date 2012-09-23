@@ -1,14 +1,18 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
@@ -16,7 +20,7 @@ import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 public class LoginController {
 	
 
-//	@PreAuthorize("isAnonymous()")
+	@PreAuthorize("isAnonymous()")
 	@RequestMapping(value="/main/login.html",method=RequestMethod.GET)
 	public ModelMap init(@RequestParam(value="target",required=false) String target
 							,@RequestParam(value="error",required=false) String error
@@ -28,14 +32,14 @@ public class LoginController {
 		return modelMap;
 	}
 	
-//	@PreAuthorize("isAnonymous()")
+	@PreAuthorize("isAnonymous()")
 	@RequestMapping(value="/main/loginFail.html",method=RequestMethod.GET)
 	public ModelMap loginError(ModelMap model){
 		model.addAttribute("error","true");
 		return model;
 	}
 	
-//	@PreAuthorize("isAnonymous()")
+	@PreAuthorize("isAnonymous()")
 	@RequestMapping(value="/main/loginTimeout.html")
 	public ModelMap loginTimeOut(ModelMap model,HttpServletResponse response){
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -45,5 +49,11 @@ public class LoginController {
 	@RequestMapping(value="/main/keepAlive.html")
 	public @ResponseBody String keepAlive(){
 		return "OK";
+	}
+
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
+	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
+		return ex.getMessage();
 	}
 }

@@ -45,12 +45,6 @@ public class QuestionGroupCoreGridManager extends CoreGridManager<QuestionGroupD
 	}
 
 	@Override
-	protected DetachedCriteria initCriteriaTeacher(QuestionGroupDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	protected void addOrder(DetachedCriteria criteria) {
 		if(BeanUtils.isNotNull(getOrder()) && BeanUtils.isNotNull(getOrderBy())){
 			if(getOrder().equalsIgnoreCase("asc")){
@@ -63,7 +57,9 @@ public class QuestionGroupCoreGridManager extends CoreGridManager<QuestionGroupD
 
 	@Override
 	protected void applyCriteria(DetachedCriteria criteria,
-			QuestionGroupDomain domain) {
+			QuestionGroupDomain domain,
+			String username) {
+		criteria.add(Restrictions.in("course.courseId",this.teacherService.getCourseId(username)));
 		if(BeanUtils.isNotEmpty(domain.getQuestionGroupNameSearch())){
 			criteria.add(Restrictions.ilike("questionGroup.questionGroupName", domain.getQuestionGroupNameSearch(), MatchMode.ANYWHERE));
 		}
@@ -74,8 +70,14 @@ public class QuestionGroupCoreGridManager extends CoreGridManager<QuestionGroupD
 	}
 
 	@Override
-	public String getDeleteString(QuestionGroupDomain domain) {
-		return "UPDATE QuestionGroup questionGroup SET flag=false WHERE questionGroup.questionGroupId="+domain.getQuestionGroupId();
+	public Object toEntityDelete(QuestionGroupDomain domain) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(QuestionGroup.class,"questionGroup");
+		criteria.add(Restrictions.eq("questionGroup.questionGroupId", domain.getQuestionGroupId()));
+		
+		QuestionGroup questionGroup = this.basicFinderService.findUniqueByCriteria(criteria);
+		questionGroup.setFlag(false);
+		return questionGroup;
 	}
+
 
 }

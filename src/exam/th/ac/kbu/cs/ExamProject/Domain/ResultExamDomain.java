@@ -101,7 +101,7 @@ public class ResultExamDomain extends DoExamPrototype {
 //	}
 	
 	public CoreGrid<HashMap<String,Object>> searchStudent(ExamReportCoreGridManager gridManager){
-		return gridManager.searchAdmin(this);
+		return gridManager.search(this,SecurityUtils.getUsername());
 	}
 	
 	

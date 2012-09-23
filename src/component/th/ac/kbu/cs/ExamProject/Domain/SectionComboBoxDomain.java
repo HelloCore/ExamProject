@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import th.ac.kbu.cs.ExamProject.Entity.Section;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
+import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 public class SectionComboBoxDomain extends ComboBox{
 	
@@ -24,7 +25,7 @@ public class SectionComboBoxDomain extends ComboBox{
 		this.courseId = courseId;
 	}
 
-	public List<HashMap<String,Object>> getSectionComboBoxAdmin() {
+	public List<HashMap<String,Object>> getSectionComboBox() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
 		
 		ProjectionList projectionList = Projections.projectionList();
@@ -34,6 +35,8 @@ public class SectionComboBoxDomain extends ComboBox{
 		projectionList.add(Projections.property("section.sectionSemester"),"sectionSemester");
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("section.flag",true));
+		criteria.add(Restrictions.eq("section.status", 1));
+		criteria.add(Restrictions.in("section.courseId", this.teacherService.getCourseId(SecurityUtils.getUsername())));
 		if(BeanUtils.isNotEmpty(this.getCourseId())){
 			criteria.add(Restrictions.eq("section.courseId", this.getCourseId()));
 		}

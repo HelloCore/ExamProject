@@ -379,6 +379,9 @@ addExam.tab2Data = function(){
 			});
 			$("#sectionId").empty().html(newData).trigger("liszt:updated");
 			$("#sectionId_chzn").unblock();
+		},
+		error: function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
 		}
 	});
 	$("#questionGroupId_chzn").block(application.blockOption);
@@ -488,8 +491,8 @@ addExam.sendData = function(){
 			addExam.deleteData();
 			addExam.initFunction();
 		},
-		error : function(){
-			applicationScript.errorAlert();
+		error : function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
 			$("#tab4BackButton").button('reset');
 			$("#tab4NextButton").button('reset');
 		}

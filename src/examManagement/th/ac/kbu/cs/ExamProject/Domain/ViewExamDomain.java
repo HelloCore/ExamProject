@@ -100,6 +100,7 @@ public class ViewExamDomain extends ExamPrototype{
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("section.courseId", courseId));
 		criteria.add(Restrictions.eq("section.flag", true));
+		criteria.add(Restrictions.eq("section.status", 1));
 		
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		return basicFinderService.findByCriteria(criteria);

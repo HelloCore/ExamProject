@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import th.ac.kbu.cs.ExamProject.Entity.QuestionGroup;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
+import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 public class QuestionGroupComboBoxDomain extends ComboBox{
 	private String questionGroupArray;
@@ -40,13 +42,15 @@ public class QuestionGroupComboBoxDomain extends ComboBox{
 		this.courseId = courseId;
 	}
 
-	public List<HashMap<String,Object>> getQuestionGroupComboBoxAdmin() throws JsonParseException, JsonMappingException, IOException {
+	public List<HashMap<String,Object>> getQuestionGroupComboBox() throws JsonParseException, JsonMappingException, IOException {
 		DetachedCriteria criteria = DetachedCriteria.forClass(QuestionGroup.class,"questionGroup");
 		
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("questionGroup.questionGroupId"),"questionGroupId");
 		projectionList.add(Projections.property("questionGroup.questionGroupName"),"questionGroupName");
 		criteria.setProjection(projectionList);
+		criteria.addOrder(Order.asc("questionGroup.questionGroupName"));
+		criteria.add(Restrictions.in("questionGroup.courseId",this.teacherService.getCourseId(SecurityUtils.getUsername())));
 		if(BeanUtils.isNotEmpty(this.getCourseId())){
 			criteria.add(Restrictions.eq("questionGroup.courseId", this.getCourseId()));
 		}

@@ -86,12 +86,9 @@ examManagement.getGrid = function(){
 			applicationScript.setPagination(examManagement.page,examManagement.lastPage);
 			$("#examDivHolder").unblock();
 		},
-		statusCode: {
-			401: function(){
-				alert("Session Timeout");
-				window.location = application.contextPath+'/main/login.html?target=/management/exam.html';
-				$("#examDivHolder").unblock();
-			}
+		error:function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
+			$("#examDivHolder").unblock();
 		}
 	});	
 };
@@ -153,9 +150,9 @@ $(document).ready(function(){
 				$("#confirmDelete").modal('hide');
 				examManagement.getGrid();
 			},
-			error: function(){
+			error: function(data){
 				thisButton.button('reset');
-				applicationScript.errorAlert();
+				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#confirmDelete").modal('hide');
 			}
 		});

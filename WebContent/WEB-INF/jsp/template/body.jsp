@@ -70,14 +70,14 @@
 							        <li><a  href="#">Settings</a></li>
 							        <li><a  href="#">Change Password</a></li>
 							        <li class="divider"></li>
-					          		<sec:authorize access="hasRole('ROLE_TEACHER')" >
+					          		<%-- <sec:authorize access="hasRole('ROLE_TEACHER')" >
 					              		<li class="nav-header">จัดการข้อมูลวิชา</li>
 								        <li><a  href="#"><i class="icon-ok"></i>  CS.101</a></li>
 									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.102</a></li>
 									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.103</a></li>
 									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.104</a></li>
 									    <li class="divider"></li>
-				              		</sec:authorize>
+				              		</sec:authorize> --%>
 				              		<li><a  href="${contextPath}/main/logout.do">Sign Out</a></li>
 				            	</ul>
 				            </li>
@@ -106,7 +106,7 @@
 									</ul>
 								</li>
 				            </sec:authorize>
-				            <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')">
+				            <sec:authorize access="hasRole('ROLE_TEACHER')">
 								<li class="dropdown genericManagement">
 								    <a href="#"
 								          class="dropdown-toggle"

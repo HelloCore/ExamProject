@@ -60,4 +60,10 @@ public class RegisterController {
 	public @ResponseBody String mainException(MainException ex,HttpServletRequest request,HttpServletResponse response){
 		return ex.getMessage();
 	}
+
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
+	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
+		return ex.getMessage();
+	}
 }

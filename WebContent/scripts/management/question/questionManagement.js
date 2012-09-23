@@ -59,12 +59,9 @@ questionManagement.getGrid = function(){
 
 			$("#questionDivHolder").unblock();
 		},
-		statusCode: {
-			401: function(){
-				alert("Session Timeout");
-				window.location = application.contextPath+'/main/login.html?target=/management/question.html';
-				$("#questionDivHolder").unblock();
-			}
+		error: function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
+			$("#questionDivHolder").unblock();
 		}
 	});
 };
@@ -169,9 +166,9 @@ $(document).ready(function(){
 				$("#confirmDelete").modal('hide');
 				questionManagement.getGrid();
 			},
-			error: function(){
+			error: function(data){
 				thisButton.button('reset');
-				applicationScript.errorAlert();
+				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#confirmDelete").modal('hide');
 			}
 		});

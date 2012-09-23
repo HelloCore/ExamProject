@@ -1,10 +1,7 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,27 +30,27 @@ import th.ac.kbu.cs.ExamProject.Exception.ExamException;
 @Controller
 public class ExamController {
 	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/selectExam.html" ,method=RequestMethod.GET)
 	public ModelMap initSelectExam(@ModelAttribute SelectExamDomain domain,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){
 		modelMap.addAttribute("examData", domain.getExam());
 		modelMap.addAttribute("examResult", domain.getExamResult());
 		return new ModelMap();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/createExam.html" ,method=RequestMethod.POST,params={"method=createExamResult"})
 	public @ResponseBody Long createExamResult(@ModelAttribute CreateExamDomainTemp domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
 		return domain.createExamResultHql();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/doExam.html" ,method=RequestMethod.GET)
 	public String redirect(@ModelAttribute DoExamDomain domain,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){
 		return "redirect:/exam/selectExam.html";
 	}
-		
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/doExam.html" ,method=RequestMethod.POST,params={"method=doExam"})
 	public ModelMap selectExamResult(@ModelAttribute DoExamDomain domain,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){
 		modelMap.addAttribute("questionAnswerData", domain.doExam());
@@ -62,26 +59,26 @@ public class ExamController {
 		modelMap.addAttribute("examResultId", domain.getExamResultId());
 		return new ModelMap();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/autoSaveExam.html" ,method=RequestMethod.POST,params={"method=autoSave"})
 	public void autoSaveExam(@ModelAttribute SaveExamDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.autoSave();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/sendExam.html" ,method=RequestMethod.POST,params={"method=sendExam"})
 	public void sendExam(@ModelAttribute SaveExamDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.sendExam();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/finishExam.html" ,method=RequestMethod.POST,params={"method=finishExam"})
 	public @ResponseBody Boolean finishExamFromSelect(@ModelAttribute SaveExamDomain domain,HttpServletRequest request){
 		return domain.finishExamFromSelect();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHSTUDENT)
+
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/validateExam.html" ,method=RequestMethod.POST,params={"method=validateExamResult"})
 	public void validateExamResult(@ModelAttribute DoExamDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.validateExamResult();
@@ -121,8 +118,10 @@ public class ExamController {
 	public @ResponseBody String examException(ExamException ex,HttpServletRequest request,HttpServletResponse response){
 		return ex.getMessage();
 	}
-	//การส่งข้อสอบ เพิ่มdeadline ให้ 5 นาทีเผื่อระบบdelay
-	//ตอนเซฟ เช็คข้อมูลให้เรียบร้อย
-	//ExamResultAnswerId ตรง
-	//ExamResultId ตรง
+
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
+	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
+		return ex.getMessage();
+	}
 }

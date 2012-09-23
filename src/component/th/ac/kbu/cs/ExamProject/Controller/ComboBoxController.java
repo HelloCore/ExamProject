@@ -5,14 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -40,30 +44,18 @@ public class ComboBoxController {
 		}
 		return modelMap;
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/sectionComboBox.html" ,method=RequestMethod.POST)
 	public @ResponseBody List<HashMap<String,Object>> getSectionComboBox(@ModelAttribute SectionComboBoxDomain domain,HttpServletRequest request){
-		List<HashMap<String,Object>> sectionData = null;
-		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
-			sectionData = domain.getSectionComboBoxAdmin();
-		}else{
-			
-		}
-		return sectionData;
+		return domain.getSectionComboBox();
 	}
 
 
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/questionGroupComboBox.html" ,method=RequestMethod.POST)
-	public ModelMap getQuestionGroupComboBox(@ModelAttribute QuestionGroupComboBoxDomain domain,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
-		ModelMap modelMap = new ModelMap();
-		modelMap.addAttribute("optionAll", domain.getOptionAll());
-		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
-			modelMap.addAttribute("questionGroupData", domain.getQuestionGroupComboBoxAdmin());
-		}else{
-			
-		}
+	public ModelMap getQuestionGroupComboBox(@ModelAttribute QuestionGroupComboBoxDomain domain,HttpServletRequest request,ModelMap modelMap) throws JsonParseException, JsonMappingException, IOException{
+		modelMap.addAttribute("questionGroupData", domain.getQuestionGroupComboBox());
 		return modelMap;
 	}
 	@PreAuthorize(RoleDescription.hasRole.STUDENT)
@@ -97,6 +89,12 @@ public class ComboBoxController {
 	@RequestMapping(value="/member/registerSectionComboBox.html" ,method=RequestMethod.POST,params={"method=changeSection"})
 	public @ResponseBody List<Object[]> getChangeSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
 		return domain.getChangeSectionStudentData(SecurityUtils.getUsername());
+	}
+
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
+	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
+		return ex.getMessage();
 	}
 	
 }

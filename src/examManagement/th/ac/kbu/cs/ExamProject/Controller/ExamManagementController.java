@@ -8,13 +8,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -33,20 +36,20 @@ import th.ac.kbu.cs.ExamProject.Entity.ExamSection;
 
 @Controller
 public class ExamManagementController {
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/add.html" ,method=RequestMethod.GET)
 	public ModelMap initAdd(HttpServletRequest request,ModelMap modelMap){
 		return modelMap;
 	}
 
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam.html" ,method=RequestMethod.GET)
 	public ModelMap initManagement(HttpServletRequest request,ModelMap modelMap){
 		return modelMap;
 	}
 
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=viewExam")
 	public ModelMap initViewExam(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,ModelMap modelMap) throws JsonGenerationException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
@@ -62,74 +65,75 @@ public class ExamManagementController {
 		modelMap.addAttribute("examSectionData", examSectionData);
 		return modelMap;
 	}
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamHeader")
 	public void editExamHeader(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.editExamHeader();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editStartDate")
 	public void editStartDate(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
 		domain.editStartDate();
 	}
 
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editEndDate")
 	public void editEndDate(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
 		domain.editEndDate();
 	}
 
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editNumOfQuestion")
 	public void editNumOfQuestion(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
 		domain.editNumOfQuestion();
 	}
 
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamLimit")
 	public void editExamLimit(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
 		domain.editExamLimit();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamSequence")
 	public void editExamSequence(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
 		domain.editExamSequence();
 	}
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamSection")
 	public @ResponseBody List<ExamSection> editExamSection(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{
 		return domain.editExamSection();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editExamQuestionGroup")
 	public @ResponseBody List<ExamQuestionGroup> editExamQuestionGroup(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{
 		return domain.editExamQuestionGroup();
 	}
-	
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/add.html" ,method=RequestMethod.POST,params="method=addExam")
 	public void addExam(@ModelAttribute AddExamDomain domain,HttpServletRequest request,HttpServletResponse reponse) throws ParseException{
 		domain.addExam();
 	}
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam.html" ,method=RequestMethod.POST,params={"method=getExamTable"})
 	public @ResponseBody CoreGrid<HashMap<String,Object>> search(@ModelAttribute ExamDomain domain,@ModelAttribute ExamCoreGridManager gridManager,HttpServletResponse reponse,HttpServletRequest request) {
-		CoreGrid<HashMap<String,Object>> grid = null;
-		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
-			grid = domain.searchAdmin(gridManager);
-		}else{
-			
-		}
-		return grid;	
+		return domain.search(gridManager);
 	}
 
-	@PreAuthorize(RoleDescription.hasAnyRole.ADMIN.WITHTEACHER)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam.html" ,method=RequestMethod.POST,params={"method=deleteExam"})
 	public void delete(@ModelAttribute ExamDomain domain,@ModelAttribute ExamCoreGridManager gridManager,HttpServletResponse reponse,HttpServletRequest request) {
 		domain.delete(gridManager);
 	}
-	
+
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
+	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
+		return ex.getMessage();
+	}
 }

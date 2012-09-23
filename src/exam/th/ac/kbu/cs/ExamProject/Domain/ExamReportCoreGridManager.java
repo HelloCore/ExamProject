@@ -33,21 +33,11 @@ public class ExamReportCoreGridManager extends CoreGridManager<ResultExamDomain>
 		return criteria;
 	}
 
-	@Override
-	protected DetachedCriteria initCriteriaTeacher(ResultExamDomain domain) {
-//		DetachedCriteria criteria = DetachedCriteria.forClass(TeacherCourse.class,"teacherCourse");
-//		criteria.createAlias("teacherCourse.course", "course");
-//		criteria.createAlias("teacherCourse.user", "user");
-//		criteria.createAlias("course.section", "section");
-//		return criteria;
-		return null;
-	}
 
 	@Override
-	protected void applyCriteria(DetachedCriteria criteria, ResultExamDomain domain) {
+	protected void applyCriteria(DetachedCriteria criteria, ResultExamDomain domain,String username) {
 		criteria.add(Restrictions.eq("examResult.username", SecurityUtils.getUsername()));
 		criteria.add(Restrictions.eq("examResult.examCompleted", true));
-//		criteria.addOrder(Order.desc("examResult.examCompleteDate"));
 	}
 
 	@Override
@@ -66,10 +56,11 @@ public class ExamReportCoreGridManager extends CoreGridManager<ResultExamDomain>
 		return null;
 	}
 	
+
 	@Override
-	public String getDeleteString(ResultExamDomain domain) {
+	public Object toEntityDelete(ResultExamDomain domain) {
+		// TODO Auto-generated method stub
 		return null;
-//		return "UPDATE Section section SET flag=false WHERE section.sectionId="+domain.getSectionId();
 	}
 
 

@@ -45,11 +45,6 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 		return criteria;
 	}
 
-	@Override
-	protected DetachedCriteria initCriteriaTeacher(QuestionDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	protected void addOrder(DetachedCriteria criteria) {
@@ -58,7 +53,10 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 
 	@Override
 	protected void applyCriteria(DetachedCriteria criteria,
-			QuestionDomain domain) {
+			QuestionDomain domain,
+			String username) {
+		criteria.add(Restrictions.in("course.courseId", this.teacherService.getCourseId(username)));
+		
 		criteria.add(Restrictions.eq("question.flag", true));
 		criteria.add(Restrictions.eq("answer.flag", true));
 		if(BeanUtils.isNotEmpty(domain.getCourseId())){
@@ -71,19 +69,22 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 			criteria.add(Restrictions.like("question.questionText", domain.getQuestionText(), MatchMode.ANYWHERE));
 		}
 	}
-	
+
 	@Override
-	protected Integer getTotal(QuestionDomain domain){
-		DetachedCriteria criteria = initCriteria(domain);
-		ProjectionList projectionList = Projections.projectionList();
+	protected void setProjectionCount(ProjectionList projectionList,QuestionDomain domain){
 		projectionList.add(Projections.countDistinct("question.questionId"));
-		criteria.setProjection(projectionList);
-		applyCriteria(criteria,domain);
-		return BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
+		
 	}
 
 	@Override
-	public String getDeleteString(QuestionDomain domain) {
-		return "UPDATE Question question SET flag=false WHERE question.questionId="+domain.getQuestionId();
+	public Object toEntityDelete(QuestionDomain domain) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Question.class,"question");
+		criteria.add(Restrictions.eq("question.questionId",domain.getQuestionId()));
+		
+		Question question = this.basicFinderService.findUniqueByCriteria(criteria);
+		question.setFlag(false);
+		return question;
 	}
+	
+	
 }

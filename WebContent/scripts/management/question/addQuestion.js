@@ -192,10 +192,10 @@ $(document).ready(function(){
 				addQuestion.setDefaultForm();
 				applicationScript.saveComplete();
 			}
-			,error: function(){
+			,error: function(data){
 				thisButton.button('reset');
 				$('#confirmModal').modal('hide');
-				applicationScript.errorAlert();
+				applicationScript.errorAlertWithStringTH(data.responseText);
 			}
 		});
 	});

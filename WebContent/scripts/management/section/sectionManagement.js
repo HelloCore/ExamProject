@@ -83,11 +83,9 @@ sectionManagement.getGrid = function(){
 			applicationScript.setPagination(sectionManagement.page,sectionManagement.lastPage);
 			$("#sectionGrid").unblock();
 		},
-		statusCode: {
-			401: function(){
-				alert("Session Timeout");
-				window.location = application.contextPath+'/main/login.html?target=/management/section.html';
-			}
+		error:function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
+			$("#sectionGrid").unblock();
 		}
 	});
 };
@@ -222,9 +220,9 @@ $(document).ready(function(){
 						sectionManagement.getGrid();
 						$("#saveButton").button('reset');
 					},
-					error: function(){
+					error: function(data){
 						$('#sectionModal').modal('hide');
-						applicationScript.errorAlert();
+						applicationScript.errorAlertWithStringTH(data.responseText);
 						$("#saveButton").button('reset');
 					}
 				});
@@ -259,9 +257,9 @@ $(document).ready(function(){
 				sectionManagement.getGrid();
 				$("#deleteButton").button('reset');
 			},
-			error: function(){
+			error: function(data){
 				$("#confirmDelete").modal('hide');
-				applicationScript.errorAlert();
+				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#deleteButton").button('reset');
 			}
 		});

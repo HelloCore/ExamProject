@@ -68,11 +68,9 @@ questionGroupManagement.getGrid = function(){
 			
 			$("#questionGroupGrid").unblock();
 		},
-		statusCode: {
-			401: function(){
-				alert("Session Timeout");
-				window.location = application.contextPath+'/main/login.html?target=/management/questionGroup.html';
-			}
+		error:function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
+			$("#questionGroupGrid").unblock();
 		}
 	});
 };
@@ -190,9 +188,9 @@ $(document).ready(function(){
 						questionGroupManagement.getGrid();
 						$("#saveButton").button('reset');
 					},
-					error: function(){
+					error: function(data){
 						$('#questionGroupModal').modal('hide');
-						applicationScript.errorAlert();
+						applicationScript.errorAlertWithStringTH(data.responseText);
 						$("#saveButton").button('reset');
 					}
 				});
@@ -228,9 +226,9 @@ $(document).ready(function(){
 				questionGroupManagement.getGrid();
 				$("#deleteButton").button('reset');
 			},
-			error: function(){
+			error: function(data){
 				$("#confirmDelete").modal('hide');
-				applicationScript.errorAlert();
+				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#deleteButton").button('reset');
 			}
 		});
