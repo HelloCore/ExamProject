@@ -6,4 +6,5 @@ public interface SignUpService {
 	User getUser(String username);
 	void signUp(User user);
 	void upgradeUserType(User user);
+	void validateStudentIdAndEmail(String studentId,String email);
 }

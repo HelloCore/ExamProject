@@ -57,8 +57,8 @@
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
 			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 			<property name="url"  value="jdbc:mysql://localhost/ExamProject?characterEncoding=UTF-8" />
-			<property name="username" value="root" />
-			<property name="password" value="1234" />
+			<property name="username" value="examProject" />
+			<property name="password" value="j4sxJFcEmVmY4Z93" />
 		</bean>
 		
 		<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -142,15 +142,14 @@ class="org.springframework.http.converter.StringHttpMessageConverter" />
 		<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
 		
 		<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-			<property name="host" value="smtp.gmail.com" />
-			<property name="port" value="587" />
-			<property name="username" value="noreply.examproject@gmail.com" />
-			<property name="password" value=",sk;bmpk]ypgdK,[yIRb9" />
+			<property name="host" value="mail.core-serv.com" />
+			<property name="username" value="noreply@core-serv.com" />
+			<property name="password" value="a8jskr" />
 		 
 			<property name="javaMailProperties">
 			   <props>
 		       	      <prop key="mail.smtp.auth">true</prop>
-		       	      <prop key="mail.smtp.starttls.enable">true</prop>
+		       	      <prop key="mail.smtp.starttls.enable">false</prop>
 		       	   </props>
 			</property>
 		</bean>

@@ -1,3 +1,4 @@
+
 application.page='register';
 register = {};
 register.getGrid = function(){
@@ -43,26 +44,48 @@ register.getGrid = function(){
 	});
 	
 };
-register.loadCourseIdBox = function(load,callback){
-	$("#courseId_chzn").block(application.blockOption);
-	$("#courseId").load(application.contextPath+"/member/registerCourseComboBox.html",function(){
-		$(this).trigger("liszt:updated");
-		if($(this).find("option").length==0){
-			applicationScript.errorAlertWithStringTH("คุณไม่สามารถลงทะเบียนได้ เนื่องจากคุณลงทะเบียนไปแล้ว หรืออาจารย์ผู้สอนยังไม่เปิด Section เพิ่ม");
-		}else{
-			if(load){
-				register.loadSectionIdBox($("#courseId").val(),"register",null,callback);
+
+register.loadCourseSectionIdBox = function(callback){
+	$("#courseSectionId_chzn").block(application.blockOption);
+	$.ajax({
+		url: application.contextPath+ "/member/registerCourseSectionComboBox.html",
+		type: "GET",
+		dataType: 'json',
+		success: function(data){
+			var newData = '',nowCourseId=null,isFirst=true;
+			for(key in data){
+				if(nowCourseId != data[key][4]){
+					nowCourseId = data[key][4];
+					if(!isFirst){
+						newData+= '</optgroup>';
+					}else{
+						isFirst = false;
+					}
+					newData += '<optgroup label="วิชา '+data[key][5]+'">';
+				}
+				newData += '<option value="'+data[key][0]+'"'
+				+' sectionYear="'+data[key][2]+'"'
+				+' sectionSemester="'+data[key][3]+'"'
+				+' sectionName="'+data[key][1]+'"'
+				+' courseId="'+data[key][4]+'"'
+				+' courseCode="'+data[key][5]+'"'
+				+' >เทอม '+data[key][3]+' ปี '+data[key][2]+' ['+data[key][1]+']</option>';
+			}
+			$("#courseSectionId").empty().html(newData).trigger("liszt:updated");
+			if($("#courseSectionId").find("option").length==0){
+				applicationScript.errorAlertWithStringTH("คุณไม่สามารถลงทะเบียนได้ เนื่องจากคุณลงทะเบียนไปแล้ว หรืออาจารย์ผู้สอนยังไม่เปิด Section เพิ่ม");					
 			}else{
 				if(typeof(callback)=='function'){
 					callback();
 				}
 			}
+			$("#courseSectionId_chzn").unblock();
 		}
 	});
-	$("#courseId_chzn").unblock();
 };
+
 register.loadSectionIdBox = function(courseId,method,sectionId,callback){
-	$("#sectionId_chzn").block(application.blockOption);
+	$("#courseSectionId_chzn").block(application.blockOption);
 	var params = {
 			method:method,
 			courseId:courseId
@@ -94,34 +117,29 @@ register.loadSectionIdBox = function(courseId,method,sectionId,callback){
 				+' sectionName="'+data[key][1]+'"'
 				+'>เทอม '+data[key][3]+' ปี '+data[key][2]+' ['+data[key][1]+']</option>';
 			}
-			$("#sectionId").empty().html(newData).trigger("liszt:updated");
-			if($("#sectionId").find("option").length==0){
+			$("#courseSectionId").empty().html(newData).trigger("liszt:updated");
+			if($("#courseSectionId").find("option").length==0){
 				applicationScript.errorAlertWithStringTH("คุณไม่สามารถลงทะเบียนได้ เนื่องจากคุณลงทะเบียนไปแล้ว หรืออาจารย์ผู้สอนยังไม่เปิด Section เพิ่ม");					
 			}else{
 				if(typeof(callback)=='function'){
 					callback();
 				}
 			}
-			$("#sectionId_chzn").unblock();
+			$("#courseSectionId_chzn").unblock();
 		}
 	});
 };
 
 $(document).ready(function(){
 	register.getGrid();
-	$("#courseId").chosen().change(function(){
-		register.loadSectionIdBox($(this).val(),"register",null);
-	});
-	$("#sectionId").chosen();
+	$("#courseSectionId").chosen();
 	$("#registerButton").click(function(){
 		$(".button-holder").block(application.blockOption);
-		register.loadCourseIdBox(true,function(){
+		register.loadCourseSectionIdBox(function(){
 			$("#changeSectionModalButton").hide();
 			$("#registerModalButton").show();
 			$("#normal-button-holder").hide();
 			$("#register-button-holder").show();
-			$("#courseId_chzn").show();
-			$("label[for=courseId]").show();
 		});
 		$(".button-holder").unblock();
 	});
@@ -133,8 +151,8 @@ $(document).ready(function(){
 		$(".button-holder").unblock();
 	});
 	$("#registerModalButton").click(function(){
-		var courseText = $("#courseId option:checked").text(),
-			sectionChoose = $("#sectionId option:checked"),
+		var courseText = $("#courseSectionId option:checked").attr('courseCode'),
+			sectionChoose = $("#courseSectionId option:checked"),
 			modalBody = "คุณต้องการลงทะเบียนวิชา "+courseText+
 					" Section ["+sectionChoose.attr("sectionName")+
 					"] เทอม "+sectionChoose.attr("sectionSemester")+ 
@@ -151,8 +169,8 @@ $(document).ready(function(){
 			type: 'POST',
 			data: {
 				method: 'register',
-				courseId: $("#courseId").val(),
-				sectionId: $("#sectionId").val()
+				courseId: $("#courseSectionId option:checked").attr("courseId"),
+				sectionId: $("#courseSectionId").val()
 			},
 			dataType: 'json',
 			success: function(data,status){
@@ -212,7 +230,7 @@ $(document).ready(function(){
 				registerId : register.currentRegisterId,
 				courseId : register.currentCourseId,
 				sectionId : register.currentSectionId,
-				toSectionId : $("#sectionId").val()
+				toSectionId : $("#courseSectionId").val()
 			},
 			success: function(data,status){
 				applicationScript.successAlertWithStringHeader("ย้าย Section สำเร็จ กรุณารออาจารย์ผู้สอนอนุมัติ","Success");
@@ -239,8 +257,6 @@ cancelRegister = function(registerId){
 };
 
 changeSection = function(registerId,courseId,sectionId){
-	$("#courseId_chzn").hide();
-	$("label[for=courseId]").hide();
 	register.loadSectionIdBox(courseId,"changeSection",sectionId,function(){
 		$(".btn-change-section").attr('disabled',true);
 		$("#change-section-button-"+registerId).button('loading');
@@ -253,4 +269,6 @@ changeSection = function(registerId,courseId,sectionId){
 	register.currentSectionId = sectionId;
 	register.currentCourseId = courseId;
 };
+
+
 

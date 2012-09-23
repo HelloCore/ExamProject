@@ -11,10 +11,14 @@
 	<div class="span12">
 		<div class="button-holder">
 			<div class="form-inline" id="register-button-holder" style="display:none;">
-				<label class="control-label" for="courseId">วิชา</label>
+				<!-- <label class="control-label" for="courseId">วิชา</label>
 				<select id="courseId" class="input-medium" data-placeholder="Choose a course..." name="courseId"></select>
 				<label class="control-label" for="sectionId">Section</label>
 				<select id="sectionId" class="input-medium" data-placeholder="Choose a section..." name="sectionId"></select>
+				 -->
+				 
+				<label class="control-label" for="courseSectionId">Section</label>
+				<select id="courseSectionId" class="input-medium" data-placeholder="Choose a section..." name="courseSectionId"></select>
 		      	<button class="btn btn-primary" id="registerModalButton"><i class="icon-pencil icon-white"></i> Register</button>
 		      	<button class="btn btn-info" id="changeSectionModalButton"><i class="icon-edit icon-white"></i> Change</button>
 		      	<button class="btn" id="cancelButton">Cancel</button>

@@ -84,6 +84,36 @@ public class RegisterSectionComboBox extends ComboBox{
 		return basicFinderService.find(queryString.toString(), this.getCourseId());
 	}
 	
+
+	public List<Object[]> getCourseSectionData(String username){
+		StringBuilder queryString = new StringBuilder();
+		queryString.append(" SELECT ")
+						.append(" section.sectionId ")
+						.append(" ,section.sectionName ")
+						.append(" ,section.sectionYear ")
+						.append(" ,section.sectionSemester ")
+						.append(" ,course.courseId ")
+						.append(" ,course.courseCode ")
+				.append(" FROM Section section ")
+				.append(" JOIN section.course course ")
+				.append(" WHERE section.flag<>0 ")
+				.append(" AND section.status<>0 ")
+				.append(" AND CONCAT(section.sectionSemester,section.sectionYear) NOT IN ")
+				.append(" ( SELECT CONCAT(section.sectionSemester,section.sectionYear) ")
+					.append(" FROM StudentSection studentSection ") 
+					.append(" JOIN studentSection.section section ")
+					.append(" WHERE studentSection.username = ? ")
+				.append(" ) AND section.sectionId NOT IN  ")
+					.append(" ( SELECT section.sectionId ")
+						.append(" FROM Register register ")
+						.append(" WHERE (register.status = 0 OR ")
+							.append(" register.status = 1 OR ")
+							.append(" register.status = 3 ) AND ")
+							.append(" register.username = ? )")
+					.append(")");
+		return basicFinderService.find(queryString.toString(),new Object[]{ username,username });					
+	}
+	
 	public List<Object[]> getSectionStudentData(String username) {
 		StringBuilder queryString = new StringBuilder();
 		queryString.append(" SELECT ")
@@ -126,4 +156,5 @@ public class RegisterSectionComboBox extends ComboBox{
 					.append(" ) AND section.sectionId <> ?");
 		return basicFinderService.find(queryString.toString(),new Object[]{ this.getCourseId(), username, this.getCourseId(),this.getSectionId() });
 	}
+	
 }

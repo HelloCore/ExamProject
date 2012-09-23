@@ -13,7 +13,6 @@ import th.ac.kbu.cs.ExamProject.Exception.NotFoundStudentException;
 import th.ac.kbu.cs.ExamProject.Exception.NotInFacultyException;
 import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
 import th.ac.kbu.cs.ExamProject.Exception.YearInvalidException;
-import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.MailService;
 import th.ac.kbu.cs.ExamProject.Service.SignUpService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
@@ -38,7 +37,7 @@ public class SignUpDomain extends SignUpPrototype{
 			throw new YearInvalidException("Year invalid!");
 		}
 	}
-	
+
 	private void validateFaculty(String studentId){
 		String facultyStr = studentId.substring(2,7);
 		if(!facultyStr.equalsIgnoreCase("07024")){
@@ -90,6 +89,7 @@ public class SignUpDomain extends SignUpPrototype{
 
 	public void signUp() {
 		this.validateData();
+		signUpService.validateStudentIdAndEmail(this.getStudentId(),this.getEmail());
 		User user = this.toEntity();
 		signUpService.signUp(user);
 		sendActiveEmail(user.getEmail(),user.getActiveStr());

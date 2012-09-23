@@ -1,6 +1,7 @@
 package th.ac.kbu.cs.ExamProject.Service.Impl;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -45,6 +46,18 @@ public class SignUpServiceImpl implements SignUpService{
 	public void upgradeUserType(User user){
 		user.setType(3);
 		basicEntityService.update(user);
+	}
+	
+	public void validateStudentIdAndEmail(String studentId,String email){
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class,"user");
+		criteria.setProjection(Projections.rowCount());
+		criteria.add(Restrictions.or(Restrictions.eq("user.username", studentId),Restrictions.eq("user.email",email)));
+		
+		Long rows = basicFinderService.findUniqueByCriteria(criteria);
+		if(rows >= 1L){
+			throw new DataDuplicateException("studentId or email is duplicate");
+		}
+		
 	}
 	
 }
