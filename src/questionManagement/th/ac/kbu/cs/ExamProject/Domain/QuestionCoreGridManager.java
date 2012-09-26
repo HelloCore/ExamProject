@@ -55,7 +55,7 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 	protected void applyCriteria(DetachedCriteria criteria,
 			QuestionDomain domain,
 			String username) {
-		criteria.add(Restrictions.in("course.courseId", this.teacherService.getCourseId(username)));
+		criteria.add(Restrictions.in("course.courseId", this.studentTeacherService.getCourseId(username)));
 		
 		criteria.add(Restrictions.eq("question.flag", true));
 		criteria.add(Restrictions.eq("answer.flag", true));

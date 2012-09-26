@@ -34,6 +34,16 @@
 				,th.ac.kbu.cs.ExamProject.Listener
 				,th.ac.kbu.cs.ExamProject.Util" />
 		
+		<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" >
+			<property name="exceptionMappings">
+				<props>
+					<prop key="th.ac.kbu.cs.ExamProject.Exception.MainException">mainException</prop>
+					<prop key="org.hibernate.HibernateException">hibernateException</prop>
+				</props>
+			</property>
+  			<property name="defaultStatusCode" value="406"/>
+		</bean>
+		
 		<bean id="viewResolver"
 		    class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		    <property name="prefix" value="/" />
@@ -132,13 +142,13 @@ class="org.springframework.http.converter.StringHttpMessageConverter" />
 			<aop:include name="loggerAspect"/>
 		</aop:aspectj-autoproxy> 
 		
+		
 		<bean id="loggerAspect" class="th.ac.kbu.cs.ExamProject.Util.LoggerAspect" />  
 		
 		<bean class="th.ac.kbu.cs.ExamProject.Listener.SecurityLoggerListener" />
 		
-		<bean id="validator"
-		      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
-		      
+		<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
 		<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
 		
 		<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

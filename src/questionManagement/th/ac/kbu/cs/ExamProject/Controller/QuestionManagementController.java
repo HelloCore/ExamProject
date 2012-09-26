@@ -21,7 +21,6 @@ import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.AddQuestionDomain;
 import th.ac.kbu.cs.ExamProject.Domain.QuestionCoreGridManager;
 import th.ac.kbu.cs.ExamProject.Domain.QuestionDomain;
-import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 @Controller
 public class QuestionManagementController {
@@ -56,9 +55,10 @@ public class QuestionManagementController {
 		domain.delete(gridManager);
 	}
 
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
-		return ex.getMessage();
-	}
+
+//	@ExceptionHandler(RuntimeException.class)
+//	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
+//	public @ResponseBody String runtimeException(RuntimeException ex,HttpServletRequest request,HttpServletResponse response){
+//		return ex.getMessage();
+//	}
 }

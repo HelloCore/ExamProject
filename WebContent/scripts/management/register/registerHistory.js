@@ -133,4 +133,10 @@ $(document).ready(function(){
 		}
 		registerHistory.getGrid();
 	});
+	$("#pageSize").change(function(){
+		registerHistory.rows = $(this).val();
+	});
+	$("#filterButton").click(function(){
+		registerHistory.getGrid();
+	});
 });

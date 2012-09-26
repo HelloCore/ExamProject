@@ -58,7 +58,7 @@ public class RegisterCoreGridManagement extends CoreGridManager<RegisterManageme
 	@Override
 	protected void applyCriteria(DetachedCriteria criteria,
 			RegisterManagementDomain domain,String username) {
-		criteria.add(Restrictions.in("section.courseId", this.teacherService.getCourseId(username)));
+		criteria.add(Restrictions.in("section.courseId", this.studentTeacherService.getCourseId(username)));
 	}
 
 	@Override

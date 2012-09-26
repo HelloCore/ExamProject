@@ -55,7 +55,7 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 
 	@Override
 	protected void applyCriteria(DetachedCriteria criteria, ExamDomain domain,String username) {
-		criteria.add(Restrictions.in("exam.courseId", this.teacherService.getCourseId(username)));
+		criteria.add(Restrictions.in("exam.courseId", this.studentTeacherService.getCourseId(username)));
 		if(BeanUtils.isNotEmpty(domain.getCourseId()) && domain.getCourseId() !=0){
 			criteria.add(Restrictions.eq("exam.courseId", domain.getCourseId()));
 		}

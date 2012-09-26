@@ -55,15 +55,10 @@ public class RegisterController {
 		domain.changeSection(SecurityUtils.getUsername());
 	}
 	
-	@ExceptionHandler(MainException.class)
-	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-	public @ResponseBody String mainException(MainException ex,HttpServletRequest request,HttpServletResponse response){
-		return ex.getMessage();
-	}
+//	@ExceptionHandler(MainException.class)
+//	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
+//	public @ResponseBody String mainException(MainException ex,HttpServletRequest request,HttpServletResponse response){
+//		return ex.getMessage();
+//	}
 
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
-		return ex.getMessage();
-	}
 }

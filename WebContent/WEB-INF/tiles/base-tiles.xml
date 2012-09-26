@@ -47,13 +47,23 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/requestActiveCodeFooter.jsp"/>
 	</definition>
 	
+	<definition name="/main/readNews.page" extends=".template">
+		<put-attribute name="title" value="Read News"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/readNewsBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/readNewsFooter.jsp"/>
+	</definition>
+	
+	<definition name="/main/readMoreNews.page" extends=".template">
+		<put-attribute name="title" value="Read News"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/readMoreNewsBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/readMoreNewsFooter.jsp"/>
+	</definition>
 	
 	<definition name="/member/register.page" extends=".template">
 		<put-attribute name="title" value="Register"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/member/registerBody.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/member/registerFooter.jsp"/>
 	</definition>
-	
 	
 	<definition name="/management/section.page" extends=".template">
 		<put-attribute name="title" value="Section Management"/>
@@ -115,6 +125,23 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/exam/viewExamFooter.jsp"/>
 	</definition>
 	
+	<definition name="/management/news/add.page" extends=".template">
+		<put-attribute name="title" value="Add News"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/news/addNewsBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/news/addNewsFooter.jsp"/>
+	</definition>
+	
+	<definition name="/management/news.page" extends=".template">
+		<put-attribute name="title" value="News Management"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/news/newsManagementBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/news/newsManagementFooter.jsp"/>
+	</definition>
+	
+	<definition name="/management/news/view.page" extends=".template">
+		<put-attribute name="title" value="View News"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/news/viewNewsBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/news/viewNewsFooter.jsp"/>
+	</definition>
 	
 	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">
 	</definition>
@@ -165,5 +192,9 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/exam/examReportBody.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/examReportFooter.jsp"/>
 	</definition>
+	
+	<definition name="/mainException.page"  template="/WEB-INF/jsp/template/error.jsp" />
+	<definition name="/hibernateException.page"  template="/WEB-INF/jsp/template/error.jsp" />
+	
 	
 </tiles-definitions>

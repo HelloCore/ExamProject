@@ -55,6 +55,7 @@ public class ComboBoxController {
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/questionGroupComboBox.html" ,method=RequestMethod.POST)
 	public ModelMap getQuestionGroupComboBox(@ModelAttribute QuestionGroupComboBoxDomain domain,HttpServletRequest request,ModelMap modelMap) throws JsonParseException, JsonMappingException, IOException{
+		modelMap.addAttribute("optionAll", domain.getOptionAll());
 		modelMap.addAttribute("questionGroupData", domain.getQuestionGroupComboBox());
 		return modelMap;
 	}
@@ -91,10 +92,5 @@ public class ComboBoxController {
 		return domain.getChangeSectionStudentData(SecurityUtils.getUsername());
 	}
 
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
-		return ex.getMessage();
-	}
 	
 }

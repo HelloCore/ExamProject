@@ -113,15 +113,11 @@ public class ExamController {
 		return domain.searchStudent(gridManager);
 	}
 	
-	@ExceptionHandler(ExamException.class)
-	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-	public @ResponseBody String examException(ExamException ex,HttpServletRequest request,HttpServletResponse response){
-		return ex.getMessage();
-	}
+//	@ExceptionHandler(ExamException.class)
+//	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
+//	public @ResponseBody String examException(ExamException ex,HttpServletRequest request,HttpServletResponse response){
+//		return ex.getMessage();
+//	}
 
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
-		return ex.getMessage();
-	}
+
 }

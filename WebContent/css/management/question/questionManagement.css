@@ -1,12 +1,63 @@
 @CHARSET "UTF-8";
-.question-table {width: 652px;margin:auto;margin-top:20px;margin-bottom:20px;}
+/* .question-table {width: 652px;margin:auto;margin-top:20px;margin-bottom:20px;}
 .question-table tr td .btn {width:90px;}
-.question-table .sub-column {width: 326px;}
+.question-table .sub-column {width: 326px;} */
 .fixed-content {width: 654px; margin:auto;}
 .fixed-content select,.fixed-content label,.fixed-content .input-prepend {display:inline;}
 .grid-toolbar button.btn {width: 100px;margin-bottom:5px;}
-.question-text{width:170px;}
+/* .question-text{width:170px;} */
 .search-btn{ width:70px;}
 .form-horizontal .control-group {margin-bottom: 10px;}
 .search-inactive i { display:none;}
 .grid-info {display:inline;}
+.label-group {width:40px;}
+.btn-holder{ margin-top:5px;margin-bottom:5px;}
+.clear{ clear:both;}
+.visible-phone-portrait {display:none;}
+@media (max-width: 480px){
+	.visible-phone-portrait {display:block;}
+	.combobox {width:120px;}
+	#leftBar { position: static;top:0px;}
+	.search-bar {width:48%;float:left;}
+	.question-text-div{margin-left:20px; margin-top:10px;}
+	.grid-info-holder { text-align:center;margin-bottom:10px;}
+	.grid-info{ width:150px; }
+	.text-bar { width:100%;text-align:center; }
+	input.question-text {width:220px;}
+}
+
+@media (min-width: 481px) and (max-width: 767px){
+	.visible-phone-portrait {display:block;}
+	#leftBar { position: static;top:0px;}
+	.combobox {width:70%;}
+	.search-bar {width:49%;float:left;}
+	.question-text-div{margin-left:20px;}
+	.text-bar { width:100%;text-align:center; }
+	.grid-info-holder { text-align:center;margin-bottom:10px;}
+	.grid-info{ width:150px; margin-top:0px; }
+	input.question-text {width:320px;}
+	.btn-holder { width:32%; display:inline-block;}
+}
+
+@media (min-width: 768px) and (max-width: 979px){
+	#leftBar {top:40px;}
+	.combobox {width:120px;}
+	.question-text{width:125px;}
+	.question-text-div{margin-top:10px;}
+	.grid-info-holder { text-align:center;}
+}
+
+@media (min-width: 980px) and (max-width: 1199px){
+	#leftBar {top:70px;}
+	.combobox {width:175px;}
+	.question-text{width:180px;}
+	.question-text-div{margin-top:10px;}
+	.grid-info-holder { text-align:center;}
+}
+@media (min-width: 1200px){
+#leftBar {top:70px;}
+	.grid-info-holder { text-align:center;}
+	.combobox {width:220px;}
+	.question-text{width:230px;}
+	.question-text-div{margin-top:10px;}
+}

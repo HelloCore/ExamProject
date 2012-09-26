@@ -49,9 +49,9 @@ questionManagement.getGrid = function(){
 			}
 			var startRecord = (((questionManagement.rows)*(questionManagement.page-1))+1);
 			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
+				$("#gridInfo").text('0 - 0 of 0 Records ');		
 			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
+				$("#gridInfo").text(''+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
 			}			
 			questionManagement.lastPage = data.totalPages;
 			
@@ -123,6 +123,15 @@ changePage = function(page){
 	}
 };
 
+questionManagement.search = function(){
+	questionManagement.page =1;
+	questionManagement.getGrid();
+	$('.search-inactive').addClass('search-active').removeClass('search-inactive');
+	if($("#questionText").val().length==0){
+		$('.search-active').removeClass('search-active').addClass('search-inactive');
+	}
+};
+
 $(document).ready(function(){
 	$("#courseId").chosen().change(function(){
 		$("#questionGroupId_chzn").block(application.blockOption);
@@ -139,12 +148,13 @@ $(document).ready(function(){
 		window.location = application.contextPath+'/management/question/add.html';
 	});
 	$("#searchButton").click(function(){
-		questionManagement.page =1;
-		questionManagement.getGrid();
-		$('.search-inactive').addClass('search-active').removeClass('search-inactive');
-		if($("#questionText").val().length==0){
-			$('.search-active').removeClass('search-active').addClass('search-inactive');
-		}
+		questionManagement.search();
+	});
+	$("#questionText").keypress(function(event){
+		 if ( event.which == 13 ) {
+		     event.preventDefault();
+		     questionManagement.search();
+		 }
 	});
 	$("#pageSize").change(function(){
 		questionManagement.rows = $(this).val();
@@ -186,6 +196,12 @@ $(document).ready(function(){
 		if(questionManagement.page < questionManagement.lastPage){
 			questionManagement.page++;
 			questionManagement.getGrid();
+		}
+	});
+	var $window = $(window);
+	$("#leftBar").affix({
+		offset: {
+			top: function () { return $window.width() <= 980 ? 207 : 167; }
 		}
 	});
 });

@@ -131,9 +131,5 @@ public class ExamManagementController {
 		domain.delete(gridManager);
 	}
 
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-	public @ResponseBody String exception(Exception ex,HttpServletRequest request,HttpServletResponse response){
-		return ex.getMessage();
-	}
+
 }

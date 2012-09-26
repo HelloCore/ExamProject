@@ -263,7 +263,7 @@ $(document).ready(function(){
 		if(addExam.validateTab1()){
 			addExam.examHeader = $("#examHeader").val();
 			addExam.courseId = $("#courseId").val();
-			addExam.courseCode = $("#courseId option:checked").text();
+			addExam.courseCode = $("#courseId option:selected").text();
 			if(!$("#useStartDate").is(":checked")){
 				addExam.startDate = '';
 			}
@@ -482,7 +482,6 @@ addExam.sendData = function(){
 		type: 'POST',
 		data: parameter,
 		success: function(){
-			
 			applicationScript.saveComplete();
 			$("#tab4BackButton").button('reset');
 			$("#tab4NextButton").button('reset');

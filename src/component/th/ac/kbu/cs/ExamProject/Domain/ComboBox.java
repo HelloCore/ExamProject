@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
-import th.ac.kbu.cs.ExamProject.Service.TeacherService;
+import th.ac.kbu.cs.ExamProject.Service.StudentTeacherService;
 
 @Configurable
 public class ComboBox{
@@ -13,7 +13,7 @@ public class ComboBox{
 	protected BasicFinderService basicFinderService;
 	
 	@Autowired
-	protected TeacherService teacherService;
+	protected StudentTeacherService teacherService;
 	
 	private Boolean optionAll;
 

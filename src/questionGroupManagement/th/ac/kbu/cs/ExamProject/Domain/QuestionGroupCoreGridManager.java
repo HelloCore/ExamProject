@@ -59,7 +59,7 @@ public class QuestionGroupCoreGridManager extends CoreGridManager<QuestionGroupD
 	protected void applyCriteria(DetachedCriteria criteria,
 			QuestionGroupDomain domain,
 			String username) {
-		criteria.add(Restrictions.in("course.courseId",this.teacherService.getCourseId(username)));
+		criteria.add(Restrictions.in("course.courseId",this.studentTeacherService.getCourseId(username)));
 		if(BeanUtils.isNotEmpty(domain.getQuestionGroupNameSearch())){
 			criteria.add(Restrictions.ilike("questionGroup.questionGroupName", domain.getQuestionGroupNameSearch(), MatchMode.ANYWHERE));
 		}

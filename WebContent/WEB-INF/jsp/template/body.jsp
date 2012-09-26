@@ -86,7 +86,7 @@
 	          		<div class="nav-collapse">
 	            		<ul class="nav">
 				            <li class="index"><a href="${contextPath}/main/home.html"> หน้าแรก</a></li>
-				            <li class="news"><a href="#news">ข่าว</a></li>
+				            <li class="news"><a href="${contextPath}/main/readMoreNews.html">ข่าว</a></li>
 				            <sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
 				            	<li class="signUp"><a  href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">ยืนยันการสมัครสมาชิก</a></li>
 				            </sec:authorize>

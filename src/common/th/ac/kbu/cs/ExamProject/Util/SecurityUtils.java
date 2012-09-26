@@ -19,7 +19,7 @@ public class SecurityUtils {
 	public static User getUser(){
 		Authentication authen = SecurityUtils.getAuthentication();
 		User user = null;
-		if(BeanUtils.isNotNull(authen)){
+		if (authen.getPrincipal() instanceof UserDetails) {
 			UserDetails userDetails = (UserDetails) authen.getPrincipal();
 			user = userDetails.getUser();
 		}

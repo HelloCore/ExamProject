@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
-import th.ac.kbu.cs.ExamProject.Service.TeacherService;
+import th.ac.kbu.cs.ExamProject.Service.StudentTeacherService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
 @Configurable
@@ -25,7 +25,7 @@ public abstract class CoreGridManager<T> {
 	protected BasicEntityService basicEntityService;
 	
 	@Autowired
-	protected TeacherService teacherService;
+	protected StudentTeacherService studentTeacherService;
 	
 	public void save(final T domain) {
 		Object entity = this.toEntity(domain);
