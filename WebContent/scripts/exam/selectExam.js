@@ -2,10 +2,6 @@ application.page='exam';
 selectExam = {};
 selectExam.nowExamResultId = null;
 $(document).ready(function(){	
-	$('.havePopover').popover({
-		trigger:'hover',
-		placement:'bottom'
-	});
 	$("#createExamButton").click(function(e){
 		e.preventDefault();
 		$('#createExamForm').submit();

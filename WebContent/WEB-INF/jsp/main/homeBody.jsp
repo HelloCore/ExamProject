@@ -29,14 +29,10 @@
 					</a>
 				</li>
 			</c:forEach>
-	    	<!-- 
-	    	<li><span class="label label-warning">New</span> สำนักบรรณสาร ขอเชิญทดลองใช้ ฐานข้อมูลข่าวออนไลน์ จากบริษัท อินโฟเควสท์ จำกัด ตั้งแต่วันนี้-17 สิงหาคม 2555</li>
-	        <li><span class="label label-warning">New</span> ประกาศรายชื่อผู้สำเร็จการศึกษา ภาคเรียนที่ 1-2/2554 และ ภาคเรียนที่ 2-ฤดูร้อน/2554</li>
-	        <li>สำนักบรรณสาร ขอเชิญคณาจารย์ บุคลากรและนักศึกษา ทดลองใช้ฐานข้อมูลออนไลน์ E-book ตั้งแต่วันนี้จนถึง วันที่ 10 สิงหาคม 2555</li> -->
 	    </ul>
 	    <a href="${contextPath}/main/readMoreNews.html" class="pull-right">อ่านเพิ่มเติม</a>
-		</div>
+	</div>
 	<div class="span5">
-		<div class="fb-comments" data-href="http://www.core-serv.com/ExamProject/main/home.html" data-num-posts="2" data-width="350"></div>
+		<div class="fb-comments" data-href="http://www.core-serv.com/main/home.html" data-num-posts="2" data-width="350"></div>
 	</div>
 </div>

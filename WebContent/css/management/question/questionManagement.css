@@ -16,7 +16,11 @@
 .visible-phone-portrait {display:none;}
 @media (max-width: 480px){
 	.visible-phone-portrait {display:block;}
-	.combobox {width:120px;}
+	.combobox,#courseId_chzn,#questionGroupId_chzn{ width:120px !important;}
+	#courseId_chzn .chzn-drop,#questionGroupId_chzn .chzn-drop { width:118px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input,
+	#questionGroupId_chzn .chzn-drop .chzn-search input{ width:83px !important; }
+	
 	#leftBar { position: static;top:0px;}
 	.search-bar {width:48%;float:left;}
 	.question-text-div{margin-left:20px; margin-top:10px;}
@@ -27,21 +31,30 @@
 }
 
 @media (min-width: 481px) and (max-width: 767px){
-	.visible-phone-portrait {display:block;}
+	
 	#leftBar { position: static;top:0px;}
-	.combobox {width:70%;}
-	.search-bar {width:49%;float:left;}
+	.combobox,#courseId_chzn,#questionGroupId_chzn{ width:160px !important;}
+	#courseId_chzn .chzn-drop,#questionGroupId_chzn .chzn-drop { width:158px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input,
+	#questionGroupId_chzn .chzn-drop .chzn-search input{ width:123px !important; }
+	.search-bar {width:215px;float:left;}
+	.groupBox {float:right;}
 	.question-text-div{margin-left:20px;}
 	.text-bar { width:100%;text-align:center; }
 	.grid-info-holder { text-align:center;margin-bottom:10px;}
 	.grid-info{ width:150px; margin-top:0px; }
 	input.question-text {width:320px;}
 	.btn-holder { width:32%; display:inline-block;}
+	.btn-holder-group {text-align:center;}
 }
 
 @media (min-width: 768px) and (max-width: 979px){
 	#leftBar {top:40px;}
-	.combobox {width:120px;}
+	.combobox,#courseId_chzn,#questionGroupId_chzn{ width:120px !important;}
+	#courseId_chzn .chzn-drop,#questionGroupId_chzn .chzn-drop { width:118px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input,
+	#questionGroupId_chzn .chzn-drop .chzn-search input{ width:83px !important; }
+	
 	.question-text{width:125px;}
 	.question-text-div{margin-top:10px;}
 	.grid-info-holder { text-align:center;}
@@ -49,7 +62,10 @@
 
 @media (min-width: 980px) and (max-width: 1199px){
 	#leftBar {top:70px;}
-	.combobox {width:175px;}
+	.combobox,#courseId_chzn,#questionGroupId_chzn{ width:175px !important;}
+	#courseId_chzn .chzn-drop,#questionGroupId_chzn .chzn-drop { width:173px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input,
+	#questionGroupId_chzn .chzn-drop .chzn-search input{ width:138px !important; }
 	.question-text{width:180px;}
 	.question-text-div{margin-top:10px;}
 	.grid-info-holder { text-align:center;}
@@ -57,7 +73,10 @@
 @media (min-width: 1200px){
 #leftBar {top:70px;}
 	.grid-info-holder { text-align:center;}
-	.combobox {width:220px;}
+	.combobox,#courseId_chzn,#questionGroupId_chzn{ width:220px !important;}
+	#courseId_chzn .chzn-drop,#questionGroupId_chzn .chzn-drop { width:218px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input,
+	#questionGroupId_chzn .chzn-drop .chzn-search input{ width:183px !important; }
 	.question-text{width:230px;}
 	.question-text-div{margin-top:10px;}
 }

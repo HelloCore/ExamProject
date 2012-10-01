@@ -16,3 +16,8 @@
 .question-group-table ,.section-table{margin-top:10px;background-color: white;}
 .section-list ul li {}
 #tab4 .control-button {margin-top:10px;}
+@media (max-width: 767px) {
+	.uneditable-input {width:90px;display:inline-block;}
+	#totalPercent{width:60px;display: inline-block;}
+	
+}

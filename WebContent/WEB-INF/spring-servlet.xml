@@ -33,17 +33,18 @@
 				,th.ac.kbu.cs.ExamProject.Security
 				,th.ac.kbu.cs.ExamProject.Listener
 				,th.ac.kbu.cs.ExamProject.Util" />
-		
+		<!-- 
 		<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" >
 			<property name="exceptionMappings">
 				<props>
 					<prop key="th.ac.kbu.cs.ExamProject.Exception.MainException">mainException</prop>
 					<prop key="org.hibernate.HibernateException">hibernateException</prop>
+					<prop key="java.lang.NullPointerException">otherException</prop>
 				</props>
 			</property>
   			<property name="defaultStatusCode" value="406"/>
-		</bean>
-		
+		</bean> -->
+		<bean id="exceptionResolver" class="th.ac.kbu.cs.ExamProject.Exception.CoreExceptionResolver" />
 		<bean id="viewResolver"
 		    class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		    <property name="prefix" value="/" />

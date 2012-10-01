@@ -34,7 +34,7 @@
 									<td>ไม่กำหนด</td>
 								</c:if>
 								<td>${data[4]-data[3]}</td>
-								<td><button class="btn btn-info havePopover" rel="popover" exam-count="${data[3]+1}" min-question="${data[5]}"  max-question="${data[6]}" data-content="จำนวนข้อสอบ ${data[5]} ถึง ${data[6]} ข้อ" data-original-title="รายละเอียด" onClick="createExam(${data[7]})" id="do-exam-${data[7]}"><i class="icon-edit icon-white"></i> สอบ</button></td>
+								<td><button class="btn btn-info havePopover" exam-count="${data[3]+1}" min-question="${data[5]}"  max-question="${data[6]}" onClick="createExam(${data[7]})" id="do-exam-${data[7]}"><i class="icon-edit icon-white"></i> สอบ</button></td>
 							</tr>
 						</c:forEach>
 					</c:if>

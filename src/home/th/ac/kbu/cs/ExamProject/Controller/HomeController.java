@@ -20,7 +20,7 @@ import th.ac.kbu.cs.ExamProject.Domain.ViewNewsDomain;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value="/main/home.html")
+	@RequestMapping(value={"/main/home.html","/home.html"})
 	public ModelMap init(ModelMap modelMap,ViewNewsDomain domain,HttpServletRequest request){
 		modelMap.addAttribute("newsData", domain.getNewsList(0,5));
 		return modelMap;
@@ -48,5 +48,9 @@ public class HomeController {
 		return mav;
 	}
 	
+//	@RequestMapping(value="/errors/404.html")
+//    public String handle404() {
+//        return "404";
+//    }
 }
 

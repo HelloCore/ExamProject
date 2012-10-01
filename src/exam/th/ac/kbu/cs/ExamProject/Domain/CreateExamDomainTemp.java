@@ -223,6 +223,7 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 			.append(" AND examQuestionGroup.examId = ? ")
 			.append(" GROUP BY examQuestionGroup.questionGroupId ")
 			.append(" ORDER BY examQuestionGroup.ordinal ASC ");
+		
 		List<Object[]> results = basicFinderService.find(sb.toString(), examId);
 		
 		HashMap<Long,Integer> secondPerQuestion = new HashMap<Long,Integer>();
@@ -251,8 +252,7 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 			for(Long key : fragment.keySet()){
 				if(BeanUtils.isNull(maxKey)){
 					maxKey = key;
-				}
-				if (BeanUtils.toInteger(requestNumOfQuestion.get(key)) == 0){
+				}else if (BeanUtils.toInteger(requestNumOfQuestion.get(key)) == 0){
 					maxKey = key;
 					break;
 				}else if(fragment.get(key) > fragment.get(maxKey)){

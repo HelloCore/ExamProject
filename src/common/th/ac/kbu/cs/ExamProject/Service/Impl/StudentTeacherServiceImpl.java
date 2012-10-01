@@ -67,7 +67,6 @@ public class StudentTeacherServiceImpl implements StudentTeacherService{
 		
 		criteria.setProjection(Projections.distinct(Projections.property("section.courseId")));
 		criteria.add(Restrictions.eq("studentSection.username", username));
-
 		return basicFinderService.findByCriteria(criteria);
 	}
 

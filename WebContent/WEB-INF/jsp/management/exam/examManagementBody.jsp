@@ -6,62 +6,58 @@
 	<div class="page-header pagination-centered" id="pageHeader">
 		<h2><font class="red-color">Examinations</font> Management</h2>
 	</div>
-	<div class="fixed-content">
-		<div class="row-fluid grid-toolbar ">
-			<div class="span4">
-				<div class="control-group">
-					<label for="courseId">วิชา : </label><select id="courseId" name="courseId" style="width:150px;"><option></option></select>
+	<div class="row-fluid fixed-content">
+		<div class="span3">
+			<div class="leftbar" id="leftBar">
+				<div class="control-group search-bar course-bar">
+					<label for="courseId">วิชา : </label>
+					<select id="courseId" name="courseId" class="combobox"><option></option></select>
 				</div>
-			</div>
-			<div class="span8 pagination-right">
-				<div class="control-group">
-					<label for="examHeader" class="search-box-label">หัวข้อการสอบ : </label>
-					<div class="input-prepend input-append">
+				<div class="control-group search-bar header-bar">
+					<div class="input-prepend">
 						<span class="add-on search-inactive">
 							<i class="icon-zoom-in"></i>
-						</span><input type="text" id="examHeader" name="examHeader" class="exam-header"><a class="btn btn-primary search-btn" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</a>
+						</span><input type="text" id="examHeader" name="examHeader" class="exam-header" placeholder="หัวข้อคำถาม">
 					</div>	
 				</div>
-			</div>
-		</div>
-		<div class="row-fluid grid-toolbar">
-			<div class="span4">
-				<div class="control-group">
+				<div class="control-group pagination-centered grid-bar">
 					<div class="grid-info" id="gridInfo"> Record 1-5 of 12 Records</div>
 				</div>
-			</div>
-			<div class="span8 pagination-right">
-				<div class="control-group ">
-					<button class="btn btn-info" id="addButton"><i class="icon-plus icon-white"></i> Add</button>
-					<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
+				<div class="clear"></div>
+				<div class="control-group btn-holder-div">
+					<div class="btn-holder">
+						<button class="btn btn-primary btn-block " id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</button>
+					</div>
+					<div class="btn-holder">
+						<button class="btn btn-info btn-block " id="addButton"><i class="icon-plus icon-white"></i> Add</button>
+					</div>
+					<div class="btn-holder">
+						<button class="btn btn-success btn-block " id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
+					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class="main-data" id="examDivHolder">
-		</div>
-		
-		<br>
-		<div class="row-fluid">
-			<div class="span5">
-				<select id="pageSize" name="pageSize" class="page-size">
-			 	<option value="5">5</option>
-			 	<option value="10">10</option>
-			 	<option value="20">20</option>
-			 	<option value="50">50</option>
-			 </select> records per page
+		<div class="span9">
+			<div class="main-data" id="examDivHolder">
 			</div>
-			<div class="span7">
-				<div class="grid-pagination pagination pull-right">
-					<ul>
-						<li class="prev disabled"><a href="#" id="prevPageButton">&larr; Prev</a></li>
-						<li ><a href="#">1</a></li>
-						<li ><a href="#">2</a></li>
-						<li ><a href="#">3</a></li>
-						<li ><a href="#">4</a></li>
-						<li ><a href="#">5</a></li>
-						<li class="next"><a href="#" id="nextPageButton">Next &rarr;</a></li>
-					</ul>
+			
+			<br>
+			<div class="row-fluid">
+				<div class="span5 page-size-div">
+					<select id="pageSize" name="pageSize" class="page-size">
+					 	<option value="5">5</option>
+					 	<option value="10">10</option>
+					 	<option value="20">20</option>
+					 	<option value="50">50</option>
+				 	</select> records per page
+				</div>
+				<div class="span7">
+					<div class="grid-pagination pagination pagination-centered ">
+						<ul>
+							<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>
+							<li class="next"><a href="#" id="nextPageButton">»</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

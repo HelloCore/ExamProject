@@ -1,10 +1,10 @@
 @CHARSET "UTF-8";
-.exam-table {width: 652px;margin:auto;margin-top:20px;margin-bottom:20px;}
+/* .exam-table {width: 652px;margin:auto;margin-top:20px;margin-bottom:20px;}
 .exam-table tr td .btn {width:90px;}
 .exam-table .sub-column1 {width: 271px;}
 .exam-table .sub-column2 {width: 271px;}
-.exam-table .sub-column3 {width: 110px;}
-.fixed-content {width: 654px; margin:auto;}
+.exam-table .sub-column3 {width: 110px;} 
+.fixed-content {width: 654px; margin:auto;} */
 .fixed-content select,.fixed-content label,.fixed-content .input-prepend {display:inline;}
 .grid-toolbar button.btn {width: 100px;margin-bottom:5px;}
 .grid-toolbar .control-group {display:inline;}
@@ -13,3 +13,54 @@
 .form-horizontal .control-group {margin-bottom: 10px;}
 .search-inactive i { display:none;}
 .grid-info {display:inline-block;}
+.btn-holder{ margin-top:5px;margin-bottom:5px;}
+.clear {clear:both;}
+@media (max-width: 480px){
+	#leftBar { position: static;top:0px;}
+	.sub-column3{ width:70px;}
+	.search-bar{ text-align: center; } 	
+	.exam-header {width:230px !important;}
+	.combobox,#courseId_chzn { width:235px !important; text-align:left;}
+	#courseId_chzn .chzn-drop{ width:233px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input{ width:198px !important; }
+}
+
+@media (min-width: 481px) and (max-width: 767px){
+	#leftBar { position: static;top:0px;}
+	.sub-column3{ width:70px;}
+	.exam-header {width:175px !important;}
+	.combobox,#courseId_chzn { width:185px !important;}
+	#courseId_chzn .chzn-drop{ width:183px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input{ width:148px !important; }
+	.btn-holder{ width:32%; display: inline-block;}
+	.btn-holder-div { text-align: center;}
+	.course-bar,.header-bar{width:235px; float:left}
+	.grid-bar{width:180px;float:left}
+}
+
+@media (min-width: 768px) and (max-width: 979px){
+	#leftBar {top:40px;}
+	.sub-column3{ width:90px;}
+	.exam-header {width:125px;}
+	.combobox,#courseId_chzn { width:130px !important;}
+	#courseId_chzn .chzn-drop{ width:128px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input{ width:93px !important; }
+
+}
+
+@media (min-width: 980px) and (max-width: 1199px){
+	#leftBar {top:70px;}
+	.exam-header {width:180px;}
+	.combobox,#courseId_chzn { width:185px !important;}
+	#courseId_chzn .chzn-drop{ width:183px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input{ width:148px !important; }
+}
+
+@media (min-width: 1200px){
+	#leftBar {top:70px;}
+	.exam-header {width:230px;}
+	.combobox,#courseId_chzn { width:235px !important;}
+	#courseId_chzn .chzn-drop{ width:233px !important; }
+	#courseId_chzn .chzn-drop .chzn-search input{ width:198px !important; }
+	
+}

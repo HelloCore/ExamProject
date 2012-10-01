@@ -193,8 +193,8 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/examReportFooter.jsp"/>
 	</definition>
 	
-	<definition name="/mainException.page"  template="/WEB-INF/jsp/template/error.jsp" />
-	<definition name="/hibernateException.page"  template="/WEB-INF/jsp/template/error.jsp" />
-	
+	<definition name="/errorJson.page" template="/WEB-INF/jsp/template/error.jsp"/>
+	<definition name="/otherError.page"  template="/WEB-INF/jsp/template/otherError.jsp" />
+	<definition name="/404.page" template="/404.html" />
 	
 </tiles-definitions>

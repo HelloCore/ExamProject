@@ -184,11 +184,10 @@
 		</div> <!-- /container -->
 		<div id="loadMask" style="display:none"></div>
 		<!-- Placed at the end of the document so the pages load faster -->
-		<!--  Google Api
-			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-			<script>window.jQuery || document.write('<script src="${contextPath}/resources/jquery-1.7.2.min.js"><\/script>')</script>
-		-->
+			
 		<script src="${contextPath}/resources/jquery-1.7.2.min.js"></script>
+		<script>window.jQuery || document.write('<script src="${contextPath}/resources/jquery-1.7.2.min.js"><\/script>')</script>
+		
 		<script src="${contextPath}/resources/bootstrap/bootstrap.min.js"></script>
 		<script src="${contextPath}/resources/jquery.jgrowl.js"></script>
 		<script src="${contextPath}/resources/jquery.blockUI.js"></script>
@@ -202,15 +201,13 @@
 			<script src="${contextPath}/resources/jquery.idletimeout.js"></script>
 			<script src="${contextPath}/scripts/checkSession.js"></script>
 		</sec:authorize>
-		<!-- 
-			Google Analytics
+		<!--  Google Analytics -->
 			<script>
-				var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+				var _gaq=[['_setAccount','UA-35105992-1'],['_trackPageview']];
 				(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
 				g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 				s.parentNode.insertBefore(g,s)}(document,'script'));
 			</script> 
-		-->
 		<tiles:insertAttribute name="footerFile"/>
 		
 	</body>

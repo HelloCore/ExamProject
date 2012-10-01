@@ -43,9 +43,10 @@ public class ExamQuestionGroup implements Serializable{
 	@Column(name = "ORDINAL")
 	private Integer ordinal;
 	
-	
 	@Column(name = "SECOND_PER_QUESTION")
 	private Integer secondPerQuestion;
+	
+	
 	
 	public Long getExamQuestionGroupId() {
 		return examQuestionGroupId;

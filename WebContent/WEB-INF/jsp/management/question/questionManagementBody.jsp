@@ -8,14 +8,14 @@
 	<div class="row-fluid">
 		<div class="span3">
 			<div id="leftBar">
-				<div class="form-inline search-bar">
+				<div class="form-inline search-bar courseBox">
 					<div class="control-group ">
 						<label for="courseId" class="label-group">วิชา : </label>	
 						<select id="courseId" name="courseId" class="combobox"></select>
 					</div>
 				</div>
-				<div class="form-inline  search-bar">
-					<div class="control-group ">
+				<div class="form-inline  search-bar groupBox ">
+					<div class="control-group">
 						<label for="questionGroupId" class="label-group">กลุ่ม : </label>
 						<select id="questionGroupId" name="questionGroupId" class="combobox"></select>
 					</div>
@@ -34,15 +34,15 @@
 					<div class="grid-info " id="gridInfo">1-5 of 12 Records</div>
 				</div>
 				<div class="clear"></div>
-				<div class="control-group">
+				<div class="control-group btn-holder-group">
 					<div class="btn-holder">
-						<button class="btn btn-primary btn-large btn-block" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</button>
+						<button class="btn btn-primary btn-block" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</button>
 					</div>
 					<div class="btn-holder">
-						<button class="btn btn-success btn-large btn-block" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
+						<button class="btn btn-success btn-block" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
 					</div>
 					<div class="btn-holder">
-						<button class="btn btn-info btn-large btn-block" id="addButton"><i class="icon-plus icon-white"></i> Add</button>
+						<button class="btn btn-info btn-block" id="addButton"><i class="icon-plus icon-white"></i> Add</button>
 					</div>
 				</div>
 			</div>
