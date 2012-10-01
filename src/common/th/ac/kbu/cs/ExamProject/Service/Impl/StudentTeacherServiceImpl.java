@@ -70,4 +70,19 @@ public class StudentTeacherServiceImpl implements StudentTeacherService{
 		return basicFinderService.findByCriteria(criteria);
 	}
 
+	@Override
+	public Boolean validateCourseId(String username, Long courseId) {
+		Boolean isValid = true;
+		DetachedCriteria criteria = DetachedCriteria.forClass(TeacherCourse.class,"teacherCourse");
+		criteria.setProjection(Projections.rowCount());
+		criteria.add(Restrictions.eq("teacherCourse.courseId", courseId));
+		criteria.add(Restrictions.eq("teacherCourse.username", username));
+		
+		Long rowCount = basicFinderService.findUniqueByCriteria(criteria);
+		if (rowCount <= 0L){
+			isValid=false;
+		}
+		return isValid;
+	}
+
 }
