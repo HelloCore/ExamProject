@@ -87,13 +87,14 @@ body {
 .page-size-div {vertical-align: middle;padding-top:5px;}
 .table-grid {margin-bottom:5px;}
 
-.icon-word { width:16px;height:16px;background: url('../img/famfamfam/page_white_word.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
-.icon-excel { width:16px;height:16px;background: url('../img/famfamfam/page_white_excel.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
-.icon-powerpoint { width:16px;height:16px;background: url('../img/famfamfam/page_white_powerpoint.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
-.icon-pdf { width:16px;height:16px;background: url('../img/famfamfam/page_white_acrobat.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
-.icon-java { width:16px;height:16px;background: url('../img/famfamfam/page_white_cup.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
-.icon-zip { width:16px;height:16px;background: url('../img/famfamfam/page_white_compressed.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
 .icon-folder { width:16px;height:16px;background: url('../img/famfamfam/folder.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
+.icon-doc-1 { width:16px;height:16px;background: url('../img/famfamfam/page_white_word.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
+.icon-doc-2 { width:16px;height:16px;background: url('../img/famfamfam/page_white_excel.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
+.icon-doc-3 { width:16px;height:16px;background: url('../img/famfamfam/page_white_powerpoint.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
+.icon-doc-4 { width:16px;height:16px;background: url('../img/famfamfam/page_white_acrobat.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
+.icon-doc-5 { width:16px;height:16px;background: url('../img/famfamfam/page_white_cup.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
+.icon-doc-6 { width:16px;height:16px;background: url('../img/famfamfam/page_white_compressed.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
+.icon-doc-7 { width:16px;height:16px;background: url('../img/famfamfam/page_white.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
 
 label.valid {
   width: 16px;

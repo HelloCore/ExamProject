@@ -36,6 +36,9 @@ public class ContentFile implements Serializable{
 	@Column(name = "CONTENT_FILE_SIZE")
 	private Long contentFileSize;
 
+	@Column(name = "CONTENT_FILE_TYPE")
+	private Integer contentFileType;
+	
 	@Column(name = "CONTENT_PATH_ID")
 	private Long contentPathId;
 
@@ -131,6 +134,14 @@ public class ContentFile implements Serializable{
 
 	public void setContentFileDesc(String contentFileDesc) {
 		this.contentFileDesc = contentFileDesc;
+	}
+
+	public Integer getContentFileType() {
+		return contentFileType;
+	}
+
+	public void setContentFileType(Integer contentFileType) {
+		this.contentFileType = contentFileType;
 	}
 	
 	

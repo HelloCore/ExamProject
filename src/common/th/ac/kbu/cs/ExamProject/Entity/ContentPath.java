@@ -1,7 +1,9 @@
 package th.ac.kbu.cs.ExamProject.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +38,14 @@ public class ContentPath implements Serializable{
 	@Column(name = "PARENT_PATH_ID")
 	private Long parentPathId;
 
+	@OneToMany(cascade={CascadeType.REMOVE})
+    @JoinColumn(name="PARENT_PATH_ID")
+    private List<ContentPath> contentPaths;
+
+	@OneToMany(cascade={CascadeType.REMOVE})
+    @JoinColumn(name="CONTENT_PATH_ID")
+    private List<ContentFile> contentFiles;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PARENT_PATH_ID", insertable = false, updatable = false)
 	private ContentPath parentPath;
@@ -108,6 +119,22 @@ public class ContentPath implements Serializable{
 
 	public void setContentPathLocation(String contentPathLocation) {
 		this.contentPathLocation = contentPathLocation;
+	}
+
+	public List<ContentPath> getContentPaths() {
+		return contentPaths;
+	}
+
+	public void setContentPaths(List<ContentPath> contentPaths) {
+		this.contentPaths = contentPaths;
+	}
+
+	public List<ContentFile> getContentFiles() {
+		return contentFiles;
+	}
+
+	public void setContentFiles(List<ContentFile> contentFiles) {
+		this.contentFiles = contentFiles;
 	}
 	
 	

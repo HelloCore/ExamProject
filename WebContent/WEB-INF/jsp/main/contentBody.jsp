@@ -2,22 +2,22 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link rel="stylesheet" href="${contextPath}/css/main/content.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
 	<h2><font class="red-color">เอกสาร</font> ประกอบการเรียน</h2>
 </div>
-	
 <div class="row-fluid">
 	<div class="span12">
+		<c:if test="${not empty error}">
+			<div class="alert alert-error" style="width:400px;margin:auto;">
+				<a class="close" data-dismiss="alert" href="#">&times;</a>
+				<strong>Error! </strong> ${error}
+			</div>
+		</c:if>
 		<c:if test="${canEdit}">
-			<c:if test="${not empty error}">
-				<div class="alert alert-error" style="width:400px;margin:auto;">
-					<a class="close" data-dismiss="alert" href="#">&times;</a>
-					<strong>เกิดข้อผิดพลาด</strong>${error}
-				</div>
-			</c:if>
 			<c:if test="${not empty success}">
 				<div class="alert alert-success" style="width:400px;margin:auto;">
 					<a class="close" data-dismiss="alert" href="#">&times;</a>
@@ -32,89 +32,55 @@
 			<a class="btn btn-primary" id="uploadButton"><i class="icon-upload icon-white"></i> Upload</a>
 			<a class="btn btn-info" id="newFolderButton"><i class="icon-plus icon-white"></i> New Folder</a>
 		</c:if>
-		<table class="table table-condensed main-table">
-			<thead>
-				<tr>
-					<th>เอกสาร</th>
-					<th>รายละเอียด</th>
-					<th>ขนาดไฟล์</th>
-					<c:if test="${canEdit}">
-			    		<th>Action</th>
-			    	</c:if>
-				</tr>
-			</thead>
-			<tbody>
-				<c:if test="${not empty folderData}">
-					<c:forEach items="${folderData}" var="folder">
-						<tr>
-							<td><i class="icon-folder"></i> <a href="${contextPath}/main/content.html?path=${folder.contentPathId}">${folder.contentPathName}</a></td>
-							<td>${folder.contentPathDesc}</td>
-							<td></td>
-						    <c:if test="${canEdit}">
-						    	<td><button class="btn btn-danger" onClick="deleteFolder('${folder.contentPathId}')"><i class="icon-trash icon-white"></i> Delete</button></td>
-						    </c:if>
-						</tr>
-					</c:forEach>
-				</c:if>
-				<c:if test="${not empty fileData}">
-					<c:forEach items="${fileData}" var="file">
-						
-						<tr>
-							<td><i class="icon-word"></i> 
-								<a href="${contextPath}/${file.contentFilePath}">${file.contentFileName}</a>
-							</td>
-							<td>${file.contentFileDesc}</td>
-							<td> <fmt:formatNumber minFractionDigits="0" maxFractionDigits="0" value="${file.contentFileSize/1024}"/> Kb</td>
-							<c:if test="${canEdit}">
-					    		<td><button class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button></td>
-					    	</c:if>
-					    </tr>
-				    </c:forEach>
-				</c:if>
-				
-			<%--
-				<tr>
-					<td><i class="icon-word"></i> เอกสาร 1</td>
-					<td>ทดสอบเอกสาร 1</td>
-					<td>1024 kb</td>
-				    <sec:authorize access="hasAnyRole('ROLE_TEACHER','ROLE_ADMIN')" >
-				    	<td><button class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button></td>
-				    </sec:authorize>
-				</tr>
-				<tr>
-					<td><i class="icon-excel"></i> เอกสาร 2</td>
-					<td>ทดสอบเอกสาร 2</td>
-					<td>1024 kb</td>
-				    <sec:authorize access="hasAnyRole('ROLE_TEACHER','ROLE_ADMIN')" >
-				    	<td><button class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button></td>
-				    </sec:authorize>
-				</tr>
-				<tr>
-					<td><i class="icon-powerpoint"></i> เอกสาร 3</td>
-					<td>ทดสอบเอกสาร 3</td>
-					<td>1024 kb</td>
-				    <sec:authorize access="hasAnyRole('ROLE_TEACHER','ROLE_ADMIN')" >
-				    	<td><button class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button></td>
-				    </sec:authorize>
-				</tr>
-				<tr>
-					<td><i class="icon-pdf"></i> เอกสาร 4</td>
-					<td>ทดสอบเอกสาร 4</td>
-					<td>1024 kb</td>
-				    <sec:authorize access="hasAnyRole('ROLE_TEACHER','ROLE_ADMIN')" >
-				    	<td><button class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button></td>
-				    </sec:authorize>
-				</tr>
-				<tr>
-					<td><i class="icon-java"></i> เอกสาร 5</td>
-					<td>ทดสอบเอกสาร 5</td>
-					<td>1024 kb</td>
-				    <sec:authorize access="hasAnyRole('ROLE_TEACHER','ROLE_ADMIN')" >
-				    	<td><button class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button></td>
-				    </sec:authorize>
-				</tr> --%>
-			</tbody>
-		</table>
+		<c:if test="${fn:length(folderData)+fn:length(fileData) ==0}">
+			<div class="alert alert-error" style="width:400px;margin:auto;">
+				<a class="close" data-dismiss="alert" href="#">&times;</a>
+				<strong>Warning!</strong> ไม่มีข้อมูลใน Folder นี้
+			</div>
+		</c:if>
+		<c:if test="${fn:length(folderData)+fn:length(fileData) > 0}">
+			<table class="table table-condensed main-table table-hover">
+				<thead>
+					<tr>
+						<th>เอกสาร</th>
+						<th>รายละเอียด</th>
+						<th>ขนาดไฟล์</th>
+						<c:if test="${canEdit}">
+				    		<th>Action</th>
+				    	</c:if>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${not empty folderData}">
+						<c:forEach items="${folderData}" var="folder">
+							<tr>
+								<td><i class="icon-folder"></i> <a href="${contextPath}/main/content.html?path=${folder.contentPathId}">${folder.contentPathName}</a></td>
+								<td>${folder.contentPathDesc}</td>
+								<td></td>
+							    <c:if test="${canEdit}">
+							    	<td><button class="btn btn-danger" onClick="deleteFolder('${folder.contentPathId}')"><i class="icon-trash icon-white"></i> Delete</button></td>
+							    </c:if>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${not empty fileData}">
+						<c:forEach items="${fileData}" var="file">
+							
+							<tr>
+								<td><i class="icon-doc-${file.contentFileType}"></i> 
+									<a href="${contextPath}/${file.contentFilePath}">${file.contentFileName}</a>
+								</td>
+								<td>${file.contentFileDesc}</td>
+								<td> <fmt:formatNumber minFractionDigits="0" maxFractionDigits="0" value="${file.contentFileSize/1024}"/> Kb</td>
+								<c:if test="${canEdit}">
+						    		<td><button class="btn btn-danger" onClick="deleteFile('${file.contentFileId}')"><i class="icon-trash icon-white"></i> Delete</button></td>
+						    	</c:if>
+						    </tr>
+					    </c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+		</c:if>
 	</div>
 
 	<c:if test="${canEdit}">
@@ -183,6 +149,43 @@
 		  	</div>
 		</div>
 		
+		<form class="hide" method="POST" id="deleteFolderForm" enctype="multipart/form-data" accept-charset="UTF-8">
+			<input type="hidden" name="method" value="deleteFolder">
+			<input type="hidden" name="deleteFolderId" id="deleteFolderId">
+		    <input type="hidden" name="folderId" value="${currentPath}" />
+		</form>
+		
+		<form class="hide" method="POST" id="deleteFileForm" enctype="multipart/form-data" accept-charset="UTF-8">
+			<input type="hidden" name="method" value="deleteFile">
+			<input type="hidden" name="deleteFileId"  id="deleteFileId">
+		   	<input type="hidden" name="folderId" value="${currentPath}" />
+		</form>
+		
+		<div class="modal hide fade" id="confirmDeleteFolder">
+			<div class="modal-header">
+				<h3>Delete Folder ?</h3>
+			</div>
+			<div class="modal-body">
+				<font class="error" id="errorItem">คำเตือน หากลบโฟลเดอร์ ไฟล์ข้างในจะถูกลบทั้งหมด</font>โปรดยืนยัน
+			</div>
+		  	<div class="modal-footer">
+		    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+		    	<a href="#" class="btn btn-danger" id="deleteFolderButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+		  	</div>
+		</div>
+		
+		<div class="modal hide fade" id="confirmDeleteFile">
+			<div class="modal-header">
+				<h3>Delete File ?</h3>
+			</div>
+			<div class="modal-body">
+				โปรดยืนยัน
+			</div>
+		  	<div class="modal-footer">
+		    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+		    	<a href="#" class="btn btn-danger" id="deleteFileButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+		  	</div>
+		</div>
 	</c:if>
 
 </div>

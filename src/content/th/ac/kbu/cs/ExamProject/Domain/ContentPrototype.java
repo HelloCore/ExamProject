@@ -14,6 +14,9 @@ public class ContentPrototype {
 	private String fileDesc;
 	private MultipartFile fileData;
 	
+	private Long deleteFolderId;
+	private Long deleteFileId;
+	
 	public Long getContentFileId() {
 		return contentFileId;
 	}
@@ -67,6 +70,18 @@ public class ContentPrototype {
 	}
 	public void setFileData(MultipartFile fileData) {
 		this.fileData = fileData;
+	}
+	public Long getDeleteFolderId() {
+		return deleteFolderId;
+	}
+	public void setDeleteFolderId(Long deleteFolderId) {
+		this.deleteFolderId = deleteFolderId;
+	}
+	public Long getDeleteFileId() {
+		return deleteFileId;
+	}
+	public void setDeleteFileId(Long deleteFileId) {
+		this.deleteFileId = deleteFileId;
 	}
 
 	

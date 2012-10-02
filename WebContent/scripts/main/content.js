@@ -21,6 +21,16 @@ validateUploadFile = function(){
 	return isValid;
 };
 
+deleteFolder = function(folderId){
+	$("#deleteFolderId").val(folderId);
+	$("#confirmDeleteFolder").modal('show');
+};
+
+deleteFile = function(fileId){
+	$("#deleteFileId").val(fileId);
+	$("#confirmDeleteFile").modal('show');
+};
+
 $(document).ready(function(){
 	$("#newFolderButton").click(function(){
 		$("#newFolderModal").modal('show');
@@ -45,16 +55,22 @@ $(document).ready(function(){
 			if(validationType == 'type'){
 				applicationScript.errorAlertWithStringTH("รองรับไฟล์ชนิด Image, Text, Word, Excel, PowerPoint, PDF, Java, Zip, RAR, 7z");
 			}
-			$("#fileData").val('');
+			$("#fileData").val(null);
 			isValidUpload = false;
 		},
 		onValidation: function(files){
 			isValidUpload=true;
 		},
 		maxSize:      '20m',
-		type:         /(png|jpe?g|gif|txt|docx?|xlsx?|pptx?|pdf|java|zip|rar|7z)/
+		type:         /(png|jpe?g|gif|text|word|excel|powerpoint|pdf|java|zip|rar|7z)/
 	});
 	$("#uploadButton").click(function(){
 		$("#uploadModal").modal('show');
+	});
+	$("#deleteFolderButton").click(function(){
+		$("#deleteFolderForm").submit();
+	});
+	$("#deleteFileButton").click(function(){
+		$("#deleteFileForm").submit();
 	});
 });

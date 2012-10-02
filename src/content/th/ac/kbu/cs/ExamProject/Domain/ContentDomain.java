@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -16,6 +17,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Entity.ContentFile;
 import th.ac.kbu.cs.ExamProject.Entity.ContentPath;
 import th.ac.kbu.cs.ExamProject.Exception.ContentFileException;
@@ -44,6 +46,8 @@ public class ContentDomain extends ContentPrototype{
 	@Autowired
 	private BasicEntityService basicEntityService;
 	
+	private List<Long> courseIdList;
+	
 	public List<HashMap<String,Object>> getFolderData(Long pathId){
 		DetachedCriteria criteria = DetachedCriteria.forClass(ContentPath.class,"contentPath");
 		
@@ -54,6 +58,7 @@ public class ContentDomain extends ContentPrototype{
 		criteria.setProjection(projectionList);
 		
 		criteria.add(Restrictions.eq("contentPath.parentPathId", pathId));
+		criteria.add(Restrictions.in("contentPath.courseId", this.getCourseIdList()));
 		criteria.addOrder(Order.asc("contentPath.contentPathName"));
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		
@@ -66,6 +71,8 @@ public class ContentDomain extends ContentPrototype{
 		projectionList.add(Projections.property("contentFile.contentFileId"),"contentFileId");
 		projectionList.add(Projections.property("contentFile.contentFileName"),"contentFileName");
 		projectionList.add(Projections.property("contentFile.contentFilePath"),"contentFilePath");
+		projectionList.add(Projections.property("contentFile.contentFileDesc"),"contentFileDesc");
+		projectionList.add(Projections.property("contentFile.contentFileType"),"contentFileType");
 		projectionList.add(Projections.property("contentFile.contentFileSize"),"contentFileSize");
 		
 		criteria.setProjection(projectionList);
@@ -153,49 +160,60 @@ public class ContentDomain extends ContentPrototype{
 		}
 	}
 	
+	private void validateFileType(ContentFile contentFile,String contentType){
+		if(contentType.matches(".*word.*")){
+			contentFile.setContentFileType(1);
+		}else if (contentType.matches(".*excel.*")){
+			contentFile.setContentFileType(2);
+		}else if (contentType.matches(".*powerpoint.*")){
+			contentFile.setContentFileType(3);
+		}else if (contentType.matches(".*pdf.*")){
+			contentFile.setContentFileType(4);
+		}else if (contentType.matches(".*java.*")){
+			contentFile.setContentFileType(5);
+		}else if (contentType.matches(".*(zip|7z|rar).*")){
+			contentFile.setContentFileType(6);
+		}else if (contentType.matches(".*(text).*") 
+				|| contentType.matches(".*(png|jpe?g|gif).*")){
+			contentFile.setContentFileType(7);
+		}else{
+			ContentFileException ex = new ContentFileException("accept file type");
+			ex.setFolderId(getFolderId());
+			throw ex;
+		}
+	}
 	public void uploadFile(HttpServletRequest request) {
-		System.out.println("1");
 		validateUploadFile();
-		System.out.println("2");
 		ContentPath contentPath = getCurrentData(this.getFolderId()); 
-		System.out.println("3");
 		if(this.getFolderId().equals(1L)){
 			if(SecurityUtils.getUser().getType().equals(1)){
-				ContentFileException ex = new ContentFileException("dont have permission");
+				ContentFileException ex = new ContentFileException("คุณไม่มีสิทธิ์เข้าถึงไฟล์นี้");
 				ex.setFolderId(getFolderId());
 				throw ex;
 			}
 		}else{
 			studentTeacherService.validateCourse(SecurityUtils.getUsername(), contentPath.getCourseId());
 		}; 
-		System.out.println("4");
+		ContentFile contentFile = new ContentFile();
+		
+		validateFileType(contentFile, this.getFileData().getContentType());
 		String newFilePathLocation = contentPath.getContentPathLocation()+this.getFileData().getOriginalFilename();
 		String realPathLocation = request.getSession().getServletContext().getRealPath(newFilePathLocation);; 
-		System.out.println("5");
 		try {
 			File file = new File(realPathLocation);; 
-			System.out.println("6");
 			
 			String folderPath = request.getSession().getServletContext().getRealPath(contentPath.getContentPathLocation());
 
-			System.out.println("6.1");
 			if(!fileService.exists(folderPath)){
-				System.out.println("6.2");
 				fileService.makeDirectory(folderPath);
 			}
-			
-			System.out.println("6.3");
 			
 			if(file.exists()){
 				ContentFileException ex = new ContentFileException("File is exists");
 				ex.setFolderId(getFolderId());
 				throw ex;
 			}
-			; 
-			System.out.println("7");
-			this.getFileData().transferTo(file);; 
-			System.out.println("8");
-			ContentFile contentFile = new ContentFile();
+			this.getFileData().transferTo(file);
 			contentFile.setContentFileName(this.getFileName());
 			contentFile.setContentFilePath(newFilePathLocation);
 			contentFile.setContentFileSize(this.getFileData().getSize());
@@ -204,6 +222,7 @@ public class ContentDomain extends ContentPrototype{
 			contentFile.setCreateBy(SecurityUtils.getUsername());
 			contentFile.setCreateDate(new Date());
 			
+			
 			this.basicEntityService.save(contentFile);
 		} catch (Exception e) {
 			ContentFileException ex = new ContentFileException(e.getMessage());
@@ -211,5 +230,88 @@ public class ContentDomain extends ContentPrototype{
 			throw ex;
 		} 
 	}
+
+	public void validatePermission(Long pathId) {
+		ContentPath contentPath = this.getCurrentData(pathId);
+		if(!this.getCourseIdList().contains(contentPath.getCourseId())){
+			ContentFileException ex = new ContentFileException("dont have permission");
+			ex.setFolderId(1L);
+			throw ex;
+		}	
+	}
 	
+	public List<Long> getCourseIdList() {
+		return courseIdList;
+	}
+	
+	public void setCourseIdList(HttpServletRequest request) {
+		if(request.isUserInRole(RoleDescription.Property.TEACHER)){
+			this.courseIdList = this.studentTeacherService.getCourseId(SecurityUtils.getUsername());
+		}else if (request.isUserInRole(RoleDescription.Property.STUDENT)){
+			this.courseIdList = this.studentTeacherService.getStudentCourseId(SecurityUtils.getUsername());
+		}else{
+			this.courseIdList = null;
+		}
+	}
+	
+	public void deleteFolder(HttpServletRequest request) {
+		if(BeanUtils.isEmpty(this.getFolderId())
+				|| BeanUtils.isEmpty(this.getFolderId())){
+			ContentFileException ex = new ContentFileException("parameter not found");
+			ex.setFolderId(this.getFolderId());
+			throw ex;
+		}
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(ContentPath.class,"contentPath");
+		criteria.add(Restrictions.eq("contentPath.contentPathId", this.getDeleteFolderId()));
+		
+		ContentPath contentPath = basicFinderService.findUniqueByCriteria(criteria);
+
+		String filePath = request.getSession().getServletContext().getRealPath(contentPath.getContentPathLocation());
+		File file = new File(filePath);
+		try {
+			if(file.exists()){
+				FileUtils.deleteDirectory(file);
+			}
+		}catch(Exception e){
+			ContentFileException ex = new ContentFileException(e.getMessage());
+			ex.setFolderId(this.getFolderId());
+			throw ex;
+		}
+		
+		ContentPath deleteContentPath = new ContentPath();
+		deleteContentPath.setContentPathId(contentPath.getContentPathId());
+		
+		this.basicEntityService.delete(deleteContentPath);
+		
+	}
+	
+	public void deleteFile(HttpServletRequest request) {
+		if(BeanUtils.isEmpty(this.getDeleteFileId())
+				|| BeanUtils.isEmpty(this.getFolderId())){
+			ContentFileException ex = new ContentFileException("parameter not found");
+			ex.setFolderId(this.getFolderId());
+			throw ex;
+		}
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(ContentFile.class,"contentFile");
+		criteria.add(Restrictions.eq("contentFile.contentFileId",this.getDeleteFileId()));
+		
+		ContentFile contentFile = basicFinderService.findUniqueByCriteria(criteria);
+		
+		String filePath = request.getSession().getServletContext().getRealPath(contentFile.getContentFilePath());
+		File file = new File(filePath);
+		if(file.exists()){
+			if(!file.delete()){
+				ContentFileException ex = new ContentFileException("cant delete file");
+				ex.setFolderId(this.getFolderId());
+				throw ex;
+			}
+		}
+		
+		ContentFile deleteContentFile = new ContentFile();
+		deleteContentFile.setContentFileId(contentFile.getContentFileId());
+		
+		this.basicEntityService.delete(deleteContentFile);
+	}
 }

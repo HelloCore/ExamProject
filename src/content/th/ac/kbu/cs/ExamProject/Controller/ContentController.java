@@ -25,8 +25,13 @@ public class ContentController {
 							,@RequestParam(value="success",required=false) Boolean success
 							,@ModelAttribute ContentDomain domain
 							,ModelAndView mv,HttpServletRequest request){
+		
+		domain.setCourseIdList(request);
 		if(BeanUtils.isNull(pathId)){
 			pathId = 1L;
+		}
+		if(pathId != 1L){
+			domain.validatePermission(pathId);
 		}
 		mv.addObject("folderData", domain.getFolderData(BeanUtils.toLong(pathId)));
 		mv.addObject("fileData",domain.getFileData(BeanUtils.toLong(pathId)));
@@ -41,7 +46,6 @@ public class ContentController {
 			if(!pathId.equals(1L)){
 				canEdit = domain.checkCanEdit(pathId);
 			}
-			
 		}
 		mv.addObject("canEdit",canEdit);
 		mv.addObject("error", message);
@@ -53,10 +57,16 @@ public class ContentController {
 	@RequestMapping(value="/main/content.html",method=RequestMethod.POST)
 	public ModelAndView doMethod(@RequestParam(value = "method", required = true) String method,
 			@ModelAttribute ContentDomain domain,HttpServletRequest request,HttpServletResponse response){
+		System.out.println(method);
 		if(method.equals("newFolder")){
 			domain.newFolder(request);
 		}else if (method.equals("uploadFile")){
 			domain.uploadFile(request);
+		}else if (method.equals("deleteFolder")){
+			domain.deleteFolder(request);
+		}else if (method.equals("deleteFile")){
+			System.out.println("oh");
+			domain.deleteFile(request);
 		}
 		ModelAndView mv = new ModelAndView("redirect:/main/content.html?path="+domain.getFolderId()+"&success=1");
 		return mv;
