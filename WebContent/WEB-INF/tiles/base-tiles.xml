@@ -149,6 +149,12 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/news/viewNewsFooter.jsp"/>
 	</definition>
 	
+	<definition name="/management/task/assign.page" extends=".template">
+		<put-attribute name="title" value="Assign Task"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/task/assignTaskBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/task/assignTaskFooter.jsp"/>
+	</definition>
+	
 	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">
 	</definition>
 	

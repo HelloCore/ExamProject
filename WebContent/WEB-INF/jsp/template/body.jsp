@@ -140,7 +140,7 @@
 	    								<li><a  href="${contextPath}/management/exam/add.html">สร้างกำหนดการสอบ</a></li>
 									</ul>
 								</li>
-								<li class="dropdown assignmentManagement">
+								<li class="dropdown task">
 								    <a href="#"
 								          class="dropdown-toggle"
 								          data-toggle="dropdown">
@@ -148,8 +148,8 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a  href="${contextPath}/management/assignment.html">จัดการการบ้าน</a></li>
-	    								<li><a  href="${contextPath}/management/assignment/add.html">สั่งการบ้าน</a></li>
+	    								<li><a  href="${contextPath}/management/task.html">จัดการการบ้าน</a></li>
+	    								<li><a  href="${contextPath}/management/task/assign.html">สั่งการบ้าน</a></li>
 									</ul>
 								</li>
 								<li class="dropdown report hide">
