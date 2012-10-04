@@ -344,8 +344,9 @@ $(document).ready(function(){
 	$("#examLimitGroup").numeric().keyup(function(){addExam.validateExamLimit();});
 	$("#questionGroupId").chosen().change(function(){addExam.validateQuestionGroup();});
 	$("#sectionId").chosen().change(function(){addExam.validateSectionId();});
-	$('.input-percent').numeric().live('keyup',function(){ addExam.validateQuestionPercent(); });
-	$(".question-group-second").numeric().live('keyup',function(){ addExam.validateSecondPerQuestion(); });
+	
+	$("#orderHolder").on('keyup','#questionGroupSort li .input-percent',function(){ addExam.validateQuestionPercent(); })
+		.on('keyup','#questionGroupSort li .question-group-second',function(){ addExam.validateSecondPerQuestion(); });
 });
 
 addExam.tab2Data = function(){
@@ -404,6 +405,7 @@ addExam.tab3Data = function(){
 				+'</li>';
 	});
 	$("#questionGroupSort").empty().html(str);
+	$(".input-percent,.question-group-second").numeric({ decimal: false, negative: false });
 	$(".have-popover").popover();
 };
 

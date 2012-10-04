@@ -162,8 +162,7 @@ $(document).ready(function(){
 				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#confirmDeleteTaskModal").modal('hide');
 			}
-		});;
-		
+		});
 	});
 });
 

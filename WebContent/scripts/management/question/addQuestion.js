@@ -2,15 +2,6 @@ application.page='examManagement';
 addQuestion = {};
 addQuestion.tabCounter = 5;
 
-//var ckOptions = {
-//		filebrowserBrowseUrl : application.contextPath+'/resources/ckfinder/ckfinder.htm',
-//	 	filebrowserImageBrowseUrl :  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Images',
-//	 	filebrowserFlashBrowseUrl :  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Flash',
-//	 	filebrowserUploadUrl :  application.contextPath+'/resources/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
-//	 	filebrowserImageUploadUrl :   application.contextPath+'/resources/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
-//	 	filebrowserFlashUploadUrl :   application.contextPath+'/resources/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
-//};
-
 addQuestion.setDefaultForm = function(){
 	addQuestion.clearTextBox();
 	$('#questionTabNav a:first').tab('show');
@@ -130,14 +121,13 @@ addQuestion.initFunction = function(){
 		});
 	});
 	$(".ckeditorarea").ckeditor();
-//	$(".ckeditorarea").ckeditor(ckOptions);
 };
 
 $(document).ready(function(){
 	$("#courseId").chosen();
 	$("#questionGroupId").chosen();
 	addQuestion.initFunction();
-	$("input[name^=answerScore]:radio").live("change",function(){
+	$("input[name^=answerScore]:radio").on("change",function(){
 		addQuestion.calAnswer();
 	});
 	$("#addAnswer").click(function(e){
