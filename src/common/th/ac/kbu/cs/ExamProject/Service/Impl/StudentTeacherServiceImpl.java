@@ -101,4 +101,12 @@ public class StudentTeacherServiceImpl implements StudentTeacherService{
 		return isValid;
 	}
 
+	@Override
+	public List<Long> getSectionId(String username) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(StudentSection.class,"studentSection");
+		criteria.setProjection(Projections.property("studentSection.sectionId"));
+		criteria.add(Restrictions.eq("studentSection.username", username));
+		return basicFinderService.findByCriteria(criteria);
+	}
+
 }

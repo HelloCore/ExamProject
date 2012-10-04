@@ -10,4 +10,5 @@ public interface StudentTeacherService {
 	List<Long> getCourseId(String username);
 	List<Long> getStudentCourseId(String username);
 	List<HashMap<String,Object>> getCourseData(String username);
+	List<Long> getSectionId(String username);
 }

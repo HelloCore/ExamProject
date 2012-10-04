@@ -265,7 +265,7 @@ $(document).ready(function(){
 				$("#editTaskConfirmModal").modal('hide');
 				thisButton.button('reset');
 				applicationScript.successAlertWithStringHeader("กรุณารอซักครู่ ระบบจะทำการโหลดข้อมูลใหม่","บันทึกสำเร็จ");
-				setTimeout("location.reload(true);",1000);
+				setTimeout('$("#refreshForm").submit()',1000);
 			},
 			error : function(data){
 				thisButton.button('reset');

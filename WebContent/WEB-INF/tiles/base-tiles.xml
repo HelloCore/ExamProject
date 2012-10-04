@@ -217,6 +217,13 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/exam/examReportFooter.jsp"/>
 	</definition>
 	
+	<definition name="/assignment/select.page" extends=".template">
+		<put-attribute name="title" value="Select Assignment"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/assignment/selectAssignmentBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/assignment/selectAssignmentFooter.jsp"/>
+	</definition>
+	
+	
 	<definition name="/errorJson.page" template="/WEB-INF/jsp/template/error.jsp"/>
 	<definition name="/otherError.page"  template="/WEB-INF/jsp/template/otherError.jsp" />
 	<definition name="/404.page" template="/404.html" />

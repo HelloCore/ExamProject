@@ -105,3 +105,8 @@
     	<a href="#" class="btn btn-primary" id="editTaskConfirmButton" data-loading-text="Assign..." ><i class="icon-pencil icon-white"></i> Edit</a>
   	</div>
 </div>
+
+<form class="hide" id="refreshForm" method="POST">
+	<input type="hidden" name="method" value="viewTask" />
+	<input type="hidden" name="taskId" value="${taskData.assignmentTaskId}" />
+</form>

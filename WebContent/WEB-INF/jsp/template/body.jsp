@@ -103,9 +103,21 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu " >
-								    		<li><a  href="${contextPath}/exam/examSchedule.html">ตารางสอบ</a></li>
-		    								<li><a  href="${contextPath}/exam/selectExam.html">ทำการสอบ</a></li>
-		    								<li><a  href="${contextPath}/exam/examReport.html">ผลการสอบ</a></li>
+								    	<li><a  href="${contextPath}/exam/examSchedule.html">ตารางสอบ</a></li>
+	    								<li><a  href="${contextPath}/exam/selectExam.html">ทำการสอบ</a></li>
+	    								<li><a  href="${contextPath}/exam/examReport.html">ผลการสอบ</a></li>
+									</ul>
+								</li>
+								<li class="dropdown assignment">
+								    <a href="#"
+								          class="dropdown-toggle"
+								          data-toggle="dropdown">
+								          ส่งงาน
+								          <b class="caret"></b>
+								    </a>
+								    <ul class="dropdown-menu" >
+								    	<li><a  href="${contextPath}/assignment/select.html">รายการงาน</a></li>
+	    								<li><a  href="${contextPath}/assignment/result.html">ประวัติการส่งงาน</a></li>
 									</ul>
 								</li>
 				            </sec:authorize>
@@ -153,7 +165,7 @@
 	    								<li><a  href="${contextPath}/management/task/assign.html">สั่งการบ้าน</a></li>
 									</ul>
 								</li>
-								<li class="dropdown report hide">
+								<li class="dropdown report">
 								    <a href="#"
 								          class="dropdown-toggle"
 								          data-toggle="dropdown">
