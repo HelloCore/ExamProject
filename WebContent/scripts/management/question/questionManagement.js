@@ -65,6 +65,7 @@ questionManagement.getGrid = function(){
 		}
 	});
 };
+
 questionManagement.getQuestionGroupComboBox = function(callback){
 	$("#questionGroupId").load(application.contextPath+"/management/questionGroupComboBox.html",{courseId:$("#courseId").val(),optionAll:true},function(){
 		$(this).trigger("liszt:updated");
@@ -83,37 +84,6 @@ questionManagement.initFunction = function(){
 			questionManagement.getDefaultGrid();
 		});
 	});
-};
-questionManagement.setPagination = function(){
-	var sClass;
-	var first = (questionManagement.page-2);
-	if( first < 1){ first = 1;} 
-	var last = (questionManagement.page+2);
-	if( last > questionManagement.lastPage){ last = questionManagement.lastPage;} 
-	
-	$('.grid-pagination li:gt(0)').filter(':not(:last)').remove();
-
-	for(var i=first;i<=last;i++){
-		sClass = (i==questionManagement.page) ? 'class="active"' :'';
-		$('<li '+sClass+'><a href="#">'+i+'</a></li>')
-			.insertBefore( $('.grid-pagination li:last')[0] )
-			.bind('click',function(e){
-				e.preventDefault();
-				changePage($(this).text());
-			});
-	}
-	
-	if ( questionManagement.page == 1 ) {
-		$('.grid-pagination li:first').addClass('disabled');
-	} else {
-		$('.grid-pagination li:first').removeClass('disabled');
-	}
-
-	if ( questionManagement.page == questionManagement.lastPage ) {
-		$('.grid-pagination li:last').addClass('disabled');
-	} else {
-		$('.grid-pagination li:last').removeClass('disabled');
-	}
 };
 
 changePage = function(page){
@@ -157,6 +127,7 @@ $(document).ready(function(){
 		 }
 	});
 	$("#pageSize").change(function(){
+		questionManagement.page = 1;
 		questionManagement.rows = $(this).val();
 		questionManagement.getGrid();
 	});

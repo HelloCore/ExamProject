@@ -22,7 +22,6 @@ examReport.getGrid = function(){
 		dataType: 'json',
 		success: function(data,status){
 			$("#examReportGrid tbody").empty();
-			console.log(data);
 			var strHtml,completeDateStr,usedTimeStr;
 			for(keyArray in data.records){
 				completeDateStr = Globalize.format(new Date(data.records[keyArray].examCompleteDate),'dd-MM-yyyy HH:mm');
@@ -91,6 +90,7 @@ $(document).ready(function(){
 		}
 	});
 	$("#pageSize").change(function(){
+		examReport.page = 1;
 		examReport.rows = $(this).val();
 		examReport.getGrid();
 	});

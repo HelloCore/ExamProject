@@ -87,8 +87,8 @@
 	            		<ul class="nav">
 				            <li class="index"><a href="${contextPath}/main/home.html"> หน้าแรก</a></li>
 				            <li class="news"><a href="${contextPath}/main/readMoreNews.html">ข่าว</a></li>
-				            <sec:authorize access="hasAnyRole('ROLE_STUDENT','ROLE_TEACHER','ROLE_ADMIN')" >
-				            	<li class="content"><a  href="${contextPath}/main/content.html">เนื้อหาวิชา</a></li>
+				            <sec:authorize access="hasRole('ROLE_STUDENT')" >
+				            	<li class="content"><a  href="${contextPath}/main/content.html">เอกสารประกอบการเรียน</a></li>
 				            </sec:authorize>
 				            <sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
 				            	<li class="signUp"><a  href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">ยืนยันการสมัครสมาชิก</a></li>
@@ -118,11 +118,12 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-								    		<li><a  href="${contextPath}/management/register.html">อนุมัติสิทธิ์นักศึกษา</a></li>
-								    		<li><a  href="${contextPath}/management/register/history.html">ประวัติการอนุมัติ</a></li>
-								    		<li><a  href="${contextPath}/management/section.html">จัดการ Section</a></li>
-								    		<li><a  href="${contextPath}/management/news.html">จัดการข่าวประชาสัมพันธ์</a></li>
-								    		<li><a  href="${contextPath}/management/news/add.html">เพิ่มข่าวประชาสัมพันธ์</a></li>
+							    		<li><a  href="${contextPath}/management/register.html">อนุมัติสิทธิ์นักศึกษา</a></li>
+							    		<li><a  href="${contextPath}/management/register/history.html">ประวัติการอนุมัติ</a></li>
+							    		<li><a  href="${contextPath}/management/section.html">จัดการ Section</a></li>
+							    		<li><a  href="${contextPath}/management/news.html">จัดการข่าวประชาสัมพันธ์</a></li>
+							    		<li><a  href="${contextPath}/management/news/add.html">เพิ่มข่าวประชาสัมพันธ์</a></li>								    
+    									<li><a  href="${contextPath}/main/content.html">เอกสารประกอบการเรียน</a></li>
 									</ul>
 								</li>
 								<li class="dropdown examManagement">

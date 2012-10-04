@@ -55,6 +55,16 @@ if(typeof($.jGrowl)!='undefined'){
 			last = 5;
 		}
 		
+		if(page == lastPage){
+			if(lastPage-4 >0){
+				first = lastPage -4;
+			}
+		}else if (page == lastPage -1){
+			if(lastPage-4 > 0){
+				first = lastPage -4;
+			}
+		}
+		
 		$('.grid-pagination li:gt(0)').filter(':not(:last)').remove();
 
 		for(var i=first;i<=last;i++){

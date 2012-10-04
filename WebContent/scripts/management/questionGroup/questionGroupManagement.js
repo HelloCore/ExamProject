@@ -18,9 +18,7 @@ questionGroupManagement.checkDirty = function(){
 		}else if($("#courseId").val() != questionGroupManagement.currentQuestionGroup.courseId){
 			isDirty = true;
 		}
-		console.log("No");
 	}else{
-		console.log("No2");
 		isDirty = true;
 	}
 	return isDirty;
@@ -134,6 +132,7 @@ $(document).ready(function(){
 		questionGroupManagement.getGrid();
 	});
 	$("#pageSize").change(function(){
+		questionGroupManagement.page = 1;
 		questionGroupManagement.rows = $(this).val();
 		questionGroupManagement.getGrid();
 	});

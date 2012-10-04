@@ -134,7 +134,9 @@ $(document).ready(function(){
 		registerHistory.getGrid();
 	});
 	$("#pageSize").change(function(){
+		registerHistory.page = 1;
 		registerHistory.rows = $(this).val();
+		registerHistory.getGrid();
 	});
 	$("#filterButton").click(function(){
 		registerHistory.getGrid();

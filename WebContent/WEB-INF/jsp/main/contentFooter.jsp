@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<script>
-	application.page='content';
-</script>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="hasRole('ROLE_STUDENT')" >
+	<script>
+		application.page='content';
+	</script>
+</sec:authorize>
+
+<sec:authorize access="hasAnyRole('ROLE_TEACHER','ROLE_ADMIN')" >
+	<script>
+		application.page='genericManagement';
+	</script>
+</sec:authorize>
 
 <c:if test="${canEdit}">
 	<script>

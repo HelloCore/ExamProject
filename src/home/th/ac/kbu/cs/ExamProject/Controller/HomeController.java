@@ -47,6 +47,11 @@ public class HomeController {
 		mav.addObject("newsInfo",domain.getNewsInfo());
 		return mav;
 	}
+
+	@RequestMapping(value="/errors/access-denied.html")
+	public ModelAndView accessDenied(ModelAndView mv){
+		return mv;
+	}
 	
 //	@RequestMapping(value="/errors/404.html")
 //    public String handle404() {

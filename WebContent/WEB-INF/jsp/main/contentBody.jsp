@@ -45,6 +45,7 @@
 						<th>เอกสาร</th>
 						<th>รายละเอียด</th>
 						<th>ขนาดไฟล์</th>
+						<th>View Count</th>
 						<c:if test="${canEdit}">
 				    		<th>Action</th>
 				    	</c:if>
@@ -57,6 +58,7 @@
 								<td><i class="icon-folder"></i> <a href="${contextPath}/main/content.html?path=${folder.contentPathId}">${folder.contentPathName}</a></td>
 								<td>${folder.contentPathDesc}</td>
 								<td></td>
+								<td>${folder.viewCount}</td>
 							    <c:if test="${canEdit}">
 							    	<td><button class="btn btn-danger" onClick="deleteFolder('${folder.contentPathId}')"><i class="icon-trash icon-white"></i> Delete</button></td>
 							    </c:if>
@@ -68,10 +70,11 @@
 							
 							<tr>
 								<td><i class="icon-doc-${file.contentFileType}"></i> 
-									<a href="${contextPath}/${file.contentFilePath}">${file.contentFileName}</a>
+									<a href="${contextPath}/main/content/download.html?file=${file.contentFileId}">${file.contentFileName}</a>
 								</td>
 								<td>${file.contentFileDesc}</td>
 								<td> <fmt:formatNumber minFractionDigits="0" maxFractionDigits="0" value="${file.contentFileSize/1024}"/> Kb</td>
+								<td>${file.viewCount}</td>
 								<c:if test="${canEdit}">
 						    		<td><button class="btn btn-danger" onClick="deleteFile('${file.contentFileId}')"><i class="icon-trash icon-white"></i> Delete</button></td>
 						    	</c:if>

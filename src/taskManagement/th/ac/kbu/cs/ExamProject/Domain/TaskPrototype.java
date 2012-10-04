@@ -5,6 +5,8 @@ public class TaskPrototype {
 	
 	private Long courseId;
 	private Long sectionId;
+	private Long taskId;
+	private String oldSectionStr;
 	private String sectionIdStr;
 	private String taskName;
 	private String taskDesc;
@@ -15,6 +17,12 @@ public class TaskPrototype {
 	private Integer maxScore;
 	public Long getCourseId() {
 		return courseId;
+	}
+	public Long getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(Long taskId) {
+		this.taskId = taskId;
 	}
 	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
@@ -56,6 +64,12 @@ public class TaskPrototype {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	public String getOldSectionStr() {
+		return oldSectionStr;
+	}
+	public void setOldSectionStr(String oldSectionStr) {
+		this.oldSectionStr = oldSectionStr;
 	}
 	public Integer getNumOfFile() {
 		return numOfFile;

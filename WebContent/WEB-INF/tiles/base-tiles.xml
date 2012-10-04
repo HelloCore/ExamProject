@@ -149,10 +149,22 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/news/viewNewsFooter.jsp"/>
 	</definition>
 	
+	<definition name="/management/task.page" extends=".template">
+		<put-attribute name="title" value="Task Management"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/task/taskManagementBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/task/taskManagementFooter.jsp"/>
+	</definition>
+	
 	<definition name="/management/task/assign.page" extends=".template">
 		<put-attribute name="title" value="Assign Task"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/management/task/assignTaskBody.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/task/assignTaskFooter.jsp"/>
+	</definition>
+	
+	<definition name="/management/task/view.page" extends=".template">
+		<put-attribute name="title" value="View Task"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/task/viewTaskBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/task/viewTaskFooter.jsp"/>
 	</definition>
 	
 	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">
@@ -209,4 +221,9 @@
 	<definition name="/otherError.page"  template="/WEB-INF/jsp/template/otherError.jsp" />
 	<definition name="/404.page" template="/404.html" />
 	
+	<definition name="/errors/access-denied.page" extends=".template">
+		<put-attribute name="title" value="Access Denied" />
+		<put-attribute name="content" value="/WEB-INF/jsp/errors/accessDeniedBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/errors/accessDeniedFooter.jsp"/>
+	</definition>
 </tiles-definitions>

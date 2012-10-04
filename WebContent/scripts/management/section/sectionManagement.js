@@ -177,11 +177,6 @@ $(document).ready(function(){
 		$('#sectionForm .control-group').removeClass('success').removeClass('error');
 		$("#sectionModal").modal('show');
 	});
-	$("div.modal").modal({
-		backdrop: 'static',
-		keyboard: true,
-		show:false
-	});
 	$('#sectionForm').validate({
 		rules: {
 			sectionName: {

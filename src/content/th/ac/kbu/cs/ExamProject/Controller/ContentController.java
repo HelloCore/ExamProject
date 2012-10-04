@@ -13,10 +13,29 @@ import org.springframework.web.servlet.ModelAndView;
 
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.ContentDomain;
+import th.ac.kbu.cs.ExamProject.Entity.ContentFile;
+import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
 @Controller
 public class ContentController {
+	
+	@RequestMapping(value="/main/content/download.html")
+	@PreAuthorize(RoleDescription.hasAnyRole.WITHBOTH)
+	public ModelAndView init(@RequestParam(value="file",required=false,defaultValue="0") Long fileId,@ModelAttribute ContentDomain domain
+						,ModelAndView mv,HttpServletRequest request){
+		if(BeanUtils.isNull(fileId)){
+			fileId = 0L;
+		}
+		if(fileId.equals(0L)){
+			throw new DataInValidException("file not found");
+		}
+		
+		ContentFile contentFile = domain.getFileDataEntity(fileId, request);
+		mv.setViewName("redirect:/"+contentFile.getContentFilePath());
+		return mv;
+	}
+	
 	
 	@RequestMapping(value="/main/content.html")
 	@PreAuthorize(RoleDescription.hasAnyRole.WITHBOTH)
@@ -71,6 +90,7 @@ public class ContentController {
 		ModelAndView mv = new ModelAndView("redirect:/main/content.html?path="+domain.getFolderId()+"&success=1");
 		return mv;
 	}
+	
 	
 	
 }

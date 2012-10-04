@@ -18,7 +18,7 @@ public class CoreExceptionResolver implements HandlerExceptionResolver{
 		ModelAndView mv = null;
 		
 		if(ex instanceof AccessDeniedException){
-			mv = new ModelAndView("redirect:/404.htm");
+			mv = new ModelAndView("redirect:/errors/access-denied.html");
 		}else if (ex instanceof ContentFileException){
 			ContentFileException cfe = (ContentFileException) ex;
 			mv = new ModelAndView("redirect:/main/content.html?path="+cfe.getFolderId()+"&error="+cfe.getMessage());

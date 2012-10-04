@@ -56,6 +56,18 @@ public class ContentPath implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID", insertable = false, updatable = false)
 	private Course course;
+	
+	@Column(name = "VIEW_COUNT")
+	private Integer viewCount;
+
+	
+	public Integer getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
+	}
 
 	public Long getContentPathId() {
 		return contentPathId;

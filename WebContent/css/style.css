@@ -61,6 +61,11 @@ body {
 	.grid-pagination{
 		float: right;
 	}
+	
+	div.jGrowl.top-right {
+		right: 				0px;
+		top: 				40px;
+	}
 }
 .button-holder{
 	margin-bottom:5px;

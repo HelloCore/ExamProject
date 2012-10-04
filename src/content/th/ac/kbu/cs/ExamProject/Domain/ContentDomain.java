@@ -55,6 +55,7 @@ public class ContentDomain extends ContentPrototype{
 		projectionList.add(Projections.property("contentPath.contentPathId"),"contentPathId");
 		projectionList.add(Projections.property("contentPath.contentPathName"),"contentPathName");
 		projectionList.add(Projections.property("contentPath.contentPathDesc"),"contentPathDesc");
+		projectionList.add(Projections.property("contentPath.viewCount"),"viewCount");
 		criteria.setProjection(projectionList);
 		
 		criteria.add(Restrictions.eq("contentPath.parentPathId", pathId));
@@ -74,6 +75,7 @@ public class ContentDomain extends ContentPrototype{
 		projectionList.add(Projections.property("contentFile.contentFileDesc"),"contentFileDesc");
 		projectionList.add(Projections.property("contentFile.contentFileType"),"contentFileType");
 		projectionList.add(Projections.property("contentFile.contentFileSize"),"contentFileSize");
+		projectionList.add(Projections.property("contentFile.viewCount"),"viewCount");
 		
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("contentFile.contentPathId", pathId));
@@ -82,6 +84,35 @@ public class ContentDomain extends ContentPrototype{
 		
 		return basicFinderService.findByCriteria(criteria);
 	}
+	
+	public ContentFile getFileDataEntity(Long fileId,HttpServletRequest request){
+		DetachedCriteria criteria = DetachedCriteria.forClass(ContentFile.class,"contentFile");
+		criteria.createAlias("contentFile.contentPath", "contentPath");
+		
+		criteria.add(Restrictions.eq("contentFile.contentFileId", fileId));
+		criteria.addOrder(Order.asc("contentFile.contentFileName"));
+		
+		ContentFile contentFile = basicFinderService.findUniqueByCriteria(criteria);
+		
+		if(BeanUtils.isNull(contentFile)){
+			throw new DataInValidException("File not found!");
+		}
+		
+		if(request.isUserInRole(RoleDescription.Property.STUDENT)){
+			if(!studentTeacherService.validateStudentCourseId(SecurityUtils.getUsername(),contentFile.getContentPath().getCourseId())){
+				throw new DontHavePermissionException("dont have permission");
+			}
+		}else if (request.isUserInRole(RoleDescription.Property.TEACHER)){
+			if(!studentTeacherService.validateCourseId(SecurityUtils.getUsername(),contentFile.getContentPath().getCourseId())){
+				throw new DontHavePermissionException("dont have permission");
+			}
+		}
+		contentFile.setViewCount(contentFile.getViewCount() +1);
+		this.basicEntityService.update(contentFile);
+		
+		return contentFile;
+	}
+	
 	public Long getParentPath(Long pathId) {
 		Long parentPath = null;
 		if(pathId != 1L){
@@ -142,7 +173,7 @@ public class ContentDomain extends ContentPrototype{
 				newPath.setContentPathDesc(this.getFolderDesc());
 				newPath.setParentPathId(contentPath.getContentPathId());
 				newPath.setCourseId(contentPath.getCourseId());
-				
+				newPath.setViewCount(0);
 				basicEntityService.save(newPath);
 			}else{
 				throw new DataInValidException("Can't Create Folder");
@@ -221,8 +252,7 @@ public class ContentDomain extends ContentPrototype{
 			contentFile.setContentPathId(this.getFolderId());
 			contentFile.setCreateBy(SecurityUtils.getUsername());
 			contentFile.setCreateDate(new Date());
-			
-			
+			contentFile.setViewCount(0);
 			this.basicEntityService.save(contentFile);
 		} catch (Exception e) {
 			ContentFileException ex = new ContentFileException(e.getMessage());
@@ -233,6 +263,10 @@ public class ContentDomain extends ContentPrototype{
 
 	public void validatePermission(Long pathId) {
 		ContentPath contentPath = this.getCurrentData(pathId);
+		contentPath.setViewCount(contentPath.getViewCount() +1);
+		
+		this.basicEntityService.update(contentPath);
+		
 		if(!this.getCourseIdList().contains(contentPath.getCourseId())){
 			ContentFileException ex = new ContentFileException("dont have permission");
 			ex.setFolderId(1L);

@@ -56,6 +56,19 @@ public class ContentFile implements Serializable{
 	@JoinColumn(name = "CREATE_BY", insertable = false, updatable = false)
 	private User user;
 
+
+	@Column(name = "VIEW_COUNT")
+	private Integer viewCount;
+
+	
+	public Integer getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
+	}
+
 	public Long getContentFileId() {
 		return contentFileId;
 	}

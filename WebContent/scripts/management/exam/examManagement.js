@@ -114,6 +114,7 @@ $(document).ready(function(){
 	});
 
 	$("#pageSize").change(function(){
+		examManagement.page =1;
 		examManagement.rows = $(this).val();
 		examManagement.getGrid();
 	});
@@ -135,8 +136,7 @@ $(document).ready(function(){
 	});
 
 	$("#deleteButton").click(function(){
-		var thisButton = $(this);
-		thisButton.button('loading');
+		var thisButton = $(this).button('loading');
 		$.ajax({
 			url: application.contextPath + '/management/exam.html',
 			type: 'POST',

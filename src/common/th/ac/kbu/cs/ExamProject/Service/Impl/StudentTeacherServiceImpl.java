@@ -85,4 +85,20 @@ public class StudentTeacherServiceImpl implements StudentTeacherService{
 		return isValid;
 	}
 
+	@Override
+	public Boolean validateStudentCourseId(String username, Long courseId) {
+		Boolean isValid = true;
+		DetachedCriteria criteria = DetachedCriteria.forClass(StudentSection.class,"studentSection");
+		criteria.createAlias("studentSection.section", "section");
+		criteria.setProjection(Projections.rowCount());
+		criteria.add(Restrictions.eq("section.courseId", courseId));
+		criteria.add(Restrictions.eq("studentSection.username", username));
+		
+		Long rowCount = basicFinderService.findUniqueByCriteria(criteria);
+		if (rowCount <= 0L){
+			isValid=false;
+		}
+		return isValid;
+	}
+
 }

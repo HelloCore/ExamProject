@@ -8,21 +8,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
@@ -33,6 +25,11 @@ import th.ac.kbu.cs.ExamProject.Domain.ViewExamDomain;
 import th.ac.kbu.cs.ExamProject.Entity.Exam;
 import th.ac.kbu.cs.ExamProject.Entity.ExamQuestionGroup;
 import th.ac.kbu.cs.ExamProject.Entity.ExamSection;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class ExamManagementController {
