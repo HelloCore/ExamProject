@@ -22,6 +22,9 @@ public class CoreExceptionResolver implements HandlerExceptionResolver{
 		}else if (ex instanceof ContentFileException){
 			ContentFileException cfe = (ContentFileException) ex;
 			mv = new ModelAndView("redirect:/main/content.html?path="+cfe.getFolderId()+"&error="+cfe.getMessage());
+		}else if (ex instanceof AssignmentException){
+			AssignmentException ae = (AssignmentException) ex;
+			mv = new ModelAndView("redirect:/assignment/select.html?error="+ae.getMessage());
 		}else if (ex instanceof HibernateException){
 			mv = new ModelAndView("errorJson");
 			mv.addObject("message", ex.getMessage());

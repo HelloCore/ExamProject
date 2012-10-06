@@ -1,5 +1,6 @@
 package th.ac.kbu.cs.ExamProject.Service.Impl;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,12 +13,17 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import th.ac.kbu.cs.ExamProject.Entity.AssignmentFile;
 import th.ac.kbu.cs.ExamProject.Entity.AssignmentSection;
 import th.ac.kbu.cs.ExamProject.Entity.AssignmentTask;
+import th.ac.kbu.cs.ExamProject.Entity.AssignmentWork;
 import th.ac.kbu.cs.ExamProject.Entity.StudentSection;
 import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
 import th.ac.kbu.cs.ExamProject.Service.AssignmentService;
+import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.StudentTeacherService;
 
@@ -29,6 +35,9 @@ public class AssignmentServiceImpl implements AssignmentService{
 	
 	@Autowired
 	private BasicFinderService basicFinderService;
+	
+	@Autowired
+	private BasicEntityService basicEntityService;
 	
 	@Override
 	public List<HashMap<String, Object>> getAssignmentData(String username) {
@@ -100,6 +109,53 @@ public class AssignmentServiceImpl implements AssignmentService{
 		criteria.add(Restrictions.eq("assignmentTask.assignmentTaskId", assignmentId));
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		return basicFinderService.findUniqueByCriteria(criteria);
+	}
+
+	@Override
+	@Transactional(rollbackFor=Exception.class)
+	public void submitAssignment(AssignmentWork assignmentWork,
+			List<MultipartFile> uploadFile) throws IOException {
+		Long assignmentWorkId = (Long)this.basicEntityService.save(assignmentWork);
+		
+		for(MultipartFile multipartFile : uploadFile){
+			if(multipartFile.getSize() > 0L){
+				AssignmentFile assignmentFile = new AssignmentFile();
+				assignmentFile.setAssignmentWorkId(assignmentWorkId);
+				assignmentFile.setContent(multipartFile.getBytes());
+				assignmentFile.setContentType(multipartFile.getContentType());
+				assignmentFile.setFileName(multipartFile.getOriginalFilename());
+				
+				this.basicEntityService.save(assignmentFile);
+			}
+		}
+		
+	}
+
+	@Override
+	public AssignmentTask getAssignmentEntity(Long assignmentId, String username) {
+		validateAssignmentSection(assignmentId,username);
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentTask.class,"assignmentTask");
+		criteria.add(Restrictions.eq("assignmentTask.assignmentTaskId", assignmentId));
+
+		return this.basicFinderService.findUniqueByCriteria(criteria);
+	}
+
+	@Override
+	public Boolean validateSubmitAssignment(Long assignmentId, String username) {
+		Boolean isValid = true;
+		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentWork.class,"assignmentWork");
+		criteria.setProjection(Projections.rowCount());
+		criteria.add(Restrictions.eq("assignmentWork.sendBy", username));
+		criteria.add(Restrictions.eq("assignmentWork.assignmentTaskId", assignmentId));
+		
+		Long rowCount = this.basicFinderService.findUniqueByCriteria(criteria);
+		
+		if(rowCount > 0L){
+			isValid = false;
+		}
+		
+		return isValid;
 	}
 
 }

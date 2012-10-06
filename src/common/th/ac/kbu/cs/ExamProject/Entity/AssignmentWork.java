@@ -40,8 +40,11 @@ public class AssignmentWork implements Serializable{
 	@Column(name = "SEND_BY")
 	private String sendBy;
 	
+	@Column(name = "STATUS")
+	private Integer status;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATE_BY", insertable = false, updatable = false)
+	@JoinColumn(name = "SEND_BY", insertable = false, updatable = false)
 	private User user;
 
 	public Long getAssignmentWorkId() {
@@ -98,6 +101,14 @@ public class AssignmentWork implements Serializable{
 
 	public void setAssignmentTask(AssignmentTask assignmentTask) {
 		this.assignmentTask = assignmentTask;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	
 	

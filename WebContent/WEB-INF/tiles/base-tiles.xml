@@ -223,6 +223,17 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/assignment/selectAssignmentFooter.jsp"/>
 	</definition>
 	
+	<definition name="/assignment/submit.page" extends=".template">
+		<put-attribute name="title" value="Submit Assignment"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/assignment/submitAssignmentBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/assignment/submitAssignmentFooter.jsp"/>
+	</definition>
+	
+	<definition name="/assignment/result.page" extends=".template">
+		<put-attribute name="title" value="Result Assignment"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/assignment/resultAssignmentBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/assignment/resultAssignmentFooter.jsp"/>
+	</definition>
 	
 	<definition name="/errorJson.page" template="/WEB-INF/jsp/template/error.jsp"/>
 	<definition name="/otherError.page"  template="/WEB-INF/jsp/template/otherError.jsp" />

@@ -1,9 +1,6 @@
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<jsp:useBean id="nowTodayTime" class="java.util.Date" scope="page"/>
 <link rel="stylesheet" href="${contextPath}/css/assignment/selectAssignment.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
@@ -11,6 +8,13 @@
 </div>
 <div class="row-fluid">
 	<div class="span12">
+		<c:if test="${not empty error}">
+			<div style="width:500px;margin:auto;text-align:center;">
+				<div class="alert alert-error">
+					<strong>Error !</strong> ${error} 
+				</div>
+			</div>
+		</c:if>
 		<c:if test="${empty assignmentData}">
 			<div style="width:500px;margin:auto;text-align:center;">
 				<div class="alert alert-warning">
@@ -48,6 +52,10 @@
 	</div>
 </div>
 <c:if test="${not empty assignmentData}">
+<form id="redirectForm" method="POST" action="${contextPath}/assignment/submit.html">
+	<input type="hidden" name="method" value="submitAssignment" />
+	<input type="hidden" name="assignmentId" id="assignmentIdRedirect" />
+</form>
 <div class="row-fluid">
 	<hr>
 		<div class="span12 form-horizontal">

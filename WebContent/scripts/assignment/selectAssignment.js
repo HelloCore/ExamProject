@@ -12,7 +12,6 @@ $(document).ready(function(){
 			},
 			success: function(data){
 				var startDate = new Date(data.startDate);
-				console.log(startDate);
 				$("#detailAssignment").unblock();
 				$("#detailCourseCode").text(data.courseCode);
 				$("#detailAssignmentName").text(data.assignmentName);
@@ -40,6 +39,11 @@ $(document).ready(function(){
 	
 	$("#assignmentTable tbody tr").click(function(){
 		$('.checked').removeClass('checked');
-		getAssignmentDetail($(this).addClass('checked').find('input').attr('checked',true).val());
+		var assignmentId = $(this).addClass('checked').find('input').attr('checked',true).val();
+		$("#assignmentIdRedirect").val(assignmentId);
+		getAssignmentDetail(assignmentId);
+	});
+	$("#selectAssignmentButton").click(function(){
+		$("#redirectForm").submit();
 	});
 });

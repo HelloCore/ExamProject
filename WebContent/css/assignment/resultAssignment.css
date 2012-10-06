@@ -1,0 +1,4 @@
+@CHARSET "UTF-8";
+.fixed-content{ width:650px;margin:auto;}
+#assignmentTable tbody tr{cursor: pointer;}
+#assignmentTable tbody tr.checked{background-color:whiteSmoke;}

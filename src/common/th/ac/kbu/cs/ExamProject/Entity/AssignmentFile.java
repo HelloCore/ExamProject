@@ -1,7 +1,6 @@
 package th.ac.kbu.cs.ExamProject.Entity;
 
 import java.io.Serializable;
-import java.sql.Blob;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +34,7 @@ public class AssignmentFile implements Serializable{
 	
 	@Column(name = "CONTENT")
 	@Lob
-	private Blob content;
+	private byte[] content;
 
 	@Column(name = "FILE_NAME")
 	private String fileName;
@@ -67,11 +66,11 @@ public class AssignmentFile implements Serializable{
 		this.assignmentWork = assignmentWork;
 	}
 
-	public Blob getContent() {
+	public byte[] getContent() {
 		return content;
 	}
 
-	public void setContent(Blob content) {
+	public void setContent(byte[] content) {
 		this.content = content;
 	}
 
