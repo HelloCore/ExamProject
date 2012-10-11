@@ -40,29 +40,32 @@ public class AssignmentServiceImpl implements AssignmentService{
 	private BasicEntityService basicEntityService;
 	
 	@Override
-	public List<HashMap<String, Object>> getAssignmentData(String username) {
-		DetachedCriteria subCriteria = DetachedCriteria.forClass(StudentSection.class,"studentSection");
-		subCriteria.setProjection(Projections.property("studentSection.sectionId"));
-		subCriteria.add(Restrictions.eq("studentSection.username", username));
+	public List<Object[]> getAssignmentData(String username) {
 		
-		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentSection.class,"assignmentSection");
-		criteria.createAlias("assignmentSection.assignmentTask", "assignmentTask");
-		criteria.createAlias("assignmentTask.course", "course");
+		StringBuilder queryString = new StringBuilder();
+		queryString.append(" SELECT ")
+					.append(" DISTINCT assignmentTask.assignmentTaskId ")
+					.append(" ,assignmentTask.assignmentTaskName ")
+					.append(" ,assignmentTask.startDate ")
+					.append(" ,assignmentTask.endDate ")
+					.append(" ,course.courseCode ")
+					.append(" FROM AssignmentSection assignmentSection ")
+					.append(" JOIN assignmentSection.assignmentTask assignmentTask ")
+					.append(" JOIN assignmentTask.course course ")
+					.append(" WHERE assignmentSection.sectionId IN ( ")
+						.append(" SELECT studentSection.sectionId ")
+						.append(" FROM StudentSection studentSection ")
+						.append(" WHERE studentSection.username = ? ")
+					.append(") AND assignmentTask.flag = ? ")
+					.append(" AND assignmentTask.endDate > ? ")
+					.append(" AND (")
+						.append(" SELECT COUNT(*) ")
+						.append(" FROM AssignmentWork assignmentWork ")
+						.append(" WHERE assignmentWork.sendBy = ? ")
+						.append(" AND assignmentWork.assignmentTaskId = assignmentTask.assignmentTaskId ")
+						.append(" ) = 0 ");
 		
-		ProjectionList projectionList = Projections.projectionList();
-		projectionList.add(Projections.distinct(Projections.property("assignmentTask.assignmentTaskId")),"assignmentTaskId");
-		projectionList.add(Projections.property("assignmentTask.assignmentTaskName"),"assignmentTaskName");
-		projectionList.add(Projections.property("assignmentTask.startDate"),"startDate");
-		projectionList.add(Projections.property("assignmentTask.endDate"),"endDate");
-		projectionList.add(Projections.property("course.courseCode"),"courseCode");
-		criteria.setProjection(projectionList);
-		
-		criteria.add(Restrictions.eq("assignmentTask.flag", true));
-		criteria.add(Restrictions.ge("assignmentTask.endDate", new Date()));
-		criteria.add(Subqueries.propertyIn("assignmentSection.sectionId", subCriteria));
-		
-		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-		return this.basicFinderService.findByCriteria(criteria);
+		return this.basicFinderService.find(queryString.toString(), new Object[]{username,true,new Date(), username});
 	}
 	
 	private void validateAssignmentSection(Long assignmentId,String username){

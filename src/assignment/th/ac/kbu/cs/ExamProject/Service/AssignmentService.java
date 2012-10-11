@@ -10,7 +10,7 @@ import th.ac.kbu.cs.ExamProject.Entity.AssignmentTask;
 import th.ac.kbu.cs.ExamProject.Entity.AssignmentWork;
 
 public interface AssignmentService {
-	public List<HashMap<String,Object>> getAssignmentData(String username);
+	public List<Object[]> getAssignmentData(String username);
 	public HashMap<String, Object> getAssignmentDetail(Long assignmentId,String username);
 	public AssignmentTask getAssignmentEntity(Long assignmentId,String username);
 	

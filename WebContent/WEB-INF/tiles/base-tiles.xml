@@ -167,6 +167,24 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/task/viewTaskFooter.jsp"/>
 	</definition>
 	
+	<definition name="/management/task/taskList.page" extends=".template">
+		<put-attribute name="title" value="Evaluate Task"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/task/taskListBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/task/taskListFooter.jsp"/>
+	</definition>
+	
+	<definition name="/management/task/sendList.page" extends=".template">
+		<put-attribute name="title" value="Evaluate Task"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/task/sendListBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/task/sendListFooter.jsp"/>
+	</definition>
+	
+	<definition name="/management/task/evaluate.page" extends=".template">
+		<put-attribute name="title" value="Evaluate Task"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/task/evaluateTaskBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/task/evaluateTaskFooter.jsp"/>
+	</definition>
+	
 	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">
 	</definition>
 	
@@ -230,9 +248,9 @@
 	</definition>
 	
 	<definition name="/assignment/result.page" extends=".template">
-		<put-attribute name="title" value="Result Assignment"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/assignment/resultAssignmentBody.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/assignment/resultAssignmentFooter.jsp"/>
+		<put-attribute name="title" value="Assignment Results"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/assignment/assignmentResultsBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/assignment/assignmentResultsFooter.jsp"/>
 	</definition>
 	
 	<definition name="/errorJson.page" template="/WEB-INF/jsp/template/error.jsp"/>

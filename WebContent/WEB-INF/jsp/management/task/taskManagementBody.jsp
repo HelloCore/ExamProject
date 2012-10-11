@@ -69,6 +69,20 @@
 	</div>
 </div>
 
+<div class="modal hide fade" id="evaluateCompleteModal">
+	<div class="modal-header">
+		<h3>ตรวจเสร็จแล้ว ?</h3>
+	</div>
+	<div class="modal-body">
+		งานนี้ตรวจเสร็จแล้ว 
+	</div>
+  	<div class="modal-footer">
+    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+    	<a href="#" class="btn btn-primary" id="evaluateCompleteButton" data-loading-text="ส่งข้อมูล..." ><i class="icon-ok icon-white"></i> ตรวจเสร็จแล้ว</a>
+  	</div>
+</div>
+
+
 <div class="modal hide fade" id="confirmDeleteTaskModal">
 	<div class="modal-header">
 		<h3>Delete Task ?</h3>

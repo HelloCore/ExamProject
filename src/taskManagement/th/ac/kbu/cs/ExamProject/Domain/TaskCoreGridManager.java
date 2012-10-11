@@ -1,7 +1,5 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
-import java.util.Date;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -27,8 +25,12 @@ public class TaskCoreGridManager extends CoreGridManager<TaskDomain>{
 
 	@Override
 	public Object toEntity(TaskDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentTask.class,"assignmentTask");
+		criteria.add(Restrictions.eq("assignmentTask.assignmentTaskId",domain.getTaskId()));
+		
+		AssignmentTask assignmentTask = this.basicFinderService.findUniqueByCriteria(criteria);
+		assignmentTask.setIsEvaluateComplete(true);
+		return assignmentTask;
 	}
 
 	@Override
@@ -66,6 +68,7 @@ public class TaskCoreGridManager extends CoreGridManager<TaskDomain>{
 	protected void applyCriteria(DetachedCriteria criteria, TaskDomain domain,
 			String username) {
 		criteria.add(Restrictions.in("assignmentTask.courseId", this.studentTeacherService.getCourseId(username)));
+		
 		if(BeanUtils.isNotEmpty(domain.getCourseId()) && domain.getCourseId() !=0){
 			criteria.add(Restrictions.eq("assignmentTask.courseId", domain.getCourseId()));
 		}
@@ -73,7 +76,15 @@ public class TaskCoreGridManager extends CoreGridManager<TaskDomain>{
 			criteria.add(Restrictions.ilike("assignmentTask.assignmentTaskName", domain.getTaskName(), MatchMode.ANYWHERE));
 		}
 		criteria.add(Restrictions.eq("assignmentTask.flag", true));
-		criteria.add(Restrictions.ge("assignmentTask.endDate", new Date()));
+//		criteria.add(Restrictions.ge("assignmentTask.endDate", new Date()));
+		
+		if(BeanUtils.isNotNull(domain.getIsComplete())){
+			criteria.add(Restrictions.eq("assignmentTask.isEvaluateComplete", false));
+		}
+	}
+	
+	public void evaluateComplete(TaskDomain domain,String username){
+		this.basicEntityService.update(this.toEntity(domain));
 	}
 
 }

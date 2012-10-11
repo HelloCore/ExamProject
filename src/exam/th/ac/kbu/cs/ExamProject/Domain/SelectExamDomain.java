@@ -1,17 +1,11 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
-import th.ac.kbu.cs.ExamProject.Entity.ExamResult;
-import th.ac.kbu.cs.ExamProject.Entity.ExamResultAnswer;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 

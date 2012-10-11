@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.AssignmentDomain;
+import th.ac.kbu.cs.ExamProject.Domain.AssignmentResultCoreGridManager;
 import th.ac.kbu.cs.ExamProject.Domain.SubmitAssignmentDomain;
 
 @Controller
@@ -55,4 +57,11 @@ public class AssignmentController {
 		mv.addObject("success", success);
 		return mv;
 	}
+	
+	@RequestMapping(value="/assignment/result.html",method=RequestMethod.POST,params={"method=getAssignmentResultTable"})
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
+	public @ResponseBody CoreGrid<HashMap<String,Object>> getAssignmentResult(@ModelAttribute AssignmentDomain domain,@ModelAttribute AssignmentResultCoreGridManager gridManager,HttpServletRequest request,HttpServletResponse response){
+		return domain.getAssignmentResult(gridManager);
+	}
+	
 }

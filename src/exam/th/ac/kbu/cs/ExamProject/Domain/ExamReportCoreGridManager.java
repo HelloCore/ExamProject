@@ -9,7 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGridManager;
 import th.ac.kbu.cs.ExamProject.Entity.ExamResult;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
-import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 public class ExamReportCoreGridManager extends CoreGridManager<ResultExamDomain>{
 	
@@ -36,7 +35,7 @@ public class ExamReportCoreGridManager extends CoreGridManager<ResultExamDomain>
 
 	@Override
 	protected void applyCriteria(DetachedCriteria criteria, ResultExamDomain domain,String username) {
-		criteria.add(Restrictions.eq("examResult.username", SecurityUtils.getUsername()));
+		criteria.add(Restrictions.eq("examResult.username", username));
 		criteria.add(Restrictions.eq("examResult.examCompleted", true));
 	}
 

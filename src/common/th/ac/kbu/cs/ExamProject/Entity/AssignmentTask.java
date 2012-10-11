@@ -60,10 +60,13 @@ public class AssignmentTask implements Serializable{
 	private User user;
 	
 	@Column(name = "MAX_SCORE")
-	private Integer maxScore;
+	private Float maxScore;
 	
 	@Column(name = "FLAG")
 	private Boolean flag;
+	
+	@Column(name = "IS_EVALUATE_COMPLETE")
+	private Boolean isEvaluateComplete;
 
 	public Long getAssignmentTaskId() {
 		return assignmentTaskId;
@@ -161,11 +164,11 @@ public class AssignmentTask implements Serializable{
 		this.user = user;
 	}
 
-	public Integer getMaxScore() {
+	public Float getMaxScore() {
 		return maxScore;
 	}
 
-	public void setMaxScore(Integer maxScore) {
+	public void setMaxScore(Float maxScore) {
 		this.maxScore = maxScore;
 	}
 
@@ -175,6 +178,14 @@ public class AssignmentTask implements Serializable{
 
 	public void setFlag(Boolean flag) {
 		this.flag = flag;
+	}
+
+	public Boolean getIsEvaluateComplete() {
+		return isEvaluateComplete;
+	}
+
+	public void setIsEvaluateComplete(Boolean isEvaluateComplete) {
+		this.isEvaluateComplete = isEvaluateComplete;
 	}
 	
 	

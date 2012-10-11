@@ -163,6 +163,7 @@
 								    <ul class="dropdown-menu">
 	    								<li><a  href="${contextPath}/management/task.html">จัดการการบ้าน</a></li>
 	    								<li><a  href="${contextPath}/management/task/assign.html">สั่งการบ้าน</a></li>
+	    								<li><a  href="${contextPath}/management/task/taskList.html">ตรวจการบ้าน</a></li>
 									</ul>
 								</li>
 								<li class="dropdown report">

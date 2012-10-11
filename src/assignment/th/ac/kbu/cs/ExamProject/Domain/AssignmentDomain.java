@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
 import th.ac.kbu.cs.ExamProject.Service.AssignmentService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
@@ -18,7 +19,7 @@ public class AssignmentDomain extends AssignmentPrototype{
 	private AssignmentService assignmentService;
 	
 	
-	public List<HashMap<String,Object>> getAssignmentData(){
+	public List<Object[]> getAssignmentData(){
 		return assignmentService.getAssignmentData(SecurityUtils.getUsername());
 	}
 
@@ -30,5 +31,10 @@ public class AssignmentDomain extends AssignmentPrototype{
 	public HashMap<String, Object> getAssignmentDetail() {
 		this.validateGetAssignmentDetail();
 		return assignmentService.getAssignmentDetail(this.getAssignmentId(),SecurityUtils.getUsername());
+	}
+
+	public CoreGrid<HashMap<String, Object>> getAssignmentResult(
+			AssignmentResultCoreGridManager gridManager) {
+		return gridManager.search(this, SecurityUtils.getUsername());
 	}
 }

@@ -21,10 +21,10 @@ public class AssignmentWork implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "ASSIGNMENT_WORK_ID")
+	@Column(name = "ASSIGNMENT_WORK_ID",updatable=false)
 	private Long assignmentWorkId;
 
-	@Column(name = "ASSIGNMENT_TASK_ID")
+	@Column(name = "ASSIGNMENT_TASK_ID",updatable=false)
 	private Long assignmentTaskId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -32,16 +32,19 @@ public class AssignmentWork implements Serializable{
 	private AssignmentTask assignmentTask;
 	
 	@Column(name = "SCORE")
-	private Integer score;
+	private Float score;
 	
-	@Column(name = "SEND_DATE")
+	@Column(name = "SEND_DATE",updatable=false)
 	private Date sendDate;
 	
-	@Column(name = "SEND_BY")
+	@Column(name = "SEND_BY",updatable=false)
 	private String sendBy;
 	
 	@Column(name = "STATUS")
 	private Integer status;
+	
+	@Column(name = "EVALUATE_DATE")
+	private Date evaluateDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SEND_BY", insertable = false, updatable = false)
@@ -63,11 +66,11 @@ public class AssignmentWork implements Serializable{
 		this.assignmentTaskId = assignmentTaskId;
 	}
 
-	public Integer getScore() {
+	public Float getScore() {
 		return score;
 	}
 
-	public void setScore(Integer score) {
+	public void setScore(Float score) {
 		this.score = score;
 	}
 
@@ -109,6 +112,14 @@ public class AssignmentWork implements Serializable{
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Date getEvaluateDate() {
+		return evaluateDate;
+	}
+
+	public void setEvaluateDate(Date evaluateDate) {
+		this.evaluateDate = evaluateDate;
 	}
 	
 	

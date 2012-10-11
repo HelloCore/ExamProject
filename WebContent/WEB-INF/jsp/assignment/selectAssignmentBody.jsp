@@ -36,12 +36,12 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${assignmentData}" var="data">
-						<fmt:parseDate var="startDate" value="${data.startDate}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
-						<fmt:parseDate var="endDate" value="${data.endDate}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
+						<fmt:parseDate var="startDate" value="${data[2]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
+						<fmt:parseDate var="endDate" value="${data[3]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
 						<tr>
-							<td><input type="radio" name="courseId" class="course-id-radio"  value="${data.assignmentTaskId}" /></td>
-							<td>${data.courseCode}</td>
-							<td>${data.assignmentTaskName}</td>
+							<td><input type="radio" name="courseId" class="course-id-radio"  value="${data[0]}" /></td>
+							<td>${data[4]}</td>
+							<td>${data[1]}</td>
 							<td><fmt:formatDate value="${startDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 							<td><fmt:formatDate value="${endDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 						</tr>

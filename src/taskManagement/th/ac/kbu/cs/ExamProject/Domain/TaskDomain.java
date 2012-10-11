@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
+import th.ac.kbu.cs.ExamProject.Entity.AssignmentFile;
 import th.ac.kbu.cs.ExamProject.Entity.AssignmentSection;
 import th.ac.kbu.cs.ExamProject.Entity.AssignmentTask;
+import th.ac.kbu.cs.ExamProject.Entity.AssignmentWork;
 import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
 import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
+import th.ac.kbu.cs.ExamProject.Exception.TaskManagementException;
+import th.ac.kbu.cs.ExamProject.Service.StudentTeacherService;
 import th.ac.kbu.cs.ExamProject.Service.TaskService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
@@ -26,6 +30,9 @@ public class TaskDomain extends TaskPrototype{
 	
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private StudentTeacherService studentTeacherService;
 	
 	private void validateAssignTaskData(){
 		if(BeanUtils.isEmpty(this.getCourseId())
@@ -77,6 +84,7 @@ public class TaskDomain extends TaskPrototype{
 		assignmentTask.setCreateBy(SecurityUtils.getUsername());
 		assignmentTask.setCreateDate(new Date());
 		assignmentTask.setFlag(true);
+		assignmentTask.setIsEvaluateComplete(false);
 		
 		validateTask(assignmentTask);
 		taskService.assignTask(assignmentTask, sectionIdList);
@@ -174,10 +182,123 @@ public class TaskDomain extends TaskPrototype{
 		assignmentTask.setCreateBy(SecurityUtils.getUsername());
 		assignmentTask.setCreateDate(new Date());
 		assignmentTask.setFlag(true);
-		
+		assignmentTask.setIsEvaluateComplete(false);
 		validateTask(assignmentTask);
 		
 		taskService.editTask(assignmentTask, saveSectionList, updateSectionList, delSectionList);
+	}
+	
+	private void validateGetTaskList(){
+		if(BeanUtils.isEmpty(this.getCourseId())){
+			throw new ParameterNotFoundException("parameter not found");
+		}
+		
+		this.studentTeacherService.validateCourse(SecurityUtils.getUsername(), this.getCourseId());
+	}
+	
+	public List<Object[]> getTaskList(){
+		validateGetTaskList();
+		return this.taskService.getTaskList(this.getCourseId());
+	}
+	
+	private void validateGetSendList(){
+		if(BeanUtils.isEmpty(this.getTaskId())){
+			throw new TaskManagementException("parameter not found");
+		}
+	}
+	public List<HashMap<String,Object>> getEvaluatedList(){
+		this.validateGetSendList();
+		return this.taskService.getEvaluatedList(this.getTaskId());
+	}
+
+	public List<HashMap<String,Object>> getSendList() {
+		this.validateGetSendList();
+		return this.taskService.getSendList(this.getTaskId());
+	}
+
+	public AssignmentTask getAndValidateTaskData() {
+		this.validateGetSendList();
+		AssignmentTask assignmentTask = this.taskService.getTaskData(this.getTaskId());
+		
+		if(!this.studentTeacherService.validateCourseId(SecurityUtils.getUsername(), assignmentTask.getCourseId())){
+			throw new TaskManagementException("dont have permission");
+		}
+	
+		return assignmentTask;
+	}
+	
+	private void validateEvaluateData(){
+		if(BeanUtils.isEmpty(this.getWorkId())){
+			throw new TaskManagementException("parametere not found");
+		}
+	}
+	
+	public AssignmentWork getAndValidateWorkData(){
+		this.validateEvaluateData();
+
+		AssignmentWork assignmentWork = this.taskService.getWorkData(this.getWorkId());
+
+		if(!this.studentTeacherService.validateCourseId(SecurityUtils.getUsername(), assignmentWork.getAssignmentTask().getCourseId())){
+			throw new TaskManagementException("dont have permission");
+		}
+	
+		return assignmentWork;
+	}
+	
+	public List<HashMap<String,Object>> getFileList(){
+		this.validateEvaluateData();
+		return this.taskService.getFileList(this.getWorkId());
+	}
+	
+	
+	private void validateGetFile(){
+		if(BeanUtils.isEmpty(this.getFile())){
+			throw new TaskManagementException("parameter not found");
+		}
+	}
+	public AssignmentFile getAndValidateFile(){
+		this.validateGetFile();
+		AssignmentFile assignmentFile = this.taskService.getFileData(this.getFile());
+
+		if(!this.studentTeacherService.validateCourseId(SecurityUtils.getUsername(),assignmentFile.getAssignmentWork().getAssignmentTask().getCourseId())){
+			throw new TaskManagementException("dont have permission");
+		}
+		
+		return assignmentFile;
+	}
+	
+	private void validateEvaluateWork(){
+		if(BeanUtils.isEmpty(this.getWorkId())
+				|| BeanUtils.isEmpty(this.getTaskId())
+				|| BeanUtils.isEmpty(this.getScore())){
+			throw new TaskManagementException("parameter not found");
+		}
+	}
+
+	public void evaluateWork() {
+		this.validateEvaluateWork();
+		
+		AssignmentWork assignmentWork = new AssignmentWork();
+		
+		assignmentWork.setAssignmentWorkId(this.getWorkId());
+		assignmentWork.setScore(this.getScore());
+		assignmentWork.setEvaluateDate(new Date());
+		assignmentWork.setStatus(1);
+		
+		this.taskService.updateWork(assignmentWork);
+	}
+
+	private void validateEvaluateComplete(){
+		if(BeanUtils.isEmpty(this.getTaskId())){
+			throw new ParameterNotFoundException("parameter not found");
+		}
+	}
+	
+	public void evaluateComplete(TaskCoreGridManager gridManager) {
+		this.validateEvaluateComplete();
+		gridManager.evaluateComplete(this, SecurityUtils.getUsername());
+		
+		
 	}
 	
 }

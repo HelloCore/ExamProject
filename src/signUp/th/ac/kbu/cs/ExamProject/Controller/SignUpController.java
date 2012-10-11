@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import th.ac.kbu.cs.ExamProject.Domain.SignUpDomain;
 import th.ac.kbu.cs.ExamProject.Exception.DataDuplicateException;
-import th.ac.kbu.cs.ExamProject.Exception.SignUpException;
 
 @Controller
 public class SignUpController {

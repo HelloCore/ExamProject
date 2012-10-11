@@ -209,13 +209,13 @@ $(document).ready(function(){
 	$(".date-check").change(function(){assignTask.validateDate();});
 	$("#startDate").on('changeDate',function(){assignTask.validateDate();});
 	$("#endDate").on('changeDate',function(){assignTask.validateDate();});
-	$("#numOfFile").numeric().keyup(function(){assignTask.validateNumOfFile();});
-	$("#limitFileSizeKb").numeric().keyup(function(){assignTask.validateLimitFileSizeKb();});
-	$("#maxScore").numeric().keyup(function(){assignTask.validateMaxScore();});
+	$("#numOfFile").numeric({ decimal: false, negative: false }).keyup(function(){assignTask.validateNumOfFile();});
+	$("#limitFileSizeKb").numeric({ decimal: false, negative: false }).keyup(function(){assignTask.validateLimitFileSizeKb();});
+	$("#maxScore").numeric({ negative: false }).keyup(function(){assignTask.validateMaxScore();});
 	
 	$("#assignTaskConfirmButton").click(function(){
 		var startDate = Globalize.parseDate( $("#startDate").val() +' '+ $("#startTime").val(), "dd/MM/yyyy HH:mm"),
-		endDate = Globalize.parseDate( $("#endDate").val() +' '+ $("#endTime").val(), "dd/MM/yyyy HH:mm")
+		endDate = Globalize.parseDate( $("#endDate").val() +' '+ $("#endTime").val(), "dd/MM/yyyy HH:mm"),
 		thisButton = $(this).button('loading');
 		$("#mainForm").block(application.blockOption);
 		$.ajax({

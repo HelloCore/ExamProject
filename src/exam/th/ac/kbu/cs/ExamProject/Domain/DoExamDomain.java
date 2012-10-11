@@ -9,15 +9,11 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import th.ac.kbu.cs.ExamProject.Entity.ExamResult;
 import th.ac.kbu.cs.ExamProject.Entity.ExamResultAnswer;
@@ -30,6 +26,9 @@ import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.DoExamService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configurable
 public class DoExamDomain extends DoExamPrototype{

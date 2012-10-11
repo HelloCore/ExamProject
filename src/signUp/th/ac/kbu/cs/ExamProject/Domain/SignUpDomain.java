@@ -13,7 +13,6 @@ import th.ac.kbu.cs.ExamProject.Exception.NotFoundStudentException;
 import th.ac.kbu.cs.ExamProject.Exception.NotInFacultyException;
 import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
 import th.ac.kbu.cs.ExamProject.Exception.YearInvalidException;
-import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.MailService;
 import th.ac.kbu.cs.ExamProject.Service.SignUpService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;

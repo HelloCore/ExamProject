@@ -52,13 +52,13 @@
 					<div class="control-group">
 					    <label class="control-label">ขนาดไฟล์รวม</label>
 					    <div class="controls">
-							<span class="input-xlarge uneditable-input" id="detailLimitFileSizeKb">${assignmentData.limitFileSizeKb}</span>
+							<span class="input-xlarge uneditable-input" id="detailLimitFileSizeKb">${assignmentData.limitFileSizeKb} KB</span>
 					    </div>
 					</div>
 					<div class="control-group">
 					    <label class="control-label">ส่งได้</label>
 					    <div class="controls">
-							<span class="input-xlarge uneditable-input" id="detailNumOfFile">${assignmentData.numOfFile}</span>
+							<span class="input-xlarge uneditable-input" id="detailNumOfFile">${assignmentData.numOfFile} ไฟล์</span>
 					    </div>
 					</div>
 					<div class="control-group">

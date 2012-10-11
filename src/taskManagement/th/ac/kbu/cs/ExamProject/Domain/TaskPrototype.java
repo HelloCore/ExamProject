@@ -6,6 +6,8 @@ public class TaskPrototype {
 	private Long courseId;
 	private Long sectionId;
 	private Long taskId;
+	private Long workId;
+	private Long file;
 	private String oldSectionStr;
 	private String sectionIdStr;
 	private String taskName;
@@ -14,7 +16,10 @@ public class TaskPrototype {
 	private String endDate;
 	private Integer numOfFile;
 	private Long limitFileSizeKb;
-	private Integer maxScore;
+	private Float maxScore;
+	private Float score;
+	private Boolean isComplete;
+	
 	public Long getCourseId() {
 		return courseId;
 	}
@@ -83,11 +88,35 @@ public class TaskPrototype {
 	public void setLimitFileSizeKb(Long limitFileSizeKb) {
 		this.limitFileSizeKb = limitFileSizeKb;
 	}
-	public Integer getMaxScore() {
+	public Float getMaxScore() {
 		return maxScore;
 	}
-	public void setMaxScore(Integer maxScore) {
+	public void setMaxScore(Float maxScore) {
 		this.maxScore = maxScore;
 	}
-
+	public Long getWorkId() {
+		return workId;
+	}
+	public void setWorkId(Long workId) {
+		this.workId = workId;
+	}
+	public Long getFile() {
+		return file;
+	}
+	public void setFile(Long file) {
+		this.file = file;
+	}
+	public Float getScore() {
+		return score;
+	}
+	public void setScore(Float score) {
+		this.score = score;
+	}
+	public Boolean getIsComplete() {
+		return isComplete;
+	}
+	public void setIsComplete(Boolean isComplete) {
+		this.isComplete = isComplete;
+	}
+	
 }

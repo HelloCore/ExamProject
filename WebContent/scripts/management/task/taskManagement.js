@@ -25,6 +25,7 @@ taskManagement.getGrid = function(){
 			,page: taskManagement.page
 			,courseId: $("#courseId").val()
 			,taskName: $("#taskName").val()
+			,isComplete: 1
 		},
 		dataType: 'json',
 		success: function(data,status){
@@ -54,7 +55,8 @@ taskManagement.getGrid = function(){
 									+'<td>สั่งเมื่อ: '+Globalize.format(new Date(data.records[keyArray].createDate),'dd-MM-yyyy HH:mm')+'</td>'
 								+'</tr><tr>'
 									+'<td colspan="2" style="text-align:center;">'
-										+'<button class="btn btn-info" onClick="viewTask('+data.records[keyArray].taskId+')"><i class="icon-edit icon-white"></i> View</button>'
+										+' <button class="btn btn-primary" onClick="evaluateComplete('+data.records[keyArray].taskId+')"><i class="icon-ok icon-white"></i> ตรวจเสร็จแล้ว</button>'
+										+' <button class="btn btn-info" onClick="viewTask('+data.records[keyArray].taskId+')"><i class="icon-edit icon-white"></i> View</button>'
 										+' <button class="btn btn-danger" onClick="deleteTask('+data.records[keyArray].taskId+')"><i class="icon-trash icon-white"></i> Delete</button>'
 									+'</td>'
 								+'</tr>'
@@ -164,6 +166,29 @@ $(document).ready(function(){
 			}
 		});
 	});
+	$("#evaluateCompleteModal").click(function(){
+		var thisButton = $(this).button('loading');
+		$.ajax({
+			url: application.contextPath + '/management/task.html',
+			type: 'POST',
+			data: {
+				method: 'evaluateComplete',
+				taskId: taskManagement.taskId
+			},
+			success: function(){
+				thisButton.button('reset');
+				applicationScript.saveComplete();
+				$("#evaluateCompleteModal").modal('hide');
+				taskManagement.getGrid();
+			},
+			error: function(data){
+				thisButton.button('reset');
+				applicationScript.errorAlertWithStringTH(data.responseText);
+				$("#evaluateCompleteModal").modal('hide');
+			}
+		});
+		
+	});
 });
 
 deleteTask = function(taskId){
@@ -174,4 +199,8 @@ deleteTask = function(taskId){
 viewTask = function(taskId){
 	$("#viewTaskId").val(taskId);
 	$("#viewTaskForm").submit();
+};
+evaluateComplete = function(taskId){
+	taskManagement.taskId = taskId;
+	$("#evaluateCompleteModal").modal('show');
 };
