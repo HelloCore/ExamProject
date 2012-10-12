@@ -174,8 +174,8 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a  href="${contextPath}/report/student.html">จำนวนสมาชิก</a></li>
 	    								<li><a  href="${contextPath}/report/exam.html">ผลการสอบ</a></li>
+	    								<li><a  href="${contextPath}/report/assignment.html">คะแนนงาน</a></li>
 									</ul>
 								</li>
 								
