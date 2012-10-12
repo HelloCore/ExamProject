@@ -11,7 +11,7 @@
 		</div>
 		<div class="news-content">
 			<c:if test="${newsInfo == null }">
-				<div class="alert alert-error">
+				<div class="alert alert-error" style="width:300px;margin:auto;">
 				  <strong>เกิดข้อผิดพลาด!</strong> ไม่พบข่าวที่ต้องการ หรือคุณไม่มีสิทธิ์อ่านข่าวนี้
 				</div>
 			</c:if>

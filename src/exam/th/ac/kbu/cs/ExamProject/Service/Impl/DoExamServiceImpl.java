@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;

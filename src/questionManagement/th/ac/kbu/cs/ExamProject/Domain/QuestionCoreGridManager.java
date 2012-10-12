@@ -28,7 +28,6 @@ public class QuestionCoreGridManager extends CoreGridManager<QuestionDomain>{
 	@Override
 	protected void setProjectionList(ProjectionList projectionList,
 			QuestionDomain domain) {
-		// TODO Auto-generated method stub
 		projectionList.add(Projections.groupProperty("question.questionId"),"questionId");
 		projectionList.add(Projections.groupProperty("question.questionText"),"questionText");
 		projectionList.add(Projections.groupProperty("questionGroup.questionGroupName"),"questionGroupName");

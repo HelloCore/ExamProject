@@ -53,9 +53,5 @@ public class HomeController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/errors/404.html")
-//    public String handle404() {
-//        return "404";
-//    }
 }
 

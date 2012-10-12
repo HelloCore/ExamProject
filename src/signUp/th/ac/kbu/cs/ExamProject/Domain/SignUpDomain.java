@@ -1,18 +1,17 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 import th.ac.kbu.cs.ExamProject.Entity.User;
-import th.ac.kbu.cs.ExamProject.Exception.ActiveCodeInvalidException;
-import th.ac.kbu.cs.ExamProject.Exception.CantActiveAnymoreException;
-import th.ac.kbu.cs.ExamProject.Exception.DataNotMatchException;
-import th.ac.kbu.cs.ExamProject.Exception.NotFoundStudentException;
-import th.ac.kbu.cs.ExamProject.Exception.NotInFacultyException;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
-import th.ac.kbu.cs.ExamProject.Exception.YearInvalidException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
+import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.MailService;
 import th.ac.kbu.cs.ExamProject.Service.SignUpService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
@@ -26,22 +25,47 @@ public class SignUpDomain extends SignUpPrototype{
 	@Autowired
 	private SignUpService signUpService;
 	
+	@Autowired
+	private BasicFinderService basicFinderService;
+	public void validateStudentIdAndEmail(String studentId,String email){
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class,"user");
+		criteria.setProjection(Projections.rowCount());
+		criteria.add(Restrictions.or(Restrictions.eq("user.username", studentId),Restrictions.eq("user.email",email)));
+		
+		Long rows = basicFinderService.findUniqueByCriteria(criteria);
+		if(rows >= 1L){
+			throw new CoreException(CoreExceptionMessage.DUPLICATE_STUDENT_ID_OR_EMAIL);
+		}
+	}
 	private void validateData(){
+		this.validateEmptyData();
 		this.validateYear(this.getStudentId());
 		this.validateFaculty(this.getStudentId());
+		this.validateStudentIdAndEmail(this.getStudentId(), this.getEmail());
+	}
+	private void validateEmptyData(){
+		if(BeanUtils.isEmpty(this.getStudentId())
+				|| BeanUtils.isEmpty(this.getPassword())
+				|| BeanUtils.isEmpty(this.getRePassword())
+				|| BeanUtils.isEmpty(this.getFirstName())
+				|| BeanUtils.isEmpty(this.getLastName())
+				|| BeanUtils.isEmpty(this.getEmail())){
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
+		}
+			
 	}
 	private void validateYear(String studentId){
 		String yearStr = studentId.substring(0, 2);
 		Integer year = BeanUtils.toInteger(yearStr);
 		if(year<50 || year>65){
-			throw new YearInvalidException("Year invalid!");
+			throw new CoreException(CoreExceptionMessage.INVALID_YEAR);
 		}
 	}
 	
 	private void validateFaculty(String studentId){
 		String facultyStr = studentId.substring(2,7);
 		if(!facultyStr.equalsIgnoreCase("07024")){
-			throw new NotInFacultyException("Not in faculty!");
+			throw new CoreException(CoreExceptionMessage.NOT_IN_FACULTY);
 		}
 	}
 	
@@ -101,24 +125,24 @@ public class SignUpDomain extends SignUpPrototype{
 	private void validateDataUpdate(){
 		if(BeanUtils.isEmpty(this.getStudentId())
 				|| BeanUtils.isEmpty(this.getActiveCode())){
-			throw new ParameterNotFoundException("parameter not found!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	public void activeUser() {
 		validateDataUpdate();
-		User user = signUpService.getUser(this.getStudentId());
+		User user = this.getUser(this.getStudentId());
 		if(BeanUtils.isNull(user)){
-			throw new NotFoundStudentException("Student not found!");
+			throw new CoreException(CoreExceptionMessage.STUDENT_NOT_FOUND);
 		}
 		
 		if(user.getType() != 4){
-			throw new CantActiveAnymoreException("Cant active anymore");
+			throw new CoreException(CoreExceptionMessage.CANT_ACTIVE_ANYMORE);
 		}
 		
 		if(user.getActiveStr().equals(this.getActiveCode())){
 			signUpService.upgradeUserType(user);
 		}else{
-			throw new ActiveCodeInvalidException("Active code invalid!");
+			throw new CoreException(CoreExceptionMessage.INVALID_ACTIVE_CODE);
 		}
 		
 	}
@@ -126,26 +150,33 @@ public class SignUpDomain extends SignUpPrototype{
 	private void validateRequestActiveCodeData(){
 		if(BeanUtils.isEmpty(this.getStudentId())
 				|| BeanUtils.isEmpty(this.getEmail())){
-			throw new ParameterNotFoundException("parameter not found!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	public void requestActiveCode() {
 		validateRequestActiveCodeData();
-		User user = signUpService.getUser(this.getStudentId());
+		User user = this.getUser(this.getStudentId());
 		
 		if(BeanUtils.isNull(user)){
-			throw new NotFoundStudentException("Student not found!");
+			throw new CoreException(CoreExceptionMessage.STUDENT_NOT_FOUND);
 		}
 		
 		if(user.getType() != 4){
-			throw new CantActiveAnymoreException("Cant active anymore");
+			throw new CoreException(CoreExceptionMessage.CANT_ACTIVE_ANYMORE);
 		}
 		
 		if(user.getEmail().equals(this.getEmail())){
 			this.sendActiveEmail(this.getEmail(), user.getActiveStr());
 		}else{
-			throw new DataNotMatchException("Student id and email not match!");
+			throw new CoreException(CoreExceptionMessage.STUDENT_ID_AND_EMAIL_NOT_MATCH);
 		}
+	}
+	
+
+	public User getUser(String username) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class, "users");
+		criteria.add(Restrictions.eq("users.username", username));
+		return this.basicFinderService.findUniqueByCriteria(criteria);
 	}
 	
 }

@@ -17,16 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
+import th.ac.kbu.cs.ExamProject.Description.PathDescription;
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.TaskCoreGridManager;
 import th.ac.kbu.cs.ExamProject.Domain.TaskDomain;
 import th.ac.kbu.cs.ExamProject.Entity.AssignmentFile;
-import th.ac.kbu.cs.ExamProject.Exception.TaskManagementException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
+import th.ac.kbu.cs.ExamProject.Exception.CoreRedirectException;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class TaskManagementController {
@@ -137,7 +139,7 @@ public class TaskManagementController {
 			out.write(assignmentFile.getContent());
 			out.flush();
 		} catch (IOException e) {
-			throw new TaskManagementException(e.getMessage());
+			throw new CoreRedirectException(new CoreExceptionMessage(e.getMessage()), PathDescription.Management.Task.TASKLIST);
 		}
 		
 		return null;

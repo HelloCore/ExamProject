@@ -76,7 +76,6 @@ public class TaskCoreGridManager extends CoreGridManager<TaskDomain>{
 			criteria.add(Restrictions.ilike("assignmentTask.assignmentTaskName", domain.getTaskName(), MatchMode.ANYWHERE));
 		}
 		criteria.add(Restrictions.eq("assignmentTask.flag", true));
-//		criteria.add(Restrictions.ge("assignmentTask.endDate", new Date()));
 		
 		if(BeanUtils.isNotNull(domain.getIsComplete())){
 			criteria.add(Restrictions.eq("assignmentTask.isEvaluateComplete", false));

@@ -13,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.ContentDomain;
+import th.ac.kbu.cs.ExamProject.Domain.ContentListDomain;
 import th.ac.kbu.cs.ExamProject.Entity.ContentFile;
-import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
 @Controller
@@ -22,13 +24,13 @@ public class ContentController {
 	
 	@RequestMapping(value="/main/content/download.html")
 	@PreAuthorize(RoleDescription.hasAnyRole.WITHBOTH)
-	public ModelAndView init(@RequestParam(value="file",required=false,defaultValue="0") Long fileId,@ModelAttribute ContentDomain domain
+	public ModelAndView init(@RequestParam(value="file",required=false,defaultValue="0") Long fileId,@ModelAttribute ContentListDomain domain
 						,ModelAndView mv,HttpServletRequest request){
 		if(BeanUtils.isNull(fileId)){
 			fileId = 0L;
 		}
 		if(fileId.equals(0L)){
-			throw new DataInValidException("file not found");
+			throw new CoreException(CoreExceptionMessage.FILE_NOT_FOUND);
 		}
 		
 		ContentFile contentFile = domain.getFileDataEntity(fileId, request);
@@ -42,7 +44,8 @@ public class ContentController {
 	public ModelAndView init (@RequestParam(value="path",defaultValue="1",required=false) Long pathId
 							,@RequestParam(value="error",required=false) String message
 							,@RequestParam(value="success",required=false) Boolean success
-							,@ModelAttribute ContentDomain domain
+							,@ModelAttribute ContentListDomain domain
+							,ContentDomain domain2
 							,ModelAndView mv,HttpServletRequest request){
 		
 		domain.setCourseIdList(request);
@@ -55,7 +58,7 @@ public class ContentController {
 		mv.addObject("folderData", domain.getFolderData(BeanUtils.toLong(pathId)));
 		mv.addObject("fileData",domain.getFileData(BeanUtils.toLong(pathId)));
 		mv.addObject("currentPath", pathId);
-		mv.addObject("parentPath",domain.getParentPath(BeanUtils.toLong(pathId)));
+		mv.addObject("parentPath",domain2.getParentPath(BeanUtils.toLong(pathId)));
 		Boolean canEdit = false;
 		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
 			if(pathId.equals(1L)){
@@ -63,7 +66,7 @@ public class ContentController {
 			}
 		}else if(request.isUserInRole(RoleDescription.Property.TEACHER)){
 			if(!pathId.equals(1L)){
-				canEdit = domain.checkCanEdit(pathId);
+				canEdit = domain2.checkCanEdit(pathId);
 			}
 		}
 		mv.addObject("canEdit",canEdit);
@@ -76,7 +79,6 @@ public class ContentController {
 	@RequestMapping(value="/main/content.html",method=RequestMethod.POST)
 	public ModelAndView doMethod(@RequestParam(value = "method", required = true) String method,
 			@ModelAttribute ContentDomain domain,HttpServletRequest request,HttpServletResponse response){
-		System.out.println(method);
 		if(method.equals("newFolder")){
 			domain.newFolder(request);
 		}else if (method.equals("uploadFile")){

@@ -17,11 +17,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.Entity.ExamResult;
 import th.ac.kbu.cs.ExamProject.Entity.ExamResultAnswer;
-import th.ac.kbu.cs.ExamProject.Exception.CantEditExamException;
-import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
-import th.ac.kbu.cs.ExamProject.Exception.ExamIsExpiredException;
-import th.ac.kbu.cs.ExamProject.Exception.ExamPermissionDeniedException;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.DoExamService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
@@ -62,7 +59,7 @@ public class DoExamDomain extends DoExamPrototype{
 	
 	private void validateParameter(){
 		if(BeanUtils.isEmpty(this.getExamResultId())){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	
@@ -71,10 +68,11 @@ public class DoExamDomain extends DoExamPrototype{
 		criteria.add(Restrictions.eq("examResult.examResultId", examResultId));
 		ExamResult examResult = basicFinderService.findUniqueByCriteria(criteria);
 		if(!examResult.getUsername().equals(SecurityUtils.getUsername())){
-			throw new ExamPermissionDeniedException("Permission denied!!");
+
+			throw new CoreException(CoreExceptionMessage.PERMISSION_DENIED);
 		}
 		if(examResult.getExamCompleted()){
-			throw new CantEditExamException("Cant edit exam!!");
+			throw new CoreException(CoreExceptionMessage.CANT_EDIT_EXAM);
 		}
 		return examResult;
 	}
@@ -83,7 +81,7 @@ public class DoExamDomain extends DoExamPrototype{
 		if(BeanUtils.isNotEmpty(examResult.getExamExpireDate())){
 			Date nowToday = new Date();
 			if(nowToday.after(examResult.getExamExpireDate())){
-				throw new ExamIsExpiredException("Exam is expired");
+				throw new CoreException(CoreExceptionMessage.EXAM_EXPIRED);
 			}
 		}
 	}
@@ -95,7 +93,7 @@ public class DoExamDomain extends DoExamPrototype{
 			cal.add(Calendar.MINUTE, 3);
 			Date nowToday = new Date();
 			if(nowToday.after(cal.getTime())){
-				throw new ExamIsExpiredException("Exam is expired");
+				throw new CoreException(CoreExceptionMessage.EXAM_EXPIRED);
 			}
 		}
 	}
@@ -142,7 +140,7 @@ public class DoExamDomain extends DoExamPrototype{
 	public void validateAnswerData(List<ExamResultAnswer> examResultAnswers,Long examResultId){
 		for(ExamResultAnswer examResultAnswer : examResultAnswers){
 			if(examResultAnswer.getExamResultId() != examResultId){
-				throw new DataInValidException("Data invalid");
+				throw new CoreException(CoreExceptionMessage.INVALID_DATA);
 			}
 		}
 	}

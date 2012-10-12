@@ -20,11 +20,8 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import th.ac.kbu.cs.ExamProject.Entity.Exam;
 import th.ac.kbu.cs.ExamProject.Entity.ExamResult;
-import th.ac.kbu.cs.ExamProject.Exception.CantExamEnoughException;
-import th.ac.kbu.cs.ExamProject.Exception.ExamIsExpiredException;
-import th.ac.kbu.cs.ExamProject.Exception.ExamNotStartedException;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
-import th.ac.kbu.cs.ExamProject.Exception.QuestionNotEnoughException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.DoExamService;
@@ -85,18 +82,18 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 		if(BeanUtils.isEmpty(this.getExamId()) 
 				|| BeanUtils.isEmpty(this.getNumOfQuestion())
 				|| BeanUtils.isEmpty(this.getExamCount())){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		
 		Exam exam = this.getExam(this.getExamId());
 		if(BeanUtils.isNotNull(exam.getStartDate()) && exam.getStartDate().after(nowToday)){
-			throw new ExamNotStartedException("Exam not started!!");
+			throw new CoreException(CoreExceptionMessage.EXAM_NOT_STARTED);
 		}
 		if(BeanUtils.isNotNull(exam.getEndDate()) && exam.getEndDate().before(nowToday)){
-			throw new ExamIsExpiredException("Exam is expired!!");
+			throw new CoreException(CoreExceptionMessage.EXAM_EXPIRED);
 		}
 		if(BeanUtils.isNotNull(exam.getExamLimit()) && exam.getExamLimit() <= this.getExamCounted()){
-			throw new CantExamEnoughException("Cant exam anymore!!");
+			throw new CoreException(CoreExceptionMessage.CANT_DO_EXAM_ANYMORE);
 		}
 		return exam;
 	}
@@ -270,7 +267,7 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 			Integer requestQuestion = requestNumOfQuestion.get(questionGroupId);
 			Integer correctQuestion = correctNumOfQuestion.get(questionGroupId);
 			if(correctQuestion < requestQuestion){
-				throw new QuestionNotEnoughException("Question Not Enough");
+				throw new CoreException(CoreExceptionMessage.QUESTION_NOT_ENOUGH);
 			}else{
 				timeLimitSec += (requestQuestion * secondPerQuestion.get(questionGroupId));
 			}

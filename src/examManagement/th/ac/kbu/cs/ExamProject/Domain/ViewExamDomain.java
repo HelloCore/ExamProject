@@ -22,11 +22,13 @@ import th.ac.kbu.cs.ExamProject.Entity.ExamQuestionGroup;
 import th.ac.kbu.cs.ExamProject.Entity.ExamSection;
 import th.ac.kbu.cs.ExamProject.Entity.QuestionGroup;
 import th.ac.kbu.cs.ExamProject.Entity.Section;
-import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.ExamService;
+import th.ac.kbu.cs.ExamProject.Service.StudentTeacherService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
+import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -42,10 +44,14 @@ public class ViewExamDomain extends ExamPrototype{
 	@Autowired
 	private ExamService examService;
 	
-	private void checkPermissionFromCourse(Long courseId){
-		
-	}
+	@Autowired
+	private StudentTeacherService studentTeacherService;
 	
+	private void checkPermissionFromCourse(Long courseId){
+		if(!this.studentTeacherService.validateCourseId(SecurityUtils.getUsername(), courseId)){
+			throw new CoreException(CoreExceptionMessage.PERMISSION_DENIED);
+		}
+	}
 	
 	public Exam getExamData(){
 		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
@@ -130,7 +136,7 @@ public class ViewExamDomain extends ExamPrototype{
 	public void validateExamQuestionGroupData(List<ExamQuestionGroup> examQuestionGroupList,Long examId){
 		for(ExamQuestionGroup examQuestionGroup : examQuestionGroupList){
 			if(examQuestionGroup.getExamId() != examId){
-				throw new DataInValidException("data is invalid");
+				throw new CoreException(CoreExceptionMessage.INVALID_DATA);
 			}
 		}
 	}
@@ -140,7 +146,7 @@ public class ViewExamDomain extends ExamPrototype{
 			&& BeanUtils.isEmpty(this.getExamQuestionGroupSaveStr())
 			&& BeanUtils.isEmpty(this.getExamQuestionGroupDeleteStr())
 		){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -162,7 +168,8 @@ public class ViewExamDomain extends ExamPrototype{
 	public void validateExamSectionData(List<ExamSection> examSectionList,Long examId){
 		for(ExamSection examSection : examSectionList){
 			if(examSection.getExamId() != examId){
-				throw new DataInValidException("data is invalid");
+				throw new CoreException(CoreExceptionMessage.INVALID_DATA);
+				
 			}
 		}
 	}
@@ -171,7 +178,7 @@ public class ViewExamDomain extends ExamPrototype{
 			&& BeanUtils.isEmpty(this.getSaveSectionDataStr())
 			&& BeanUtils.isEmpty(this.getDeletedSectionDataStr())
 		){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -204,7 +211,7 @@ public class ViewExamDomain extends ExamPrototype{
 	
 	public void editExamHeader(){
 		if(BeanUtils.isEmpty(this.getExamId()) || BeanUtils.isEmpty(this.getExamHeader())){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		Exam exam = getExamAndValidate(this.getExamId());
 		exam.setExamHeader(this.getExamHeader());
@@ -214,7 +221,7 @@ public class ViewExamDomain extends ExamPrototype{
 
 	public void editStartDate() throws ParseException {
 		if(BeanUtils.isEmpty(this.getExamId())){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		
 		Exam exam = getExamAndValidate(this.getExamId());
@@ -234,7 +241,7 @@ public class ViewExamDomain extends ExamPrototype{
 	public void editEndDate() throws ParseException {
 
 		if(BeanUtils.isEmpty(this.getExamId())){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		
 		Exam exam = getExamAndValidate(this.getExamId());
@@ -254,7 +261,7 @@ public class ViewExamDomain extends ExamPrototype{
 		if(BeanUtils.isEmpty(this.getExamId())
 				|| BeanUtils.isEmpty(this.getMinQuestion())
 				|| BeanUtils.isEmpty(this.getMaxQuestion())){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		
 		Exam exam = getExamAndValidate(this.getExamId());
@@ -268,7 +275,7 @@ public class ViewExamDomain extends ExamPrototype{
 	public void editExamLimit() {
 		if(BeanUtils.isEmpty(this.getExamId())
 				|| BeanUtils.isEmpty(this.getExamLimit())){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		
 		Exam exam = getExamAndValidate(this.getExamId());
@@ -281,7 +288,7 @@ public class ViewExamDomain extends ExamPrototype{
 	public void editExamSequence() {
 		if(BeanUtils.isEmpty(this.getExamId())
 				|| BeanUtils.isNull(this.getExamSequence())){
-			throw new ParameterNotFoundException("Parameter not found!!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 
 		Exam exam = getExamAndValidate(this.getExamId());

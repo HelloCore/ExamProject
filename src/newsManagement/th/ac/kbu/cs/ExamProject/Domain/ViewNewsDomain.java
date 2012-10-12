@@ -15,7 +15,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.Entity.News;
 import th.ac.kbu.cs.ExamProject.Entity.User;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.StudentTeacherService;
@@ -53,7 +54,7 @@ public class ViewNewsDomain extends NewsPrototype{
 				|| BeanUtils.isEmpty(this.getNewsHeader())
 				|| BeanUtils.isEmpty(this.getNewsContent())
 				|| BeanUtils.isEmpty(this.getCourseId())){
-			throw new ParameterNotFoundException("parameter not found");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	

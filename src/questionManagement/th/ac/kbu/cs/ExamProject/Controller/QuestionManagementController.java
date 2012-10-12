@@ -53,9 +53,4 @@ public class QuestionManagementController {
 	}
 
 
-//	@ExceptionHandler(RuntimeException.class)
-//	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-//	public @ResponseBody String runtimeException(RuntimeException ex,HttpServletRequest request,HttpServletResponse response){
-//		return ex.getMessage();
-//	}
 }

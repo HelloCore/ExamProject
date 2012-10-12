@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.Entity.Answer;
 import th.ac.kbu.cs.ExamProject.Entity.Question;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.QuestionAnswerService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
@@ -114,8 +116,8 @@ public class ViewQuestionDomain extends ViewQuestionPrototype{
 			answer.setAnswerScore(getAnswerScore());
 			answer.setFlag(true);
 			answer.setAnswerId((Long) questionAnswerService.saveAnswer(answer));
-		}else{
-			throw new Exception();
+		}else{	
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		return answer;
 	}

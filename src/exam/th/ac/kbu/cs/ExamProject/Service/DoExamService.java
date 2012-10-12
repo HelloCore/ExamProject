@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import th.ac.kbu.cs.ExamProject.Entity.ExamResult;

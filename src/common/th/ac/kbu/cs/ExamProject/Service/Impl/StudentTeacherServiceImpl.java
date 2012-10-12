@@ -8,12 +8,15 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import th.ac.kbu.cs.ExamProject.Entity.AssignmentSection;
 import th.ac.kbu.cs.ExamProject.Entity.StudentSection;
 import th.ac.kbu.cs.ExamProject.Entity.TeacherCourse;
-import th.ac.kbu.cs.ExamProject.Exception.DontHavePermissionException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.StudentTeacherService;
 
@@ -32,7 +35,7 @@ public class StudentTeacherServiceImpl implements StudentTeacherService{
 		
 		Long rowCount = basicFinderService.findUniqueByCriteria(criteria);
 		if (rowCount <= 0L){
-			throw new DontHavePermissionException("dont have permission");
+			throw new CoreException(CoreExceptionMessage.PERMISSION_DENIED);
 		}
 	}
 
@@ -107,6 +110,25 @@ public class StudentTeacherServiceImpl implements StudentTeacherService{
 		criteria.setProjection(Projections.property("studentSection.sectionId"));
 		criteria.add(Restrictions.eq("studentSection.username", username));
 		return basicFinderService.findByCriteria(criteria);
+	}
+	
+	public Boolean validateAssignmentSection(Long assignmentId,String username){
+		DetachedCriteria subCriteria = DetachedCriteria.forClass(StudentSection.class,"studentSection");
+		subCriteria.setProjection(Projections.property("studentSection.sectionId"));
+		subCriteria.add(Restrictions.eq("studentSection.username", username));
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentSection.class,"assignmentSection");
+		criteria.setProjection(Projections.rowCount());
+		
+		criteria.add(Restrictions.eq("assignmentSection.assignmentTaskId", assignmentId));
+		criteria.add(Subqueries.propertyIn("assignmentSection.sectionId", subCriteria));
+		
+		Long rowCount = this.basicFinderService.findUniqueByCriteria(criteria);
+		Boolean isValid = true;
+		if(rowCount <= 0L){
+			isValid = false;
+		}
+		return isValid;
 	}
 
 }

@@ -17,9 +17,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.Entity.Register;
 import th.ac.kbu.cs.ExamProject.Entity.TeacherCourse;
-import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
-import th.ac.kbu.cs.ExamProject.Exception.DontHavePermissionException;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.RegisterService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
@@ -42,7 +41,7 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 	private void validateData(){
 		if( BeanUtils.isEmpty(this.getCourseId()) 
 				|| BeanUtils.isEmpty(this.getSectionId())){
-			throw new ParameterNotFoundException("parameter not found!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	
@@ -81,7 +80,7 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 	private void validateChangeSection(String username) throws JsonParseException, JsonMappingException, IOException{
 		if( BeanUtils.isEmpty(this.getCourseId()) 
 				|| BeanUtils.isNull(this.getRegisterIdArray())){
-			throw new ParameterNotFoundException("parameter not found!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);	
 		}
 		
 		if(BeanUtils.isNotNull(username)){
@@ -102,7 +101,7 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		Long result = basicFinderService.findUniqueByCriteria(criteria);
 		
 		if(result <= 0L){
-			throw new DontHavePermissionException("dont have permission");
+			throw new CoreException(CoreExceptionMessage.PERMISSION_DENIED);
 		}
 		
 		DetachedCriteria registerCriteria = DetachedCriteria.forClass(Register.class,"register");
@@ -119,7 +118,8 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		List<HashMap<String,Object>> records = basicFinderService.findByCriteria(registerCriteria);
 		for(HashMap<String,Object> record: records){
 			if(!record.get("courseId").equals(this.getCourseId())){
-				throw new DataInValidException("Data invalid!");
+				throw new CoreException(CoreExceptionMessage.INVALID_DATA);
+				
 			}
 		}
 	}

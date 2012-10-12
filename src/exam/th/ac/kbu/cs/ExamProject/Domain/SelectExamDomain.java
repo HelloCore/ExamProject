@@ -17,33 +17,7 @@ public class SelectExamDomain extends ExamPrototype{
 	
 	public List<Object[]> getExam(){
 		
-		System.out.println();
-		
 		StringBuilder queryString = new StringBuilder();
-//		queryString.append(" SELECT ")
-//		.append("course.courseCode as courseCode")
-//		.append(",exam.examHeader as examHeader")
-//		.append(",exam.endDate as endDate")
-//		.append(",(SELECT COUNT(examResult.examResultId) ")
-//			.append(" FROM ExamResult examResult")
-//			.append(" WHERE examResult.examId = exam.examId ")
-//			.append(" AND examResult.username = ? ")
-//		.append(" ) as examCount ")
-//		.append(",exam.examLimit  as examLimit ")
-//		.append(",exam.minQuestion as minQuestion")
-//		.append(",exam.maxQuestion as maxQuestion")
-//		.append(",exam.examId as examId")
-//		.append(" FROM Exam exam ")
-//		.append(" JOIN exam.course course ")
-//		.append(" WHERE exam.flag=? ")
-//			.append(" AND (exam.examLimit > (SELECT COUNT(examResult.examResultId) ")
-//				.append(" FROM ExamResult examResult")
-//				.append(" WHERE examResult.examId = exam.examId ")
-//				.append(" AND examResult.username = ? ")
-//				.append(" ) )")
-//			.append(" AND ( exam.endDate>? OR exam.endDate is null) ")
-//			.append(" AND ( exam.startDate<? OR exam.startDate is null) ")
-//		.append(" ORDER BY exam.endDate asc");
 		queryString.append(" SELECT ")
 						.append("course.courseCode as courseCode")
 						.append(",exam.examHeader as examHeader")

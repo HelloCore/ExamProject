@@ -11,4 +11,5 @@ public interface StudentTeacherService {
 	List<Long> getStudentCourseId(String username);
 	List<HashMap<String,Object>> getCourseData(String username);
 	List<Long> getSectionId(String username);
+	Boolean validateAssignmentSection(Long assignmentId,String username);
 }

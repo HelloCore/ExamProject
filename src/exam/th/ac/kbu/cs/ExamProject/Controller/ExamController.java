@@ -88,11 +88,7 @@ public class ExamController {
 			modelMap.addAttribute("examResultAnswer", domain.getResultData());
 		}else{
 			modelMap.addAttribute("examResultData", domain.getExamResultData(true));
-			// if isview
-				// update is view
-			//else
 			modelMap.addAttribute("examResultAnswer", domain.getResultData());
-			//end if
 		}
 		return modelMap;
 	}
@@ -108,12 +104,6 @@ public class ExamController {
 	public @ResponseBody CoreGrid<HashMap<String,Object>> examReport(@ModelAttribute ResultExamDomain domain,@ModelAttribute ExamReportCoreGridManager gridManager,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){
 		return domain.searchStudent(gridManager);
 	}
-	
-//	@ExceptionHandler(ExamException.class)
-//	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-//	public @ResponseBody String examException(ExamException ex,HttpServletRequest request,HttpServletResponse response){
-//		return ex.getMessage();
-//	}
 
 
 }

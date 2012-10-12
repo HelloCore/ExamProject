@@ -8,8 +8,8 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import th.ac.kbu.cs.ExamProject.Entity.TeacherCourse;
-import th.ac.kbu.cs.ExamProject.Exception.DontHavePermissionException;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
 public class RegisterSectionComboBox extends ComboBox{
@@ -35,7 +35,7 @@ public class RegisterSectionComboBox extends ComboBox{
 	
 	private void validateParameter(){
 		if(BeanUtils.isEmpty(this.getCourseId())){
-			throw new ParameterNotFoundException("parameter not found!");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class RegisterSectionComboBox extends ComboBox{
 		criteria.add(Restrictions.eq("teacherCourse.username", username));
 		Long results = basicFinderService.findUniqueByCriteria(criteria);
 		if(results==0){
-			throw new  DontHavePermissionException("dont have permission");
+			throw new CoreException(CoreExceptionMessage.PERMISSION_DENIED);
 		}
 	}
 

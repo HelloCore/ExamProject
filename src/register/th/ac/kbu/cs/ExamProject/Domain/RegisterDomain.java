@@ -16,9 +16,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 import th.ac.kbu.cs.ExamProject.Entity.Register;
 import th.ac.kbu.cs.ExamProject.Entity.Section;
 import th.ac.kbu.cs.ExamProject.Entity.StudentSection;
-import th.ac.kbu.cs.ExamProject.Exception.DataInValidException;
-import th.ac.kbu.cs.ExamProject.Exception.DuplicateCourseException;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
@@ -35,8 +34,8 @@ public class RegisterDomain extends RegisterPrototype{
 	
 	private void validateData(String username){
 		if(BeanUtils.isEmpty(this.getCourseId()) 
-				|| BeanUtils.isEmpty(this.getSectionId())){
-			throw new ParameterNotFoundException("Parameter not found");
+				|| BeanUtils.isEmpty(this.getSectionId())){	
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);		
 		}
 		validateSectionData(this.getCourseId(),this.getSectionId());
 		validateCourse(this.getCourseId(),username);
@@ -53,7 +52,8 @@ public class RegisterDomain extends RegisterPrototype{
 
 		Long rowCount = basicFinderService.findUniqueByCriteria(criteria);
 		if(rowCount != 1){
-			throw new DataInValidException("Data is invalid!");
+			throw new CoreException(CoreExceptionMessage.INVALID_DATA);
+			
 		}
 	}
 	private void validateCourse(Long courseId,String username){
@@ -67,7 +67,7 @@ public class RegisterDomain extends RegisterPrototype{
 		
 		Long rowCount = basicFinderService.findUniqueByCriteria(criteria);
 		if(rowCount> 0){
-			throw new DuplicateCourseException("Course is duplicate!");
+			throw new CoreException(CoreExceptionMessage.DUPLICATE_COURSE);
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class RegisterDomain extends RegisterPrototype{
 	
 	private void validateCancelData(){
 		if(BeanUtils.isEmpty(this.getRegisterId())){
-			throw new ParameterNotFoundException("Parameter not found");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	
@@ -125,7 +125,7 @@ public class RegisterDomain extends RegisterPrototype{
 		Register register = basicFinderService.findUniqueByCriteria(criteria);
 		
 		if(!register.getUsername().equals(username)){
-			throw new DataInValidException("Data is invalid");
+			throw new CoreException(CoreExceptionMessage.INVALID_DATA);
 		}
 		return register;
 	}
@@ -141,7 +141,7 @@ public class RegisterDomain extends RegisterPrototype{
 				|| BeanUtils.isEmpty(this.getSectionId())
 				|| BeanUtils.isEmpty(this.getRegisterId())
 				|| BeanUtils.isEmpty(this.getToSectionId())){
-			throw new ParameterNotFoundException("Parameter not found");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		DetachedCriteria criteria = DetachedCriteria.forClass(Register.class,"register");
 		criteria.createAlias("register.section", "section");
@@ -153,7 +153,7 @@ public class RegisterDomain extends RegisterPrototype{
 		if(! (register.getUsername().equals(username)
 			&& register.getSection().getCourseId().equals(this.getCourseId())
 			&& register.getSectionId().equals(this.getSectionId()) )){
-			throw new DataInValidException("Data is invalid");
+			throw new CoreException(CoreExceptionMessage.INVALID_DATA);
 		}
 		
 		validateSectionData(this.getCourseId(),this.getToSectionId());

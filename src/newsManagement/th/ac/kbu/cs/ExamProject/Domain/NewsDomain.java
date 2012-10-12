@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.Entity.News;
-import th.ac.kbu.cs.ExamProject.Exception.ParameterNotFoundException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
@@ -27,7 +28,7 @@ public class NewsDomain extends NewsPrototype{
 		if(BeanUtils.isEmpty(this.getCourseId())
 				|| BeanUtils.isEmpty(this.getNewsContent())
 				|| BeanUtils.isEmpty(this.getNewsHeader())){
-			throw new ParameterNotFoundException("parameter not found");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	
@@ -52,7 +53,7 @@ public class NewsDomain extends NewsPrototype{
 
 	private void validateDeleteData(){
 		if(BeanUtils.isEmpty(this.getNewsId())){
-			throw new ParameterNotFoundException("parameter not found");
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
 	
