@@ -87,7 +87,7 @@ public class ViewNewsDomain extends NewsPrototype{
 		User user = SecurityUtils.getUser();
 		if(BeanUtils.isNotNull(user)){
 			if(user.getType().equals(2)){
-				List<Long> courseIdList = this.studentTeacherService.getStudentCourseId(user.getUsername());
+				List<Long> courseIdList = this.studentTeacherService.getCourseId(user.getUsername());
 				if(BeanUtils.isEmpty(courseIdList)){
 					criteria.add(Restrictions.isNull("news.courseId"));
 				}else{
@@ -105,7 +105,7 @@ public class ViewNewsDomain extends NewsPrototype{
 				}else{
 					criteria.add(
 						Restrictions.or(
-								Restrictions.in("news.courseId",this.studentTeacherService.getStudentCourseId(user.getUsername()))
+								Restrictions.in("news.courseId",courseIdList)
 								,Restrictions.isNull("news.courseId")
 						)
 					);
@@ -131,19 +131,29 @@ public class ViewNewsDomain extends NewsPrototype{
 		User user = SecurityUtils.getUser();
 		if(BeanUtils.isNotNull(user)){
 			if(user.getType().equals(2)){
-				criteria.add(
-						Restrictions.or(
-								Restrictions.in("news.courseId",this.studentTeacherService.getCourseId(user.getUsername()))
-								,Restrictions.isNull("news.courseId")
-							)
-				);
+				List<Long> courseIdList = this.studentTeacherService.getCourseId(user.getUsername());
+				if(BeanUtils.isEmpty(courseIdList)){
+					criteria.add(Restrictions.isNull("news.courseId"));
+				}else{
+					criteria.add(
+							Restrictions.or(
+									Restrictions.in("news.courseId",courseIdList)
+									,Restrictions.isNull("news.courseId")
+								)
+					);
+				}
 			}else if (user.getType().equals(3)){
-				criteria.add(
-						Restrictions.or(
-								Restrictions.in("news.courseId",this.studentTeacherService.getStudentCourseId(user.getUsername()))
-								,Restrictions.isNull("news.courseId")
-						)
-				);
+				List<Long> courseIdList = this.studentTeacherService.getStudentCourseId(user.getUsername());
+				if(BeanUtils.isEmpty(courseIdList)){
+					criteria.add(Restrictions.isNull("news.courseId"));
+				}else{
+					criteria.add(
+							Restrictions.or(
+									Restrictions.in("news.courseId",courseIdList)
+									,Restrictions.isNull("news.courseId")
+							)
+					);
+				}
 			}else{
 				criteria.add(Restrictions.isNull("news.courseId"));
 			}
@@ -169,19 +179,29 @@ public class ViewNewsDomain extends NewsPrototype{
 		User user = SecurityUtils.getUser();
 		if(BeanUtils.isNotNull(user)){
 			if(user.getType().equals(2)){
-				criteria.add(
+				List<Long> courseIdList = this.studentTeacherService.getCourseId(user.getUsername());
+				if(BeanUtils.isEmpty(courseIdList)){
+					criteria.add(Restrictions.isNull("news.courseId"));
+				}else{
+					criteria.add(
 						Restrictions.or(
-								Restrictions.in("news.courseId",this.studentTeacherService.getCourseId(user.getUsername()))
-								,Restrictions.isNull("news.courseId")
-							)
-				);
-			}else if (user.getType().equals(3)){
-				criteria.add(
-						Restrictions.or(
-								Restrictions.in("news.courseId",this.studentTeacherService.getStudentCourseId(user.getUsername()))
+								Restrictions.in("news.courseId",courseIdList)
 								,Restrictions.isNull("news.courseId")
 						)
-				);
+					);
+				}
+			}else if (user.getType().equals(3)){
+				List<Long> courseIdList = this.studentTeacherService.getStudentCourseId(user.getUsername());
+				if(BeanUtils.isEmpty(courseIdList)){
+					criteria.add(Restrictions.isNull("news.courseId"));
+				}else{
+					criteria.add(
+							Restrictions.or(
+									Restrictions.in("news.courseId",courseIdList)
+									,Restrictions.isNull("news.courseId")
+							)
+					);
+				}
 			}else{
 				criteria.add(Restrictions.isNull("news.courseId"));
 			}

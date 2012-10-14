@@ -102,7 +102,7 @@ public class TaskManagementController {
 	public ModelAndView initSendList(@ModelAttribute TaskDomain domain,ModelAndView mv){
 		mv.addObject("taskData", domain.getAndValidateTaskData());
 		mv.addObject("sendList",domain.getSendList());
-		mv.addObject("evaluatedList",domain.getEvaluatedList());
+		mv.addObject("evaluatedList",domain.getEvaluatedList(TaskDomain.SORT_BY_EVALUATE_DATE));
 		return mv;
 	}
 	
@@ -122,7 +122,7 @@ public class TaskManagementController {
 		mv.setViewName("management/task/sendList");
 		mv.addObject("taskData", domain.getAndValidateTaskData());
 		mv.addObject("sendList",domain.getSendList());
-		mv.addObject("evaluatedList",domain.getEvaluatedList());
+		mv.addObject("evaluatedList",domain.getEvaluatedList(TaskDomain.SORT_BY_EVALUATE_DATE));
 		mv.addObject("success", true);
 		return mv;
 	}

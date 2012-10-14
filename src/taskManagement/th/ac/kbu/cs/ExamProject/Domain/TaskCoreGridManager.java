@@ -48,6 +48,7 @@ public class TaskCoreGridManager extends CoreGridManager<TaskDomain>{
 		projectionList.add(Projections.property("assignmentTask.createDate"),"createDate");
 		projectionList.add(Projections.property("user.firstName"),"firstName");
 		projectionList.add(Projections.property("user.lastName"),"lastName");
+		projectionList.add(Projections.property("assignmentTask.isEvaluateComplete"),"isEvaluateComplete");
 	}
 
 	@Override
@@ -60,8 +61,16 @@ public class TaskCoreGridManager extends CoreGridManager<TaskDomain>{
 
 	@Override
 	protected void addOrder(DetachedCriteria criteria) {
-		criteria.addOrder(Order.asc("assignmentTask.startDate"));
-		criteria.addOrder(Order.asc("assignmentTask.endDate"));
+		if(BeanUtils.isNotEmpty(getOrder()) && BeanUtils.isNotEmpty(getOrderBy())){
+			if(getOrder().equalsIgnoreCase("asc")){
+				criteria.addOrder(Order.asc(getOrderBy()));
+			}else{
+				criteria.addOrder(Order.desc(getOrderBy()));
+			}
+		}else{
+			criteria.addOrder(Order.asc("assignmentTask.startDate"));
+			criteria.addOrder(Order.asc("assignmentTask.endDate"));
+		}
 	}
 
 	@Override

@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+@media (max-width: 767px) {
+	.detail-holder { width:360px; margin:auto; }
+}
+@media  (min-width:768px) {
+	.detail-holder { width:560px; margin:auto; }
+}

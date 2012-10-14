@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${contextPath}/css/assignment/assignmentResults.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">Assignments</font> Result</h2>
+	<h2><font class="red-color">ประวัติ</font> การส่งงาน</h2>
 </div>
 <div class="row-fluid">
 	<div class="span12">

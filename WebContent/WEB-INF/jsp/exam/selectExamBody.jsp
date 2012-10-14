@@ -1,5 +1,4 @@
 <%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -7,39 +6,64 @@
 <link rel="stylesheet" href="${contextPath}/css/exam/selectExam.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Select</font> Examinations</h2>
+		<h2><font class="red-color">ทำการ</font> สอบ</h2>
 	</div>
 	<div class="row">
 		<div class="span12">
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th>วิชา</th>
-						<th>หัวข้อ</th>
-						<th>หมดเขต</th>
-						<th>สอบได้(ครั้ง)</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:if test="${not empty examData}">
+			<c:if test="${empty examData and empty examResult}">
+				<div style="width:500px;margin:auto;text-align:center;">
+					<div class="alert alert-warning">
+						<strong>Warning !</strong> ไม่มีข้อสอบที่คุณสามารถสอบได้ 
+					</div>
+					<a class="btn" href="${contextPath}/main/home.html"><i class=" icon-chevron-left "></i> Back</a>
+				</div> 
+			</c:if>
+			<c:if test="${not empty examData}">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>วิชา</th>
+							<th>หัวข้อ</th>
+							<th>เริ่มสอบ</th>
+							<th>หมดเขต</th>
+							<th>สอบได้(ครั้ง)</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
 						<c:forEach items="${examData}" var="data">
 							<tr>
 								<td>${data[0]}</td>
 								<td>${data[1]}</td>
-								<c:if test="${not empty data[2]}">
-									<td><fmt:formatDate value="${data[2]}"  pattern="dd-MM-yyyy HH:mm"/></td>
-								</c:if>
-								<c:if test="${empty data[2]}">
-									<td>ไม่กำหนด</td>
-								</c:if>
+								<td>
+									<c:if test="${not empty data[8]}">
+										<fmt:parseDate var="startDate" value="${data[8]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
+										<fmt:formatDate value="${startDate}"  pattern="dd-MM-yyyy HH:mm"/>
+									</c:if>
+									<c:if test="${empty data[8]}">ไม่กำหนด</c:if>
+								</td>
+								<td>
+									<c:if test="${not empty data[2]}">
+										<fmt:parseDate var="endDate" value="${data[2]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
+										<fmt:formatDate value="${endDate}"  pattern="dd-MM-yyyy HH:mm"/>
+									</c:if>
+									<c:if test="${empty data[2]}">ไม่กำหนด</c:if>
+								</td>
 								<td>${data[4]-data[3]}</td>
-								<td><button class="btn btn-info havePopover" exam-count="${data[3]+1}" min-question="${data[5]}"  max-question="${data[6]}" onClick="createExam(${data[7]})" id="do-exam-${data[7]}"><i class="icon-edit icon-white"></i> สอบ</button></td>
+								<td>
+									<c:if test="${not empty startDate || nowTodayTime < startDate}">
+										<button class="btn btn-info" disabled="disabled"><i class="icon-edit icon-white"></i> สอบ</button>
+									</c:if>
+									<c:if test="${empty startDate || nowTodayTime > startDate}">
+										<button class="btn btn-info havePopover" exam-count="${data[3]+1}" min-question="${data[5]}"  max-question="${data[6]}" onClick="createExam(${data[7]})" id="do-exam-${data[7]}"><i class="icon-edit icon-white"></i> สอบ</button>
+									</c:if>
+								</td>
 							</tr>
 						</c:forEach>
-					</c:if>
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</c:if>
+			
 		</div>
 	</div>
 	

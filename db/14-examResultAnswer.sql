@@ -20,7 +20,6 @@ CREATE TABLE EXAM_RESULT_ANSWER(
 	FOREIGN KEY (ANSWER_ID_4) REFERENCES ANSWER(ANSWER_ID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 SELECT q.question_text,a1.answer_text,a2.answer_text,a3.answer_text,a4.answer_text
 FROM question q INNER JOIN answer a1 ON a1.question_id = q.question_id  and a1.answer_score =1 
 INNER JOIN answer a2 ON a2.question_id = q.question_id and a1.answer_id <> a2.answer_id and a2.answer_score =0 

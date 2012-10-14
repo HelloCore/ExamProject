@@ -47,6 +47,11 @@ public class ComboBoxController {
 		return domain.getSectionComboBox();
 	}
 
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	@RequestMapping(value="/management/courseSectionComboBox.html" ,method=RequestMethod.GET)
+	public @ResponseBody List<Object[]> getCourseSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		return domain.getCourseSectionDataTeacher(SecurityUtils.getUsername());
+	}
 
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/questionGroupComboBox.html" ,method=RequestMethod.POST)

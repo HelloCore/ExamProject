@@ -36,6 +36,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configurable
 public class TaskDomain extends TaskPrototype{
 	
+	public final static Integer SORT_BY_EVALUATE_DATE = 0;
+	public final static Integer SORT_BY_STUDENT_ID = 1;
+	
+	
 	@Autowired
 	private TaskService taskService;
 	
@@ -269,7 +273,7 @@ public class TaskDomain extends TaskPrototype{
 			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 	}
-	public List<HashMap<String,Object>> getEvaluatedList(){
+	public List<HashMap<String,Object>> getEvaluatedList(Integer sortType){
 		this.validateGetSendList();
 		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentWork.class,"assignmentWork");
 		criteria.createAlias("assignmentWork.user", "user");
@@ -286,7 +290,11 @@ public class TaskDomain extends TaskPrototype{
 		
 		criteria.add(Restrictions.eq("assignmentWork.assignmentTaskId", this.getTaskId()));
 		criteria.add(Restrictions.eq("assignmentWork.status",1));
-		criteria.addOrder(Order.asc("assignmentWork.evaluateDate"));
+		if(sortType.equals(TaskDomain.SORT_BY_EVALUATE_DATE)){
+			criteria.addOrder(Order.asc("assignmentWork.evaluateDate"));
+		}else if (sortType.equals(TaskDomain.SORT_BY_STUDENT_ID)){
+			criteria.addOrder(Order.asc("assignmentWork.sendBy"));
+		}
 		
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 

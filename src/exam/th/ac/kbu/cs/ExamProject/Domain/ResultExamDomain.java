@@ -44,7 +44,7 @@ public class ResultExamDomain extends DoExamPrototype {
 		}
 	}
 	
-	public List<HashMap<String,Object>> getResultData() {
+	public List<HashMap<String,Object>> getResultData(Boolean isStudent) {
 		validateBaseData();
 		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
 		criteria.createAlias("examResultAnswer.question", "question");
@@ -52,6 +52,9 @@ public class ResultExamDomain extends DoExamPrototype {
 		
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("question.questionText"),"questionText");
+		if(!isStudent){
+			projectionList.add(Projections.property("answer.answerText"),"answerText");
+		}
 		projectionList.add(Projections.property("answer.answerScore"),"answerScore");
 		
 		criteria.setProjection(projectionList);
@@ -65,6 +68,9 @@ public class ResultExamDomain extends DoExamPrototype {
 	public ExamResult getExamResultData(Boolean isStudent){
 		validateBaseData();
 		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResult.class,"examResult");
+		if(!isStudent){
+			criteria.createAlias("examResult.user", "user");
+		}
 		criteria.createAlias("examResult.exam", "exam");
 		criteria.createAlias("exam.course", "course");
 		criteria.add(Restrictions.eq("examResult.examResultId", this.getExamResultId()));

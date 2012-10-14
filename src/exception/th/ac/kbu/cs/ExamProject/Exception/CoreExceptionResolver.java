@@ -31,7 +31,6 @@ public class CoreExceptionResolver implements HandlerExceptionResolver{
 			mv = new ModelAndView("errorJson");
 			mv.addObject("message", ex.getMessage());
 		}
-		
 //		if(ex instanceof AccessDeniedException){
 //			mv = new ModelAndView("redirect:/errors/access-denied.html");
 //		}else if (ex instanceof ContentFileException){

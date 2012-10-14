@@ -26,7 +26,7 @@
 			</c:if>
 		</c:if>
 		<c:if test="${parentPath != 0}">
-			<a class="btn" href="${contextPath}/main/content.html?path=${parentPath}"><i class="icon-chevron-left"></i> Back</a>
+			<a class="btn" href="${contextPath}/main/content.html?path=${parentPath}&from=${currentPath}"><i class="icon-chevron-left"></i> Back</a>
 		</c:if>
 		<c:if test="${canEdit}">
 			<a class="btn btn-primary" id="uploadButton"><i class="icon-upload icon-white"></i> Upload</a>
@@ -55,7 +55,7 @@
 					<c:if test="${not empty folderData}">
 						<c:forEach items="${folderData}" var="folder">
 							<tr>
-								<td><i class="icon-folder"></i> <a href="${contextPath}/main/content.html?path=${folder.contentPathId}">${folder.contentPathName}</a></td>
+								<td><i class="icon-folder"></i> <a href="${contextPath}/main/content.html?path=${folder.contentPathId}&from=${currentPath}">${folder.contentPathName}</a></td>
 								<td>${folder.contentPathDesc}</td>
 								<td></td>
 								<td>${folder.viewCount}</td>
@@ -70,7 +70,7 @@
 							
 							<tr>
 								<td><i class="icon-doc-${file.contentFileType}"></i> 
-									<a href="${contextPath}/main/content/download.html?file=${file.contentFileId}">${file.contentFileName}</a>
+									<a href="${contextPath}/main/content/download.html?file=${file.contentFileId}&from=${currentPath}">${file.contentFileName}</a>
 								</td>
 								<td>${file.contentFileDesc}</td>
 								<td> <fmt:formatNumber minFractionDigits="0" maxFractionDigits="0" value="${file.contentFileSize/1024}"/> Kb</td>

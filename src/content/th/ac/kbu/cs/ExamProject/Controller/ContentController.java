@@ -49,6 +49,10 @@ public class ContentController {
 							,ModelAndView mv,HttpServletRequest request){
 		
 		domain.setCourseIdList(request);
+		if(BeanUtils.isNull(domain.getFrom())){
+			domain.setFrom(1L);
+		}
+		
 		if(BeanUtils.isNull(pathId)){
 			pathId = 1L;
 		}
@@ -86,10 +90,9 @@ public class ContentController {
 		}else if (method.equals("deleteFolder")){
 			domain.deleteFolder(request);
 		}else if (method.equals("deleteFile")){
-			System.out.println("oh");
 			domain.deleteFile(request);
 		}
-		ModelAndView mv = new ModelAndView("redirect:/main/content.html?path="+domain.getFolderId()+"&success=1");
+		ModelAndView mv = new ModelAndView("redirect:/main/content.html?path="+domain.getFolderId()+"&from=1&success=1");
 		return mv;
 	}
 	

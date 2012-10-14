@@ -64,7 +64,11 @@ public class ContentListDomain extends ContentListPrototype{
 		criteria.setProjection(projectionList);
 		
 		criteria.add(Restrictions.eq("contentPath.parentPathId", pathId));
-		criteria.add(Restrictions.in("contentPath.courseId", this.getCourseIdList()));
+		if(BeanUtils.isNotEmpty(this.getCourseIdList())){
+			criteria.add(Restrictions.in("contentPath.courseId", this.getCourseIdList()));
+		}else{
+			criteria.add(Restrictions.eq("contentPath.courseId", null));
+		}
 		criteria.addOrder(Order.asc("contentPath.contentPathName"));
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		
@@ -100,16 +104,16 @@ public class ContentListDomain extends ContentListPrototype{
 		ContentFile contentFile = basicFinderService.findUniqueByCriteria(criteria);
 		
 		if(BeanUtils.isNull(contentFile)){
-			throw new CoreRedirectException(CoreExceptionMessage.FILE_NOT_FOUND, PathDescription.Main.CONTENT);
+			throw new CoreRedirectException(CoreExceptionMessage.FILE_NOT_FOUND, PathDescription.Main.CONTENT,"path="+this.getFrom()+"&from="+this.getFrom());
 		}
 		
 		if(request.isUserInRole(RoleDescription.Property.STUDENT)){
 			if(!studentTeacherService.validateStudentCourseId(SecurityUtils.getUsername(),contentFile.getContentPath().getCourseId())){
-				throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT);
+				throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 			}
 		}else if (request.isUserInRole(RoleDescription.Property.TEACHER)){
 			if(!studentTeacherService.validateCourseId(SecurityUtils.getUsername(),contentFile.getContentPath().getCourseId())){
-				throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT);
+				throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT,"path="+this.getFrom()+"&from="+this.getFrom());
 			}
 		}
 		contentFile.setViewCount(contentFile.getViewCount() +1);
@@ -125,7 +129,7 @@ public class ContentListDomain extends ContentListPrototype{
 		this.basicEntityService.update(contentPath);
 		
 		if(!this.getCourseIdList().contains(contentPath.getCourseId())){
-			throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT, "path="+this.getFolderId());
+			throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 		}	
 	}
 	

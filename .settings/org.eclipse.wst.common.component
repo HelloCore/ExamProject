@@ -21,6 +21,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/content"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/taskManagement"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/assignment"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/report"/>
         <property name="context-root" value="ExamProject"/>
         <property name="java-output-path" value="/ExamProject/build/classes"/>
     </wb-module>

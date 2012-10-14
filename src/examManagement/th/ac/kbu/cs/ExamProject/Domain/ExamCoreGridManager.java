@@ -49,8 +49,16 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 
 	@Override
 	protected void addOrder(DetachedCriteria criteria) {
-		criteria.addOrder(Order.asc("exam.startDate"));
-		criteria.addOrder(Order.asc("exam.endDate"));
+		if(BeanUtils.isNotEmpty(getOrder()) && BeanUtils.isNotEmpty(getOrderBy())){
+			if(getOrder().equalsIgnoreCase("asc")){
+				criteria.addOrder(Order.asc(getOrderBy()));
+			}else{
+				criteria.addOrder(Order.desc(getOrderBy()));
+			}
+		}else{
+			criteria.addOrder(Order.asc("exam.startDate"));
+			criteria.addOrder(Order.asc("exam.endDate"));
+		}
 	}
 
 	@Override

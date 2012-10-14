@@ -30,10 +30,10 @@ examReport.getGrid = function(){
 								+ '<td>'+completeDateStr+'</td>'
 								+ '<td>'+data.records[keyArray].courseCode+'</td>'
 								+ '<td>'+data.records[keyArray].examHeader+'</td>'
-								+ '<td>'+data.records[keyArray].examCount+'</td>'
-								+ '<td>'+data.records[keyArray].numOfQuestion+' ข้อ</td>'
-								+ '<td>'+usedTimeStr+'</td>'
-								+ '<td>'+data.records[keyArray].examScore+'</td>'
+								+ '<td style="text-align:right;">'+data.records[keyArray].examCount+'</td>'
+								+ '<td style="text-align:right;">'+data.records[keyArray].numOfQuestion+' ข้อ</td>'
+								+ '<td style="text-align:right;">'+usedTimeStr+'</td>'
+								+ '<td style="text-align:right;">'+data.records[keyArray].examScore+' ข้อ</td>'
 							+'</tr>';
 				$("#examReportGrid tbody").append(strHtml);
 			}
@@ -97,6 +97,9 @@ $(document).ready(function(){
 
 	$('.sortable').click(function(){
 		var myId = $(this).attr('id').substring(0,$(this).attr('id').indexOf('Header'));
+		if(myId == 'exam'){
+			myId = 'examHeader';
+		}
 		$('.current-sort').removeClass('sort-desc').removeClass('sort-asc').addClass('sort-both').removeClass('currentSort');
 		
 		if(examReport.orderBy == myId){

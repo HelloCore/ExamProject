@@ -31,6 +31,7 @@ public class SelectExamDomain extends ExamPrototype{
 						.append(",exam.minQuestion as minQuestion")
 						.append(",exam.maxQuestion as maxQuestion")
 						.append(",exam.examId as examId")
+						.append(",exam.startDate as startDate")
 						.append(" FROM ExamSection examSection ")
 						.append(" JOIN examSection.exam exam ")
 						.append(" JOIN exam.course course ")
@@ -46,14 +47,12 @@ public class SelectExamDomain extends ExamPrototype{
 								.append(" WHERE studentSection.username = ? ")
 							.append(" ) ")
 							.append(" AND ( exam.endDate>? OR exam.endDate is null) ")
-							.append(" AND ( exam.startDate<? OR exam.startDate is null) ")
 						.append(" ORDER BY exam.endDate asc");
 		Object[] params = {
 				SecurityUtils.getUsername(),
 				true,
 				SecurityUtils.getUsername(),
 				SecurityUtils.getUsername(),
-				new Date(),
 				new Date()
 		};
 		return basicFinderService.find(queryString.toString(), params);

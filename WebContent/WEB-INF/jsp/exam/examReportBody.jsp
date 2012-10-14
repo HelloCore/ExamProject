@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${contextPath}/css/exam/examReport.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Exam</font> Report</h2>
+		<h2><font class="red-color">ผล</font> การสอบ</h2>
 	</div>
 	<div class="row-fluid">
 		<div class="span12">
@@ -17,7 +17,7 @@
 						<th class="sort-both sortable" id="examCountHeader">ครั้งที่ <i></i></th>
 						<th class="sort-both sortable" id="numOfQuestionHeader">จำนวน <i></i></th>
 						<th class="sort-both sortable" id="examUsedTimeHeader">ใช้เวลา <i></i></th>
-						<th class="sort-both sortable" id="examScoreHeader">ได้คะแนน <i></i></th>
+						<th class="sort-both sortable" id="examScoreHeader">ตอบถูก <i></i></th>
 					</tr>
 				</thead>
 				<tbody>

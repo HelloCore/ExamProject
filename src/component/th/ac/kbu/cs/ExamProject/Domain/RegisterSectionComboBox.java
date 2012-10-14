@@ -85,6 +85,23 @@ public class RegisterSectionComboBox extends ComboBox{
 	}
 	
 
+	public List<Object[]> getCourseSectionDataTeacher(String username){
+		StringBuilder queryString = new StringBuilder();
+		queryString.append(" SELECT ")
+						.append(" section.sectionId ")
+						.append(" ,section.sectionName ")
+						.append(" ,section.sectionYear ")
+						.append(" ,section.sectionSemester ")
+						.append(" ,course.courseId ")
+						.append(" ,course.courseCode ")
+				.append(" FROM Section section ")
+				.append(" JOIN section.course course ")
+				.append(" WHERE section.flag<>0 ")
+				.append(" AND course.courseId in  ?  ")
+				.append(" ORDER BY course.courseId,section.sectionYear,section.sectionSemester,section.sectionName ");
+		return basicFinderService.find(queryString.toString(), this.teacherService.getCourseId(username).toArray());					
+	}
+	
 	public List<Object[]> getCourseSectionData(String username){
 		StringBuilder queryString = new StringBuilder();
 		queryString.append(" SELECT ")
@@ -110,7 +127,7 @@ public class RegisterSectionComboBox extends ComboBox{
 							.append(" register.status = 1 OR ")
 							.append(" register.status = 3 ) AND ")
 							.append(" register.username = ? )")
-					.append(")");
+					.append(") ORDER BY course.courseId ");
 		return basicFinderService.find(queryString.toString(),new Object[]{ username,username });					
 	}
 	

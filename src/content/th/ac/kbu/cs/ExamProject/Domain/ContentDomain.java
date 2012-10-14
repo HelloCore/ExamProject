@@ -70,7 +70,7 @@ public class ContentDomain extends ContentPrototype{
 	private void validateNewFolder(){
 		if(BeanUtils.isEmpty(this.getFolderName())
 				|| BeanUtils.isEmpty(this.getFolderId())){
-			throw new CoreRedirectException(CoreExceptionMessage.PARAMETER_NOT_FOUND, PathDescription.Main.CONTENT,"path="+this.getFolderId());
+			throw new CoreRedirectException(CoreExceptionMessage.PARAMETER_NOT_FOUND, PathDescription.Main.CONTENT,"path="+this.getFrom()+"&from="+this.getFrom());
 			
 		}
 	}
@@ -81,7 +81,7 @@ public class ContentDomain extends ContentPrototype{
 		ContentPath contentPath = getCurrentData(this.getFolderId()); 
 		if(this.getFolderId().equals(1L)){
 			if(SecurityUtils.getUser().getType().equals(1)){
-				throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT,"path="+this.getFolderId());
+				throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT,"path="+this.getFrom()+"&from="+this.getFrom());
 			}
 		}else{
 			studentTeacherService.validateCourse(SecurityUtils.getUsername(), contentPath.getCourseId());
@@ -90,7 +90,7 @@ public class ContentDomain extends ContentPrototype{
 		String realPathLocation = request.getSession().getServletContext().getRealPath(newFolderPathLocation);
 		
 		if(fileService.exists(realPathLocation)){
-			throw new CoreRedirectException(CoreExceptionMessage.FOLDER_IS_EXISTS, PathDescription.Main.CONTENT,"path="+this.getFolderId());
+			throw new CoreRedirectException(CoreExceptionMessage.FOLDER_IS_EXISTS, PathDescription.Main.CONTENT,"path="+this.getFrom()+"&from="+this.getFrom());
 		}else{
 			if(fileService.makeDirectory(realPathLocation)){
 				ContentPath newPath = new ContentPath();
@@ -102,7 +102,7 @@ public class ContentDomain extends ContentPrototype{
 				newPath.setViewCount(0);
 				basicEntityService.save(newPath);
 			}else{
-				throw new CoreRedirectException(CoreExceptionMessage.CANT_CREATE_FOLDER, PathDescription.Main.CONTENT,"path="+this.getFolderId());
+				throw new CoreRedirectException(CoreExceptionMessage.CANT_CREATE_FOLDER, PathDescription.Main.CONTENT,"path="+this.getFrom()+"&from="+this.getFrom());
 			}
 		}
 	}
@@ -111,7 +111,7 @@ public class ContentDomain extends ContentPrototype{
 		if(BeanUtils.isEmpty(this.getFileName())
 				|| BeanUtils.isEmpty(this.getFolderId())
 				|| BeanUtils.isNull(this.getFileData())){
-			throw new CoreRedirectException(CoreExceptionMessage.PARAMETER_NOT_FOUND, PathDescription.Main.CONTENT, "path="+this.getFolderId());
+			throw new CoreRedirectException(CoreExceptionMessage.PARAMETER_NOT_FOUND, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 		}
 	}
 	
@@ -132,7 +132,7 @@ public class ContentDomain extends ContentPrototype{
 				|| contentType.matches(".*(png|jpe?g|gif).*")){
 			contentFile.setContentFileType(7);
 		}else{
-			throw new CoreRedirectException(CoreExceptionMessage.CANT_ACCEPT_FILE_TYPE, PathDescription.Main.CONTENT, "path="+this.getFolderId());
+			throw new CoreRedirectException(CoreExceptionMessage.CANT_ACCEPT_FILE_TYPE, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 		}
 	}
 	public void uploadFile(HttpServletRequest request) {
@@ -140,7 +140,7 @@ public class ContentDomain extends ContentPrototype{
 		ContentPath contentPath = getCurrentData(this.getFolderId()); 
 		if(this.getFolderId().equals(1L)){
 			if(SecurityUtils.getUser().getType().equals(1)){
-				throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT, "path="+this.getFolderId());
+				throw new CoreRedirectException(CoreExceptionMessage.PERMISSION_DENIED, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 			}
 		}else{
 			studentTeacherService.validateCourse(SecurityUtils.getUsername(), contentPath.getCourseId());
@@ -160,7 +160,7 @@ public class ContentDomain extends ContentPrototype{
 			}
 			
 			if(file.exists()){
-				throw new CoreRedirectException(CoreExceptionMessage.FILE_IS_EXISTS, PathDescription.Main.CONTENT, "path="+this.getFolderId());
+				throw new CoreRedirectException(CoreExceptionMessage.FILE_IS_EXISTS, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 			}
 			this.getFileData().transferTo(file);
 			contentFile.setContentFileName(this.getFileName());
@@ -173,7 +173,7 @@ public class ContentDomain extends ContentPrototype{
 			contentFile.setViewCount(0);
 			this.basicEntityService.save(contentFile);
 		} catch (Exception e) {
-			throw new CoreRedirectException(new CoreExceptionMessage(e.getMessage()), PathDescription.Main.CONTENT, "path="+this.getFolderId());
+			throw new CoreRedirectException(new CoreExceptionMessage(e.getMessage()), PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 		} 
 	}
 
@@ -181,7 +181,7 @@ public class ContentDomain extends ContentPrototype{
 	public void deleteFolder(HttpServletRequest request) {
 		if(BeanUtils.isEmpty(this.getFolderId())
 				|| BeanUtils.isEmpty(this.getFolderId())){
-			throw new CoreRedirectException(CoreExceptionMessage.PARAMETER_NOT_FOUND, PathDescription.Main.CONTENT, "path="+this.getFolderId());
+			throw new CoreRedirectException(CoreExceptionMessage.PARAMETER_NOT_FOUND, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 		}
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(ContentPath.class,"contentPath");
@@ -196,7 +196,7 @@ public class ContentDomain extends ContentPrototype{
 				FileUtils.deleteDirectory(file);
 			}
 		}catch(Exception e){
-			throw new CoreRedirectException(new CoreExceptionMessage(e.getMessage()), PathDescription.Main.CONTENT, "path="+this.getFolderId());
+			throw new CoreRedirectException(new CoreExceptionMessage(e.getMessage()), PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 		}
 		
 		ContentPath deleteContentPath = new ContentPath();
@@ -209,7 +209,7 @@ public class ContentDomain extends ContentPrototype{
 	public void deleteFile(HttpServletRequest request) {
 		if(BeanUtils.isEmpty(this.getDeleteFileId())
 				|| BeanUtils.isEmpty(this.getFolderId())){
-			throw new CoreRedirectException(CoreExceptionMessage.PARAMETER_NOT_FOUND, PathDescription.Main.CONTENT, "path="+this.getFolderId());
+			throw new CoreRedirectException(CoreExceptionMessage.PARAMETER_NOT_FOUND, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());
 		}
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(ContentFile.class,"contentFile");
@@ -221,7 +221,7 @@ public class ContentDomain extends ContentPrototype{
 		File file = new File(filePath);
 		if(file.exists()){
 			if(!file.delete()){
-				throw new CoreRedirectException(CoreExceptionMessage.CANT_DELETE_FILE, PathDescription.Main.CONTENT, "path="+this.getFolderId());	
+				throw new CoreRedirectException(CoreExceptionMessage.CANT_DELETE_FILE, PathDescription.Main.CONTENT, "path="+this.getFrom()+"&from="+this.getFrom());	
 			}
 		}
 		

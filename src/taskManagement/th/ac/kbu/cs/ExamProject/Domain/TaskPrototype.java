@@ -19,7 +19,14 @@ public class TaskPrototype {
 	private Float maxScore;
 	private Float score;
 	private Boolean isComplete;
+	private Boolean showCompleted;
 	
+	public Boolean getShowCompleted() {
+		return showCompleted;
+	}
+	public void setShowCompleted(Boolean showCompleted) {
+		this.showCompleted = showCompleted;
+	}
 	public Long getCourseId() {
 		return courseId;
 	}

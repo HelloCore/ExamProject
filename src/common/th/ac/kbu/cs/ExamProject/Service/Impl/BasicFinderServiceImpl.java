@@ -7,11 +7,13 @@ import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import th.ac.kbu.cs.ExamProject.Common.Dao.BasicFinderDao;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 
 @Service
+@Transactional(readOnly=true)
 public class BasicFinderServiceImpl implements BasicFinderService
 {
     private BasicFinderDao basicFinderDao;

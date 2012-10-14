@@ -45,6 +45,7 @@ if(typeof($.jGrowl)!='undefined'){
 	        s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
 	    return s;
 	};
+	
 	applicationScript.setPagination = function(page,lastPage){
 		var sClass;
 		var first = (parseInt(page)-2);

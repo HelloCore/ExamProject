@@ -51,14 +51,13 @@
 		          		</ul>
 	          		</sec:authorize>
 					<sec:authorize access="isAuthenticated()">
-						<ul class="nav pull-right">
-				           <li class="dropdown">
-				           		<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="personal-data">
-				           			
-				              		<sec:authentication property="principal.user.firstName" />
-									<sec:authentication property="principal.user.lastName" />
+							<div class="dropdown btn-group pull-right">
+				           		<button class="btn dropdown-toggle" data-toggle="dropdown" id="personal-data">
+				           			<i class="icon-user"></i> 
+				           			<sec:authentication property="principal.user.firstName" />
+									<sec:authentication property="principal.user.lastName" /> 
 								    <b class="caret"></b>
-							   	</a>
+							   	</button>
 				           	 	<ul class="dropdown-menu">
 				              		<sec:authorize access="hasRole('ROLE_NOT_ACTIVE')" >
 				              			<li><a  href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">Active User</a></li>
@@ -80,8 +79,7 @@
 				              		</sec:authorize> --%>
 				              		<li><a  href="${contextPath}/main/logout.do">Sign Out</a></li>
 				            	</ul>
-				            </li>
-				    	</ul>
+				            </div>
 					</sec:authorize>
 	          		<div class="nav-collapse">
 	            		<ul class="nav">
@@ -103,8 +101,7 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu " >
-								    	<li><a  href="${contextPath}/exam/examSchedule.html">ตารางสอบ</a></li>
-	    								<li><a  href="${contextPath}/exam/selectExam.html">ทำการสอบ</a></li>
+								    	<li><a  href="${contextPath}/exam/selectExam.html">ทำการสอบ</a></li>
 	    								<li><a  href="${contextPath}/exam/examReport.html">ผลการสอบ</a></li>
 									</ul>
 								</li>
@@ -157,13 +154,13 @@
 								    <a href="#"
 								          class="dropdown-toggle"
 								          data-toggle="dropdown">
-								          จัดการการบ้าน
+								          จัดการ Assignment
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a  href="${contextPath}/management/task.html">จัดการการบ้าน</a></li>
-	    								<li><a  href="${contextPath}/management/task/assign.html">สั่งการบ้าน</a></li>
-	    								<li><a  href="${contextPath}/management/task/taskList.html">ตรวจการบ้าน</a></li>
+	    								<li><a  href="${contextPath}/management/task.html">จัดการ Assignment</a></li>
+	    								<li><a  href="${contextPath}/management/task/assign.html">สั่ง Assignment</a></li>
+	    								<li><a  href="${contextPath}/management/task/taskList.html">ตรวจ Assignment</a></li>
 									</ul>
 								</li>
 								<li class="dropdown report">
@@ -174,8 +171,10 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
+	    								<li><a  href="${contextPath}/report/dashboard.html">Dashboard</a></li>
 	    								<li><a  href="${contextPath}/report/exam.html">ผลการสอบ</a></li>
-	    								<li><a  href="${contextPath}/report/assignment.html">คะแนนงาน</a></li>
+	    								<li><a  href="${contextPath}/report/assignment.html">Assignment</a></li>
+	    								<li><a  href="${contextPath}/report/student.html">ข้อมูลรายบุคคล</a></li>
 									</ul>
 								</li>
 								

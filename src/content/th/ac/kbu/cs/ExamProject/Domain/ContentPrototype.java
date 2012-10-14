@@ -17,6 +17,14 @@ public class ContentPrototype {
 	private Long deleteFolderId;
 	private Long deleteFileId;
 	
+	private Long from;
+	
+	public Long getFrom() {
+		return from;
+	}
+	public void setFrom(Long from) {
+		this.from = from;
+	}
 	public Long getContentFileId() {
 		return contentFileId;
 	}

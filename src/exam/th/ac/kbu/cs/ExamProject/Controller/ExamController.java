@@ -80,16 +80,11 @@ public class ExamController {
 		domain.validateExamResult();
 	}
 
-	@PreAuthorize(RoleDescription.hasAnyRole.WITHBOTH)
+	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/viewResult.html" ,method=RequestMethod.POST,params={"method=viewResult"})
 	public ModelMap resultExam(@ModelAttribute ResultExamDomain domain,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){
-		if(request.isUserInRole(RoleDescription.Property.ADMIN) || request.isUserInRole(RoleDescription.Property.TEACHER)){
-			modelMap.addAttribute("examResultData", domain.getExamResultData(false));
-			modelMap.addAttribute("examResultAnswer", domain.getResultData());
-		}else{
-			modelMap.addAttribute("examResultData", domain.getExamResultData(true));
-			modelMap.addAttribute("examResultAnswer", domain.getResultData());
-		}
+		modelMap.addAttribute("examResultData", domain.getExamResultData(true));
+		modelMap.addAttribute("examResultAnswer", domain.getResultData(true));
 		return modelMap;
 	}
 	
