@@ -1,6 +1,8 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,14 +16,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
+import th.ac.kbu.cs.ExamProject.Domain.DashboardDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ExamReportDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ExamResultReportCoreGridManager;
 import th.ac.kbu.cs.ExamProject.Domain.ResultExamDomain;
 import th.ac.kbu.cs.ExamProject.Domain.StudentReportCoreGridManager;
 import th.ac.kbu.cs.ExamProject.Domain.StudentReportDomain;
 import th.ac.kbu.cs.ExamProject.Domain.TaskDomain;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 
 @Controller
 public class ReportController {
@@ -88,6 +97,23 @@ public class ReportController {
 		mv.addObject("studentData", domain.getStudentData());
 		mv.addObject("examData",domain.getExamData());
 		mv.addObject("evaluatedList",domain.getEvaluatedList());
+		return mv;
+	}
+	
+	@RequestMapping(value="/report/dashboard.html")
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	public ModelAndView initDashboard(@ModelAttribute DashboardDomain domain,ModelAndView mv,HttpServletRequest request,HttpServletResponse response){
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<Object[]> examData = domain.getExamData();
+
+		mv.addObject("courseData", domain.getCourse());
+		mv.addObject("examData", examData);
+		try {
+			mv.addObject("examDataJSON",objectMapper.writeValueAsString(examData));
+		}  catch (Exception e) {
+			e.printStackTrace();
+			throw new CoreException(new CoreExceptionMessage(e.getMessage()));
+		}
 		return mv;
 	}
 	

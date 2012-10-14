@@ -78,7 +78,6 @@ public class StudentReportDomain extends StudentReportPrototype{
 		projectionList.add(Projections.property("examResult.examUsedTime"),"examUsedTime");
 		criteria.setProjection(projectionList);
 		
-
 		criteria.add(Subqueries.propertyIn("examResult.examId", subCriteria));
 		criteria.add(Restrictions.eq("examResult.username", this.getStudentId()));
 		criteria.add(Restrictions.eq("examResult.examCompleted",true));
