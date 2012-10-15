@@ -100,21 +100,58 @@ public class ReportController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/report/dashboard.html")
+	@RequestMapping(value="/report/graphList.html")
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)
-	public ModelAndView initDashboard(@ModelAttribute DashboardDomain domain,ModelAndView mv,HttpServletRequest request,HttpServletResponse response){
-		ObjectMapper objectMapper = new ObjectMapper();
-		List<Object[]> examData = domain.getExamData();
+	public ModelAndView initGraph(ModelAndView mv,HttpServletRequest request,HttpServletResponse reponse){
+		return mv;
+	}
 
-		mv.addObject("courseData", domain.getCourse());
-		mv.addObject("examData", examData);
-		try {
-			mv.addObject("examDataJSON",objectMapper.writeValueAsString(examData));
-		}  catch (Exception e) {
-			e.printStackTrace();
-			throw new CoreException(new CoreExceptionMessage(e.getMessage()));
+	
+//	@RequestMapping(value="/report/graph/avgScore.html",method=RequestMethod.POST,params={"method=getAvgScoreGraph"})
+//	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+//	public ModelAndView getAvgScoreGraph(@ModelAttribute DashboardDomain domain,ModelAndView mv,HttpServletRequest request,HttpServletResponse response){
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		List<Object[]> examData = domain.getExamData();
+//
+//		mv.addObject("courseData", domain.getCourse());
+//		mv.addObject("examData", examData);
+//		try {
+//			mv.addObject("examDataJSON",objectMapper.writeValueAsString(examData));
+//		}  catch (Exception e) {
+//			e.printStackTrace();
+//			throw new CoreException(new CoreExceptionMessage(e.getMessage()));
+//		}
+//		return mv;
+//	}
+	
+	@RequestMapping(value="/report/avgScore.html")
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	public ModelAndView initAvgScore(ModelAndView mv,HttpServletResponse response,HttpServletRequest request){
+		return mv;
+	}
+	
+	@RequestMapping(value="/report/avgScore.html",method=RequestMethod.POST,params={"method=getAvgScoreData"})
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	public @ResponseBody List<Object[]> getAvgScoreData(@ModelAttribute DashboardDomain domain,ModelAndView mv,HttpServletRequest request,HttpServletResponse response){
+		return domain.getExamData();
+	}
+
+	@RequestMapping(value="/report/examGraph.html",method=RequestMethod.POST,params={"method=viewExamGraph"})
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	public ModelAndView initExamGraph(@ModelAttribute DashboardDomain domain,ModelAndView mv,HttpServletResponse response,HttpServletRequest request){
+		ObjectMapper om = new ObjectMapper();
+		try{
+			List<HashMap<String,Object>> sectionList = domain.getSectionList();
+			String examScoreData = om.writeValueAsString(domain.getExamScoreData(sectionList));
+			String sectionData = om.writeValueAsString(sectionList);
+			mv.addObject("sectionData", sectionData);
+			mv.addObject("examScoreData", examScoreData);
+		}catch(Exception ex){
+			throw new CoreException(new  CoreExceptionMessage(ex.getMessage()));
 		}
 		return mv;
 	}
+	
+	
 	
 }

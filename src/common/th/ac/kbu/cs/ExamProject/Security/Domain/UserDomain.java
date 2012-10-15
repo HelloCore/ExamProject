@@ -19,6 +19,7 @@ public class UserDomain {
 		DetachedCriteria criteria = DetachedCriteria.forClass(User.class,
 				"user");
 		criteria.createAlias("user.authority", "authority");
+		criteria.createAlias("user.prefixName", "prefixName");
 		criteria.add(Restrictions.eq("user.username", username));
 		return basicFinderService.findUniqueByCriteria(criteria);
 	}

@@ -75,3 +75,11 @@
 	<input type="hidden" name="method" value="viewExamReportDetail" />
 	<input type="hidden" id="examId" name="examId" />
 </form>
+
+<form id="viewExamGraphForm" action="${contextPath}/report/examGraph.html" method="POST">
+	<input type="hidden" name="method" value="viewExamGraph" />
+	<input type="hidden" id="examGraphId" name="examId" />
+</form>
+
+
+

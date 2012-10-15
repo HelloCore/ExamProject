@@ -60,7 +60,8 @@ examReport.getGrid = function(){
 							+'<td>'+startDateStr+'</td>'
 							+'<td>'+endDateStr+'</td>'
 							+'<td>'+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
-							+'<td><button class="btn btn-info" onclick="viewExamReport('+data.records[keyArray].examId+')"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button></td>'
+							+'<td><button class="btn btn-success" onclick="viewExamReport('+data.records[keyArray].examId+')"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button> '
+							+' <button class="btn btn-info" onclick="viewExamGraph('+data.records[keyArray].examId+')"><i class=" icon-eye-open icon-white"></i> ดูกราฟ</button></td>'
 						+'</tr>';
 				$("#examTable tbody").append(strHtml);
 			}
@@ -139,4 +140,8 @@ $(document).ready(function(){
 viewExamReport = function(examId){
 	$("#examId").val(examId);
 	$("#viewExamReportForm").submit();
+};
+viewExamGraph = function(examId){
+	$("#examGraphId").val(examId);
+	$("#viewExamGraphForm").submit();
 };

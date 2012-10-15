@@ -3,6 +3,7 @@ CREATE TABLE USERS (
  	PASSWORD VARCHAR(32) NOT NULL,
  	PASSWORDS VARCHAR(40) NOT NULL,
  	EMAIL VARCHAR(100) NOT NULL,
+ 	PREFIX_NAME_ID INT(4) UNSIGNED NOT NULL,
  	FIRST_NAME VARCHAR(100) NOT NULL,
  	LAST_NAME VARCHAR(100) NOT NULL,
  	TYPE INT(1) UNSIGNED, 
@@ -10,10 +11,26 @@ CREATE TABLE USERS (
  	ACTIVE_STR VARCHAR(6),
  	UNIQUE  (EMAIL),
  	PRIMARY KEY (USERNAME),
- 	FOREIGN KEY (TYPE) REFERENCES USER_TYPE(TYPE)
+ 	FOREIGN KEY (TYPE) REFERENCES USER_TYPE(TYPE),
+ 	FOREIGN KEY (PREFIX_NAME_ID) REFERENCES PREFIX_NAME(PREFIX_NAME_ID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO USERS VALUES('admin','21232f297a57a5a743894a0e4a801fc3','admin','aukwat2@hotmail.com','aukwat','chayapiwat',1,1,null);
-INSERT INTO USERS VALUES('teacher','8d788385431273d11e8b43bb78f3aa41','teacher','teacher@hotmail.com','teacher','last',2,1,null);
-INSERT INTO USERS VALUES('student','cd73502828457d15655bbd7a63fb0bc8','student','student@hotmail.com','student','last',3,1,null);
-INSERT INTO USERS VALUES('student2','cd73502828457d15655bbd7a63fb0bc8','student','student2@hotmail.com','student2','last2',3,1,null);
+INSERT INTO USERS VALUES('admin','21232f297a57a5a743894a0e4a801fc3','admin','aukwat2@hotmail.com',1,'อัครวรรธน์','ชยาภิวัฒน์',1,1,null);
+INSERT INTO USERS VALUES('teacher','8d788385431273d11e8b43bb78f3aa41','teacher','teacher@hotmail.com',4,'teacher','last',2,1,null);
+INSERT INTO USERS VALUES('stephen','25f9e794323b453885f5181f1b624d0b','123456789','send2abac@gmail.com',4,'สง่า','สงค์เมือง',2,1,null);
+
+INSERT INTO USERS VALUES('520702477348','25f9e794323b453885f5181f1b624d0b','123456789','ultraman_ex@hotmail.com',1,'ณรงค์','แก้วรอดไว',3,1,null);
+INSERT INTO USERS VALUES('520702477349','25f9e794323b453885f5181f1b624d0b','123456789','chainat_33@hotmail.com',1,'ชัยณัฐ','กุลนานันท์',3,1,null);
+INSERT INTO USERS VALUES('520702477374','25f9e794323b453885f5181f1b624d0b','123456789','theeraphon@hotmail.com',1,'ธีรพล','พืชพันธุ์',3,1,null);
+INSERT INTO USERS VALUES('520702477977','25f9e794323b453885f5181f1b624d0b','123456789','karoon@hotmail.com',1,'การุณ','เทพวงค์',3,1,null);
+INSERT INTO USERS VALUES('520702478401','25f9e794323b453885f5181f1b624d0b','123456789','pump_junk@hotmail.com',1,'ฐานวุฒิ','วงศ์วิญญูชัย',3,1,null);
+INSERT INTO USERS VALUES('520702478404','25f9e794323b453885f5181f1b624d0b','123456789','outbody3@hotmail.com',1,'จตุพร','กลัดใบไม้',3,1,null);
+
+INSERT INTO USERS VALUES('520702478656','25f9e794323b453885f5181f1b624d0b','123456789','saranyoo@hotmail.com',1,'ศรัณยู','ปั้นบรรจง',3,1,null);
+INSERT INTO USERS VALUES('520702478767','25f9e794323b453885f5181f1b624d0b','123456789','paiboon@hotmail.com',1,'ไพบูลย์','เดชเปรื่อง',3,1,null);
+INSERT INTO USERS VALUES('520702478805','25f9e794323b453885f5181f1b624d0b','123456789','rungwit@hotmail.com',1,'รุ่งวิทย์','วารีสิริสิน',3,1,null);
+INSERT INTO USERS VALUES('520702478885','25f9e794323b453885f5181f1b624d0b','123456789','watcharaphon@hotmail.com',1,'วัชรพล','คำโท',3,1,null);
+INSERT INTO USERS VALUES('520702478971','25f9e794323b453885f5181f1b624d0b','123456789','aukwat@hotmail.com',1,'อัครวรรธน์','ชยาภิวัฒน์',3,1,null);
+INSERT INTO USERS VALUES('520702479745','25f9e794323b453885f5181f1b624d0b','123456789','suksan@hotmail.com',1,'สุขสันต์','เหลืองผดุง',3,1,null);
+INSERT INTO USERS VALUES('520702480318','25f9e794323b453885f5181f1b624d0b','123456789','pongsaton@hotmail.com',1,'พงศธร','มูและ',3,1,null);
+INSERT INTO USERS VALUES('520702480375','25f9e794323b453885f5181f1b624d0b','123456789','natthanath@hotmail.com',1,'ณัฐนาถ','ภูมิเจริญ',3,1,null);

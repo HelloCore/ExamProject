@@ -54,6 +54,7 @@
 							<div class="dropdown btn-group pull-right">
 				           		<button class="btn dropdown-toggle" data-toggle="dropdown" id="personal-data">
 				           			<i class="icon-user"></i> 
+				           			<sec:authentication property="principal.user.prefixName.prefixNameTh" />
 				           			<sec:authentication property="principal.user.firstName" />
 									<sec:authentication property="principal.user.lastName" /> 
 								    <b class="caret"></b>
@@ -171,7 +172,7 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a  href="${contextPath}/report/dashboard.html">Dashboard</a></li>
+	    								<li><a  href="${contextPath}/report/avgScore.html">กราฟคะแนนเฉลี่ยวิชา</a></li>
 	    								<li><a  href="${contextPath}/report/exam.html">ผลการสอบ</a></li>
 	    								<li><a  href="${contextPath}/report/assignment.html">Assignment</a></li>
 	    								<li><a  href="${contextPath}/report/student.html">ข้อมูลรายบุคคล</a></li>
@@ -224,6 +225,7 @@
 				g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 				s.parentNode.insertBefore(g,s)}(document,'script'));
 			</script> 
+			
 		<tiles:insertAttribute name="footerFile"/>
 		
 	</body>

@@ -234,10 +234,25 @@
 	</definition>
 	
 	
-	<definition name="/report/dashboard.page" extends=".template">
-		<put-attribute name="title" value="Student Detail"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/report/dashboard/dashboardBody.jsp"/>
-		<put-attribute name="footerFile" value="/WEB-INF/jsp/report/dashboard/dashboardFooter.jsp"/>
+	
+	<definition name="/report/graphList.page" extends=".template">
+		<put-attribute name="title" value="Graph Report"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/report/graph/graphListBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/report/graph/graphListFooter.jsp"/>
+	</definition>
+	
+	
+	<definition name="/report/avgScore.page" extends=".template">
+		<put-attribute name="title" value="Average Score Graph"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/report/graph/avgScoreBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/report/graph/avgScoreFooter.jsp"/>
+	</definition>
+	
+	
+	<definition name="/report/examGraph.page" extends=".template">
+		<put-attribute name="title" value="Exam Score Graph"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/report/graph/examGraphBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/report/graph/examGraphFooter.jsp"/>
 	</definition>
 	
 	

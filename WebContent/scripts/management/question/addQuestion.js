@@ -114,10 +114,20 @@ addQuestion.calAnswer= function()
 
 addQuestion.initFunction = function(){
 	addQuestion.calAnswer();
+	$("#courseId_chzn").block(application.blockOption);
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){
 		$(this).trigger("liszt:updated");
+		$("#courseId_chzn").unblock();
+		$("#questionGroupId_chzn").block(application.blockOption);
 		$("#questionGroupId").load(application.contextPath+"/management/questionGroupComboBox.html",{courseId:$("#courseId").val()},function(){
 			$(this).trigger("liszt:updated");
+			$("#questionGroupId_chzn").unblock();
+		});
+	}).change(function(){
+		$("#questionGroupId_chzn").block(application.blockOption);
+		$("#questionGroupId").load(application.contextPath+"/management/questionGroupComboBox.html",{courseId:$("#courseId").val()},function(){
+			$(this).trigger("liszt:updated");
+			$("#questionGroupId_chzn").unblock();
 		});
 	});
 	$(".ckeditorarea").ckeditor();

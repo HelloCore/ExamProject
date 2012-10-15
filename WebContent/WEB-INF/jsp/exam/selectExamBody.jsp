@@ -51,7 +51,7 @@
 								</td>
 								<td>${data[4]-data[3]}</td>
 								<td>
-									<c:if test="${not empty startDate || nowTodayTime < startDate}">
+									<c:if test="${not empty startDate && nowTodayTime < startDate}">
 										<button class="btn btn-info" disabled="disabled"><i class="icon-edit icon-white"></i> สอบ</button>
 									</c:if>
 									<c:if test="${empty startDate || nowTodayTime > startDate}">

@@ -55,6 +55,13 @@ public class User implements Serializable{
 	@JoinColumn(name = "TYPE", insertable = false, updatable = false)
 	private Authority authority;
 	
+	@Column(name = "PREFIX_NAME_ID")
+	private String prefixNameId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PREFIX_NAME_ID", insertable = false, updatable = false)
+	private PrefixName prefixName;
+	
 	@Transient
 	private List<Authority> authorities;
 
@@ -152,6 +159,22 @@ public class User implements Serializable{
 
 	public void setActiveStr(String activeStr) {
 		this.activeStr = activeStr;
+	}
+
+	public String getPrefixNameId() {
+		return prefixNameId;
+	}
+
+	public void setPrefixNameId(String prefixNameId) {
+		this.prefixNameId = prefixNameId;
+	}
+
+	public PrefixName getPrefixName() {
+		return prefixName;
+	}
+
+	public void setPrefixName(PrefixName prefixName) {
+		this.prefixName = prefixName;
 	}
 
 	@Override
