@@ -33,6 +33,7 @@ public class SignUpServiceImpl implements SignUpService{
 
 	public void upgradeUserType(User user){
 		user.setType(3);
+		user.setActiveStr(null);
 		basicEntityService.update(user);
 	}
 	

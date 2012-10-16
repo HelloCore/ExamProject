@@ -18,11 +18,13 @@ public class LoginController {
 	@RequestMapping(value="/main/login.html",method=RequestMethod.GET)
 	public ModelMap init(@RequestParam(value="target",required=false) String target
 							,@RequestParam(value="error",required=false) String error
+							,@RequestParam(value="studentId",required=false) String studentId
 							,ModelMap modelMap){
 		modelMap.addAttribute("target",target);
 		if(BeanUtils.isNotEmpty(error)){
 			modelMap.addAttribute("error",true);
 		}
+		modelMap.addAttribute("studentId", studentId);
 		return modelMap;
 	}
 	

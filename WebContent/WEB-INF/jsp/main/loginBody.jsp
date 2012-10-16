@@ -20,7 +20,7 @@
 		<div class="control-group">
 	    	<!-- <label class="control-label" for="studentIdForm">Student ID</label> -->
 	      	<div class="controls">
-	        	<input type="text" class="input-medium" id="studentIdForm" name="username" placeholder="Student ID">
+	        	<input type="text" class="input-medium" id="studentIdForm" name="username" placeholder="Student ID" value="${studentId}" }>
 	     	</div>
 	    </div>
        	<div class="control-group">
@@ -33,6 +33,6 @@
 	    	<button type="submit" class="btn btn-primary login-btn">Sign In </button>
 	    </div>
 	</form>
-	<a href="#">forgot password ?</a><br>
-	dont have account ? <a href="#">sign up</a>
+	<a href="${contextPath}/main/forgotPassword.html">forgot password ?</a><br>
+	dont have account ? <a href="${contextPath}/main/signUp.html">sign up</a>
 </div>

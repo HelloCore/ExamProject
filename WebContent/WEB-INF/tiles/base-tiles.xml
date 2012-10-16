@@ -42,6 +42,18 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/activeUserFooter.jsp"/>
 	</definition>
 	
+	<definition name="/main/forgotPassword.page" extends=".template">
+		<put-attribute name="title" value="Forgot Password"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/forgotPasswordBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/forgotPasswordFooter.jsp"/>
+	</definition>
+	
+	<definition name="/main/forgotPasswordCode.page" extends=".template">
+		<put-attribute name="title" value="Forgot Password"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/main/forgotPasswordCodeBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/main/forgotPasswordCodeFooter.jsp"/>
+	</definition>
+	
 	<definition name="/main/requestActiveCode.page" extends=".template">
 		<put-attribute name="title" value="Request Active Code"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/main/requestActiveCodeBody.jsp"/>

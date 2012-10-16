@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.ChangeUserDataDomain;
+import th.ac.kbu.cs.ExamProject.Domain.ForgotPasswordDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ViewNewsDomain;
 
 @Controller
@@ -66,6 +67,31 @@ public class HomeController {
 	@RequestMapping(value="/member/changePassword.html",method=RequestMethod.POST)
 	@PreAuthorize(RoleDescription.HAS_ALL_ROLE)
 	public void changePassword(@ModelAttribute ChangeUserDataDomain domain,HttpServletRequest request,HttpServletResponse response){
+		domain.changePassword();
+	}
+
+	@PreAuthorize("isAnonymous()")
+	@RequestMapping(value="/main/forgotPassword.html",method=RequestMethod.GET)
+	public ModelAndView initForgotPassword(@RequestParam(value="studentId",required=false)String studentId,ModelAndView mv){
+		return mv;
+	}
+
+	@PreAuthorize("isAnonymous()")
+	@RequestMapping(value="/main/forgotPassword.html",method=RequestMethod.POST)
+	public void forgotPassword(@ModelAttribute ForgotPasswordDomain domain,HttpServletResponse respones,HttpServletRequest request){
+		domain.forgotPassword();
+	}
+	
+	@PreAuthorize("isAnonymous()")
+	@RequestMapping(value="/main/forgotPasswordCode.html",method=RequestMethod.GET)
+	public ModelAndView initForgotPasswordCode(@RequestParam(value="studentId",required=false)String studentId,ModelAndView mv){
+		mv.addObject("studentId", studentId);
+		return mv;
+	}
+
+	@PreAuthorize("isAnonymous()")
+	@RequestMapping(value="/main/forgotPasswordCode.html",method=RequestMethod.POST)
+	public void changePassword(@ModelAttribute ForgotPasswordDomain domain,HttpServletResponse respones,HttpServletRequest request){
 		domain.changePassword();
 	}
 	

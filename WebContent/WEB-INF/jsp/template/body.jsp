@@ -44,7 +44,7 @@
 							    </div>
 							    <div class="pagination-centered">
 							    	<button type="submit" class="btn btn-primary login-btn">Sign In </button>
-							    	<a href="#">forgot password ?</a>
+							    	<a href="${contextPath}/main/forgotPassword.html">forgot password ?</a>
 							    </div>
 	            			</form>
 		          			</li>
@@ -196,7 +196,7 @@
 		   	<hr>
 
 	      	<footer class="pagination-centered footer">
-	        	<p>&copy; Core 2012</p>
+	        	<p>&copy; 2012 นาย อัครวรรธน์ ชยาภิวัฒน์ คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยเกษมบัณฑิต</p>
 	      	</footer>
 		</div> <!-- /container -->
 		<div id="loadMask" style="display:none"></div>
