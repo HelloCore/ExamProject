@@ -35,7 +35,7 @@ registerHistory.getGrid = function(){
 							'<td>'+Globalize.format( new Date(data.records[keyArray].requestDate),"dd-MM-yyyy HH:mm:ss")+'</td>'+
 							'<td>'+Globalize.format( new Date(data.records[keyArray].processDate),"dd-MM-yyyy HH:mm:ss")+'</td>'+
 							'<td>'+data.records[keyArray].studentId+'</td>'+
-							'<td>'+data.records[keyArray].firstName+' '+data.records[keyArray].lastName+'</td>'+
+							'<td>'+data.records[keyArray].prefixNameTh+' '+data.records[keyArray].firstName+' '+data.records[keyArray].lastName+'</td>'+
 							'<td>'+data.records[keyArray].courseCode+'</td>'+
 							'<td>'+data.records[keyArray].sectionName+' เทอม '+data.records[keyArray].sectionSemester+'/'+data.records[keyArray].sectionYear+'</td>'+
 							'<td>';

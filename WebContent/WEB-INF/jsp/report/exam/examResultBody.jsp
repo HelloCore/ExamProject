@@ -24,7 +24,7 @@
 				</dl>
 				<dl class="dl-horizontal">
 				  <dt>ชื่อ-สกุล : </dt>
-				  <dd>${examResultData.user.firstName} ${examResultData.user.lastName} </dd>
+				  <dd>${examResultData.user.prefixName.prefixNameTh} ${examResultData.user.firstName} ${examResultData.user.lastName} </dd>
 				</dl>
 				<dl class="dl-horizontal">
 				  <dt>หัวข้อการสอบ : </dt>

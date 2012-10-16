@@ -1,5 +1,7 @@
 package th.ac.kbu.cs.ExamProject.Entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PREFIX_NAME")
-public class PrefixName {
+public class PrefixName implements Serializable{
+
+	private static final long serialVersionUID = -1911817761333064334L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

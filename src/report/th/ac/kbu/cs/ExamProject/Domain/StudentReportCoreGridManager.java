@@ -26,6 +26,7 @@ public class StudentReportCoreGridManager extends CoreGridManager<StudentReportD
 	protected void setProjectionList(ProjectionList projectionList,
 			StudentReportDomain domain) {
 		projectionList.add(Projections.distinct(Projections.property("user.username")), "studentId");
+		projectionList.add(Projections.property("prefixName.prefixNameTh"),"prefixNameTh");
 		projectionList.add(Projections.property("user.firstName"), "firstName");
 		projectionList.add(Projections.property("user.lastName"), "lastName");
 	}
@@ -34,6 +35,7 @@ public class StudentReportCoreGridManager extends CoreGridManager<StudentReportD
 	protected DetachedCriteria initCriteria(StudentReportDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(StudentSection.class,"studentSection");
 		criteria.createAlias("studentSection.user", "user");
+		criteria.createAlias("user.prefixName","prefixName");
 		return criteria;
 	}
 

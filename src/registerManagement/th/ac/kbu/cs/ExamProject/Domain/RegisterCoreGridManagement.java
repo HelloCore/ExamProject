@@ -31,6 +31,7 @@ public class RegisterCoreGridManagement extends CoreGridManager<RegisterManageme
 		projectionList.add(Projections.property("section.sectionName"),"sectionName");
 		projectionList.add(Projections.property("course.courseCode"),"courseCode");
 		projectionList.add(Projections.property("user.username"),"studentId");
+		projectionList.add(Projections.property("prefixName.prefixNameTh"),"prefixNameTh");
 		projectionList.add(Projections.property("user.firstName"),"firstName");
 		projectionList.add(Projections.property("user.lastName"),"lastName");	
 	}
@@ -41,6 +42,7 @@ public class RegisterCoreGridManagement extends CoreGridManager<RegisterManageme
 		criteria.createAlias("register.section", "section");
 		criteria.createAlias("section.course", "course");
 		criteria.createAlias("register.user", "user");
+		criteria.createAlias("user.prefixName", "prefixName");
 		return criteria;
 	}
 
@@ -58,6 +60,7 @@ public class RegisterCoreGridManagement extends CoreGridManager<RegisterManageme
 	@Override
 	protected void applyCriteria(DetachedCriteria criteria,
 			RegisterManagementDomain domain,String username) {
+		criteria.add(Restrictions.or(Restrictions.eq("register.status", 1), Restrictions.eq("register.status", 2)));
 		criteria.add(Restrictions.in("section.courseId", this.studentTeacherService.getCourseId(username)));
 	}
 

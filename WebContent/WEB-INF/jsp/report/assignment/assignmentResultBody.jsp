@@ -60,7 +60,7 @@
 						<tr>
 							<td><fmt:formatDate value="${sendDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 							<td>${data.studentId}</td>
-							<td>${data.firstName} ${data.lastName}</td>
+							<td>${data.prefixNameTh} ${data.firstName} ${data.lastName}</td>
 							<td>${data.score} / ${taskData.maxScore}</td>
 						</tr>
 					</c:forEach>

@@ -56,7 +56,7 @@ public class User implements Serializable{
 	private Authority authority;
 	
 	@Column(name = "PREFIX_NAME_ID")
-	private String prefixNameId;
+	private Integer prefixNameId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PREFIX_NAME_ID", insertable = false, updatable = false)
@@ -161,11 +161,11 @@ public class User implements Serializable{
 		this.activeStr = activeStr;
 	}
 
-	public String getPrefixNameId() {
+	public Integer getPrefixNameId() {
 		return prefixNameId;
 	}
 
-	public void setPrefixNameId(String prefixNameId) {
+	public void setPrefixNameId(Integer prefixNameId) {
 		this.prefixNameId = prefixNameId;
 	}
 

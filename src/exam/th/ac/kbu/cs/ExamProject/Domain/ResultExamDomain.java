@@ -70,6 +70,7 @@ public class ResultExamDomain extends DoExamPrototype {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResult.class,"examResult");
 		if(!isStudent){
 			criteria.createAlias("examResult.user", "user");
+			criteria.createAlias("user.prefixName", "prefixName");
 		}
 		criteria.createAlias("examResult.exam", "exam");
 		criteria.createAlias("exam.course", "course");

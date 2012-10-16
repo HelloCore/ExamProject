@@ -35,6 +35,7 @@ public class ExamResultReportCoreGridManager extends CoreGridManager<ExamReportD
 		projectionList.add(Projections.property("examResult.examUsedTime"),"examUsedTime");
 		projectionList.add(Projections.property("examResult.examScore"),"examScore");
 		projectionList.add(Projections.property("user.username"),"studentId");
+		projectionList.add(Projections.property("prefixName.prefixNameTh"),"prefixNameTh");
 		projectionList.add(Projections.property("user.firstName"),"firstName");
 		projectionList.add(Projections.property("user.lastName"),"lastName");
 	}
@@ -43,6 +44,7 @@ public class ExamResultReportCoreGridManager extends CoreGridManager<ExamReportD
 	protected DetachedCriteria initCriteria(ExamReportDomain domain) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResult.class,"examResult");
 		criteria.createAlias("examResult.user", "user");
+		criteria.createAlias("user.prefixName", "prefixName");
 		return criteria;
 	}
 

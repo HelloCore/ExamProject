@@ -59,6 +59,7 @@ public class TaskDomain extends TaskPrototype{
 		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentWork.class,"assignmentWork");
 		criteria.createAlias("assignmentWork.assignmentTask", "assignmentTask");
 		criteria.createAlias("assignmentWork.user", "user");
+		criteria.createAlias("user.prefixName", "prefixName");
 		criteria.add(Restrictions.eq("assignmentWork.assignmentWorkId", workId));
 		
 		return this.basicFinderService.findUniqueByCriteria(criteria);
@@ -277,11 +278,13 @@ public class TaskDomain extends TaskPrototype{
 		this.validateGetSendList();
 		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentWork.class,"assignmentWork");
 		criteria.createAlias("assignmentWork.user", "user");
+		criteria.createAlias("user.prefixName", "prefixName");
 		
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("assignmentWork.assignmentWorkId"),"assignmentWorkId");
 		projectionList.add(Projections.property("assignmentWork.sendDate"),"sendDate");
 		projectionList.add(Projections.property("user.username"),"studentId");
+		projectionList.add(Projections.property("prefixName.prefixNameTh"),"prefixNameTh");
 		projectionList.add(Projections.property("user.firstName"),"firstName");
 		projectionList.add(Projections.property("user.lastName"),"lastName");
 		projectionList.add(Projections.property("assignmentWork.score"),"score");
@@ -305,10 +308,13 @@ public class TaskDomain extends TaskPrototype{
 		this.validateGetSendList();
 		DetachedCriteria criteria = DetachedCriteria.forClass(AssignmentWork.class,"assignmentWork");
 		criteria.createAlias("assignmentWork.user", "user");
+		criteria.createAlias("user.prefixName", "prefixName");
+		
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("assignmentWork.assignmentWorkId"),"assignmentWorkId");
 		projectionList.add(Projections.property("assignmentWork.sendDate"),"sendDate");
 		projectionList.add(Projections.property("user.username"),"studentId");
+		projectionList.add(Projections.property("prefixName.prefixNameTh"),"prefixNameTh");
 		projectionList.add(Projections.property("user.firstName"),"firstName");
 		projectionList.add(Projections.property("user.lastName"),"lastName");
 		criteria.setProjection(projectionList);

@@ -10,6 +10,14 @@ public class SignUpPrototype {
 	private String firstName;
 	private String lastName;
 	private String activeCode;
+	private Integer prefixName;
+	
+	public Integer getPrefixName() {
+		return prefixName;
+	}
+	public void setPrefixName(Integer prefixName) {
+		this.prefixName = prefixName;
+	}
 	public String getActiveCode() {
 		return activeCode;
 	}

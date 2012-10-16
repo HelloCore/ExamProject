@@ -60,7 +60,7 @@ studentReport.getGrid = function(){
 			for(keyArray in data.records){
 				strHtml = '<tr>'
 								+'<td>'+data.records[keyArray].studentId+'</td>'
-								+'<td>'+data.records[keyArray].firstName+' '+data.records[keyArray].lastName+'</td>'
+								+'<td>'+data.records[keyArray].prefixNameTh+' '+data.records[keyArray].firstName+' '+data.records[keyArray].lastName+'</td>'
 								+'<td><button class="btn btn-info" onClick="viewDetail(\''+data.records[keyArray].studentId+'\')"><i class="icon-zoom-in icon-white"></i> ดูรายละเอียด</button></td>'
 							+'</tr>';
 				$("#studentTable tbody").append(strHtml);

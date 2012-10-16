@@ -49,7 +49,8 @@ public class SignUpDomain extends SignUpPrototype{
 				|| BeanUtils.isEmpty(this.getRePassword())
 				|| BeanUtils.isEmpty(this.getFirstName())
 				|| BeanUtils.isEmpty(this.getLastName())
-				|| BeanUtils.isEmpty(this.getEmail())){
+				|| BeanUtils.isEmpty(this.getEmail())
+				|| BeanUtils.isNull(this.getPrefixName())){
 			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 			
@@ -97,6 +98,11 @@ public class SignUpDomain extends SignUpPrototype{
 		if(BeanUtils.isNotEmpty(this.getEmail())){
 			user.setEmail(this.getEmail());
 			activeStr.append(this.getEmail());
+		}
+		
+		if(BeanUtils.isNotEmpty(this.getPrefixName())){
+			user.setPrefixNameId(this.getPrefixName());
+			activeStr.append(this.getPrefixName());
 		}
 		activeStr.append(Math.random());
 		

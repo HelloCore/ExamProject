@@ -31,7 +31,7 @@ registerManagement.getRegisterTable = function(){
 				strHtml = '<tr>'+
 							'<td><input type="checkbox" id="register-id-'+data[keyArray].registerId+'" name="registerId[]" value="'+data[keyArray].registerId+'"/></td>'+
 							'<td>'+data[keyArray].studentId+'</td>'+
-							'<td>'+data[keyArray].firstName+' '+data[keyArray].lastName+'</td>'+
+							'<td>'+data[keyArray].prefixNameTh+' '+data[keyArray].firstName+' '+data[keyArray].lastName+'</td>'+
 							'<td>'+data[keyArray].courseCode+'</td>'+
 							'<td>['+data[keyArray].sectionName+'] '+data[keyArray].sectionSemester+'/'+data[keyArray].sectionYear+'</td>'+
 							'<td>'+Globalize.format( new Date(data[keyArray].requestDate),"dd-MM-yyyy HH:mm:ss")+'</td>'+

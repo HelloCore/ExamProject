@@ -21,7 +21,7 @@
 		</div>
 		<hr />
 		<div class="news-footer pagination-right">
-			<a class="btn  pull-left" href="${contextPath}/main/readMoreNews.html"><i class=" icon-chevron-left "></i> Back</a> 
+			<button class="btn  pull-left" onClick="history.back()"><i class=" icon-chevron-left "></i> Back</button> 
 			<c:if test="${newsInfo != null }">
 				<fmt:parseDate var="updateDate" value="${newsInfo.updateDate}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
 				<p>อัพเดทล่าสุดเมื่อ : <fmt:formatDate value="${updateDate}" pattern="dd-MM-yyyy HH:mm:ss"/> โดย : ${newsInfo.user.firstName} ${newsInfo.user.lastName}</p>

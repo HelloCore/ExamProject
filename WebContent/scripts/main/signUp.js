@@ -44,6 +44,9 @@ $(document).ready(function(){
 			lastName:{
 				required:true,
 				maxlength:50
+			},
+			prefixName:{
+				required:true
 			}
 		},
 	    highlight: function(label) {

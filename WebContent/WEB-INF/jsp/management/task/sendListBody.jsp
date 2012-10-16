@@ -72,7 +72,7 @@
 								<tr>
 									<td><fmt:formatDate value="${sendDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 									<td>${data.studentId}</td>
-									<td>${data.firstName} ${data.lastName}</td>
+									<td>${data.prefixNameTh} ${data.firstName} ${data.lastName}</td>
 									<td><button class="btn btn-info" onClick="evaluateWork(${data.assignmentWorkId})"><i class="icon-edit icon-white"></i> ตรวจ</button></td>
 									<td></td>
 								</tr>
@@ -106,7 +106,7 @@
 								<tr>
 									<td><fmt:formatDate value="${sendDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 									<td>${data.studentId}</td>
-									<td>${data.firstName} ${data.lastName}</td>
+									<td>${data.prefixNameTh} ${data.firstName} ${data.lastName}</td>
 									<td>${data.score} / ${taskData.maxScore}</td>
 									<td><fmt:formatDate value="${evaluateDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 									<td><button class="btn btn-info" onClick="reEvaluateWork(${data.assignmentWorkId})"><i class="icon-edit icon-white"></i> ตรวจใหม่</button></td>

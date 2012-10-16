@@ -46,7 +46,7 @@ examReportDetail.getGrid = function(){
 			for(keyArray in data.records){
 				strHtml = '<tr>'
 							+'<td>'+data.records[keyArray].studentId+'</td>'
-							+'<td>'+data.records[keyArray].firstName+' '+ data.records[keyArray].lastName +'</td>'
+							+'<td>'+data.records[keyArray].prefixNameTh+' '+data.records[keyArray].firstName+' '+ data.records[keyArray].lastName +'</td>'
 							+'<td>'+Globalize.format(new Date(data.records[keyArray].examStartDate),'dd-MM-yyyy HH:mm')+'</td>'
 							+'<td>'+data.records[keyArray].examCount+'</td>'
 							+'<td>'+Globalize.format(new Date(data.records[keyArray].examCompleteDate),'dd-MM-yyyy HH:mm')+'</td>'

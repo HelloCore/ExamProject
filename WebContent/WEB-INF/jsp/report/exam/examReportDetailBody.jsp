@@ -82,14 +82,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>520702478971</td>
-					<td>อัครวรรธน์ ชยาภิวัฒน์</td>
-					<td>20-10-2012 15:30</td>
-					<td>20-10-2012 15:45</td>
-					<td>20 / 50 ข้อ</td>
-					<td><button class="btn btn-info"><i class="icon-zoom-in icon-white"></i> ดูรายละเอียด</button></td>
-				</tr>
 			</tbody>
 		</table>
 		<div class="row-fluid">

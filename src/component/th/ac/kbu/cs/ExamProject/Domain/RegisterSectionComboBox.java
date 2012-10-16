@@ -97,9 +97,9 @@ public class RegisterSectionComboBox extends ComboBox{
 				.append(" FROM Section section ")
 				.append(" JOIN section.course course ")
 				.append(" WHERE section.flag<>0 ")
-				.append(" AND course.courseId in  ?  ")
+				.append(" AND course.courseId IN (:ids)  ")
 				.append(" ORDER BY course.courseId,section.sectionYear,section.sectionSemester,section.sectionName ");
-		return basicFinderService.find(queryString.toString(), this.teacherService.getCourseId(username).toArray());					
+		return basicFinderService.findByNamedParam(queryString.toString(),"ids", this.teacherService.getCourseId(username));					
 	}
 	
 	public List<Object[]> getCourseSectionData(String username){
@@ -120,9 +120,10 @@ public class RegisterSectionComboBox extends ComboBox{
 					.append(" FROM StudentSection studentSection ") 
 					.append(" JOIN studentSection.section section ")
 					.append(" WHERE studentSection.username = ? ")
-				.append(" ) AND section.sectionId NOT IN  ")
-					.append(" ( SELECT register.sectionId ")
+				.append(" ) AND CONCAT(section.courseId,section.sectionSemester,section.sectionYear) NOT IN  ")
+					.append(" ( SELECT CONCAT(sectionReg.courseId,sectionReg.sectionSemester,sectionReg.sectionYear) ")
 						.append(" FROM Register register ")
+						.append(" JOIN register.section sectionReg ")
 						.append(" WHERE (register.status = 0 OR ")
 							.append(" register.status = 1 OR ")
 							.append(" register.status = 3 ) AND ")

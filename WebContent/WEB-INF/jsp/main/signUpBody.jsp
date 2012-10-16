@@ -33,6 +33,17 @@
 			    </div>
 			 </div>
 			 <div class="control-group">
+			    <label class="control-label" for="prefixName">คำนำหน้าชื่ิอ</label>
+			    <div class="controls">
+			    	<select id="prefixName" name="prefixName">
+			    		<option></option>
+			    		<option value="1">นาย</option>
+			    		<option value="2">นาง</option>
+			    		<option value="3">นางสาว</option>
+			    	</select>
+				</div>
+			 </div>
+			 <div class="control-group">
 			    <label class="control-label" for="firstName">ชื่อ (ภาษาไทย)</label>
 			    <div class="controls">
 			      <input type="text" id="firstName" name="firstName" placeholder="First name">

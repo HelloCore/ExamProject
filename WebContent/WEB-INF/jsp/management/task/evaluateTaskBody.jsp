@@ -34,7 +34,7 @@
 				<div class="control-group">
 			    	<label class="control-label" >ส่งโดย</label>
 			    	<div class="controls">
-			    		<span class="input-xlarge uneditable-input">${workData.user.firstName} ${workData.user.lastName}</span>
+			    		<span class="input-xlarge uneditable-input">${workData.user.prefixName.prefixNameTh} ${workData.user.firstName} ${workData.user.lastName}</span>
 			    	</div>
 			  	</div>
 				<div class="control-group">
