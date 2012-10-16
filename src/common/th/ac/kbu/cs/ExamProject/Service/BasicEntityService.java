@@ -44,12 +44,6 @@ public interface BasicEntityService {
 
 	Object execute(TransactionalProcess transactionalProcess, Object... args);
 
-	@Deprecated
-	Object doTransaction(Object scope, Method method, Object... arg);
-
-	@Deprecated
-	<T> Object doTransaction(T scope, String methodName, Object... arg);
-
 	<T> List<Serializable> save(List<T> objects);
 
 	<T> void deleteAll(Class<T> entityClass, List<Serializable> ids);

@@ -27,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 import th.ac.kbu.cs.ExamProject.Common.TransactionalProcess;
 import th.ac.kbu.cs.ExamProject.Common.Dao.BasicEntityDao;
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
-import th.ac.kbu.cs.ExamProject.Util.MethodUtils;
 
 
 @Service
@@ -164,18 +163,6 @@ public class BasicEntityServiceImpl implements BasicEntityService {
 			basicEntityDao.update(object);
 		}
 	}
-
-	@Deprecated
-	@Transactional
-	public <T> Object doTransaction(T scope, String methodName, Object... args) {
-		Class<?>[] classes = new Class<?>[args.length];
-		for (int i = 0; i < args.length; i++) {
-			classes[i] = args[i].getClass();
-		}
-		Method method = MethodUtils.getMethod(scope.getClass(), methodName, classes);
-		return doTransaction(scope, method, args);
-	}
-
 	@Deprecated
 	@Transactional
 	public Object doTransaction(Object scope, Method method, Object... args) {

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${contextPath}/css/main/requestActiveCode.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">Request</font> Active Code</h2>
+	<h2><font class="red-color">ขอ</font> รหัสยืนยัน</h2>
 </div>
 
 <div class="row-fluid">

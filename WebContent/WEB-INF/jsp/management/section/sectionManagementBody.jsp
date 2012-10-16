@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/section/sectionManagement.css">		
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Section</font> Management</h2>
+		<h2><font class="red-color">จัดการ</font> Section</h2>
 	</div>
 	<div class="row-fluid">
 		<div class="span12">
@@ -18,8 +18,8 @@
 						<th class="sort-both sortable" id="sectionYearHeader">ปีการศึกษา<i></i></th>
 						<th class="sort-both sortable" id="sectionSemesterHeader">ภาคเรียน<i></i></th>
 						<th class="sort-both sortable" id="courseCodeHeader">วิชา<i></i></th>
-						<th class="sort-both sortable" id="statusHeader">Status<i></i></th>
-						<th class="action-column" >Action</th>
+						<th class="sort-both sortable" id="statusHeader">สถานะ<i></i></th>
+						<th class="action-column" ></th>
 					</tr>
 				</thead>
 				<tbody>

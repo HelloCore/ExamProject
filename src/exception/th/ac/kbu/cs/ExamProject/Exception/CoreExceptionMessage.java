@@ -55,6 +55,11 @@ public class CoreExceptionMessage {
 	public static final CoreExceptionMessage LIMIT_FILE_SIZE;
 	public static final CoreExceptionMessage CANT_SUBMIT_ANYMORE;
 	
+	public static final CoreExceptionMessage OLD_AND_NEW_PASSWORD_IS_DUPLICATE;
+	public static final CoreExceptionMessage PASSWORD_IS_INVALID;
+	public static final CoreExceptionMessage PASSWORD_IS_NOT_MATCH;
+	
+	
 	static{
 		PERMISSION_DENIED = new CoreExceptionMessage("PERMISSION_DENIED");
 		PARAMETER_NOT_FOUND = new CoreExceptionMessage("PARAMETER_NOT_FOUND");
@@ -93,5 +98,9 @@ public class CoreExceptionMessage {
 		LIMIT_NUM_OF_FILE = new CoreExceptionMessage("LIMIT_NUM_OF_FILE");
 		LIMIT_FILE_SIZE = new CoreExceptionMessage("LIMIT_FILE_SIZE");
 		CANT_SUBMIT_ANYMORE = new CoreExceptionMessage("CANT_SUBMIT_ANYMORE");
+		
+		OLD_AND_NEW_PASSWORD_IS_DUPLICATE = new CoreExceptionMessage("OLD_AND_NEW_PASSWORD_IS_DUPLICATE");
+		PASSWORD_IS_INVALID = new CoreExceptionMessage("PASSWORD_IS_INVALID");
+		PASSWORD_IS_NOT_MATCH = new CoreExceptionMessage("PASSWORD_IS_NOT_MATCH");
 	}
 }

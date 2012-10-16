@@ -4,7 +4,7 @@
 <div>
 		
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Add</font> Question</h2>
+		<h2><font class="red-color">เพิ่ม</font> คำถาม</h2>
 	</div>
 	<div class="pagging-menu" id="menuHeader">
 		<label for="courseId">วิชา&nbsp;:&nbsp;</label><select id="courseId" name="courseId" style="width:220px"></select>

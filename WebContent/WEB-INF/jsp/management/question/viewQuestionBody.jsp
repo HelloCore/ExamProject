@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/question/viewQuestion.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Question & Answer</font> Detail</h2>
+		<h2><font class="red-color">รายละเอียด</font> คำถาม คำตอบ</h2>
 	</div>
 	<div class="well form-inline parent-holder">
 		<input type="hidden" id="questionId" name="questionId" value="${questionData.questionId}">

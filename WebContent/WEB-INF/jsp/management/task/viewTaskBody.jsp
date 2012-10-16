@@ -20,7 +20,7 @@
 </script>
 
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">View</font> Task</h2>
+	<h2><font class="red-color">รายละเอียด</font> Assignment</h2>
 </div>
 <div class="well main-form form-horizontal" id="mainForm">
 	<input type="hidden" id="taskId" name="taskId" value="${taskData.assignmentTaskId}"/>

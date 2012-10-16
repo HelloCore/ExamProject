@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="${contextPath}/css/exam/viewResult.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Exam</font> Result</h2>
+		<h2><font class="red-color">ผล</font> การสอบ</h2>
 	</div>
 	<div class="row-fluid">
 		<div class="span6 offset3 ">

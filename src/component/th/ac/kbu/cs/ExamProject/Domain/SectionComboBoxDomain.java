@@ -24,6 +24,17 @@ public class SectionComboBoxDomain extends ComboBox{
 	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
 	}
+	
+	private Boolean dontCheckStatus;
+	
+
+	public Boolean getDontCheckStatus() {
+		return dontCheckStatus;
+	}
+
+	public void setDontCheckStatus(Boolean dontCheckStatus) {
+		this.dontCheckStatus = dontCheckStatus;
+	}
 
 	public List<HashMap<String,Object>> getSectionComboBox() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
@@ -35,7 +46,10 @@ public class SectionComboBoxDomain extends ComboBox{
 		projectionList.add(Projections.property("section.sectionSemester"),"sectionSemester");
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("section.flag",true));
-		criteria.add(Restrictions.eq("section.status", 1));
+		
+		if(BeanUtils.isNull(this.getDontCheckStatus())){
+			criteria.add(Restrictions.eq("section.status", 1));
+		}
 		criteria.add(Restrictions.in("section.courseId", this.teacherService.getCourseId(SecurityUtils.getUsername())));
 		if(BeanUtils.isNotEmpty(this.getCourseId())){
 			criteria.add(Restrictions.eq("section.courseId", this.getCourseId()));

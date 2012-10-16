@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/task/assignTask.css">
 		
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">Assign</font> Task</h2>
+	<h2><font class="red-color">สั่ง</font> Assignment</h2>
 </div>
 <div class="well main-form form-horizontal" id="mainForm">
 		<div class="control-group" id="courseIdGroup">

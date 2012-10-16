@@ -4,7 +4,7 @@
 <div>
 		
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Examinations</font> Management</h2>
+		<h2><font class="red-color">จัดการ</font> การสอบ</h2>
 	</div>
 	<div class="row-fluid fixed-content">
 		<div class="span3">

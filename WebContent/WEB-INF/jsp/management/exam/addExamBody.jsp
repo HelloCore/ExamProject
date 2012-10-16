@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/exam/addExam.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Add </font> Examinations</h2>
+		<h2><font class="red-color">สร้าง </font> กำหนดการสอบ</h2>
 	</div>
 	
 	<div class="well main-form">

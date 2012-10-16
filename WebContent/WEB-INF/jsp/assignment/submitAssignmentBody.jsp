@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${contextPath}/css/assignment/selectAssignment.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">Submit</font> Assignment</h2>
+	<h2><font class="red-color">ส่ง</font> Assignment</h2>
 </div>
 <c:if test="${empty assignmentData}">
 	

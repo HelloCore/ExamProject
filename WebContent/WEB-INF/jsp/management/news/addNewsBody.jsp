@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/news/addNews.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Add </font> News</h2>
+		<h2><font class="red-color">เพิ่ม </font> ข่าวประชาสัมพันธ์</h2>
 	</div>
 	<div class="fixed-content" >
 		<div class="control-group">

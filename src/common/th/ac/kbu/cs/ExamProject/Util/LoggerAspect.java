@@ -47,10 +47,4 @@ public class LoggerAspect {
         
 		return obj;
 	}
-	
-	
-	@AfterThrowing(pointcut ="execution(* th.ac.kbu.cs.ExamProject.Service..*.*(..))" ,throwing="exception")
-	public void serviceExceptionHandling(JoinPoint joinPoint, Exception exception) {
-		exception.printStackTrace();
-	}
 }

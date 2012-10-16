@@ -15,7 +15,7 @@
 
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">View </font> News</h2>
+		<h2><font class="red-color">รายละเอียด </font> ข่าวประชาสัมพันธ์</h2>
 	</div>
 	<div class="fixed-content" >
 		<input type="hidden" id="newsId" name="newsId" value="${newsData.newsId}" />

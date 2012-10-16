@@ -64,11 +64,10 @@
 				              			<li><a  href="${contextPath}/main/activeUser.html?studentId=<sec:authentication property="principal.user.username" />">Active User</a></li>
 				              		</sec:authorize>
 					          		<sec:authorize access="hasRole('ROLE_STUDENT')" >
-				             	 		<li><a  href="${contextPath}/member/register.html">Register</a></li>
+				             	 		<li><a  href="${contextPath}/member/register.html">ลงทะเบียน</a></li>
 					          		</sec:authorize>
-							        <li><a  href="#">Profile</a></li>
-							        <li><a  href="#">Settings</a></li>
-							        <li><a  href="#">Change Password</a></li>
+							        <li><a  href="#">ข้อมูลส่วนตัว</a></li>
+							        <li><a  href="${contextPath}/member/changePassword.html">เปลี่ยนรหัสผ่าน</a></li>
 							        <li class="divider"></li>
 					          		<%-- <sec:authorize access="hasRole('ROLE_TEACHER')" >
 					              		<li class="nav-header">จัดการข้อมูลวิชา</li>
@@ -173,6 +172,7 @@
 								    </a>
 								    <ul class="dropdown-menu">
 	    								<li><a  href="${contextPath}/report/avgScore.html">กราฟคะแนนเฉลี่ยวิชา</a></li>
+	    								<li><a  href="${contextPath}/report/customReport.html">สรุปคะแนน</a></li>
 	    								<li><a  href="${contextPath}/report/exam.html">ผลการสอบ</a></li>
 	    								<li><a  href="${contextPath}/report/assignment.html">Assignment</a></li>
 	    								<li><a  href="${contextPath}/report/student.html">ข้อมูลรายบุคคล</a></li>
@@ -189,7 +189,7 @@
 		<div class="container">
 		
 		   	<div class="container main-container">
-				<img src="${contextPath}/images/logoPage.png" class="header-logo"/>
+				<a href="${contextPath}"><img src="${contextPath}/images/logoPage.png" class="header-logo"/></a>
 		   		<tiles:insertAttribute name="content"/>
 		   	</div>
 		   

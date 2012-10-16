@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${contextPath}/css/management/news/newsManagement.css">		
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">News</font> Management</h2>
+		<h2><font class="red-color">จัดการ</font> ข่าวประชาสัมพันธ์</h2>
 	</div>
 	<div class="row-fluid">
 		<div class="span12">

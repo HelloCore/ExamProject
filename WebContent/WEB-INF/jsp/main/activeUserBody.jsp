@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${contextPath}/css/main/activeUser.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">Active</font> User</h2>
+	<h2><font class="red-color">ยืนยัน</font> ผู้ใช้</h2>
 </div>
 
 <div class="row-fluid">

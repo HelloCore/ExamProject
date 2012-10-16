@@ -33,7 +33,7 @@
 </script>
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">View </font> Examinations</h2>
+		<h2><font class="red-color">รายละเอียด </font> การสอบ</h2>
 	</div>
 	<div class="row-fluid">
 		<div class="span12">

@@ -31,4 +31,5 @@ public class RoleDescription {
 		}
 		public static final String WITHBOTH = "hasAnyRole('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')";
 	}
+	public static final String HAS_ALL_ROLE = "hasAnyRole('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT','ROLE_NOT_ACTIVE')";
 }

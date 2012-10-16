@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/task/taskList.css">
 		
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">Evaluate</font> Task</h2>
+	<h2><font class="red-color">ตรวจ</font> Assignment</h2>
 </div>
 <c:if test="${not empty error}">
 	<div class="alert alert-error" style="width:500px;margin:auto;">

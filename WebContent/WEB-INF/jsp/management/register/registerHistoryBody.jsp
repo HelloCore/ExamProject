@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/register/registerHistory.css">
 		
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Register</font> History</h2>
+		<h2><font class="red-color">ประวัติ</font> การอนุมัติสิทธิ์</h2>
 	</div>
 
 	<div class="row-fluid">

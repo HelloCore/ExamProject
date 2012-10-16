@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
+import th.ac.kbu.cs.ExamProject.Domain.ChangeUserDataDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ViewNewsDomain;
 
 @Controller
@@ -48,10 +51,24 @@ public class HomeController {
 		return mav;
 	}
 
-	@RequestMapping(value="/errors/access-denied.html")
+	@RequestMapping(value="/errors/access-denied.html",method=RequestMethod.GET)
 	public ModelAndView accessDenied(ModelAndView mv){
 		return mv;
 	}
+
+	
+	@RequestMapping(value="/member/changePassword.html",method=RequestMethod.GET)
+	@PreAuthorize(RoleDescription.HAS_ALL_ROLE)
+	public ModelAndView initChangePassword(ModelAndView mv){
+		return mv;
+	}
+	
+	@RequestMapping(value="/member/changePassword.html",method=RequestMethod.POST)
+	@PreAuthorize(RoleDescription.HAS_ALL_ROLE)
+	public void changePassword(@ModelAttribute ChangeUserDataDomain domain,HttpServletRequest request,HttpServletResponse response){
+		domain.changePassword();
+	}
+	
 	
 }
 

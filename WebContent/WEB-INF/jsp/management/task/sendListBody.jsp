@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/task/sendList.css">
 		
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">Evaluate</font> Task</h2>
+	<h2><font class="red-color">ตรวจ</font> Assignment</h2>
 </div>
 
 <div class="row-fluid">

@@ -256,6 +256,18 @@
 	</definition>
 	
 	
+	<definition name="/report/customReport.page" extends=".template">
+		<put-attribute name="title" value="Custom Report"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/report/custom/customReportBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/report/custom/customReportFooter.jsp"/>
+	</definition>
+	
+	<definition name="/report/viewCustomReport.page" extends=".template">
+		<put-attribute name="title" value="View Custom Report"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/report/custom/viewCustomReportBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/report/custom/viewCustomReportFooter.jsp"/>
+	</definition>
+	
 	
 	
 	
@@ -295,6 +307,12 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/member/registerFooter.jsp"/>
 	</definition>
 	
+		
+	<definition name="/member/changePassword.page" extends=".template">
+		<put-attribute name="title" value="Register"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/member/changePasswordBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/member/changePasswordFooter.jsp"/>
+	</definition>
 	
 	
 	

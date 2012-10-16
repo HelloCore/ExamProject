@@ -98,7 +98,12 @@ registerManagement.initSectionComboBox = function(callback){
 };
 
 $(document).ready(function(){
-	$("#courseId").chosen().change(function(){registerManagement.initSectionComboBox();});
+	$("#courseId").chosen().change(function(){
+		registerManagement.initSectionComboBox(function(){
+			registerManagement.getRegisterTable();
+		});
+	});
+	
 	$("#sectionId").chosen();
 	registerManagement.initCourseComboBox(function(){
 		registerManagement.initSectionComboBox(function(){

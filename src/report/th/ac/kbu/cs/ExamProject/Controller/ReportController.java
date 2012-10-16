@@ -1,6 +1,5 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,12 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import th.ac.kbu.cs.ExamProject.Bean.AssignmentData;
+import th.ac.kbu.cs.ExamProject.Bean.ExamData;
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
+import th.ac.kbu.cs.ExamProject.Domain.CustomReportDomain;
 import th.ac.kbu.cs.ExamProject.Domain.DashboardDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ExamReportDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ExamResultReportCoreGridManager;
@@ -29,8 +27,11 @@ import th.ac.kbu.cs.ExamProject.Domain.ResultExamDomain;
 import th.ac.kbu.cs.ExamProject.Domain.StudentReportCoreGridManager;
 import th.ac.kbu.cs.ExamProject.Domain.StudentReportDomain;
 import th.ac.kbu.cs.ExamProject.Domain.TaskDomain;
+import th.ac.kbu.cs.ExamProject.Entity.AssignmentTask;
 import th.ac.kbu.cs.ExamProject.Exception.CoreException;
 import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class ReportController {
@@ -107,23 +108,6 @@ public class ReportController {
 	}
 
 	
-//	@RequestMapping(value="/report/graph/avgScore.html",method=RequestMethod.POST,params={"method=getAvgScoreGraph"})
-//	@PreAuthorize(RoleDescription.hasRole.TEACHER)
-//	public ModelAndView getAvgScoreGraph(@ModelAttribute DashboardDomain domain,ModelAndView mv,HttpServletRequest request,HttpServletResponse response){
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		List<Object[]> examData = domain.getExamData();
-//
-//		mv.addObject("courseData", domain.getCourse());
-//		mv.addObject("examData", examData);
-//		try {
-//			mv.addObject("examDataJSON",objectMapper.writeValueAsString(examData));
-//		}  catch (Exception e) {
-//			e.printStackTrace();
-//			throw new CoreException(new CoreExceptionMessage(e.getMessage()));
-//		}
-//		return mv;
-//	}
-	
 	@RequestMapping(value="/report/avgScore.html")
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	public ModelAndView initAvgScore(ModelAndView mv,HttpServletResponse response,HttpServletRequest request){
@@ -152,6 +136,36 @@ public class ReportController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/report/customReport.html")
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	public ModelAndView initCustomReport(ModelAndView mv,HttpServletResponse response,HttpServletRequest request){
+		return mv;
+	}
+	
+	@RequestMapping(value="/report/customReport.html",method=RequestMethod.POST,params={"method=getExamList"})
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	public @ResponseBody List<HashMap<String,Object>> getExamList(@ModelAttribute CustomReportDomain domain,HttpServletRequest request,HttpServletResponse response){
+		return domain.getExamList();
+	}
+	
+	@RequestMapping(value="/report/customReport.html",method=RequestMethod.POST,params={"method=getAssignmentList"})
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	public @ResponseBody List<HashMap<String,Object>> getAssignmentList(@ModelAttribute CustomReportDomain domain,HttpServletRequest request,HttpServletResponse response){
+		return domain.getAssignmentList();
+	}
+	
+	@RequestMapping(value="/report/viewCustomReport.html",method=RequestMethod.POST)
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	public ModelAndView initViewCustomReport(@ModelAttribute CustomReportDomain domain,ModelAndView mv,HttpServletRequest reques,HttpServletResponse response){
+		domain.validateViewCustomReportData();
+		List<ExamData> examData = domain.getExamCustomList();
+		List<AssignmentData> assignmentData = domain.getAssignmentCustomList();
+		mv.addObject("sectionData", domain.getSection());
+		mv.addObject("examData",examData);
+		mv.addObject("assignmentData",assignmentData);
+		mv.addObject("recordData", domain.getCustomData(examData, assignmentData));
+		return mv;
+	}
 	
 	
 }

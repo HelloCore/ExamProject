@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/question/questionManagement.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">Question </font> Management</h2>
+		<h2><font class="red-color">จัดการ </font> คำถาม</h2>
 	</div>
 	<div class="row-fluid">
 		<div class="span3">

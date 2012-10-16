@@ -3,6 +3,8 @@ package th.ac.kbu.cs.ExamProject.Exception;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.hibernate3.HibernateSystemException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,7 +32,21 @@ public class CoreExceptionResolver implements HandlerExceptionResolver{
 		}else if (ex instanceof CoreException){
 			mv = new ModelAndView("errorJson");
 			mv.addObject("message", ex.getMessage());
+		}else if (ex instanceof HibernateSystemException){
+			System.out.println("--------------------------------------------------");
+			ex.printStackTrace();
+			System.out.println("--------------------------------------------------");
+			mv = new ModelAndView("errorJson");
+			mv.addObject("message", ex.getMessage());
+		}else if (ex instanceof DataAccessException){
+			System.out.println("--------------------------------------------------");
+			ex.printStackTrace();
+			System.out.println("--------------------------------------------------");
+			mv = new ModelAndView("errorJson");
+			mv.addObject("message", ex.getMessage());
 		}
+		
+		
 //		if(ex instanceof AccessDeniedException){
 //			mv = new ModelAndView("redirect:/errors/access-denied.html");
 //		}else if (ex instanceof ContentFileException){
