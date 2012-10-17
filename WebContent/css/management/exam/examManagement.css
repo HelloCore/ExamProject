@@ -51,6 +51,7 @@
 @media (min-width: 980px) and (max-width: 1199px){
 	#leftBar {top:70px;}
 	.exam-header {width:180px;}
+	.sub-column3{ width:170px;}
 	.combobox,#courseId_chzn { width:185px !important;}
 	#courseId_chzn .chzn-drop{ width:183px !important; }
 	#courseId_chzn .chzn-drop .chzn-search input{ width:148px !important; }
@@ -59,6 +60,9 @@
 @media (min-width: 1200px){
 	#leftBar {top:70px;}
 	.exam-header {width:230px;}
+	.sub-column1{ width:190px;}
+	.sub-column2{ width:190px;}
+	.sub-column3{ width:170px;}
 	.combobox,#courseId_chzn { width:235px !important;}
 	#courseId_chzn .chzn-drop{ width:233px !important; }
 	#courseId_chzn .chzn-drop .chzn-search input{ width:198px !important; }

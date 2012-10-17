@@ -20,6 +20,8 @@
 	application.exam.maxQuestion = ${examData.maxQuestion};
 	application.exam.courseId = ${examData.courseId};
 	application.exam.examSequence = ${examData.examSequence};
+	application.exam.isCalScore = ${examData.isCalScore};
+	
 	if(application.exam.startDateStr == ''){
 		application.exam.startDate = null;
 	}else{
@@ -53,6 +55,13 @@
 						<h3>ข้อมูลการสอบ</h3>
 						<hr>
 						<div class="form-horizontal">
+							<div class="control-group">
+								<label class="control-label" for="examType">ประเภท :</label>
+								<div class="controls">
+									<input class="span7" size="25"  id="examType" type="text" value="<c:if test="${examDetail.isCalScore}" >สอบจริง</c:if><c:if test="${not examDetail.isCalScore}" >ทดลองสอบ</c:if>" disabled="disabled"/>
+									<button class="btn btn-info" disabled="disabled"><i class="icon-ban-circle icon-white"></i> Edit</button>
+							    </div>
+							</div>
 							<div class="control-group">
 								<label class="control-label" for="courseCode">รหัสวิชา :</label>
 								<div class="controls">

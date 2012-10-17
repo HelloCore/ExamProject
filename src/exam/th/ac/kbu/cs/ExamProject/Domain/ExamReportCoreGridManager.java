@@ -18,6 +18,7 @@ public class ExamReportCoreGridManager extends CoreGridManager<ResultExamDomain>
 		projectionList.add(Projections.property("examResult.examCompleteDate"),"examCompleteDate");
 		projectionList.add(Projections.property("course.courseCode"),"courseCode");
 		projectionList.add(Projections.property("exam.examHeader"),"examHeader");
+		projectionList.add(Projections.property("exam.maxScore"),"maxScore");
 		projectionList.add(Projections.property("examResult.examCount"),"examCount");
 		projectionList.add(Projections.property("examResult.numOfQuestion"),"numOfQuestion");
 		projectionList.add(Projections.property("examResult.examUsedTime"),"examUsedTime");

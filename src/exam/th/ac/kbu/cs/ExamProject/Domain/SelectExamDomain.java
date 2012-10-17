@@ -32,6 +32,8 @@ public class SelectExamDomain extends ExamPrototype{
 						.append(",exam.maxQuestion as maxQuestion")
 						.append(",exam.examId as examId")
 						.append(",exam.startDate as startDate")
+						.append(",exam.isCalScore as isCalScore")
+						.append(",exam.maxScore as maxScore")
 						.append(" FROM ExamSection examSection ")
 						.append(" JOIN examSection.exam exam ")
 						.append(" JOIN exam.course course ")
@@ -47,7 +49,7 @@ public class SelectExamDomain extends ExamPrototype{
 								.append(" WHERE studentSection.username = ? ")
 							.append(" ) ")
 							.append(" AND ( exam.endDate>? OR exam.endDate is null) ")
-						.append(" ORDER BY exam.endDate asc");
+						.append(" ORDER BY exam.isCalScore desc,exam.endDate asc");
 		Object[] params = {
 				SecurityUtils.getUsername(),
 				true,
@@ -73,6 +75,8 @@ public class SelectExamDomain extends ExamPrototype{
 								.append(" AND examResultAnswer.answerId is not null ")
 						.append(" ) as didQuestion ")
 						.append(" ,examResult.examResultId as examResultId ")
+						.append(" ,exam.isCalScore as isCalScore")
+						.append(" ,exam.maxScore as maxScore")
 					.append(" FROM ExamResult examResult")
 						.append(" JOIN examResult.exam exam ")
 						.append(" JOIN exam.course course ")
@@ -80,7 +84,7 @@ public class SelectExamDomain extends ExamPrototype{
 						.append(" examResult.examCompleted = ? ")
 						.append(" AND examResult.username = ? ")
 					.append(" ORDER BY ")
-						.append(" examResult.examExpireDate asc ");
+						.append(" exam.isCalScore desc,examResult.examExpireDate asc ");
 		Object[] params = {
 				false,
 				SecurityUtils.getUsername()

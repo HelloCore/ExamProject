@@ -48,10 +48,10 @@ examReportDetail.getGrid = function(){
 							+'<td>'+data.records[keyArray].studentId+'</td>'
 							+'<td>'+data.records[keyArray].prefixNameTh+' '+data.records[keyArray].firstName+' '+ data.records[keyArray].lastName +'</td>'
 							+'<td>'+Globalize.format(new Date(data.records[keyArray].examStartDate),'dd-MM-yyyy HH:mm')+'</td>'
-							+'<td>'+data.records[keyArray].examCount+'</td>'
+							+'<td style="text-align:right;">'+data.records[keyArray].examCount+'</td>'
 							+'<td>'+Globalize.format(new Date(data.records[keyArray].examCompleteDate),'dd-MM-yyyy HH:mm')+'</td>'
 							+'<td>'+applicationScript.secondsToTime(data.records[keyArray].examUsedTime)+'</td>'
-							+'<td>'+data.records[keyArray].examScore+' / '+data.records[keyArray].numOfQuestion+' ข้อ</td>'
+							+'<td style="text-align:right;">'+data.records[keyArray].examScore+' คะแนน</td>'
 							+'<td><button class="btn btn-info" onclick="viewExamReport('+data.records[keyArray].examResultId+')"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button></td>'
 						+'</tr>';
 				$("#examReportDetailTable tbody").append(strHtml);

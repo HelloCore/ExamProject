@@ -60,10 +60,12 @@ public class CustomReportDomain extends CustomReportPrototype{
 		projectionList.add(Projections.property("exam.startDate"),"startDate");
 		projectionList.add(Projections.property("exam.endDate"),"endDate");
 		projectionList.add(Projections.property("exam.examHeader"),"examHeader");
+		projectionList.add(Projections.property("exam.maxScore"),"maxScore");
 		
 		
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("examSection.sectionId", this.getSectionId()));
+		criteria.add(Restrictions.eq("exam.isCalScore", true));
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		
 		return this.basicFinderService.findByCriteria(criteria);
@@ -158,17 +160,23 @@ public class CustomReportDomain extends CustomReportPrototype{
 		if(BeanUtils.isNotNull(examData)){
 			for(ExamData examRecord : examData){
 				if(this.getScoreChoice().equals(CustomReportDomain.CALCULATE_SCORE_BY_AVG_SCORE)){
-					sqlString.append(" ,AVG( examResult").append(examRecord.getExamId()).append(".EXAM_SCORE")
-					.append(" / examResult").append(examRecord.getExamId()).append(".NUM_OF_QUESTION )")
-					.append(" * ").append(examRecord.getExamScore());
+//					sqlString.append(" ,AVG( examResult").append(examRecord.getExamId()).append(".EXAM_SCORE")
+//					.append(" / examResult").append(examRecord.getExamId()).append(".NUM_OF_QUESTION )")
+//					.append(" * ").append(examRecord.getExamScore());
+
+					sqlString.append(" ,AVG( examResult").append(examRecord.getExamId()).append(".EXAM_SCORE)");
+					
 				}else if(this.getScoreChoice().equals(CustomReportDomain.CALCULATE_SCORE_BY_MAX_SCORE)){
-					sqlString.append(" ,MAX( examResult").append(examRecord.getExamId()).append(".EXAM_SCORE")
-					.append(" / examResult").append(examRecord.getExamId()).append(".NUM_OF_QUESTION )")
-					.append(" * ").append(examRecord.getExamScore());
+//					sqlString.append(" ,MAX( examResult").append(examRecord.getExamId()).append(".EXAM_SCORE")
+//					.append(" / examResult").append(examRecord.getExamId()).append(".NUM_OF_QUESTION )")
+//					.append(" * ").append(examRecord.getExamScore());
+
+					sqlString.append(" ,MAX( examResult").append(examRecord.getExamId()).append(".EXAM_SCORE)");
 				}else if(this.getScoreChoice().equals(CustomReportDomain.CALCULATE_SCORE_BY_LAST_EXAM)){
-					sqlString.append(" ,( examResult").append(examRecord.getExamId()).append(".EXAM_SCORE")
-									.append(" / examResult").append(examRecord.getExamId()).append(".NUM_OF_QUESTION )")
-									.append(" * ").append(examRecord.getExamScore());
+//					sqlString.append(" ,( examResult").append(examRecord.getExamId()).append(".EXAM_SCORE")
+//									.append(" / examResult").append(examRecord.getExamId()).append(".NUM_OF_QUESTION )")
+//									.append(" * ").append(examRecord.getExamScore());
+					sqlString.append(" , examResult").append(examRecord.getExamId()).append(".EXAM_SCORE ");
 				}
 			}
 		}

@@ -22,8 +22,10 @@
 				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
+							<th>ประเภท</th>
 							<th>วิชา</th>
 							<th>หัวข้อ</th>
+							<th>คะแนนเต็ม</th>
 							<th>เริ่มสอบ</th>
 							<th>หมดเขต</th>
 							<th>สอบได้(ครั้ง)</th>
@@ -33,8 +35,13 @@
 					<tbody>
 						<c:forEach items="${examData}" var="data">
 							<tr>
+								<td>
+									<c:if test="${data[9]}" >สอบจริง</c:if>
+									<c:if test="${not data[9]}" >ทดลองสอบ</c:if>
+								</td>
 								<td>${data[0]}</td>
 								<td>${data[1]}</td>
+								<td>${data[10]} คะแนน</td>
 								<td>
 									<c:if test="${not empty data[8]}">
 										<fmt:parseDate var="startDate" value="${data[8]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
@@ -69,15 +76,17 @@
 	
 	<c:if test="${not empty examResult}">
 		<div class="page-header pagination-centered" id="pageHeader">
-			<h2><font class="red-color">Incomplete</font> Examinations</h2>
+			<h2><font class="red-color">ข้อสอบ</font> ที่ยังไม่ได้ส่ง</h2>
 		</div>
 		<div class="row">
 			<div class="span12">
 				<table class="table table-striped table-bordered" id="incomplete-table">
 					<thead>
 						<tr>
+							<th>ประเภท</th>
 							<th>วิชา</th>
 							<th>หัวข้อ</th>
+							<th>คะแนนเต็ม</th>
 							<th>ครั้งที่</th>
 							<th>หมดเวลา</th>
 							<th>จำนวนคำถาม</th>
@@ -90,9 +99,13 @@
 							<tr id="exam-incomplete-${data[6]}">
 								<fmt:parseDate var="expireDate" value="${data[3]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
 								
+								<td>
+									<c:if test="${data[7]}" >สอบจริง</c:if>
+									<c:if test="${not data[7]}" >ทดลองสอบ</c:if>
+								</td>
 								<td>${data[0]}</td>
 								<td>${data[1]}</td>
-								<%-- <td>${data[2]}</td> --%>
+								<td>${data[8]}</td>
 								<td><fmt:formatDate value="${nowTodayTime}" pattern="dd-MM-yyyy HH:mm"/></td>
 								<td><fmt:formatDate value="${expireDate}" pattern="dd-MM-yyyy HH:mm"/></td>
 								<td>${data[4]}</td>

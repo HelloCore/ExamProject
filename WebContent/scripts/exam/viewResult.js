@@ -1,4 +1,4 @@
 application.page='exam';
-$(document).ready(function(){	
-	$("#examUsedTime").text(applicationScript.secondsToTime(application.examUsedTime));
-});
+//$(document).ready(function(){	
+//	$("#examUsedTime").text(applicationScript.secondsToTime(application.examUsedTime));
+//});

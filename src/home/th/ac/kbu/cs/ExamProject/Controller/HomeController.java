@@ -24,10 +24,15 @@ import th.ac.kbu.cs.ExamProject.Domain.ViewNewsDomain;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value={"/main/home.html","/home.html"})
-	public ModelMap init(ModelMap modelMap,ViewNewsDomain domain,HttpServletRequest request){
-		modelMap.addAttribute("newsData", domain.getNewsList(0,5));
-		return modelMap;
+	@RequestMapping(value={"/main/home.html"})
+	public ModelAndView init(ModelAndView mv,ViewNewsDomain domain,HttpServletRequest request){
+		mv.addObject("newsData",domain.getNewsList(0,5));
+		return mv;
+	}
+	@RequestMapping(value={"/","/home.html"})
+	public ModelAndView redirectToHome(ModelAndView mv,ViewNewsDomain domain,HttpServletRequest request){
+		mv.setViewName("redirect:/main/home.html");
+		return mv;
 	}
 
 	@RequestMapping(value="/main/readMoreNews.html",method=RequestMethod.POST,params={"method=getNews"})

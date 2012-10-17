@@ -15,6 +15,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import th.ac.kbu.cs.ExamProject.Entity.Exam;
 import th.ac.kbu.cs.ExamProject.Entity.ExamResult;
 import th.ac.kbu.cs.ExamProject.Entity.ExamResultAnswer;
 import th.ac.kbu.cs.ExamProject.Entity.ExamTempTable;
@@ -82,10 +83,10 @@ public class DoExamServiceImpl implements DoExamService{
 			List<ExamResultAnswer> examResultAnswers,
 			Boolean isExpired,
 			Boolean isAutoSave) {
-		if(isExpired){
-			String queryString = "UPDATE ExamResultAnswer examResultAnswer SET examResultAnswer.answerId=null WHERE examResultAnswer.examResultId = ?";
-			basicEntityService.bulkUpdate(queryString, examResult.getExamResultId());
-		}else{
+		if(!isExpired){
+//			String queryString = "UPDATE ExamResultAnswer examResultAnswer SET examResultAnswer.answerId=null WHERE examResultAnswer.examResultId = ?";
+//			basicEntityService.bulkUpdate(queryString, examResult.getExamResultId());
+//		}else{
 			if(BeanUtils.isNotEmpty(examResultAnswers)){
 				basicEntityService.update(examResultAnswers);
 			}
@@ -102,10 +103,10 @@ public class DoExamServiceImpl implements DoExamService{
 
 	@Transactional(rollbackFor=Exception.class)
 	public void setCompleteExamFromSelect(ExamResult examResult,Boolean isExpired){	
-		if(isExpired){
-			String queryString = "UPDATE ExamResultAnswer examResultAnswer SET examResultAnswer.answerId=null WHERE examResultAnswer.examResultId = ?";
-			basicEntityService.bulkUpdate(queryString, examResult.getExamResultId());
-		}
+//		if(isExpired){
+//			String queryString = "UPDATE ExamResultAnswer examResultAnswer SET examResultAnswer.answerId=null WHERE examResultAnswer.examResultId = ?";
+//			basicEntityService.bulkUpdate(queryString, examResult.getExamResultId());
+//		}
 		calScore(examResult,isExpired);
 		basicEntityService.update(examResult);
 	}
@@ -132,22 +133,37 @@ public class DoExamServiceImpl implements DoExamService{
 		}
 		return examResultId;
 	}
+	private Exam getExamData(Long examId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
+		criteria.add(Restrictions.eq("exam.examId",examId));
+		return this.basicFinderService.findUniqueByCriteria(criteria);
+	}
 	
 	private void calScore(ExamResult examResult,Boolean isExpired){
-		if(isExpired){
-			examResult.setExamScore(0);
-		}else{
-			DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
-			criteria.createAlias("examResultAnswer.answer","answer");
-			ProjectionList projectionList = Projections.projectionList();
-			projectionList.add(Projections.rowCount());
-			criteria.setProjection(projectionList);
-			criteria.add(Restrictions.eq("examResultAnswer.examResultId", examResult.getExamResultId()));
-			criteria.add(Restrictions.ge("answer.answerScore", 1));
-			Integer score = BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
 		
+		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
+		criteria.createAlias("examResultAnswer.answer","answer");
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.rowCount());
+		criteria.setProjection(projectionList);
+		criteria.add(Restrictions.eq("examResultAnswer.examResultId", examResult.getExamResultId()));
+		criteria.add(Restrictions.ge("answer.answerScore", 1));
+		Integer correctAnswer = BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
+	
+		examResult.setExamCorrect(correctAnswer);
+
+		if(isExpired){
+			examResult.setExamScore(0F);
+		}else{
+			Exam exam = this.getExamData(examResult.getExamId());
+			
+			Float numOfQuestion = examResult.getNumOfQuestion().floatValue();
+			Float maxScore = exam.getMaxScore().floatValue();
+			Float score = (correctAnswer.floatValue() / numOfQuestion) * maxScore;
+			
 			examResult.setExamScore(score);
 		}
+		
 	}
 	
 	private ExamResultAnswer toExamResultAnswerObj(Long examResultId,Object[] questionData){

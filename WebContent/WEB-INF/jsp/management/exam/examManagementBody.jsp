@@ -17,7 +17,7 @@
 					<div class="input-prepend">
 						<span class="add-on search-inactive">
 							<i class="icon-zoom-in"></i>
-						</span><input type="text" id="examHeader" name="examHeader" class="exam-header" placeholder="หัวข้อคำถาม">
+						</span><input type="text" id="examHeader" name="examHeader" class="exam-header" placeholder="หัวข้อการสอบ">
 					</div>	
 				</div>
 				<div class="control-group pagination-centered grid-bar">

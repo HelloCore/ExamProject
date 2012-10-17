@@ -81,7 +81,11 @@
 	
 	
 	
-	
+	<definition name="/management/course.page" extends=".template">
+		<put-attribute name="title" value="Course Management"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/management/course/courseManagementBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/course/courseManagementFooter.jsp"/>
+	</definition>
 	
 	
 	<definition name="/management/section.page" extends=".template">
@@ -89,6 +93,7 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/management/section/sectionManagementBody.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/management/section/sectionManagementFooter.jsp"/>
 	</definition>
+	
 	<definition name="/management/questionGroup.page" extends=".template">
 		<put-attribute name="title" value="Question Group Management"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/management/questionGroup/questionGroupManagementBody.jsp"/>

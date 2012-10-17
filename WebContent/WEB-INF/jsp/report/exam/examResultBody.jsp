@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<script>
-	application.examUsedTime = ${examResultData.examUsedTime};
-</script>
 <link rel="stylesheet" href="${contextPath}/css/exam/viewResult.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
@@ -14,6 +11,13 @@
 	<div class="row-fluid">
 		<div class="span6 offset3 ">
 			<div class="well">
+				<dl class="dl-horizontal">
+				  <dt>ประเภท : </dt>
+				  <dd>
+					<c:if test="${examResultData.exam.isCalScore}" >สอบจริง</c:if>
+					<c:if test="${not examResultData.exam.isCalScore}" >ทดลองสอบ</c:if>
+				  </dd>
+				</dl>
 				<dl class="dl-horizontal">
 				  <dt>วิชา : </dt>
 				  <dd>${examResultData.exam.course.courseCode}</dd>
@@ -47,17 +51,22 @@
 				  <dd>${examResultData.examCompleteDate}</dd>
 				</dl>
 				<dl class="dl-horizontal">
+				  <fmt:parseDate var="examUseTime" value="2010-01-01 00:00:00" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
+				  <c:set target="${examUseTime}" property="time" value="${examUseTime.time + examResultData.examUsedTime*1000}" />
 				  <dt>ใช้เวลาทำข้อสอบ : </dt>
-				  <dd id="examUsedTime"> 
-				  </dd>
+				  <dd id="examUsedTime"><fmt:formatDate value="${examUseTime}" pattern="HH:mm:ss"/></dd>
 				</dl>
 				<dl class="dl-horizontal">
 				  <dt>จำนวนข้อสอบ : </dt>
 				  <dd>${examResultData.numOfQuestion} ข้อ</dd>
 				</dl>
 				<dl class="dl-horizontal">
-				  <dt> ตอบถูก : </dt>
-				  <dd> ${examResultData.examScore} ข้อ </dd>
+				  <dt>คะแนนเต็ม : </dt>
+				  <dd>${examResultData.exam.maxScore} คะแนน</dd>
+				</dl>
+				<dl class="dl-horizontal">
+				  <dt>ได้คะแนน : </dt>
+				  <dd>${examResultData.examScore} คะแนน</dd>
 				</dl>
 			</div>
 		</div>

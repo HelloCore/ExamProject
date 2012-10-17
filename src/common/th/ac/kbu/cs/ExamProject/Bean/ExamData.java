@@ -2,7 +2,7 @@ package th.ac.kbu.cs.ExamProject.Bean;
 
 public class ExamData {
 	private Long examId;
-	private Double examScore;
+	private Float maxScore;
 	private String examHeader;
 	public Long getExamId() {
 		return examId;
@@ -10,11 +10,11 @@ public class ExamData {
 	public void setExamId(Long examId) {
 		this.examId = examId;
 	}
-	public Double getExamScore() {
-		return examScore;
+	public Float getMaxScore() {
+		return maxScore;
 	}
-	public void setExamScore(Double examScore) {
-		this.examScore = examScore;
+	public void setMaxScore(Float maxScore) {
+		this.maxScore = maxScore;
 	}
 	public String getExamHeader() {
 		return examHeader;

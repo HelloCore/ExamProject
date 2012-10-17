@@ -18,6 +18,15 @@
 		<div class="detail-holder">
 			<div class="form-horizontal well" >
 				<div class="control-group">
+    				<label class="control-label">ประเภท</label>
+    				<div class="controls">
+      					<span class="input-large uneditable-input">
+							<c:if test="${examDetail.isCalScore}" >สอบจริง</c:if>
+							<c:if test="${not examDetail.isCalScore}" >ทดลองสอบ</c:if>
+						</span>
+    				</div>
+  				</div>
+				<div class="control-group">
     				<label class="control-label">วิชา</label>
     				<div class="controls">
       					<span class="input-large uneditable-input">${examDetail.course.courseCode}</span>
@@ -60,6 +69,12 @@
     				</div>
   				</div>
 				<div class="control-group">
+    				<label class="control-label">คะแนนเต็ม</label>
+    				<div class="controls">
+      					<span class="input-large uneditable-input">${examDetail.maxScore}</span>
+    				</div>
+  				</div>
+				<div class="control-group">
     				<label class="control-label">สอบได้</label>
     				<div class="controls">
       					<span class="input-large uneditable-input">${examDetail.examLimit} ครั้ง</span>
@@ -77,7 +92,7 @@
 					<th class="sort-both sortable" id="examCountHeader">ครั้งที่ <i></i></th>
 					<th class="sort-both sortable" id="examCompleteDateHeader">ส่งเมื่อ <i></i></th>
 					<th class="sort-both sortable" id="examUsedTimeHeader">ใช้เวลา <i></i></th>
-					<th class="sort-both sortable" id="maxQuestionHeader">ตอบถูก <i></i></th>
+					<th class="sort-both sortable" id="examScoreHeader">ได้คะแนน <i></i></th>
 					<th></th>
 				</tr>
 			</thead>

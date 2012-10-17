@@ -52,8 +52,31 @@ public class Exam implements Serializable{
 	@Column(name = "EXAM_SEQUENCE")
 	private Boolean examSequence;
 	
+	@Column(name = "IS_CAL_SCORE")
+	private Boolean isCalScore;
+
+	@Column(name = "MAX_SCORE")
+	private Float maxScore;
+	
 	@Column(name = "FLAG")
 	private Boolean flag;
+	
+
+	public Boolean getIsCalScore() {
+		return isCalScore;
+	}
+
+	public void setIsCalScore(Boolean isCalScore) {
+		this.isCalScore = isCalScore;
+	}
+
+	public Float getMaxScore() {
+		return maxScore;
+	}
+
+	public void setMaxScore(Float maxScore) {
+		this.maxScore = maxScore;
+	}
 
 	public Long getExamId() {
 		return examId;

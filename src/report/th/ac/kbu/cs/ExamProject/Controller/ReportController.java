@@ -27,7 +27,6 @@ import th.ac.kbu.cs.ExamProject.Domain.ResultExamDomain;
 import th.ac.kbu.cs.ExamProject.Domain.StudentReportCoreGridManager;
 import th.ac.kbu.cs.ExamProject.Domain.StudentReportDomain;
 import th.ac.kbu.cs.ExamProject.Domain.TaskDomain;
-import th.ac.kbu.cs.ExamProject.Entity.AssignmentTask;
 import th.ac.kbu.cs.ExamProject.Exception.CoreException;
 import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 

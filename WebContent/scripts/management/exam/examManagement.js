@@ -42,7 +42,7 @@ examManagement.getGrid = function(){
 		},
 		dataType: 'json',
 		success: function(data,status){
-			var strHtml,startDateStr,endDateStr;
+			var strHtml,startDateStr,endDateStr,examTypeStr;
 			for(keyArray in data.records){
 				if(data.records[keyArray].startDate == null){
 					startDateStr = "ไม่กำหนด";
@@ -54,7 +54,11 @@ examManagement.getGrid = function(){
 				}else{
 					endDateStr = Globalize.format(new Date(data.records[keyArray].endDate),'dd-MM-yyyy HH:mm');
 				}
-				
+				if(data.records[keyArray].isCalScore){
+					examTypeStr='สอบจริง';
+				}else{
+					examTypeStr='ทดลองสอบ';
+				}
 				strHtml = '<table class="table table-bordered exam-table pagination-centered">'
 								+'<tr>'
 									+'<td colspan="3">หัวข้อ : '+data.records[keyArray].examHeader+'</td>'
@@ -62,13 +66,18 @@ examManagement.getGrid = function(){
 								+'<tr>'
 									+'<td class="sub-column1">วิชา : '+data.records[keyArray].courseCode+'</td>'
 									+'<td class="sub-column2">วันเริ่มสอบ : '+startDateStr+'</td>'
+									+'<td class="sub-column3">ประเภทการสอบ : '+examTypeStr+'</td>'
+								+'</tr>'
+								+'<tr>'
+									+'<td class="sub-column1">จำนวนคำถาม : '+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
+									+'<td class="sub-column2">วันหมดเขตสอบ : '+endDateStr+'</td>'
 									+'<td class="sub-column3">'
 										+'<button class="btn btn-info btn-block" onClick="viewExam('+data.records[keyArray].examId+')"><i class="icon-edit icon-white"></i> View</button> '
 									+'</td>'
 								+'</tr>'
 								+'<tr>'
-									+'<td class="sub-column1">จำนวนคำถาม : '+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
-									+'<td class="sub-column2">วันหมดเขตสอบ : '+endDateStr+'</td>'
+									+'<td class="sub-column1">คะแนนเต็ม : '+data.records[keyArray].maxScore+' คะแนน</td>'
+									+'<td class="sub-column2">จำกัดการสอบ : '+data.records[keyArray].examLimit+' ครั้ง</td>'
 									+'<td class="sub-column3">'
 										+'<button class="btn btn-danger btn-block" onClick="deleteExam('+data.records[keyArray].examId+')"><i class="icon-trash icon-white"></i> Delete</button>'
 									+'</td>'

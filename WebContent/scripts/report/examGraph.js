@@ -5,7 +5,7 @@ examScore.drawGraph = function(){
 	$("#mainLoader").show();
 	
 	var data = new google.visualization.DataTable();
-	data.addColumn('number', 'Score (%)');
+	data.addColumn('number', 'Score (point)');
 	for(keyArray in application.sectionData){
 		  data.addColumn('number', 'Section ['+application.sectionData[keyArray].sectionName+'] เทอม ['+application.sectionData[keyArray].sectionSemester+'/'+application.sectionData[keyArray].sectionYear+']');
 		  data.addColumn({type:'string', role:'tooltip'});
@@ -15,7 +15,7 @@ examScore.drawGraph = function(){
 	var chart = new google.visualization.ScatterChart($("#mainDiv")[0]);
 	chart.draw(data,{
         vAxis: {title: 'เวลา (วินาที)'},
-        hAxis: {title: 'ตอบถูก (%)'},
+        hAxis: {title: 'ได้คะแนน (คะแนน)'},
 	});
 	$("html").unblock();
 };

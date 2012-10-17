@@ -75,13 +75,12 @@ customReport.loadData = function(){
 				}
 				strHtml = '<li>'
 								+'<label for="exam'+data[keyArray].examId+'" style="display:inline-block;">'
-									+'<input type="checkbox" id="exam'+data[keyArray].examId+'" name="examId[]" value="'+data[keyArray].examId+'" title="'+data[keyArray].examHeader+'">&nbsp;&nbsp;'
+									+'<input type="checkbox" id="exam'+data[keyArray].examId+'" name="examId[]" value="'+data[keyArray].examId+'" title="'+data[keyArray].examHeader+'" maxScore="'+data[keyArray].maxScore+'">&nbsp;&nbsp;'
 									+data[keyArray].examHeader
 									+' เริ่มสอบ '+startDateStr
 									+' หมดเขตสอบ '+endDateStr
+									+' คะแนนเต็ม '+data[keyArray].maxScore+'คะแนน'
 								+' </label>'
-								+'&nbsp;คะแนนสอบ&nbsp;<input type="text" class="input-mini exam-score" id="examScore'+data[keyArray].examId
-								+'" rel="tooltip" data-placement="top" title="คะแนนสอบ (0-100 คะแนน)">'
 							+'</li>';
 				$("#examChoice").append(strHtml);
 			}
@@ -151,19 +150,6 @@ customReport.validateData = function(){
 	if( examIdLength+assignmentIdLength  ==0){
 		applicationScript.errorAlertWithStringTH("กรุณาเลือกการสอบ หรือ assignment อย่างน้อย 1 อย่าง");
 		isValid = false;
-	}else if(examIdLength > 0){
-		var tempVal;
-		$('input[name^=examId]:checked').each(function(){
-			tempVal = $("#examScore"+$(this).val()).val();
-			if(tempVal.length == 0){
-				isValid = false;
-				applicationScript.errorAlertWithStringTH("กรุณากรอกคะแนนของการสอบที่เลือก");
-			}else if (parseInt(tempVal,10) <= 0 || parseInt(tempVal,10) > 100){
-				isValid = false;
-				applicationScript.errorAlertWithStringTH("คะแนนสอบต้องเป็น 0 ถึง 100 คะแนน");
-			}
-			return isValid;
-		});
 	}
 	return isValid;
 };
@@ -174,12 +160,10 @@ customReport.calDataAndSubmit = function(){
 		assignmentIdLength = $('input[name^=assignmentId]:checked').length;
 		if(examIdLength > 0){
 			examData = [];
-			var tempVal;
 			$('input[name^=examId]:checked').each(function(){
-				tempVal = $("#examScore"+$(this).val()).val();
 				examData[examData.length] = {
 					examId : parseInt($(this).val(),10),
-					examScore : parseFloat(tempVal),
+					maxScore : $(this).attr('maxScore'),
 					examHeader : $(this).attr('title')
 				};
 			});

@@ -1,5 +1,6 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -36,6 +37,9 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 		projectionList.add(Projections.property("exam.minQuestion"),"minQuestion");
 		projectionList.add(Projections.property("exam.maxQuestion"),"maxQuestion");
 		projectionList.add(Projections.property("course.courseCode"),"courseCode");
+		projectionList.add(Projections.property("exam.isCalScore"),"isCalScore");
+		projectionList.add(Projections.property("exam.maxScore"),"maxScore");
+		projectionList.add(Projections.property("exam.examLimit"),"examLimit");
 		
 	}
 
@@ -70,8 +74,11 @@ public class ExamCoreGridManager extends CoreGridManager<ExamDomain> {
 		if(BeanUtils.isNotEmpty(domain.getExamHeader())){
 			criteria.add(Restrictions.ilike("exam.examHeader", domain.getExamHeader(),MatchMode.ANYWHERE));
 		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.HOUR, -24);
+		System.out.print(calendar.getTime().toString());
 		criteria.add(Restrictions.or(
-					Restrictions.ge("exam.endDate", new Date())
+					Restrictions.ge("exam.endDate", calendar.getTime())
 					,Restrictions.isNull("exam.endDate")));
 		criteria.add(Restrictions.eq("exam.flag", true));
 	}

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 import th.ac.kbu.cs.ExamProject.Entity.Exam;
 import th.ac.kbu.cs.ExamProject.Entity.ExamQuestionGroup;
 import th.ac.kbu.cs.ExamProject.Entity.ExamSection;
+import th.ac.kbu.cs.ExamProject.Exception.CoreException;
+import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.ExamService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
@@ -24,14 +26,15 @@ public class AddExamDomain extends AddExamPrototype {
 	private ExamService examService;
 	
 	private List<ExamSection> createExamSectionList(String sectionData){
-		ObjectMapper mapper = new ObjectMapper();
 		List<ExamSection> results = null;
-
-		if(BeanUtils.isNotEmpty(sectionData)){
-			try{
-				results = mapper.readValue(sectionData, new TypeReference<ArrayList<ExamSection>>(){});
-			}catch(Exception e){
-				e.printStackTrace();
+		if (this.getIsCalScore()){
+			ObjectMapper mapper = new ObjectMapper();
+			if(BeanUtils.isNotEmpty(sectionData)){
+				try{
+					results = mapper.readValue(sectionData, new TypeReference<ArrayList<ExamSection>>(){});
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 		}
 		return results;
@@ -76,11 +79,37 @@ public class AddExamDomain extends AddExamPrototype {
 		if(BeanUtils.isNotEmpty(this.getExamSequence())){
 			exam.setExamSequence(this.getExamSequence());
 		}
+		if(BeanUtils.isNotEmpty(this.getIsCalScore())){
+			exam.setIsCalScore(this.getIsCalScore());
+		}
+		if(BeanUtils.isNotEmpty(this.getMaxScore())){
+			exam.setMaxScore(this.getMaxScore());
+		}
 		exam.setFlag(true);
 		return exam;
 	}
 	
+	private void validateParameter(){
+		if(BeanUtils.isEmpty(this.getExamHeader())
+				|| BeanUtils.isEmpty(this.getCourseId())
+				|| BeanUtils.isEmpty(this.getMinQuestion())
+				|| BeanUtils.isEmpty(this.getMaxQuestion())
+				|| BeanUtils.isEmpty(this.getExamLimit())
+				|| BeanUtils.isNull(this.getExamSequence())
+				|| BeanUtils.isNull(this.getIsCalScore())
+				|| BeanUtils.isEmpty(this.getMaxScore())
+				|| BeanUtils.isEmpty(this.getQuestionGroupData())){
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
+		}
+		if (this.getIsCalScore()){
+			if(BeanUtils.isEmpty(this.getSectionData())){
+				throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
+			}
+		}
+	}
+	
 	public void addExam() throws ParseException{
+		this.validateParameter();
 		examService.addExam(this.toEntiy(), createExamSectionList(this.getSectionData()), createExamQuestionGroupList(this.getQuestionGroupData()));
 	}
 }

@@ -12,6 +12,22 @@ public class AddExamPrototype {
 	private String sectionData;
 	private String questionGroupData;
 	private Boolean examSequence;
+	private Boolean isCalScore;
+	private Float maxScore;
+	
+	
+	public Boolean getIsCalScore() {
+		return isCalScore;
+	}
+	public void setIsCalScore(Boolean isCalScore) {
+		this.isCalScore = isCalScore;
+	}
+	public Float getMaxScore() {
+		return maxScore;
+	}
+	public void setMaxScore(Float maxScore) {
+		this.maxScore = maxScore;
+	}
 	public String getExamHeader() {
 		return examHeader;
 	}

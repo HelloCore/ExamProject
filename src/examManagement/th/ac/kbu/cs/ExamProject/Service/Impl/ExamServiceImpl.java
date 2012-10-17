@@ -50,7 +50,9 @@ public class ExamServiceImpl implements ExamService{
 	@Transactional(rollbackFor=Exception.class)
 	public void addExam(Exam exam, List<ExamSection> examSections,List<ExamQuestionGroup> examQuestionGroups) {
 		Long examId = (Long) this.saveExam(exam);
-		this.saveExamSection(examId, examSections);
+		if(exam.getIsCalScore()){
+			this.saveExamSection(examId, examSections);
+		}
 		this.saveExamQuestionGroup(examId, examQuestionGroups);
 	}
 

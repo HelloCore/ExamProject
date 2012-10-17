@@ -42,7 +42,7 @@ examReport.getGrid = function(){
 		dataType: 'json',
 		success: function(data,status){
 			$("#examTable tbody").empty();
-			var strHtml,startDateStr,endDateStr;
+			var strHtml,startDateStr,endDateStr,examTypeStr;
 			for(keyArray in data.records){
 				if(data.records[keyArray].startDate == null){
 					startDateStr = "ไม่กำหนด";
@@ -54,12 +54,20 @@ examReport.getGrid = function(){
 				}else{
 					endDateStr = Globalize.format(new Date(data.records[keyArray].endDate),'dd-MM-yyyy HH:mm');
 				}
+
+				if(data.records[keyArray].isCalScore){
+					examTypeStr='สอบจริง';
+				}else{
+					examTypeStr='ทดลองสอบ';
+				}
 				strHtml = '<tr>'
+							+'<td>'+examTypeStr+'</td>'
 							+'<td>'+data.records[keyArray].courseCode+'</td>'
 							+'<td>'+data.records[keyArray].examHeader+'</td>'
 							+'<td>'+startDateStr+'</td>'
 							+'<td>'+endDateStr+'</td>'
-							+'<td>'+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
+							+'<td style="text-align:right">'+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
+							+'<td style="text-align:right">'+data.records[keyArray].maxScore+' คะแนน</td>'
 							+'<td><button class="btn btn-success" onclick="viewExamReport('+data.records[keyArray].examId+')"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button> '
 							+' <button class="btn btn-info" onclick="viewExamGraph('+data.records[keyArray].examId+')"><i class=" icon-eye-open icon-white"></i> ดูกราฟ</button></td>'
 						+'</tr>';

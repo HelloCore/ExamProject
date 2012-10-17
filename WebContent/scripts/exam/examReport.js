@@ -33,7 +33,8 @@ examReport.getGrid = function(){
 								+ '<td style="text-align:right;">'+data.records[keyArray].examCount+'</td>'
 								+ '<td style="text-align:right;">'+data.records[keyArray].numOfQuestion+' ข้อ</td>'
 								+ '<td style="text-align:right;">'+usedTimeStr+'</td>'
-								+ '<td style="text-align:right;">'+data.records[keyArray].examScore+' ข้อ</td>'
+								+ '<td style="text-align:right;">'+data.records[keyArray].maxScore+' คะแนน</td>'
+								+ '<td style="text-align:right;">'+data.records[keyArray].examScore+' คะแนน</td>'
 							+'</tr>';
 				$("#examReportGrid tbody").append(strHtml);
 			}

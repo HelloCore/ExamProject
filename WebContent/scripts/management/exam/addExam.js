@@ -75,6 +75,10 @@ addExam.validateTab1 = function(){
 	if(!addExam.validateNumQuestion()){
 		validatePass = validatePass && false;
 	}
+	if(!addExam.validateMaxScore()){
+		validatePass = validatePass && false;
+	}
+
 	if(!addExam.validateExamLimit()){
 		validatePass = validatePass && false;
 	}
@@ -119,7 +123,6 @@ addExam.globalCalDate = function(dateStr,timeStr){
 	var dateTimeStr = dateStr+' '+timeStr;
 	return Globalize.parseDate( dateTimeStr, "dd/MM/yyyy HH:mm");
 };
-
 addExam.validateDate = function(){
 	$("#startDateGroup").removeClass('success').removeClass('error');
 	$("#endDateGroup").removeClass('success').removeClass('error');
@@ -156,6 +159,11 @@ addExam.validateNumQuestion = function(){
 	var haveError = false;
 	$("#numQuestionGroup").removeClass("success").removeClass("error");
 	$("#numQuestionError").remove();
+	
+	if($("#isCalScore option:selected").val() == "1"){
+		$("#maxQuestion").val($("#minQuestion").val());
+	}
+	
 	if($("#minQuestion").val().length ==0 || $("#maxQuestion").val().length ==0){
 		$("#numQuestionGroup").addClass("error");
 		$('<label class="generate-label error" id="numQuestionError">กรุณากรอกจำนวนข้อสอบ</label>').insertAfter('#maxQuestion');
@@ -166,6 +174,25 @@ addExam.validateNumQuestion = function(){
 		haveError = true;
 	}else{
 		$("#numQuestionGroup").addClass("success");
+	}
+	return !haveError;
+};
+
+addExam.validateMaxScore = function(){
+	var haveError = false,maxScore = $("#maxScore");
+	$("#maxScoreGroup").removeClass("success").removeClass("error");
+	$("#maxScoreError").remove();
+	
+	if(!maxScore.val()){
+		$("#maxScoreGroup").addClass("error");
+		$('<label class="generate-label error" id="maxScoreError">กรุณากำหนดคะแนนเต็ม</label>').insertAfter('#maxScore');
+		haveError = true;
+	}else if (parseFloat(maxScore.val())<1 || parseFloat(maxScore.val()) > 10000){
+		$("#maxScoreGroup").addClass("error");
+		$('<label class="generate-label error" id="maxScoreError">คะแนนเต็มต้องอยู่ระหว่าง  1 ถึง 10000</label>').insertAfter('#maxScore');
+		haveError = true;
+	}else{
+		$("#maxScoreGroup").addClass("success");
 	}
 	return !haveError;
 };
@@ -207,12 +234,14 @@ addExam.validateSectionId = function(){
 	var haveError = false;
 	$("#sectionGroup").removeClass("success").removeClass("error");
 	$("#sectionError").remove();
-	if(!$("#sectionId").val()){
-		$("#sectionGroup").addClass("error");
-		$('<label class="generate-label error" id="sectionError">กรุณา Section ที่มีสิทธิ์สอบ</label>').insertAfter('#sectionId_chzn');
-		haveError = true;
-	}else{
-		$("#sectionGroup").addClass("success");
+	if(addExam.isCalScore == 1){
+		if(!$("#sectionId").val()){
+			$("#sectionGroup").addClass("error");
+			$('<label class="generate-label error" id="sectionError">กรุณา Section ที่มีสิทธิ์สอบ</label>').insertAfter('#sectionId_chzn');
+			haveError = true;
+		}else{
+			$("#sectionGroup").addClass("success");
+		}
 	}
 	return !haveError;
 };
@@ -257,97 +286,6 @@ addExam.validateSecondPerQuestion = function(){
 	return !haveError;
 };
 
-$(document).ready(function(){
-	addExam.initFunction();
-	$("#tab1NextButton").click(function(){
-		if(addExam.validateTab1()){
-			addExam.examHeader = $("#examHeader").val();
-			addExam.courseId = $("#courseId").val();
-			addExam.courseCode = $("#courseId option:selected").text();
-			if(!$("#useStartDate").is(":checked")){
-				addExam.startDate = '';
-			}
-			if(!$("#useEndDate").is(":checked")){
-				addExam.endDate = '';
-			}
-			addExam.minQuestion = $("#minQuestion").val();
-			addExam.maxQuestion = $("#maxQuestion").val();
-			addExam.examLimit = $("#examLimit").val();
-			$("#tab1").hide();
-			$("#tab2").show();
-			addExam.tab2Data();
-		}
-	});
-	$("#tab2BackButton").click(function(){
-		$("#tab2").hide();
-		$("#tab1").show();
-	});
-	$("#tab2NextButton").click(function(){
-		if(addExam.validateTab2()){
-			addExam.questionGroupId = $("#questionGroupId").val();
-			addExam.sectionId = $("#sectionId").val();
-			addExam.sectionData = [];
-			var newNumber =0;
-			$.each(addExam.sectionId,function(index,value){
-				addExam.sectionData[newNumber] = {};
-				addExam.sectionData[newNumber].sectionId = value;
-				newNumber ++;
-			});
-			$("#tab2").hide();
-			$("#tab3").show();
-			addExam.tab3Data();
-		}
-	});
-	$("#tab3BackButton").click(function(){
-		$("#tab3").hide();
-		$("#tab2").show();
-	});
-	$("#tab3NextButton").click(function(){
-		if(addExam.validateTab3()){
-			addExam.questionGroupData = [];
-			var numCount =0,questionGroupId;
-			$('.input-percent').each(function(){
-				questionGroupId = $(this).attr('questionGroupId');
-				addExam.questionGroupData[numCount] = {};
-				addExam.questionGroupData[numCount].questionGroupId = questionGroupId;
-				addExam.questionGroupData[numCount].questionGroupName = $(this).attr('questionGroupName');
-				addExam.questionGroupData[numCount].questionPercent = $(this).val();
-				addExam.questionGroupData[numCount].secondPerQuestion = $('#question-group-'+questionGroupId+'-second').val();
-				addExam.questionGroupData[numCount].ordinal = (numCount+1);
-				numCount++;
-			});
-			addExam.examSequence = $("input[name=examSequence]:checked").val();
-
-			addExam.tab4Data();
-			$("#tab3").hide();
-			$("#tab4").show();
-		}
-	});
-	$("#tab4BackButton").click(function(){
-		$("#tab4").hide();
-		$("#tab3").show();
-	});
-	$("#tab4NextButton").click(function(){
-		$(this).button('loading');
-		$("#tab4BackButton").button('loading');
-		addExam.sendData();
-	});
-	
-	$( "#questionGroupSort" ).sortable({
-		placeholder: "placeholder"
-	}).disableSelection();
-	$("#examHeader").keyup(function(){addExam.validateExamHeader();});
-	$(".date-check").change(function(){addExam.validateDate();});
-	$("#startDate").on('changeDate',function(){addExam.validateDate();});
-	$("#endDate").on('changeDate',function(){addExam.validateDate();});
-	$(".num-question").numeric().keyup(function(){addExam.validateNumQuestion();});
-	$("#examLimitGroup").numeric().keyup(function(){addExam.validateExamLimit();});
-	$("#questionGroupId").chosen().change(function(){addExam.validateQuestionGroup();});
-	$("#sectionId").chosen().change(function(){addExam.validateSectionId();});
-	
-	$("#orderHolder").on('keyup','#questionGroupSort li .input-percent',function(){ addExam.validateQuestionPercent(); })
-		.on('keyup','#questionGroupSort li .question-group-second',function(){ addExam.validateSecondPerQuestion(); });
-});
 
 addExam.tab2Data = function(){
 	$("#sectionId_chzn").block(application.blockOption);
@@ -422,6 +360,9 @@ addExam.tab4Data = function(){
 	}else{
 		$("#endDateConfirm").text(Globalize.format(new Date(addExam.endDate),'dd-MM-yyyy HH:mm'));
 	}
+	
+
+	$("#maxScoreConfirm").text(addExam.maxScore+' คะแนน');
 	$("#rangeQuestionConfirm").text(addExam.minQuestion + ' ถึง ' + addExam.maxQuestion+ ' ข้อ');
 	$("#examLimitConfirm").text(addExam.examLimit);
 	if(addExam.examSequence == 0){
@@ -434,17 +375,25 @@ addExam.tab4Data = function(){
 		$(".question-group-table tbody").append('<tr><td>'+value.ordinal+'</td><td>'+value.questionGroupName+'</td><td>'+value.questionPercent+'</td><td>'+value.secondPerQuestion+'</td></tr>');
 	});
 
-	$(".section-table tbody").empty();
-	var sectionOption;
-	$.each(addExam.sectionId,function(index,value){
-		sectionOption = $('#sectionId option[value='+value+']');
-		
-		$(".section-table tbody").append('<tr>'
-										+'<td>'+sectionOption.attr('sectionSemester')+'</td>'
-										+'<td>'+sectionOption.attr('sectionYear')+'</td>'
-										+'<td>'+sectionOption.attr('sectionName')+'</td>'
-									+'</tr>');
-	});
+
+	if(addExam.isCalScore == 0){
+		$("#sectionDiv").hide();
+		$("#isCalScoreConfirm").text("ทดลองสอบ");
+	}else{
+		$("#isCalScoreConfirm").text("สอบจริง");
+		$("#sectionDiv").show();
+		$(".section-table tbody").empty();
+		var sectionOption;
+		$.each(addExam.sectionId,function(index,value){
+			sectionOption = $('#sectionId option[value='+value+']');
+			
+			$(".section-table tbody").append('<tr>'
+											+'<td>'+sectionOption.attr('sectionSemester')+'</td>'
+											+'<td>'+sectionOption.attr('sectionYear')+'</td>'
+											+'<td>'+sectionOption.attr('sectionName')+'</td>'
+										+'</tr>');
+		});
+	}
 };
 
 addExam.convertQuestionGroupData = function(questionGroupData){
@@ -475,7 +424,13 @@ addExam.sendData = function(){
 	parameter.minQuestion = addExam.minQuestion;
 	parameter.maxQuestion = addExam.maxQuestion;
 	parameter.examLimit = addExam.examLimit;
-	parameter.sectionData = JSON.stringify(addExam.sectionData);
+	parameter.isCalScore = addExam.isCalScore;
+	parameter.maxScore = addExam.maxScore;
+	if(addExam.isCalScore==0){
+		parameter.sectionData = '';
+	}else{
+		parameter.sectionData = JSON.stringify(addExam.sectionData);
+	}
 	parameter.questionGroupData = JSON.stringify(addExam.convertQuestionGroupData(addExam.questionGroupData));
 	parameter.examSequence = addExam.examSequence;
 	
@@ -499,3 +454,123 @@ addExam.sendData = function(){
 		}
 	});
 };
+
+$(document).ready(function(){
+	addExam.initFunction();
+	$("#tab1NextButton").click(function(){
+		if(addExam.validateTab1()){
+			addExam.examHeader = $("#examHeader").val();
+			addExam.courseId = $("#courseId").val();
+			addExam.courseCode = $("#courseId option:selected").text();
+			if(!$("#useStartDate").is(":checked")){
+				addExam.startDate = '';
+			}
+			if(!$("#useEndDate").is(":checked")){
+				addExam.endDate = '';
+			}
+			addExam.minQuestion = $("#minQuestion").val();
+			addExam.maxQuestion = $("#maxQuestion").val();
+			addExam.examLimit = $("#examLimit").val();
+			addExam.maxScore = $("#maxScore").val();
+			addExam.isCalScore = $("#isCalScore").val();
+			if(addExam.isCalScore == 0){
+				$("#sectionId").attr('disabled',true);
+			}else{
+				$("#sectionId").attr('disabled',false);
+			}
+			
+			$("#tab1").hide();
+			$("#tab2").show();
+			addExam.tab2Data();
+		}
+	});
+	$("#tab2BackButton").click(function(){
+		$("#tab2").hide();
+		$("#tab1").show();
+	});
+	$("#tab2NextButton").click(function(){
+		if(addExam.validateTab2()){
+			addExam.questionGroupId = $("#questionGroupId").val();
+			if(addExam.isCalScore == 0){
+				addExam.sectionId = null;
+				addExam.sectionData = null;
+			}else{
+				addExam.sectionId = $("#sectionId").val();
+				addExam.sectionData = [];
+				var newNumber =0;
+				$.each(addExam.sectionId,function(index,value){
+					addExam.sectionData[newNumber] = {};
+					addExam.sectionData[newNumber].sectionId = value;
+					newNumber ++;
+				});
+			}
+			$("#tab2").hide();
+			$("#tab3").show();
+			addExam.tab3Data();
+		}
+	});
+	$("#tab3BackButton").click(function(){
+		$("#tab3").hide();
+		$("#tab2").show();
+	});
+	$("#tab3NextButton").click(function(){
+		if(addExam.validateTab3()){
+			addExam.questionGroupData = [];
+			var numCount =0,questionGroupId;
+			$('.input-percent').each(function(){
+				questionGroupId = $(this).attr('questionGroupId');
+				addExam.questionGroupData[numCount] = {};
+				addExam.questionGroupData[numCount].questionGroupId = questionGroupId;
+				addExam.questionGroupData[numCount].questionGroupName = $(this).attr('questionGroupName');
+				addExam.questionGroupData[numCount].questionPercent = $(this).val();
+				addExam.questionGroupData[numCount].secondPerQuestion = $('#question-group-'+questionGroupId+'-second').val();
+				addExam.questionGroupData[numCount].ordinal = (numCount+1);
+				numCount++;
+			});
+			addExam.examSequence = $("input[name=examSequence]:checked").val();
+
+			addExam.tab4Data();
+			$("#tab3").hide();
+			$("#tab4").show();
+		}
+	});
+	$("#tab4BackButton").click(function(){
+		$("#tab4").hide();
+		$("#tab3").show();
+	});
+	$("#tab4NextButton").click(function(){
+		$(this).button('loading');
+		$("#tab4BackButton").button('loading');
+		addExam.sendData();
+	});
+	
+	$( "#questionGroupSort" ).sortable({
+		placeholder: "placeholder"
+	}).disableSelection();
+	$("#examHeader").keyup(function(){addExam.validateExamHeader();});
+	$(".date-check").change(function(){addExam.validateDate();});
+	$("#startDate").on('changeDate',function(){addExam.validateDate();});
+	$("#endDate").on('changeDate',function(){addExam.validateDate();});
+	$(".num-question").numeric().keyup(function(){addExam.validateNumQuestion();});
+	$("#maxScore").numeric({ negative: false }).keyup(function(){addExam.validateMaxScore();});
+	$("#examLimitGroup").numeric({ decimal: false,negative: false }).keyup(function(){addExam.validateExamLimit();});
+	$("#questionGroupId").chosen().change(function(){addExam.validateQuestionGroup();});
+	$("#sectionId").chosen().change(function(){addExam.validateSectionId();});
+	$("#isCalScore").change(function(){
+		if($(this).val() == 0){
+			$("#maxQuestion").attr('disabled',false);
+			$('#maxQuestion').tooltip('destroy');
+		}else{
+			$("#maxQuestion").attr('disabled',true);
+			$("#maxQuestion").val($("#minQuestion").val());
+			$('#maxQuestion').tooltip({
+				title:'หากเป็นการสอบจริง จำนวนข้อสอบต้องให้อาจารย์กำหนด',
+				trigger: 'hover'
+			});
+			
+			addExam.validateNumQuestion();
+		}
+	});
+	$("#orderHolder").on('keyup','#questionGroupSort li .input-percent',function(){ addExam.validateQuestionPercent(); })
+		.on('keyup','#questionGroupSort li .question-group-second',function(){ addExam.validateSecondPerQuestion(); });
+});

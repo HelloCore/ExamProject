@@ -118,6 +118,10 @@
 									</ul>
 								</li>
 				            </sec:authorize>
+				            <sec:authorize access="hasRole('ROLE_ADMIN')">
+				            	<li class="courseManagement"><a href="${contextPath}/management/course.html">จัดการข้อมูลวิชา</a></li>
+				            	<li class="addTeacher"><a href="${contextPath}/member/addTeacher.html">ลงทะเบียนอาจารย์</a></li>
+				            </sec:authorize>
 				            <sec:authorize access="hasRole('ROLE_TEACHER')">
 								<li class="dropdown genericManagement">
 								    <a href="#"

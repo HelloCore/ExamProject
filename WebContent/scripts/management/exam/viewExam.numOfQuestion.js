@@ -16,6 +16,9 @@ viewExam.numOfQuestion.checkDirty = function(){
 
 viewExam.numOfQuestion.validateNumOfQuestion = function(){
 	var haveError = false;
+	if(application.exam.isCalScore){
+		$("#maxQuestion").val($("#minQuestion").val());
+	}
 	viewExam.numOfQuestion.minQuestion = parseInt($("#minQuestion").val(),10);
 	viewExam.numOfQuestion.maxQuestion = parseInt($("#maxQuestion").val(),10);
 	$("#numOfQuestionGroup").removeClass('success').removeClass('error');
@@ -57,6 +60,9 @@ viewExam.numOfQuestion.cancelEdit = function(){
 $(document).ready(function(){
 	viewExam.numOfQuestion.minQuestion = application.exam.minQuestion;
 	viewExam.numOfQuestion.maxQuestion = application.exam.maxQuestion;
+	if(application.exam.isCalScore){
+		$("#maxQuestion").attr('disabled',true);
+	}
 	$("#editNumOfQuestionButton").click(function(){ viewExam.numOfQuestion.beginEdit(); });
 	$("#cancelNumOfQuestionButton").click(function(){ viewExam.numOfQuestion.cancelEdit(); });
 	$(".input-num-of-question").numeric({ decimal: false, negative: false }).keyup(function(){ viewExam.numOfQuestion.validateNumOfQuestion(); });

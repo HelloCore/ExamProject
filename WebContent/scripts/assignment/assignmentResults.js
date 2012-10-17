@@ -39,7 +39,8 @@ assignmentResult.getGrid = function(){
 				}else{
 					evaluateDate = Globalize.format(new Date(data.records[keyArray].evaluateDate),'dd-MM-yyyy HH:mm');
 					strHtml += '<td><span class="label label-success"><i class="icon-ok icon-white"></i> ตรวจแล้ว</span></td>'
-							+ '<td>'+data.records[keyArray].score+'/'+data.records[keyArray].maxScore+'</td>'
+							+ '<td>'+data.records[keyArray].score+' คะแนน</td>'
+							+ '<td>'+data.records[keyArray].maxScore+' คะแนน</td>'
 							+ '<td>'+ evaluateDate +'</td>';
 				}
 				strHtml+= '</tr>';

@@ -22,8 +22,8 @@
 					<th>ชื่อ - นามสกุล</th>
 					<c:if test="${not empty examData}">
 						<c:forEach items="${examData}" var="data">
-							<c:set var="maxScore" scope="page" value="${maxScore+data.examScore}"/>
-							<th>${data.examHeader} (${data.examScore})</th>
+							<c:set var="maxScore" scope="page" value="${maxScore+data.maxScore}"/>
+							<th>${data.examHeader} (${data.maxScore})</th>
 						</c:forEach>
 					</c:if>
 					<c:if test="${not empty assignmentData}">

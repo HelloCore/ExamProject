@@ -41,6 +41,23 @@
         			<input type="text" class="input-mini date-check" id="endTime" name="endTime" value="00:00"><i class="icon-time" style="margin: 2px 0 0 -22.5px; pointer-events: none; position: relative;" id="endTimeIcon"></i>
       			</div>
     		</div>
+			<div class="control-group" id="isCalScoreGroup">
+      			<label class="control-label" for="isCalScore">ประเภทการสอบ </label>
+      			<div class="controls">
+					<select id="isCalScore" name="isCalScore">
+						<option value="0">ทดลองสอบ</option>
+						<option value="1">สอบจริง</option>
+					</select>
+        			<span class="help-block">* แก้ไขภายหลังไม่ได้</span>
+				</div>
+    		</div>
+			<div class="control-group" id="maxScoreGroup">
+      			<label class="control-label" for="maxScore">คะแนนเต็ม</label>
+      			<div class="controls">
+        			<input type="text" class="input-mini" id="maxScore" name="maxScore">
+        			<span class="help-block">* แก้ไขภายหลังไม่ได้</span>
+      			</div>
+    		</div>
 			<div class="control-group" id="numQuestionGroup">
       			<label class="control-label" for="minQuestion">จำนวนข้อสอบ</label>
       			<div class="controls">
@@ -72,6 +89,7 @@
       			<div class="controls">
         			<select id="sectionId" name="sectionId" multiple="multiple">
         			</select>
+        			<span class="help-block">หมายเหตุ* หากเป็นการสอบประเภท ทดลองสอบ จะไม่สามารถกำหนด Section ที่มีสิทธิ์สอบได้</span>
       			</div>
     		</div>
 	   		<div class="control-button pagination-centered">
@@ -120,6 +138,18 @@
       			</div>
     		</div>
 			<div class="control-group">
+      			<label class="control-label" for="isCalScoreConfirm">ประเภทการสอบ</label>
+      			<div class="controls">
+      				<span class="input-small uneditable-input" id="isCalScoreConfirm"></span>
+      			</div>
+    		</div>
+			<div class="control-group">
+      			<label class="control-label" for="maxScoreConfirm">คะแนนเต็ม</label>
+      			<div class="controls">
+      				<span class="input-small uneditable-input" id="maxScoreConfirm"></span>
+      			</div>
+    		</div>
+			<div class="control-group">
       			<label class="control-label" for="rangeQuestionConfirm">จำนวนข้อสอบ</label>
       			<div class="controls">
       				<span class="input-small uneditable-input" id="rangeQuestionConfirm"></span>
@@ -152,7 +182,7 @@
     				</tbody>
     			</table> 
     		</div>
-    		<div class="section-div pagination-centered">
+    		<div class="section-div pagination-centered" id="sectionDiv">
     			<h2>Section ที่มีสิทธิ์สอบ</h2>
     			<table class="table table-striped table-bordered section-table">
     				<thead>

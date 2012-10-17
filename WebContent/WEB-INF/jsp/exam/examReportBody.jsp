@@ -17,7 +17,8 @@
 						<th class="sort-both sortable" id="examCountHeader">ครั้งที่ <i></i></th>
 						<th class="sort-both sortable" id="numOfQuestionHeader">จำนวน <i></i></th>
 						<th class="sort-both sortable" id="examUsedTimeHeader">ใช้เวลา <i></i></th>
-						<th class="sort-both sortable" id="examScoreHeader">ตอบถูก <i></i></th>
+						<th class="sort-both sortable" id="maxScoreHeader">คะแนนเต็ม <i></i></th>
+						<th class="sort-both sortable" id="examScoreHeader">ได้คะแนน <i></i></th>
 					</tr>
 				</thead>
 				<tbody>

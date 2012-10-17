@@ -26,28 +26,12 @@
 						<th class="sort-both sortable" id="courseCodeHeader">วิชา <i></i></th>
 						<th class="sort-both sortable" id="assignmentTaskNameHeader">หัวข้องาน <i></i></th>
 						<th class="sort-both sortable" id="statusHeader">สถานะ <i></i></th>
+						<th class="sort-both sortable" id="maxScoreHeader">คะแนนเต็ม <i></i></th>
 						<th class="sort-both sortable" id="scoreHeader">ได้คะแนน <i></i></th>
 						<th class="sort-both sortable" id="evaluateDateHeader">ตรวจเมื่อ <i></i></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-					<tr>
-						<td>12/10/2012 15:30</td>
-						<td>CS.111</td>
-						<td>ทดสอบงาน2</td>
-						<td><span class="label label-warning"><i class="icon-refresh icon-white"></i> รอตรวจ</span></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>10/10/2012 15:30</td>
-						<td>CS.111</td>
-						<td>ทดสอบงาน</td>
-						<td><span class="label label-success"><i class="icon-ok icon-white"></i> ตรวจแล้ว</span></td>
-						<td>50/100</td>
-						<td>11/10/2012 18:00</td>
-					</tr>
 				</tbody>
 			</table>
 			<div class="row-fluid">

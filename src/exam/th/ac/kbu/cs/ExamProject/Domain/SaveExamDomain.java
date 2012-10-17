@@ -101,22 +101,22 @@ public class SaveExamDomain extends DoExamPrototype {
 		doExamService.updateExamResult(examResult, examResultAnswers,isExpired,false);
 	}
 	
-	private void calScore(ExamResult examResult,Boolean isExpired){
-		if(isExpired){
-			examResult.setExamScore(0);
-		}else{
-			DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
-			criteria.createAlias("examResultAnswer.answer","answer");
-			ProjectionList projectionList = Projections.projectionList();
-			projectionList.add(Projections.rowCount());
-			criteria.setProjection(projectionList);
-			criteria.add(Restrictions.eq("examResultAnswer.examResultId", examResult.getExamResultId()));
-			criteria.add(Restrictions.ge("answer.answerScore", 1));
-			Integer score = BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
-		
-			examResult.setExamScore(score);
-		}
-	}
+//	private void calScore(ExamResult examResult,Boolean isExpired){
+//		if(isExpired){
+//			examResult.setExamScore(0F);
+//		}else{
+//			DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
+//			criteria.createAlias("examResultAnswer.answer","answer");
+//			ProjectionList projectionList = Projections.projectionList();
+//			projectionList.add(Projections.rowCount());
+//			criteria.setProjection(projectionList);
+//			criteria.add(Restrictions.eq("examResultAnswer.examResultId", examResult.getExamResultId()));
+//			criteria.add(Restrictions.ge("answer.answerScore", 1));
+//			Integer score = BeanUtils.toInteger(basicFinderService.findUniqueByCriteria(criteria));
+//		
+//			examResult.setExamScore(score);
+//		}
+//	}
 	
 	private Boolean setCompleteExam(ExamResult examResult){
 		Date nowToday = new Date();

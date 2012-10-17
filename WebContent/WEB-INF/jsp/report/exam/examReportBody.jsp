@@ -21,31 +21,17 @@
 		<table class="table  table-hover table-bordered" id="examTable">
 			<thead>
 				<tr>
+					<th class="sort-both sortable" id="isCalScoreHeader">ประเภท <i></i></th>
 					<th class="sort-both sortable" id="courseCodeHeader">วิชา <i></i></th>
 					<th class="sort-both sortable" id="examHeaderHeader">หัวข้อการสอบ <i></i></th>
 					<th class="sort-both sortable" id="startDateHeader">เริ่มสอบ <i></i></th>
 					<th class="sort-both sortable" id="endDateHeader">หมดเขตสอบ <i></i></th>
 					<th class="sort-both sortable" id="maxQuestionHeader">จำนวนคำถาม <i></i></th>
+					<th class="sort-both sortable" id="maxScoreHeader">คะแนนเต็ม <i></i></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<!-- <tr>
-					<td>CS.111</td>
-					<td>สอบกลางภาค</td>
-					<td>2012-08-21 09:00</td>
-					<td>2012-08-30 00:45</td>
-					<td>30 - 40 ข้อ</td>
-					<td><button class="btn btn-info"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button></td>
-				</tr>
-				<tr>
-					<td>CS.111</td>
-					<td>สอบปลายภาค</td>
-					<td>2012-10-15 00:00</td>
-					<td>2012-10-17 23:45</td>
-					<td>30 - 40 ข้อ</td>
-					<td><button class="btn btn-info"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button></td>
-				</tr> -->
 			</tbody>
 		</table>
 		<div class="row-fluid">

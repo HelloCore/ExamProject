@@ -49,6 +49,8 @@ public class DashboardDomain extends DashboardPrototype{
 						.append(" (SUM(answer.answerScore)*100)/COUNT(question.questionId) ")
 					.append(" FROM ")
 						.append(" ExamResultAnswer examResultAnswer ")
+					.append(" INNER JOIN examResultAnswer.examResult examResult ")
+					.append(" INNER JOIN examResult.exam exam ")
 					.append(" LEFT JOIN ")
 						.append(" examResultAnswer.answer answer ")
 					.append(" JOIN ")
@@ -57,11 +59,12 @@ public class DashboardDomain extends DashboardPrototype{
 							.append(" question.questionGroup questionGroup ")
 					.append(" WHERE ")
 							.append(" questionGroup.courseId = ? ")
+							.append(" AND exam.isCalScore = ?")
 					.append(" GROUP BY ")
 							.append(" questionGroup.questionGroupId ")
 					.append(" ORDER BY ")
 							.append(" questionGroup.questionGroupName");
-		return this.basicFinderService.find(queryString.toString(), this.getCourseId());
+		return this.basicFinderService.find(queryString.toString(), new Object[]{this.getCourseId(),true});
 	}
 	
 	public List<HashMap<String,Object>> getSectionList(){
@@ -97,14 +100,17 @@ public class DashboardDomain extends DashboardPrototype{
 					.append(" ,examResult.NUM_OF_QUESTION ")
 					.append(" ,examResult.EXAM_COUNT ")
 					.append(" ,examResult.EXAM_USED_TIME ")
-					.append(" ,((examResult.EXAM_SCORE*100)/examResult.NUM_OF_QUESTION) ")
+					.append(" ,examResult.EXAM_SCORE ")
 					.append(" ,user.USERNAME ")
 					.append(" ,user.FIRST_NAME ")
 					.append(" ,user.LAST_NAME ")
 					.append(" ,section.SECTION_NAME ")
 					.append(" ,section.SECTION_YEAR ")
 					.append(" ,section.SECTION_SEMESTER ")
+					.append(" ,exam.MAX_SCORE ")
+					
 					.append(" FROM EXAM_RESULT examResult ")
+					.append(" INNER JOIN EXAM exam ON exam.EXAM_ID = examResult.EXAM_ID ")
 					.append(" INNER JOIN USERS user ON examResult.USERNAME = user.USERNAME ")
 					.append(" INNER JOIN STUDENT_SECTION studentSection ON examResult.USERNAME = studentSection.USERNAME ")
 					.append(" INNER JOIN SECTION section ON studentSection.SECTION_ID = section.SECTION_ID ")
@@ -149,9 +155,9 @@ public class DashboardDomain extends DashboardPrototype{
 									.append(record[3].toString())
 								.append(" วินาที จำนวนคำถาม ")
 									.append(record[1].toString())
-								.append(" ข้อ ตอบถูก ")
-									.append(record[4].toString())
-								.append(" % ");
+								.append(" ข้อ ได้คะแนน ")
+									.append(record[4].toString()).append(" / ").append(record[11].toString())
+								.append(" คะแนน ");
 					strList.add(tooltipData.toString());
 				}else{
 					strList.add(null);

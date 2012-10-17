@@ -17,11 +17,11 @@ import javax.persistence.Table;
 @Table(name = "COURSE")
 public class Course implements Serializable{
 	
-	private static final long serialVersionUID = 6507058981489565024L;
+	private static final long serialVersionUID = 2933946051366541312L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "COURSE_ID")
+	@Column(name = "COURSE_ID",updatable=false)
 	private Long courseId;
 
 	@Column(name = "COURSE_CODE",length=10)
@@ -41,17 +41,17 @@ public class Course implements Serializable{
 		this.flag = flag;
 	}
 
-	@OneToMany(cascade={CascadeType.ALL})
-    @JoinColumn(name="COURSE_ID")
-	private List<Section> section;
-	
-	public List<Section> getSection() {
-		return section;
-	}
-
-	public void setSection(List<Section> section) {
-		this.section = section;
-	}
+//	@OneToMany(cascade={CascadeType.ALL})
+//    @JoinColumn(name="COURSE_ID")
+//	private List<Section> section;
+//	
+//	public List<Section> getSection() {
+//		return section;
+//	}
+//
+//	public void setSection(List<Section> section) {
+//		this.section = section;
+//	}
 
 	public Long getCourseId() {
 		return courseId;
