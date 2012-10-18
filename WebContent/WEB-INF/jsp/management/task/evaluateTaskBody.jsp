@@ -74,8 +74,8 @@
 			    	</div>
 			  	</div>
 			  	<div class="pagination-centered">
-			  		<button class="btn btn-info" id="evaluateButton"><i class="icon-edit icon-white"></i> ให้คะแนน</button>
-			  		<button class="btn" onclick="backFunction()"> Cancel</button>
+			  		<button class="btn btn-primary" id="evaluateButton"><i class="icon-pencil icon-white"></i> ให้คะแนน</button>
+			  		<button class="btn" onclick="backFunction()"> ยกเลิก</button>
 			  	</div>
 			</div>
 		</div>
@@ -84,14 +84,14 @@
 
 <div class="modal hide fade" id="evaluateTaskConfirmModal">
 	<div class="modal-header">
-		<h3>Evaluate Task ?</h3>
+		<h3>ให้คะแนนงาน ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการให้คะแนนงานใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-primary" id="evaluateTaskConfirmButton" data-loading-text="Evaluate..." ><i class="icon-pencil icon-white"></i> Evaluate</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-primary" id="evaluateTaskConfirmButton" data-loading-text="กำลังบันทึก..." ><i class="icon-pencil icon-white"></i> ให้คะแนน</a>
   	</div>
 </div>
 

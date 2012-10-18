@@ -28,8 +28,8 @@ registerHistory.getGrid = function(){
 		dataType: 'json',
 		success: function(data,status){
 			$("#registerHistoryTable tbody").empty();
-			var strHtml,labelAccept= '<span class="label label-success"><i class="icon-ok icon-white"></i> Accept</span>'
-				,labelReject = '<span class="label label-important"><i class="icon-ban-circle icon-white"></i> Reject</span>';
+			var strHtml,labelAccept= '<span class="label label-success"><i class="icon-ok icon-white"></i> อนุมัติ</span>'
+				,labelReject = '<span class="label label-important"><i class="icon-ban-circle icon-white"></i> ไม่อนุมัติ</span>';
 		for(keyArray in data.records){
 				strHtml = '<tr>'+
 							'<td>'+Globalize.format( new Date(data.records[keyArray].requestDate),"dd-MM-yyyy HH:mm:ss")+'</td>'+
@@ -49,11 +49,8 @@ registerHistory.getGrid = function(){
 				$("#registerHistoryTable tbody").append(strHtml);
 			}
 			var startRecord = (((registerHistory.rows)*(registerHistory.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords);
-			}
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
+			
 			registerHistory.lastPage = data.totalPages;
 			applicationScript.setPagination(registerHistory.page,registerHistory.lastPage);
 			$("#registerHistoryTable").unblock();

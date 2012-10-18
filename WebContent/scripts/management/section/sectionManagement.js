@@ -51,8 +51,8 @@ sectionManagement.getGrid = function(){
 		dataType: 'json',
 		success: function(data,status){
 			$("#sectionGrid tbody").empty();
-			var strHtml,labelActive = '<span class="label label-success"><i class="icon-ok icon-white"></i> Active</span>'
-					,labelInActive = '<span class="label label-important"><i class="icon-ban-circle icon-white"></i> Inactive</span>';
+			var strHtml,labelActive = '<span class="label label-success"><i class="icon-ok icon-white"></i> เปิดใช้งาน</span>'
+					,labelInActive = '<span class="label label-important"><i class="icon-ban-circle icon-white"></i> ปิดการใช้งาน</span>';
 			for(keyArray in data.records){
 				strHtml = '<tr>'+
 							'<td id="section-name-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionName+'</td>'+
@@ -67,18 +67,17 @@ sectionManagement.getGrid = function(){
 				}	
 				strHtml += '</td>'+
 							'<td>'+
-								'<button class="btn btn-info" onClick="editSection('+data.records[keyArray].sectionId+')"><i class="icon-edit icon-white"></i> Edit</button> '+
-								'<button class="btn btn-danger" onClick="deleteSection('+data.records[keyArray].sectionId+')"><i class="icon-trash icon-white"></i> Delete</button> '+
+								'<button class="btn btn-info" onClick="editSection('+data.records[keyArray].sectionId+')"><i class="icon-edit icon-white"></i> แก้ไข</button> '+
+								'<button class="btn btn-danger" onClick="deleteSection('+data.records[keyArray].sectionId+')"><i class="icon-trash icon-white"></i> ลบ</button> '+
 							'</td>'+
 							'</tr>';
 				$("#sectionGrid tbody").append(strHtml);
 			}
 			var startRecord = (((sectionManagement.rows)*(sectionManagement.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords);
-			}
+			
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
+			
+			
 			sectionManagement.lastPage = data.totalPages;
 			applicationScript.setPagination(sectionManagement.page,sectionManagement.lastPage);
 			$("#sectionGrid").unblock();
@@ -171,7 +170,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		sectionManagement.currentSection = {};
 		$("#sectionModal input:text").val('');
-		$("#sectionModal h3").text("Add Section");
+		$("#sectionModal h3").text("เพิ่ม Section");
 		$('#sectionForm').validate().resetForm();
 		$("#statusActive").attr("checked",true);
 		$('#sectionForm .control-group').removeClass('success').removeClass('error');
@@ -296,6 +295,6 @@ editSection = function(sectionId){
 	}else{
 		$("#statusActive").attr("checked",true);		
 	}
-	$("#sectionModal h3").text("Edit Section");
+	$("#sectionModal h3").text("แก้ไข Section");
 	$("#sectionModal").modal('show');
 };

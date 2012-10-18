@@ -11,7 +11,7 @@
 <div class="page-header pagination-centered" id="pageHeader">
 	<h2><font class="red-color">รายงาน</font> ผลการสอบ</h2>
 </div>
-<a href="${contextPath}/report/exam.html" class="btn" style="margin-top:-10px;"><i class=" icon-chevron-left"></i> Back</a>
+<a href="${contextPath}/report/exam.html" class="btn" style="margin-top:-10px;"><i class=" icon-chevron-left"></i> กลับ</a>
 <hr>
 <div class="row-fluid">
 	<div class="span12">
@@ -108,7 +108,7 @@
 					<option value="20">20</option>
 			 		<option value="50">50</option>
 			 		<option value="50">100</option>
-			 	</select> items per page
+			 	</select> รายการต่อหน้า
 			</div>
 			<div class="span5">
 				<div class="grid-pagination pagination pagination-centered">
@@ -127,4 +127,4 @@
 	<input type="hidden" id="examResultId" name="examResultId" />
 </form>
 <hr>
-<a href="${contextPath}/report/exam.html" class="btn" ><i class=" icon-chevron-left"></i> Back</a>
+<a href="${contextPath}/report/exam.html" class="btn" ><i class=" icon-chevron-left"></i> กลับ</a>

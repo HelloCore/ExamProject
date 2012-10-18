@@ -63,11 +63,7 @@ assignmentReport.getGrid = function(){
 				$("#assignmentTable tbody").append(strHtml);
 			}
 			var startRecord = (((assignmentReport.rows)*(assignmentReport.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
-			}			
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
 			assignmentReport.lastPage = data.totalPages;
 			applicationScript.setPagination(assignmentReport.page,assignmentReport.lastPage);
 			$("#assignmentTable").unblock();

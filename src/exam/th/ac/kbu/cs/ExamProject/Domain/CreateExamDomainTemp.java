@@ -14,17 +14,24 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import th.ac.kbu.cs.ExamProject.Entity.Exam;
 import th.ac.kbu.cs.ExamProject.Entity.ExamResult;
+import th.ac.kbu.cs.ExamProject.Entity.ExamSection;
+import th.ac.kbu.cs.ExamProject.Entity.StudentSection;
 import th.ac.kbu.cs.ExamProject.Exception.CoreException;
 import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
 import th.ac.kbu.cs.ExamProject.Service.BasicEntityService;
 import th.ac.kbu.cs.ExamProject.Service.BasicFinderService;
 import th.ac.kbu.cs.ExamProject.Service.DoExamService;
+import th.ac.kbu.cs.ExamProject.Service.StudentTeacherService;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
@@ -40,15 +47,6 @@ import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
  */
 @Configurable
 public class CreateExamDomainTemp extends DoExamPrototype{
-	private Integer examCounted;
-	public Integer getExamCounted() {
-		return examCounted;
-	}
-
-	public void setExamCounted(Integer examCounted) {
-		this.examCounted = examCounted;
-	}
-
 	@Autowired
 	private BasicFinderService basicFinderService;
 	
@@ -57,6 +55,9 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 	
 	@Autowired
 	private DoExamService doExamService;
+	
+	@Autowired
+	private StudentTeacherService studentTeacherService;
 	
 	public Long createExamResultHql() throws ParseException{
 
@@ -85,19 +86,64 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		
-		Exam exam = this.getExam(this.getExamId());
+		Exam exam = this.getExamEntity(this.getExamId());
+		if(exam.getIsCalScore()){
+			if(!this.validateExamSection(exam)){
+				throw new CoreException(CoreExceptionMessage.PERMISSION_DENIED);				
+			}
+		}else{
+			if(!this.studentTeacherService.validateStudentCourseId(SecurityUtils.getUsername(), exam.getCourseId())){
+				throw new CoreException(CoreExceptionMessage.PERMISSION_DENIED);
+			}
+		}
+		
 		if(BeanUtils.isNotNull(exam.getStartDate()) && exam.getStartDate().after(nowToday)){
 			throw new CoreException(CoreExceptionMessage.EXAM_NOT_STARTED);
 		}
 		if(BeanUtils.isNotNull(exam.getEndDate()) && exam.getEndDate().before(nowToday)){
 			throw new CoreException(CoreExceptionMessage.EXAM_EXPIRED);
 		}
-		if(BeanUtils.isNotNull(exam.getExamLimit()) && exam.getExamLimit() <= this.getExamCounted()){
+		if(BeanUtils.isNotNull(exam.getExamLimit()) && exam.getExamLimit() <= this.getExamCounted(exam)){
 			throw new CoreException(CoreExceptionMessage.CANT_DO_EXAM_ANYMORE);
 		}
 		return exam;
 	}
 	
+	private Integer getExamCounted(Exam exam){
+		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResult.class,"examResult");
+		criteria.setProjection(Projections.rowCount());
+		criteria.add(Restrictions.eq("examResult.username", SecurityUtils.getUsername()));
+		criteria.add(Restrictions.eq("examResult.examId",exam.getExamId()));
+		
+		return BeanUtils.toInteger(this.basicFinderService.findUniqueByCriteria(criteria));
+	}
+	
+	private Exam getExamEntity(Long examId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
+		criteria.add(Restrictions.eq("exam.examId", examId));
+		return this.basicFinderService.findUniqueByCriteria(criteria);
+	}
+	
+	private Boolean validateExamSection(Exam exam){
+		
+		DetachedCriteria subCriteria = DetachedCriteria.forClass(StudentSection.class,"studentSection");
+		subCriteria.setProjection(Projections.property("studentSection.sectionId"));
+		subCriteria.add(Restrictions.eq("studentSection.username", SecurityUtils.getUsername()));
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(ExamSection.class,"examSection");
+		criteria.setProjection(Projections.rowCount());
+		
+		criteria.add(Subqueries.propertyIn("examSection.sectionId", subCriteria));
+		criteria.add(Restrictions.eq("examSection.examId", exam.getExamId()));
+		
+		Boolean isValid = true;
+		
+		Long rowCount = this.basicFinderService.findUniqueByCriteria(criteria);
+		if(rowCount <= 0L){
+			isValid = false;
+		}
+		return isValid;
+	}
 	
 	private Exam getExam(Long examId) throws ParseException{
 		StringBuilder queryString = new StringBuilder();
@@ -144,7 +190,7 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 		exam.setMaxQuestion(BeanUtils.toInteger(examObj[6]));
 		exam.setCourseId(BeanUtils.toLong(examObj[7]));
 		exam.setExamSequence(BeanUtils.toBoolean(examObj[8]));
-		this.setExamCounted(BeanUtils.toInteger(examObj[9]));
+//		this.setExamCounted(BeanUtils.toInteger(examObj[9]));
 		return exam;
 	}
 	

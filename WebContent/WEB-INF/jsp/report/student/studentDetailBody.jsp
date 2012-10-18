@@ -8,7 +8,7 @@
 <div class="page-header pagination-centered" id="pageHeader">
 	<h2><font class="red-color">รายงาน </font> รายบุคคล</h2>
 </div>
-<button class="btn" style="margin-top:-10px;" onclick="history.back();"><i class="icon-chevron-left"></i> Back</button>
+<button class="btn" style="margin-top:-10px;" onclick="history.back();"><i class="icon-chevron-left"></i> กลับ</button>
 <hr>
 <div class="row-fluid">
 	<div class="span12">
@@ -119,4 +119,4 @@
 	<input type="hidden" id="examResultId" name="examResultId" />
 </form>
 <hr>
-<button class="btn" onclick="history.back();"><i class="icon-chevron-left"></i> Back</button>
+<button class="btn" onclick="history.back();"><i class="icon-chevron-left"></i> กลับ</button>

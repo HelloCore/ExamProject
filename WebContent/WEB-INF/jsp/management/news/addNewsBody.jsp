@@ -25,7 +25,7 @@
 	    	</div>
 	  	</div>
 	  	<div class="button-holder pagination-centered">
-	  		<button class="btn btn-primary" id="addButton"><i class="icon-pencil icon-white"></i> Add</button>
+	  		<button class="btn btn-primary" id="addButton"><i class="icon-pencil icon-white"></i> เพิ่ม</button>
 	  	</div>
 	</div>
 </div>
@@ -33,13 +33,13 @@
 
 <div class="modal hide fade" id="confirmAddNewsModal">
 	<div class="modal-header">
-		<h3>Add News ?</h3>
+		<h3>เพิ่มข่าว ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการเพิ่มข่าวใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-primary" id="confirmAddButton" data-loading-text="Add..." ><i class="icon-pencil icon-white"></i> Add</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-primary" id="confirmAddButton" data-loading-text="กำลังเพิ่ม..." ><i class="icon-pencil icon-white"></i> เพิ่ม</a>
   	</div>
 </div>

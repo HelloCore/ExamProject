@@ -6,8 +6,8 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="grid-toolbar">
-				<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
-				<a class="btn btn-primary" data-toggle="modal" href="#searchNewsModal"><i class="icon-zoom-in icon-white"></i> Search</a>
+				<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> เพิ่ม</button>
+				<a class="btn btn-primary" data-toggle="modal" href="#searchNewsModal"><i class="icon-zoom-in icon-white"></i> ค้นหา</a>
 				<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
 			</div>
 			<table class="table table-striped table-bordered table-grid" id="newsGrid">
@@ -17,7 +17,7 @@
 						<th class="sort-both sortable" id="courseCodeHeader">สังกัดวิชา<i></i></th>
 						<th class="sort-both sortable" id="newsHeaderHeader">หัวข้อข่าว<i></i></th>
 						<th class="sort-both sortable" id="firstNameHeader">โดย<i></i></th>
-						<th class="action-column" >Action</th>
+						<th class="action-column" ></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,7 +33,7 @@
 				 		<option value="10">10</option>
 				 		<option value="20">20</option>
 				 		<option value="50">50</option>
-				 	</select> items per page
+				 	</select> รายการต่อหน้า
 				</div>
 				<div class="span5">
 					<div class="grid-pagination pagination pagination-centered">
@@ -53,21 +53,21 @@
 
 <div class="modal hide fade" id="confirmDelete">
 	<div class="modal-header">
-		<h3>Delete News ?</h3>
+		<h3>ลบข่าว ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการลบข่าวใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ลบ</a>
   	</div>
 </div>
 
 <div class="modal hide fade" id="searchNewsModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Search News</h3>
+    <h3>ค้นหาข่าว</h3>
   </div>
   <div class="modal-body">
     <div class="form-horizontal">
@@ -92,7 +92,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</a>
+    <a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    <a href="#" class="btn btn-primary" id="searchButton"><i class="icon-zoom-in icon-white"></i> ค้นหา</a>
   </div>
 </div>

@@ -33,17 +33,9 @@
 				,th.ac.kbu.cs.ExamProject.Security
 				,th.ac.kbu.cs.ExamProject.Listener
 				,th.ac.kbu.cs.ExamProject.Util" />
-		<!-- 
-		<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" >
-			<property name="exceptionMappings">
-				<props>
-					<prop key="th.ac.kbu.cs.ExamProject.Exception.MainException">mainException</prop>
-					<prop key="org.hibernate.HibernateException">hibernateException</prop>
-					<prop key="java.lang.NullPointerException">otherException</prop>
-				</props>
-			</property>
-  			<property name="defaultStatusCode" value="406"/>
-		</bean> -->
+				
+		
+		
 		<bean id="exceptionResolver" class="th.ac.kbu.cs.ExamProject.Exception.CoreExceptionResolver" />
 		<bean id="viewResolver"
 		    class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -104,7 +96,7 @@ class="org.springframework.http.converter.StringHttpMessageConverter" />
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="alwaysUseFullPath" value="true" /> 
 	</bean>
-	<bean id="defaultRequestToViewNameTranslator" class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator"/>
+		<bean id="defaultRequestToViewNameTranslator" class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator"/>
 		  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		  	<property name="alwaysUseFullPath" value="true" />
 		    <property name="messageConverters">
@@ -123,21 +115,6 @@ class="org.springframework.http.converter.StringHttpMessageConverter" />
 		   	</property>
 		  </bean>
 		  
-		<!-- <bean id="serviceLoggingInterceptor" class="th.ac.kbu.cs.ExamProject.Listener.LoggingInterceptor"/>
-		<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-		    <property name="beanNames">
-		        <value>*Service</value>
-		        <value>*Controller</value>
-		        <value>*Domain</value>
-		        <value>*Manager</value>
-		    </property>
-		    <property name="proxyTargetClass" value="true" />
-		    <property name="interceptorNames">
-		        <list>
-		            <value>serviceLoggingInterceptor</value>
-		        </list>
-		    </property>
-		</bean> -->
 		
 	  	<aop:aspectj-autoproxy proxy-target-class="true">
 			<aop:include name="loggerAspect"/>
@@ -167,7 +144,6 @@ class="org.springframework.http.converter.StringHttpMessageConverter" />
 		<bean id="multipartResolver"
 		    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		
-		    <!-- one of the properties available; the maximum file size in bytes -->
 		    <property name="maxUploadSize" value="20971520"/>
 		</bean>
 </beans>

@@ -74,11 +74,7 @@ examReport.getGrid = function(){
 				$("#examTable tbody").append(strHtml);
 			}
 			var startRecord = (((examReport.rows)*(examReport.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
-			}			
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
 			examReport.lastPage = data.totalPages;
 			applicationScript.setPagination(examReport.page,examReport.lastPage);
 			$("#examTable").unblock();

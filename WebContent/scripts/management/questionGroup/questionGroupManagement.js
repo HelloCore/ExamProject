@@ -48,18 +48,14 @@ questionGroupManagement.getGrid = function(){
 							'<td id="question-group-name-'+data.records[keyArray].questionGroupId+'">'+data.records[keyArray].questionGroupName+'</td>'+
 							'<td id="course-code-'+data.records[keyArray].questionGroupId+'">'+data.records[keyArray].courseCode+'</td>'+
 							'<td>'+
-								'<button class="btn btn-info" onClick="editQuestionGroup('+data.records[keyArray].questionGroupId+')"><i class="icon-edit icon-white"></i> Edit</button> '+
-								'<button class="btn btn-danger" onClick="deleteQuestionGroup('+data.records[keyArray].questionGroupId+')"><i class="icon-trash icon-white"></i> Delete</button> '+
+								'<button class="btn btn-info" onClick="editQuestionGroup('+data.records[keyArray].questionGroupId+')"><i class="icon-edit icon-white"></i> แก้ไข</button> '+
+								'<button class="btn btn-danger" onClick="deleteQuestionGroup('+data.records[keyArray].questionGroupId+')"><i class="icon-trash icon-white"></i> ลบ</button> '+
 							'</td>'+
 							'</tr>';
 				$("#questionGroupGrid tbody").append(strHtml);
 			}
 			var startRecord = (((questionGroupManagement.rows)*(questionGroupManagement.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
-			}
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
 			questionGroupManagement.lastPage = data.totalPages;
 
 			applicationScript.setPagination(questionGroupManagement.page,questionGroupManagement.lastPage);
@@ -154,7 +150,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		questionGroupManagement.currentQuestionGroup = {};
 		$("#questionGroupModal input").val('');
-		$("#questionGroupModal h3").text("Add Question Group");
+		$("#questionGroupModal h3").text("เพิ่มกลุ่มคำถาม");
 		$('#questionGroupForm').validate().resetForm();
 		$('#questionGroupForm .control-group').removeClass('success').removeClass('error');
 		$("#questionGroupModal").modal('show');
@@ -264,6 +260,6 @@ editQuestionGroup = function(questionGroupId){
 	$("#questionGroupId").val(questionGroupId);
 	$("#questionGroupName").val(questionGroupManagement.currentQuestionGroup.questionGroupName);
 	
-	$("#questionGroupModal h3").text("Edit QuestionGroup");
+	$("#questionGroupModal h3").text("แก้ไขกลุ่มคำถาม");
 	$("#questionGroupModal").modal('show');
 };

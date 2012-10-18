@@ -25,26 +25,26 @@
 	          		<a class="brand" href="${contextPath}/main/home.html">ExamProject</a>
 					<sec:authorize access="isAnonymous()">
 		          		<ul class="nav pull-right">
-		          			<li class="signUp"><a href="${contextPath}/main/signUp.html">Sign Up</a></li>
+		          			<li class="signUp"><a href="${contextPath}/main/signUp.html">สมัครสมาชิก</a></li>
 		          			<li class="divider-vertical"></li>
-		          			<li class="signIn dropdown"><a href="#signIn" class="dropdown-toggle" data-toggle="dropdown" >Sign In <b class="caret"></b></a>
+		          			<li class="signIn dropdown"><a href="#signIn" class="dropdown-toggle" data-toggle="dropdown" >เข้าสู่ระบบ <b class="caret"></b></a>
 		          				<form class="login-form dropdown-menu" action="${contextPath}/main/login.do" method="POST">
 	            				<div class="control-group">
-							      <label class="control-label" for="username">Student ID</label>
+							      <label class="control-label" for="username">รหัสนักศึกษา</label>
 							      <div class="controls">
 							        <input type="text" class="input-medium" id="username" name="username">
 							      </div>
 							    </div>
 	            				<div class="control-group">
-							      <label class="control-label" for="password">Password</label>
+							      <label class="control-label" for="password">รหัสผ่าน</label>
 							      <div class="controls">
 							      	<input type="hidden" id="miniLoginTarget" name="target" />
 							        <input type="password" class="input-medium" id="password" name="password">
 							      </div>
 							    </div>
 							    <div class="pagination-centered">
-							    	<button type="submit" class="btn btn-primary login-btn">Sign In </button>
-							    	<a href="${contextPath}/main/forgotPassword.html">forgot password ?</a>
+							    	<button type="submit" class="btn btn-primary login-btn">เข้าสู่ระบบ</button>
+							    	<a href="${contextPath}/main/forgotPassword.html">ลืมรหัสผ่าน ?</a>
 							    </div>
 	            			</form>
 		          			</li>
@@ -69,15 +69,7 @@
 							        <li><a  href="#">ข้อมูลส่วนตัว</a></li>
 							        <li><a  href="${contextPath}/member/changePassword.html">เปลี่ยนรหัสผ่าน</a></li>
 							        <li class="divider"></li>
-					          		<%-- <sec:authorize access="hasRole('ROLE_TEACHER')" >
-					              		<li class="nav-header">จัดการข้อมูลวิชา</li>
-								        <li><a  href="#"><i class="icon-ok"></i>  CS.101</a></li>
-									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.102</a></li>
-									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.103</a></li>
-									    <li class="disabled"><a  href="#"><i class="icon-none"></i>  CS.104</a></li>
-									    <li class="divider"></li>
-				              		</sec:authorize> --%>
-				              		<li><a  href="${contextPath}/main/logout.do">Sign Out</a></li>
+				              		<li><a  href="${contextPath}/main/logout.do">ออกจากระบบ</a></li>
 				            	</ul>
 				            </div>
 					</sec:authorize>
@@ -120,7 +112,7 @@
 				            </sec:authorize>
 				            <sec:authorize access="hasRole('ROLE_ADMIN')">
 				            	<li class="courseManagement"><a href="${contextPath}/management/course.html">จัดการข้อมูลวิชา</a></li>
-				            	<li class="addTeacher"><a href="${contextPath}/member/addTeacher.html">ลงทะเบียนอาจารย์</a></li>
+				            	<li class="addTeacher"><a href="${contextPath}/main/signUpTeacher.html">ลงทะเบียนอาจารย์</a></li>
 				            </sec:authorize>
 				            <sec:authorize access="hasRole('ROLE_TEACHER')">
 								<li class="dropdown genericManagement">

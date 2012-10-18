@@ -52,8 +52,7 @@ public class SignUpDomain extends SignUpPrototype{
 				|| BeanUtils.isEmpty(this.getEmail())
 				|| BeanUtils.isNull(this.getPrefixName())){
 			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
-		}
-			
+		}	
 	}
 	private void validateYear(String studentId){
 		String yearStr = studentId.substring(0, 2);
@@ -183,6 +182,67 @@ public class SignUpDomain extends SignUpPrototype{
 		DetachedCriteria criteria = DetachedCriteria.forClass(User.class, "users");
 		criteria.add(Restrictions.eq("users.username", username));
 		return this.basicFinderService.findUniqueByCriteria(criteria);
+	}
+	
+
+	private void validateEmptyTeacherData(){
+		if(BeanUtils.isEmpty(this.getUsername())
+				|| BeanUtils.isEmpty(this.getPassword())
+				|| BeanUtils.isEmpty(this.getRePassword())
+				|| BeanUtils.isEmpty(this.getFirstName())
+				|| BeanUtils.isEmpty(this.getLastName())
+				|| BeanUtils.isEmpty(this.getEmail())){
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
+		}	
+	}
+	private User toEntityTeacher(){
+		PasswordEncoder encoder = new Md5PasswordEncoder();
+		User user = new User();
+
+		StringBuilder activeStr = new StringBuilder("");
+		if(BeanUtils.isNotEmpty(this.getUsername())){
+			user.setUsername(this.getUsername());
+			activeStr.append(this.getUsername());
+		}
+		
+		if(BeanUtils.isNotEmpty(this.getPassword())){
+			user.setPassword(encoder.encodePassword(this.getPassword(), null));
+			activeStr.append(this.getPassword());
+		}
+		
+		if(BeanUtils.isNotEmpty(this.getRePassword())){
+			user.setPasswords(this.getRePassword());
+			activeStr.append(this.getRePassword());
+		}
+		
+		if(BeanUtils.isNotEmpty(this.getFirstName())){
+			user.setFirstName(this.getFirstName());
+			activeStr.append(this.getFirstName());
+		}
+		
+		if(BeanUtils.isNotEmpty(this.getLastName())){
+			user.setLastName(this.getLastName());
+			activeStr.append(this.getLastName());
+		}
+		
+		if(BeanUtils.isNotEmpty(this.getEmail())){
+			user.setEmail(this.getEmail());
+			activeStr.append(this.getEmail());
+		}
+		
+		user.setPrefixNameId(4);
+		activeStr.append(Math.random());
+		String activStrHash = encoder.encodePassword(activeStr.toString(), null);
+		user.setActiveStr(activStrHash.substring(0,6));
+		user.setFlag(true);
+		user.setType(2);
+		return user;
+	}
+	
+	public void signUpTeacher() {
+		this.validateEmptyTeacherData();
+		User user = this.toEntityTeacher();
+		this.signUpService.signUp(user);
 	}
 	
 }

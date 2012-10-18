@@ -66,11 +66,8 @@ studentReport.getGrid = function(){
 				$("#studentTable tbody").append(strHtml);
 			}
 			var startRecord = (((studentReport.rows)*(studentReport.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords);
-			}
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
+			
 			studentReport.lastPage = data.totalPages;
 			applicationScript.setPagination(studentReport.page,studentReport.lastPage);
 			$("#studentTable").unblock();

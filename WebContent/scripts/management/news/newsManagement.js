@@ -42,19 +42,16 @@ newsManagement.getGrid = function(){
 							'<td>'+data.records[keyArray].newsHeader+'</td>'+
 							'<td>'+data.records[keyArray].firstName+' '+data.records[keyArray].lastName+'</td>'+
 							'<td>'+
-								'<button class="btn btn-info" onClick="viewNews('+data.records[keyArray].newsId+')"><i class="icon-edit icon-white"></i> View</button>'+
-								' <button class="btn btn-danger" onClick="deleteNews('+data.records[keyArray].newsId+')"><i class="icon-trash icon-white"></i> Delete</button>'+
+								'<button class="btn btn-info" onClick="viewNews('+data.records[keyArray].newsId+')"><i class="icon-edit icon-white"></i> แก้ไข</button>'+
+								' <button class="btn btn-danger" onClick="deleteNews('+data.records[keyArray].newsId+')"><i class="icon-trash icon-white"></i> ลบ</button>'+
 							'</td>'+
 						'</tr>';
 				
 				$("#newsGrid tbody").append(strHtml);
 			}
 			var startRecord = (((newsManagement.rows)*(newsManagement.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords);
-			}
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
+			
 			newsManagement.lastPage = data.totalPages;
 			applicationScript.setPagination(newsManagement.page,newsManagement.lastPage);
 			$("#newsGrid").unblock();

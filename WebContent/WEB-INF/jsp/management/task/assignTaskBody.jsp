@@ -67,20 +67,20 @@
      		</div>
    		</div>
    		<div class="control-button pagination-centered">
-   			<button class="btn btn-primary" id="assignTaskButton"><i class="icon-pencil icon-white"></i> Assign</button>
+   			<button class="btn btn-primary" id="assignTaskButton"><i class="icon-pencil icon-white"></i> สั่ง Assignment</button>
    		</div>
    	</div>
    	
    	
 <div class="modal hide fade" id="assignTaskConfirmModal">
 	<div class="modal-header">
-		<h3>Assign Task ?</h3>
+		<h3>คุณต้องการสั่ง Assignment ใช่หรือไม่ ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-primary" id="assignTaskConfirmButton" data-loading-text="Assign..." ><i class="icon-pencil icon-white"></i> Assign</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-primary" id="assignTaskConfirmButton" data-loading-text="กำลังบันทึก..." ><i class="icon-pencil icon-white"></i> สั่ง Assignment</a>
   	</div>
 </div>

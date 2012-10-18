@@ -29,6 +29,7 @@ public class ExamController {
 	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	@RequestMapping(value="/exam/selectExam.html" ,method=RequestMethod.GET)
 	public ModelMap initSelectExam(@ModelAttribute SelectExamDomain domain,ModelMap modelMap,HttpServletRequest request,HttpServletResponse response){
+		modelMap.addAttribute("sampleExamData", domain.getSampleExam());
 		modelMap.addAttribute("examData", domain.getExam());
 		modelMap.addAttribute("examResult", domain.getExamResult());
 		return new ModelMap();

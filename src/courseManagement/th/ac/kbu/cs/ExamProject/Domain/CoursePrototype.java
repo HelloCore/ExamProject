@@ -4,7 +4,14 @@ public class CoursePrototype {
 	private Long courseId;
 	private String courseCode;
 	private String courseName;
+	private String username;
 	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public Long getCourseId() {
 		return courseId;
 	}

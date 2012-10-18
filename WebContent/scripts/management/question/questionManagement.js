@@ -40,19 +40,15 @@ questionManagement.getGrid = function(){
 								+'</tr><tr>'
 									+'<td class="sub-column">กลุ่มคำถาม : '+data.records[keyArray].questionGroupName+'</td>'
 									+'<td class="sub-column">'
-										+'<button class="btn btn-info" onclick="viewQuestion('+data.records[keyArray].questionId+')"><i class="icon-edit icon-white"></i> View </button> '
-										+'<button class="btn btn-danger" onclick="deleteQuestion('+data.records[keyArray].questionId+')"><i class="icon-trash icon-white"></i> Delete</button>'
+										+'<button class="btn btn-info" onclick="viewQuestion('+data.records[keyArray].questionId+')"><i class="icon-edit icon-white"></i> ดูรายละเอียด</button> '
+										+'<button class="btn btn-danger" onclick="deleteQuestion('+data.records[keyArray].questionId+')"><i class="icon-trash icon-white"></i> ลบ</button>'
 									+'</td>'
 								+'</tr>'
 							+'</table>';
 				$("#questionDivHolder").append(strHtml);
 			}
 			var startRecord = (((questionManagement.rows)*(questionManagement.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('0 - 0 of 0 Records ');		
-			}else{
-				$("#gridInfo").text(''+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
-			}			
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
 			questionManagement.lastPage = data.totalPages;
 			
 			applicationScript.setPagination(questionManagement.page,questionManagement.lastPage);

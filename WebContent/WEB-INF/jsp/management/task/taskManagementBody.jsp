@@ -26,18 +26,18 @@
 			</div>
 			<div class="clear visible-phone-portrait"></div>	
 			<div class="grid-info-holder">
-				<div class="grid-info " id="gridInfo">1-5 of 12 Records</div>
+				<div class="grid-info " id="gridInfo"></div>
 			</div>
 			<div class="clear"></div>
 			<div class="control-group btn-holder-group">
 				<div class="btn-holder">
-					<button class="btn btn-primary btn-block" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</button>
+					<button class="btn btn-primary btn-block" id="searchButton"><i class="icon-zoom-in icon-white"></i> ค้นหา</button>
 				</div>
 				<div class="btn-holder">
 					<button class="btn btn-success btn-block" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
 				</div>
 				<div class="btn-holder">
-					<a class="btn btn-info btn-block" id="addButton" href="${contextPath}/management/task/assign.html"><i class="icon-pencil icon-white"></i> Assign</a>
+					<a class="btn btn-info btn-block" id="addButton" href="${contextPath}/management/task/assign.html"><i class="icon-pencil icon-white"></i> สั่ง Assignment</a>
 				</div>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 				 	<option value="10">10</option>
 				 	<option value="20">20</option>
 				 	<option value="50">50</option>
-			 	</select> records per page
+			 	</select> รายการต่อหน้า
 			</div>
 			<div class="span7">
 				<div class="grid-pagination pagination pagination-centered ">
@@ -74,10 +74,10 @@
 		<h3>ตรวจเสร็จแล้ว ?</h3>
 	</div>
 	<div class="modal-body">
-		งานนี้ตรวจเสร็จแล้ว 
+		งานนี้ตรวจเสร็จแล้ว โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
     	<a href="#" class="btn btn-primary" id="evaluateCompleteButton" data-loading-text="ส่งข้อมูล..." ><i class="icon-ok icon-white"></i> ตรวจเสร็จแล้ว</a>
   	</div>
 </div>
@@ -85,14 +85,14 @@
 
 <div class="modal hide fade" id="confirmDeleteTaskModal">
 	<div class="modal-header">
-		<h3>Delete Task ?</h3>
+		<h3>ลบ Assignment?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการลบ Assignment ใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="confirmDeleteTaskButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-danger" id="confirmDeleteTaskButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ลบ</a>
   	</div>
 </div>
 

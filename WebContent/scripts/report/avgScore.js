@@ -24,8 +24,14 @@ avgScore.drawGraph = function(){
 			        yellowFrom:50, yellowTo: 70,
 			        greenFrom:70, greenTo: 100,
 			        minorTicks: 5
-		  		},tempSelect,tempGague;
+		  		},tempSelect,tempGague,tempVal2;
 			
+			if($(window).width() < 980 && $(window).width()>=768){
+				optionsGague.width = 350;
+				optionsGague.height = 130;
+			}else if ($(window).width()<768){
+				optionsGague.height = 150;
+			}
 			for( keyArray in data){
 				subGraph.append('<div class="span2 sub-item">'
 									+'<div id="chapter'+data[keyArray][0]+'Div" style="height:130px;">'
@@ -33,7 +39,8 @@ avgScore.drawGraph = function(){
 								+'</div>');
 				
 				  tempVal = parseFloat((data[keyArray][2]*100/data[keyArray][3]).toFixed(2));
-				  tempData[tempData.length] = [data[keyArray][1],tempVal];
+				  tempVal2 = 100-tempVal;
+				  tempData[tempData.length] = [data[keyArray][1]+' ตอบถูก '+tempVal+'% \nตอบผิด '+tempVal2+'%',tempVal];
 				  tempSelect = $("#chapter"+data[keyArray][0]+"Div");
 				  tempGague = new google.visualization.Gauge(tempSelect[0]);
 				  tempGague.draw(google.visualization.arrayToDataTable([
@@ -43,7 +50,14 @@ avgScore.drawGraph = function(){
 				  
 			  }
 			var chart = new google.visualization.PieChart(mainDiv[0]);
-			chart.draw(google.visualization.arrayToDataTable(tempData),null);
+			chart.draw(google.visualization.arrayToDataTable(tempData),{
+				tooltip:{
+					text: 'percentage'
+				},chartArea:{
+					width: '85%',
+					height: '85%'
+				}
+			});
 			$("body").unblock();
 		},
 		error: function(data){

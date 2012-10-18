@@ -37,6 +37,10 @@ if(typeof($.jGrowl)!='undefined'){
 		$.jGrowl(str,{header:"Warning ",theme:'alert alert-block alert-warning'});
 	};
 	
+	applicationScript.alertNoDataChange = function(){
+		applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+	};
+	
 	applicationScript.secondsToTime= function(secs){
 	    var t = new Date(1970,0,1);
 	    t.setSeconds(secs);
@@ -44,6 +48,14 @@ if(typeof($.jGrowl)!='undefined'){
 	    if(secs > 86399)
 	        s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
 	    return s;
+	};
+	
+	applicationScript.setGridInfo = function(startRecord,length,totalRecords){
+		if(totalRecords==0){
+			$("#gridInfo").text('รายการที่ 0 - 0 จากทั้งหมด 0 รายการ');		
+		}else{
+			$("#gridInfo").text('รายการที่ '+startRecord+' - '+(startRecord+length -1)+' จากทั้งหมด '+totalRecords+' รายการ');
+		}
 	};
 	
 	applicationScript.setPagination = function(page,lastPage){

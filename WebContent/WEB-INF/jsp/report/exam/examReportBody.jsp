@@ -43,7 +43,7 @@
 					<option value="20">20</option>
 			 		<option value="50">50</option>
 			 		<option value="50">100</option>
-			 	</select> items per page
+			 	</select> รายการต่อหน้า
 			</div>
 			<div class="span5">
 				<div class="grid-pagination pagination pagination-centered">

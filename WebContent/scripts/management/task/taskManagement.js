@@ -56,19 +56,15 @@ taskManagement.getGrid = function(){
 								+'</tr><tr>'
 									+'<td colspan="2" style="text-align:center;">'
 										+' <button class="btn btn-primary" onClick="evaluateComplete('+data.records[keyArray].taskId+')"><i class="icon-ok icon-white"></i> ตรวจเสร็จแล้ว</button>'
-										+' <button class="btn btn-info" onClick="viewTask('+data.records[keyArray].taskId+')"><i class="icon-edit icon-white"></i> View</button>'
-										+' <button class="btn btn-danger" onClick="deleteTask('+data.records[keyArray].taskId+')"><i class="icon-trash icon-white"></i> Delete</button>'
+										+' <button class="btn btn-info" onClick="viewTask('+data.records[keyArray].taskId+')"><i class="icon-edit icon-white"></i> ดูรายละเอียด</button>'
+										+' <button class="btn btn-danger" onClick="deleteTask('+data.records[keyArray].taskId+')"><i class="icon-trash icon-white"></i> ลบ</button>'
 									+'</td>'
 								+'</tr>'
 							+'</table>';
 				$("#taskDivHolder").append(strHtml);
 			}
 			var startRecord = (((taskManagement.rows)*(taskManagement.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('0 - 0 of 0 Records ');		
-			}else{
-				$("#gridInfo").text(''+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
-			}			
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
 			taskManagement.lastPage = data.totalPages;
 			
 			applicationScript.setPagination(taskManagement.page,taskManagement.lastPage);
@@ -166,7 +162,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-	$("#evaluateCompleteModal").click(function(){
+	$("#evaluateCompleteButton").click(function(){
 		var thisButton = $(this).button('loading');
 		$.ajax({
 			url: application.contextPath + '/management/task.html',

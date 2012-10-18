@@ -7,8 +7,8 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="grid-toolbar">
-				<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> Add</button>
-				<a class="btn btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> Search</a>
+				<button class="btn btn-info" id="addButton" ><i class="icon-plus icon-white"></i> เพิ่ม</button>
+				<a class="btn btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> ค้นหา</a>
 				<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
 			</div>
 			<table class="table table-striped table-bordered table-grid" id="sectionGrid">
@@ -35,7 +35,7 @@
 				 		<option value="10">10</option>
 				 		<option value="20">20</option>
 				 		<option value="50">50</option>
-				 	</select> items per page
+				 	</select> รายการต่อหน้า
 				</div>
 				<div class="span5">
 					<div class="grid-pagination pagination pagination-centered">
@@ -52,21 +52,21 @@
 
 <div class="modal hide fade" id="confirmDelete">
 	<div class="modal-header">
-		<h3>Delete Section ?</h3>
+		<h3>ลบ Section ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการลบ Section ใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ลบ</a>
   	</div>
 </div>
 
 <div class="modal hide fade" id="sectionModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Add Section</h3>
+    <h3>เพิ่ม Section</h3>
   </div>
   <div class="modal-body">
     <form class="form-horizontal" id="sectionForm">
@@ -74,7 +74,7 @@
     	<div class="control-group withComboBox">
 	     	<label class="control-label" for="courseId">วิชา</label>
 	      	<div class="controls">
-	        	<select id="courseId" class="input-medium" data-placeholder="Choose a course..." name="courseId"></select>
+	        	<select id="courseId" class="input-medium" data-placeholder="กรุณาเลือกวิชา" name="courseId"></select>
 	        </div>
 	    </div>
     	<div class="control-group">
@@ -98,22 +98,22 @@
     	<div class="control-group">
 	     	<label class="control-label" for="status">สถานะ</label>
 	      	<div class="controls status-controls">
-	        	<label for="statusInActive" ><input type="radio" name="status" id="statusInActive" value="0"/> Inactive</label>
-	        	<label for="statusActive" ><input type="radio" name="status" id="statusActive" value="1" checked="checked" /> Active</label>
+	        	<label for="statusInActive" ><input type="radio" name="status" id="statusInActive" value="0"/> ปิดการใช้งาน</label>
+	        	<label for="statusActive" ><input type="radio" name="status" id="statusActive" value="1" checked="checked" /> เปิดใช้งาน</label>
 	        </div>
 	    </div>
     </form>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="saveButton" data-loading-text="Saving..."><i class="icon-pencil icon-white"></i> Save changes</a>
+    <a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    <a href="#" class="btn btn-primary" id="saveButton" data-loading-text="กำลังบันทึก..."><i class="icon-pencil icon-white"></i> บันทึก</a>
   </div>
 </div>
 
 <div class="modal hide fade" id="searchSectionModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Search Section</h3>
+    <h3>ค้นหา Section</h3>
   </div>
   <div class="modal-body">
     <form class="form-horizontal" id="searchSectionForm">
@@ -144,7 +144,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</a>
+    <a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    <a href="#" class="btn btn-primary" id="searchButton"><i class="icon-zoom-in icon-white"></i> ค้นหา</a>
   </div>
 </div>

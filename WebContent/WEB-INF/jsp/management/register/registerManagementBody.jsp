@@ -47,13 +47,13 @@
 	<div class="modal hide fade" id="confirmApproveModal">
 		<div class="modal-header">
    			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Approve ?</h3>
+			<h3>อนุมัติ ?</h3>
 		</div>
 		<div class="modal-body">
-			อนุมัติ Section ที่เลือกใช่หรือไม่ ?
+			อนุมัติสิทธิ์นักศึกษาที่เลือกใช่หรือไม่ ?
 		</div>
 	  	<div class="modal-footer">
-	    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+	    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
 	    	<a href="#" class="btn btn-success" id="approveConfirmButton" data-loading-text="อนุมัติ..." ><i class="icon-ok icon-white"></i> อนุมัติ</a>
 	  	</div>
 	</div>
@@ -61,13 +61,13 @@
 	<div class="modal hide fade" id="confirmRejectModal">
 		<div class="modal-header">
    			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Reject ?</h3>
+			<h3>ไม่อนุมัติ ?</h3>
 		</div>
 		<div class="modal-body">
-			ไม่อนุมัติ Section ที่เลือกใช่หรือไม่ ?
+			ไม่อนุมัติสิทธิ์นักศึกษาที่เลือกใช่หรือไม่ ?
 		</div>
 	  	<div class="modal-footer">
-	    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+	    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
 	    	<a href="#" class="btn btn-danger" id="rejectConfirmButton" data-loading-text="ไม่อนุมัติ..." ><i class="icon-ban-circle icon-white"></i> ไม่อนุมัติ</a>
 	  	</div>
 	</div>

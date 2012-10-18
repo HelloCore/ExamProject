@@ -5,7 +5,7 @@ courseManagement.page = 1;
 courseManagement.lastPage = 1;
 courseManagement.courseCode = '';
 courseManagement.courseName = '';
-courseManagement.orderBy = 'sectionName';
+courseManagement.orderBy = 'courseCode';
 courseManagement.order = 'asc';
 courseManagement.currentCourse = {};
 
@@ -46,8 +46,9 @@ courseManagement.getGrid = function(){
 								+'<td id="course-code-'+data.records[keyArray].courseId+'">'+data.records[keyArray].courseCode+'</td>'
 								+'<td id="course-name-'+data.records[keyArray].courseId+'">'+data.records[keyArray].courseName+'</td>'
 								+'<td>'
-									+'<button class="btn btn-info" onClick="editCourse('+data.records[keyArray].courseId+')"><i class="icon-edit icon-white"></i> Edit</button> '
-									+'<button class="btn btn-danger" onClick="deleteCourse('+data.records[keyArray].courseId+')"><i class="icon-trash icon-white"></i> Delete</button> '
+									+'<button class="btn btn-success btn-in-table" onClick="viewCourse('+data.records[keyArray].courseId+')"><i class="icon-zoom-in icon-white"></i> View</button> '
+									+'<button class="btn btn-info btn-in-table" onClick="editCourse('+data.records[keyArray].courseId+')"><i class="icon-edit icon-white"></i> Edit</button> '
+									+'<button class="btn btn-danger btn-in-table" onClick="deleteCourse('+data.records[keyArray].courseId+')"><i class="icon-trash icon-white"></i> Delete</button> '
 								+'</td>'
 							+'</tr>';
 				$("#courseGrid tbody").append(strHtml);
@@ -71,7 +72,9 @@ courseManagement.getGrid = function(){
 //
 courseManagement.getDefaultGrid = function(){
 	$('.current-sort').removeClass('sort-asc').removeClass('sort-desc').addClass('sort-both');
-	courseManagement.orderBy = "";
+	$("#courseCodeHeader").addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc').addClass('sort-asc');
+	
+	courseManagement.orderBy = "courseCode";
 	courseManagement.order = "asc";
 	courseManagement.getGrid();
 };
@@ -246,4 +249,9 @@ editCourse = function(courseId){
 	$("#courseName").val(courseManagement.currentCourse.courseName);
 	$("#courseModal h3").text("Edit Course");
 	$("#courseModal").modal('show');
+};
+
+viewCourse = function(courseId){
+	$("#viewCourseId").val(courseId);
+	$("#viewDetailCourseForm").submit();
 };

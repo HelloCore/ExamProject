@@ -21,15 +21,15 @@ register.getGrid = function(){
 							+'<td>'+data[key].sectionName+'</td>'
 							+'<td>'+data[key].sectionSemester+'/'+data[key].sectionYear+'</td>';
 				if(data[key].status==0){
-					strHtml += '<td><span class="label label-warning"><i class="icon-refresh icon-white"></i> Pending</span></td>'
+					strHtml += '<td><span class="label label-warning"><i class="icon-refresh icon-white"></i> รออนุมัติ</span></td>'
 							+ '<td><button class="btn btn-danger" onclick="cancelRegister('+data[key].registerId+')"><i class="icon-trash icon-white"></i> ยกเลิก</button></td>';
 				}else if (data[key].status==1){
-					strHtml += '<td><span class="label label-success"><i class="icon-ok icon-white"></i> Accept</span></td>'
-							+	'<td><button class="btn btn-info btn-change-section" id="change-section-button-'+data[key].registerId+'" onclick="changeSection('+data[key].registerId+','+data[key].courseId+','+data[key].sectionId+')"><i class="icon-edit icon-white"></i> ย้าย Section</button></td>';
+					strHtml += '<td><span class="label label-success"><i class="icon-ok icon-white"></i> อนุมัติแล้ว</span></td>'
+							+	'<td><button class="btn btn-info btn-change-section" id="change-section-button-'+data[key].registerId+'" onclick="changeSection('+data[key].registerId+','+data[key].courseId+','+data[key].sectionId+')" data-loading-text="เลือก Section ใหม่..."><i class="icon-edit icon-white"></i> ย้าย Section</button></td>';
 				}else if (data[key].status==2){
-					strHtml += '<td><span class="label label-important"><i class="icon-ban-circle icon-white"></i> Reject</span></td><td></td>';
+					strHtml += '<td><span class="label label-important"><i class="icon-ban-circle icon-white"></i> ไม่อนุมัติ</span></td><td></td>';
 				}else if (data[key].status==3){
-					strHtml += '<td><span class="label label-info"><i class="icon-repeat icon-white"></i> Pending</span></td><td></td>';
+					strHtml += '<td><span class="label label-info"><i class="icon-repeat icon-white"></i> รออนุมัติ</span></td><td></td>';
 				}else{
 					strHtml += '<td><span class="label label-inverse"><i class="icon-exclamation-sign icon-white"></i> Unknow</span></td><td></td>';
 				}

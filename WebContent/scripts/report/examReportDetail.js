@@ -51,17 +51,14 @@ examReportDetail.getGrid = function(){
 							+'<td style="text-align:right;">'+data.records[keyArray].examCount+'</td>'
 							+'<td>'+Globalize.format(new Date(data.records[keyArray].examCompleteDate),'dd-MM-yyyy HH:mm')+'</td>'
 							+'<td>'+applicationScript.secondsToTime(data.records[keyArray].examUsedTime)+'</td>'
-							+'<td style="text-align:right;">'+data.records[keyArray].examScore+' คะแนน</td>'
+							+'<td style="text-align:right;">'+Math.round(data.records[keyArray].examScore*100)/100+' คะแนน</td>'
 							+'<td><button class="btn btn-info" onclick="viewExamReport('+data.records[keyArray].examResultId+')"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button></td>'
 						+'</tr>';
 				$("#examReportDetailTable tbody").append(strHtml);
 			}
 			var startRecord = (((examReportDetail.rows)*(examReportDetail.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
-			}			
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
+						
 			examReportDetail.lastPage = data.totalPages;
 			applicationScript.setPagination(examReportDetail.page,examReportDetail.lastPage);
 			$("#examReportDetailTable").unblock();

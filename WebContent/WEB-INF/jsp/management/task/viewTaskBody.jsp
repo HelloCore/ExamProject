@@ -88,21 +88,21 @@
      		</div>
    		</div>
    		<div class="control-button pagination-centered">
-   			<button class="btn btn-primary" id="editTaskButton"><i class="icon-pencil icon-white"></i> Edit</button>
+   			<button class="btn btn-primary" id="editTaskButton"><i class="icon-pencil icon-white"></i> แก้ไข</button>
    		</div>
    	</div>
    	
    	
 <div class="modal hide fade" id="editTaskConfirmModal">
 	<div class="modal-header">
-		<h3>Edit Task ?</h3>
+		<h3>แก้ไข Assignment ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการแก้ไข Assignment ใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-primary" id="editTaskConfirmButton" data-loading-text="Assign..." ><i class="icon-pencil icon-white"></i> Edit</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-primary" id="editTaskConfirmButton" data-loading-text="กำลังบันทึก..." ><i class="icon-pencil icon-white"></i> แก้ไข</a>
   	</div>
 </div>
 

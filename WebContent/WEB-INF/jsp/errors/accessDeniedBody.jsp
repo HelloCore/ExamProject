@@ -7,6 +7,6 @@
 	<div class="alert alert-error" style="width:500px;margin:auto;margin-bottom:20px;">
 		<strong>เกิดข้อผิดพลาด !</strong> คุณไม่มีสิทธิ์ในการเข้าถึงข้อมูลส่วนนี้
 	</div>
-	<a href="${contextPath}/main/home.html" class="btn"><i class="icon-chevron-left"></i> Back</a>
+	<a href="${contextPath}/main/home.html" class="btn"><i class="icon-chevron-left"></i> กลับ</a>
 </div>
 	

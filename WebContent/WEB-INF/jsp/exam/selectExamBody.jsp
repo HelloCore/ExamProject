@@ -10,16 +10,16 @@
 	</div>
 	<div class="row">
 		<div class="span12">
-			<c:if test="${empty examData and empty examResult}">
+			<c:if test="${empty examData and empty examResult and empty sampleExamData}">
 				<div style="width:500px;margin:auto;text-align:center;">
 					<div class="alert alert-warning">
-						<strong>Warning !</strong> ไม่มีข้อสอบที่คุณสามารถสอบได้ 
+						<strong>คำเตือน !</strong> ไม่มีข้อสอบที่คุณสามารถสอบได้ 
 					</div>
-					<a class="btn" href="${contextPath}/main/home.html"><i class=" icon-chevron-left "></i> Back</a>
+					<a class="btn" href="${contextPath}/main/home.html"><i class=" icon-chevron-left "></i> กลับ</a>
 				</div> 
 			</c:if>
-			<c:if test="${not empty examData}">
-				<table class="table table-striped table-bordered">
+			<c:if test="${not empty examData or not empty sampleExamData}">
+				<table class="table table-hover table-bordered">
 					<thead>
 						<tr>
 							<th>ประเภท</th>
@@ -33,6 +33,40 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach items="${sampleExamData}" var="data">
+							<tr>
+								<td>
+									<c:if test="${data[9]}" >สอบจริง</c:if>
+									<c:if test="${not data[9]}" >ทดลองสอบ</c:if>
+								</td>
+								<td>${data[0]}</td>
+								<td>${data[1]}</td>
+								<td>${data[10]} คะแนน</td>
+								<td>
+									<c:if test="${not empty data[8]}">
+										<fmt:parseDate var="startDate" value="${data[8]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
+										<fmt:formatDate value="${startDate}"  pattern="dd-MM-yyyy HH:mm"/>
+									</c:if>
+									<c:if test="${empty data[8]}">ไม่กำหนด</c:if>
+								</td>
+								<td>
+									<c:if test="${not empty data[2]}">
+										<fmt:parseDate var="endDate" value="${data[2]}" pattern="yyyy-MM-dd HH:mm:ss" parseLocale="en_US"/>
+										<fmt:formatDate value="${endDate}"  pattern="dd-MM-yyyy HH:mm"/>
+									</c:if>
+									<c:if test="${empty data[2]}">ไม่กำหนด</c:if>
+								</td>
+								<td>${data[4]-data[3]}</td>
+								<td>
+									<c:if test="${not empty startDate && nowTodayTime < startDate}">
+										<button class="btn btn-info" disabled="disabled"><i class="icon-edit icon-white"></i> สอบ</button>
+									</c:if>
+									<c:if test="${empty startDate || nowTodayTime > startDate}">
+										<button class="btn btn-info havePopover" exam-count="${data[3]+1}" min-question="${data[5]}"  max-question="${data[6]}" onClick="createExam(${data[7]})" id="do-exam-${data[7]}"><i class="icon-edit icon-white"></i> สอบ</button>
+									</c:if>
+								</td>
+							</tr>
+						</c:forEach>
 						<c:forEach items="${examData}" var="data">
 							<tr>
 								<td>
@@ -150,7 +184,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn" data-dismiss="modal">ปิด</a>
     <a href="#" class="btn btn-info" id="createExamButton" data-loading-text="กำลังโหลดข้อมูล..." ><i class="icon-edit icon-white"></i> สอบ</a>
   </div>
 </div>

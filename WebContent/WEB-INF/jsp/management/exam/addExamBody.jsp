@@ -73,7 +73,7 @@
       			</div>
     		</div>
 	   		<div class="control-button pagination-centered">
-	   				<button class="btn btn-primary" id="tab1NextButton">Next <i class="icon-chevron-right icon-white"></i></button>
+	   				<button class="btn btn-primary" id="tab1NextButton">ถัดไป <i class="icon-chevron-right icon-white"></i></button>
 	   		</div>
 		</div>
 		<div id="tab2" class="tab-content form-horizontal hide tab-overflow">
@@ -93,8 +93,8 @@
       			</div>
     		</div>
 	   		<div class="control-button pagination-centered">
-	   				<button class="btn" id="tab2BackButton"><i class="icon-chevron-left"></i> Back</button>
-	   				<button class="btn btn-primary" id="tab2NextButton">Next <i class="icon-chevron-right icon-white"></i></button>
+	   				<button class="btn" id="tab2BackButton"><i class="icon-chevron-left"></i> ก่อนหน้า</button>
+	   				<button class="btn btn-primary" id="tab2NextButton">ถัดไป <i class="icon-chevron-right icon-white"></i></button>
 	   		</div>
 		</div>
 		<div id="tab3" class="tab-content tab-overflow hide">
@@ -108,8 +108,8 @@
 				<label for="totalPercent">เปอร์เซ็นต์รวม </label><span class="input-mini uneditable-input error" id="totalPercent">0</span><label for="totalPercent" > % </label>
 			</div>
 	   		<div class="control-button pagination-centered">
-	   			<button class="btn" id="tab3BackButton"><i class="icon-chevron-left"></i> Back</button>
-	   			<button class="btn btn-primary" id="tab3NextButton">Next <i class="icon-chevron-right icon-white"></i></button>
+	   			<button class="btn" id="tab3BackButton"><i class="icon-chevron-left"></i> ก่อนหน้า</button>
+	   			<button class="btn btn-primary" id="tab3NextButton">ถัดไป <i class="icon-chevron-right icon-white"></i></button>
 	   		</div> 
 		</div>
 		<div id="tab4" class="tab-content form-horizontal tab-overflow hide">
@@ -197,8 +197,8 @@
     			</table> 
     		</div>
 	   		<div class="control-button pagination-centered">
-	   			<button class="btn" id="tab4BackButton" data-loading-text="Back"><i class="icon-chevron-left"></i> Back</button>
-	   			<button class="btn btn-primary" id="tab4NextButton" data-loading-text="กำลังสร้าง..."><i class="icon-ok icon-white"></i> Add</button>
+	   			<button class="btn" id="tab4BackButton" data-loading-text="Back"><i class="icon-chevron-left"></i> ก่อนหน้า</button>
+	   			<button class="btn btn-primary" id="tab4NextButton" data-loading-text="กำลังสร้าง..."><i class="icon-ok icon-white"></i> สร้าง</button>
 	   		</div> 
     		
 		</div>

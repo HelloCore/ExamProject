@@ -20,6 +20,7 @@ import th.ac.kbu.cs.ExamProject.Domain.QuestionGroupComboBoxDomain;
 import th.ac.kbu.cs.ExamProject.Domain.RegisterCourseComboBox;
 import th.ac.kbu.cs.ExamProject.Domain.RegisterSectionComboBox;
 import th.ac.kbu.cs.ExamProject.Domain.SectionComboBoxDomain;
+import th.ac.kbu.cs.ExamProject.Domain.TeacherComboBoxDomain;
 import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -91,6 +92,12 @@ public class ComboBoxController {
 	@RequestMapping(value="/member/registerSectionComboBox.html" ,method=RequestMethod.POST,params={"method=changeSection"})
 	public @ResponseBody List<Object[]> getChangeSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
 		return domain.getChangeSectionStudentData(SecurityUtils.getUsername());
+	}
+
+	@PreAuthorize(RoleDescription.hasRole.ADMIN)
+	@RequestMapping(value="/management/teacherComboBox.html" ,method=RequestMethod.POST)
+	public @ResponseBody List<HashMap<String,Object>> getTeacherComboBox(@ModelAttribute TeacherComboBoxDomain domain,HttpServletRequest request){
+		return domain.getTeacherComboBox();
 	}
 
 	

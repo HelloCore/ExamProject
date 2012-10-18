@@ -6,6 +6,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
+import org.hibernate.impl.CriteriaImpl.Subcriteria;
 
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGridManager;
 import th.ac.kbu.cs.ExamProject.Entity.Section;
@@ -27,16 +29,15 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 
 	@Override
 	protected DetachedCriteria initCriteria(SectionDomain domain) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(TeacherCourse.class,"teacherCourse");
-		criteria.createAlias("teacherCourse.course", "course");
-		criteria.createAlias("teacherCourse.user", "user");
-		criteria.createAlias("course.section", "section");
+	
+		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
+		criteria.createAlias("section.course", "course");
+		
 		return criteria;
 	}
 
 	@Override
 	protected void applyCriteria(DetachedCriteria criteria, SectionDomain domain,String username) {
-		criteria.add(Restrictions.eq("teacherCourse.username",username));
 		if(BeanUtils.isNotEmpty(domain.getSectionNameSearch())){
 			criteria.add(Restrictions.ilike("section.sectionName", domain.getSectionNameSearch(), MatchMode.ANYWHERE));
 		}
@@ -49,6 +50,12 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 		if(BeanUtils.isNotEmpty(domain.getCourseCodeSearch())){
 			criteria.add(Restrictions.ilike("course.courseCode", domain.getCourseCodeSearch(), MatchMode.ANYWHERE));
 		}
+		
+		DetachedCriteria subCriteria = DetachedCriteria.forClass(TeacherCourse.class,"teacherCourse");
+		subCriteria.setProjection(Projections.property("teacherCourse.courseId"));
+		subCriteria.add(Restrictions.eq("teacherCourse.username", username));
+		
+		criteria.add(Subqueries.propertyIn("section.courseId", subCriteria));
 		criteria.add(Restrictions.eq("section.flag",true));
 	}
 

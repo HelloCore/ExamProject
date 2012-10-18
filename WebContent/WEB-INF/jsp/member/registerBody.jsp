@@ -11,20 +11,14 @@
 	<div class="span12">
 		<div class="button-holder">
 			<div class="form-inline" id="register-button-holder" style="display:none;">
-				<!-- <label class="control-label" for="courseId">วิชา</label>
-				<select id="courseId" class="input-medium" data-placeholder="Choose a course..." name="courseId"></select>
-				<label class="control-label" for="sectionId">Section</label>
-				<select id="sectionId" class="input-medium" data-placeholder="Choose a section..." name="sectionId"></select>
-				 -->
-				 
 				<label class="control-label" for="courseSectionId">Section</label>
 				<select id="courseSectionId" class="input-medium" data-placeholder="Choose a section..." name="courseSectionId"></select>
-		      	<button class="btn btn-primary" id="registerModalButton"><i class="icon-pencil icon-white"></i> Register</button>
-		      	<button class="btn btn-info" id="changeSectionModalButton"><i class="icon-edit icon-white"></i> Change</button>
-		      	<button class="btn" id="cancelButton">Cancel</button>
+		      	<button class="btn btn-primary" id="registerModalButton"><i class="icon-pencil icon-white"></i> ลงทะเบียน</button>
+		      	<button class="btn btn-primary" id="changeSectionModalButton"><i class="icon-pencil icon-white"></i> ย้าย Section</button>
+		      	<button class="btn" id="cancelButton">ยกเลิก</button>
 			</div>
 			<div id="normal-button-holder">
-		      	<button class="btn btn-info" id="registerButton"><i class="icon-plus icon-white"></i> Register</button>
+		      	<button class="btn btn-primary" id="registerButton"><i class="icon-pencil icon-white"></i> ลงทะเบียน</button>
 			</div>
 		</div>
 		<table class="table table-striped table-hover" id="registerTable">
@@ -53,8 +47,8 @@
 		
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-primary" id="confirmRegisterButton" data-loading-text="Register..." ><i class="icon-pencil icon-white"></i> Register</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-primary" id="confirmRegisterButton" data-loading-text="กำลังลงทะเบียน..." ><i class="icon-pencil icon-white"></i> ลงทะเบียน</a>
   	</div>
 </div>
 
@@ -66,8 +60,8 @@
 		คุณต้องการยกเลิกการลงทะเบียนใช่หรือไม่
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="confirmCancelButton" data-loading-text="ยกเลิก..." ><i class="icon-trash icon-white"></i> ยกเลิก</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-danger" id="confirmCancelButton" data-loading-text="กำลังยกเลิก..." ><i class="icon-trash icon-white"></i> ยกเลิก</a>
   	</div>
 </div>
 
@@ -80,7 +74,7 @@
 		คุณต้องการย้าย Section ใช่หรือไม่ ?
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
     	<a href="#" class="btn btn-info" id="confirmChangeSectionButton" data-loading-text="ย้าย..." ><i class="icon-edit icon-white"></i> ย้าย</a>
   	</div>
 </div>

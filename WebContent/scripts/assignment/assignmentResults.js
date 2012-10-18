@@ -48,9 +48,9 @@ assignmentResult.getGrid = function(){
 			}
 			var startRecord = (((assignmentResult.rows)*(assignmentResult.page-1))+1);
 			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
+				$("#gridInfo").text('รายการที่ 0 - 0 จากทั้งหมด 0 รายการ ');		
 			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
+				$("#gridInfo").text('รายการที่ '+startRecord+' - '+(startRecord+data.records.length -1)+' จากทั้งหมด '+data.totalRecords+' รายการ ');
 			}
 			assignmentResult.lastPage = data.totalPages;
 			applicationScript.setPagination(assignmentResult.page,assignmentResult.lastPage);

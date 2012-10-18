@@ -8,7 +8,7 @@
 <div class="page-header pagination-centered" id="pageHeader">
 	<h2><font class="red-color">รายงาน </font> Assignment</h2>
 </div>
-<a href="${contextPath}/report/assignment.html" class="btn" style="margin-top:-10px;"><i class="icon-chevron-left"></i> Back</a>
+<a href="${contextPath}/report/assignment.html" class="btn" style="margin-top:-10px;"><i class="icon-chevron-left"></i> กลับ</a>
 <hr>
 <div class="row-fluid">
 	<div class="span12">
@@ -70,4 +70,4 @@
 	</div>
 </div>
 <hr>
-<a href="${contextPath}/report/assignment.html" class="btn" ><i class="icon-chevron-left"></i> Back</a>
+<a href="${contextPath}/report/assignment.html" class="btn" ><i class="icon-chevron-left"></i> กลับ</a>

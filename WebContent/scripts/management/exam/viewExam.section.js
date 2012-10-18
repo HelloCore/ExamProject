@@ -147,29 +147,33 @@ viewExam.section.runNumber = function(){
 };
 
 viewExam.section.beginEdit = function(){
-	$(".editable-section").block(application.blockOption);
-	
-	viewExam.section.removedData = [];
-	viewExam.section.backupExamSectionData = $.extend(true,{},viewExam.section.examSectionData);
-	viewExam.section.oldEditTable = $(".editable-section tbody").html();
-	$("#normal-section-panel").hide();
-	$("#edit-section-panel").show();
-	$(".editable-section thead tr").append('<th>Action</th>');
-	$(".editable-section tbody").empty();
-	var nowData,strHtml,i=1;
-	for(key in viewExam.section.examSectionData){
-		nowData = viewExam.section.examSectionData[key];
-		strHtml = '<tr id="section-'+nowData.sectionId+'">'
-					+'<td class="number-section" >'+i+'</td>'
-					+'<td>'+nowData.sectionName+'</td>'
-					+'<td>'+nowData.sectionSemester+'</td>'
-					+'<td>'+nowData.sectionYear+'</td>'
-					+'<td><button class="btn btn-danger" onClick="removeSection('+nowData.sectionId+')"><i class="icon-trash icon-white" ></i> Delete</button></td>'
-				+'</tr>';
-		$(".editable-section tbody").append(strHtml);
-		i++;
+	if(application.exam.isCalScore){
+		$(".editable-section").block(application.blockOption);
+		
+		viewExam.section.removedData = [];
+		viewExam.section.backupExamSectionData = $.extend(true,{},viewExam.section.examSectionData);
+		viewExam.section.oldEditTable = $(".editable-section tbody").html();
+		$("#normal-section-panel").hide();
+		$("#edit-section-panel").show();
+		$(".editable-section thead tr").append('<th>Action</th>');
+		$(".editable-section tbody").empty();
+		var nowData,strHtml,i=1;
+		for(key in viewExam.section.examSectionData){
+			nowData = viewExam.section.examSectionData[key];
+			strHtml = '<tr id="section-'+nowData.sectionId+'">'
+						+'<td class="number-section" >'+i+'</td>'
+						+'<td>'+nowData.sectionName+'</td>'
+						+'<td>'+nowData.sectionSemester+'</td>'
+						+'<td>'+nowData.sectionYear+'</td>'
+						+'<td><button class="btn btn-danger" onClick="removeSection('+nowData.sectionId+')"><i class="icon-trash icon-white" ></i> Delete</button></td>'
+					+'</tr>';
+			$(".editable-section tbody").append(strHtml);
+			i++;
+		}
+		$(".editable-section").unblock();
+	}else{
+		applicationScript.errorAlertWithStringTH("ไม่สามารถแก้ไข Section ของการสอบประเภททดลองสอบได้");
 	}
-	$(".editable-section").unblock();
 };
 viewExam.section.cancelEdit = function(){
 	viewExam.section.examSectionData = $.extend(true,{},viewExam.section.backupExamSectionData);

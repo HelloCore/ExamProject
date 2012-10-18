@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.SignUpDomain;
 
 @Controller
@@ -49,6 +50,17 @@ public class SignUpController {
 		domain.requestActiveCode();
 	}
 
+	@PreAuthorize(RoleDescription.hasRole.ADMIN)
+	@RequestMapping(value="/main/signUpTeacher.html")
+	public ModelMap initSignUpTeacher(ModelMap modelMap,SignUpDomain domain){
+		return modelMap;
+	}
+
+	@PreAuthorize(RoleDescription.hasRole.ADMIN)
+	@RequestMapping(value="/main/signUpTeacher.html",method=RequestMethod.POST)
+	public void signUpTeacher(@ModelAttribute SignUpDomain domain,HttpServletResponse response,HttpServletRequest request){
+		domain.signUpTeacher();
+	}
 
 	
 }

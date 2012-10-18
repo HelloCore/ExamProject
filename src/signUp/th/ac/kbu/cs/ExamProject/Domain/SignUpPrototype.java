@@ -3,6 +3,7 @@ package th.ac.kbu.cs.ExamProject.Domain;
 
 public class SignUpPrototype {
 	
+	private String username;
 	private String studentId;
 	private String password;
 	private String rePassword;
@@ -12,6 +13,12 @@ public class SignUpPrototype {
 	private String activeCode;
 	private Integer prefixName;
 	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public Integer getPrefixName() {
 		return prefixName;
 	}

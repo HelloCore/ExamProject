@@ -11,10 +11,10 @@
 
 <div class="row-fluid">
 	<div class="span12">
-		<a class="btn" href="${contextPath}/management/task/taskList.html"><i class="icon-chevron-left"></i> Back</a>
+		<a class="btn" href="${contextPath}/management/task/taskList.html"><i class="icon-chevron-left"></i> กลับ</a>
 		<c:if test="${not empty success}">		
 			<div class="alert alert-success" style="width:300px;margin:auto;">
-				<strong>Success!</strong> Evaluate Complete
+				<strong>สำเร็จ!</strong> บันทึกข้อมูลสำเร็จ
 			</div>
 		</c:if>
 		<br>

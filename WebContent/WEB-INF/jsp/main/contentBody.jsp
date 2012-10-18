@@ -14,28 +14,28 @@
 		<c:if test="${not empty error}">
 			<div class="alert alert-error" style="width:400px;margin:auto;">
 				<a class="close" data-dismiss="alert" href="#">&times;</a>
-				<strong>Error! </strong> ${error}
+				<strong>เกิดข้อผิดพลาด! </strong> ${error}
 			</div>
 		</c:if>
 		<c:if test="${canEdit}">
 			<c:if test="${not empty success}">
 				<div class="alert alert-success" style="width:400px;margin:auto;">
 					<a class="close" data-dismiss="alert" href="#">&times;</a>
-					<strong>Success !</strong> Save Complete
+					<strong>สำเร็จ !</strong> บันทึกข้อมูลสำเร็จ
 				</div>
 			</c:if>
 		</c:if>
 		<c:if test="${parentPath != 0}">
-			<a class="btn" href="${contextPath}/main/content.html?path=${parentPath}&from=${currentPath}"><i class="icon-chevron-left"></i> Back</a>
+			<a class="btn" href="${contextPath}/main/content.html?path=${parentPath}&from=${currentPath}"><i class="icon-chevron-left"></i> กลับ</a>
 		</c:if>
 		<c:if test="${canEdit}">
-			<a class="btn btn-primary" id="uploadButton"><i class="icon-upload icon-white"></i> Upload</a>
-			<a class="btn btn-info" id="newFolderButton"><i class="icon-plus icon-white"></i> New Folder</a>
+			<a class="btn btn-primary" id="uploadButton"><i class="icon-upload icon-white"></i> อัพโหลดไฟล์</a>
+			<a class="btn btn-info" id="newFolderButton"><i class="icon-folder-open icon-white"></i> สร้างโฟลเดอร์</a>
 		</c:if>
 		<c:if test="${fn:length(folderData)+fn:length(fileData) ==0}">
 			<div class="alert alert-error" style="width:400px;margin:auto;">
 				<a class="close" data-dismiss="alert" href="#">&times;</a>
-				<strong>Warning!</strong> ไม่มีข้อมูลใน Folder นี้
+				<strong>คำเตือน!</strong> ไม่มีข้อมูลในโฟลเดอร์นี้
 			</div>
 		</c:if>
 		<c:if test="${fn:length(folderData)+fn:length(fileData) > 0}">
@@ -45,9 +45,9 @@
 						<th>เอกสาร</th>
 						<th>รายละเอียด</th>
 						<th>ขนาดไฟล์</th>
-						<th>View Count</th>
+						<th>จำนวนคนดู</th>
 						<c:if test="${canEdit}">
-				    		<th>Action</th>
+				    		<th></th>
 				    	</c:if>
 					</tr>
 				</thead>
@@ -60,7 +60,7 @@
 								<td></td>
 								<td>${folder.viewCount}</td>
 							    <c:if test="${canEdit}">
-							    	<td><button class="btn btn-danger" onClick="deleteFolder('${folder.contentPathId}')"><i class="icon-trash icon-white"></i> Delete</button></td>
+							    	<td><button class="btn btn-danger" onClick="deleteFolder('${folder.contentPathId}')"><i class="icon-trash icon-white"></i> ลบ</button></td>
 							    </c:if>
 							</tr>
 						</c:forEach>
@@ -76,7 +76,7 @@
 								<td> <fmt:formatNumber minFractionDigits="0" maxFractionDigits="0" value="${file.contentFileSize/1024}"/> Kb</td>
 								<td>${file.viewCount}</td>
 								<c:if test="${canEdit}">
-						    		<td><button class="btn btn-danger" onClick="deleteFile('${file.contentFileId}')"><i class="icon-trash icon-white"></i> Delete</button></td>
+						    		<td><button class="btn btn-danger" onClick="deleteFile('${file.contentFileId}')"><i class="icon-trash icon-white"></i> ลบ</button></td>
 						    	</c:if>
 						    </tr>
 					    </c:forEach>
@@ -91,14 +91,14 @@
 		<div class="modal hide fade" id="newFolderModal">
 			<div class="modal-header">
 		    	<button type="button" class="close" data-dismiss="modal">×</button>
-		    	<h3>New Folder</h3>
+		    	<h3>สร้างโฟลเดอร์</h3>
 		  	</div>
 		  	<div class="modal-body">
 		    	<form class="form-horizontal" id="newFolderForm" method="POST" accept-charset="UTF-8">
 		    		<input type="hidden" name="method" value="newFolder" />
 		    		<input type="hidden" name="folderId" value="${currentPath}" />
 		    		<div class="control-group">
-			     		<label class="control-label" for="folderName">ชื่อ Folder</label>
+			     		<label class="control-label" for="folderName">ชื่อโฟลเดอร์</label>
 			      		<div class="controls">
 			        		<input type="text" class="input-medium" id="folderName" name="folderName" />
 			        	</div>
@@ -112,22 +112,22 @@
 		    	</form>
 		  	</div>
 		  	<div class="modal-footer">
-		    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-		    	<button class="btn btn-info" id="newFolderConfirm" data-loading="New Folder..."><i class="icon-plus icon-white"></i> New Folder</button>
+		    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+		    	<button class="btn btn-info" id="newFolderConfirm" data-loading="กำลังสร้าง..."><i class="icon-folder-open icon-white"></i> สร้างโฟลเดอร์</button>
 		  	</div>
 		</div>
 		
 		<div class="modal hide fade" id="uploadModal">
 			<div class="modal-header">
 		    	<button type="button" class="close" data-dismiss="modal">×</button>
-		    	<h3>Upload File</h3>
+		    	<h3>อัพโหลดไฟล์</h3>
 		  	</div>
 		  	<div class="modal-body">
 		    	<form class="form-horizontal" id="uploadFileForm" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
 		    		<input type="hidden" name="method" value="uploadFile" />
 		    		<input type="hidden" name="folderId" value="${currentPath}" />
 		    		<div class="control-group">
-			     		<label class="control-label" for="fileName">ชื่อ File</label>
+			     		<label class="control-label" for="fileName">ชื่อไฟล์</label>
 			      		<div class="controls">
 			        		<input type="text" class="input-medium" id="fileName" name="fileName" />
 			        	</div>
@@ -139,7 +139,7 @@
 				        </div>
 				    </div>
 			    	<div class="control-group">
-				     	<label class="control-label" for="fileData">File</label>
+				     	<label class="control-label" for="fileData">ไฟล์</label>
 				      	<div class="controls">
 				        	<input type="file" class="input-medium" id="fileData" name="fileData" />
 				        </div>
@@ -147,8 +147,8 @@
 		    	</form>
 		  	</div>
 		  	<div class="modal-footer">
-		    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-		    	<button class="btn btn-primary" id="uploadFileConfirm" data-loading="Upload..."><i class="icon-upload icon-white"></i> Upload</button>
+		    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+		    	<button class="btn btn-primary" id="uploadFileConfirm" data-loading="กำลังอัพโหลด..."><i class="icon-upload icon-white"></i> อัพโหลด</button>
 		  	</div>
 		</div>
 		
@@ -166,27 +166,27 @@
 		
 		<div class="modal hide fade" id="confirmDeleteFolder">
 			<div class="modal-header">
-				<h3>Delete Folder ?</h3>
+				<h3>ลบโฟลเดอร์ ?</h3>
 			</div>
 			<div class="modal-body">
 				<font class="error" id="errorItem">คำเตือน หากลบโฟลเดอร์ ไฟล์ข้างในจะถูกลบทั้งหมด</font>โปรดยืนยัน
 			</div>
 		  	<div class="modal-footer">
-		    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-		    	<a href="#" class="btn btn-danger" id="deleteFolderButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+		    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+		    	<a href="#" class="btn btn-danger" id="deleteFolderButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ลบ</a>
 		  	</div>
 		</div>
 		
 		<div class="modal hide fade" id="confirmDeleteFile">
 			<div class="modal-header">
-				<h3>Delete File ?</h3>
+				<h3>ลบไฟล์ ?</h3>
 			</div>
 			<div class="modal-body">
 				โปรดยืนยัน
 			</div>
 		  	<div class="modal-footer">
-		    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-		    	<a href="#" class="btn btn-danger" id="deleteFileButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+		    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+		    	<a href="#" class="btn btn-danger" id="deleteFileButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ลบ</a>
 		  	</div>
 		</div>
 	</c:if>

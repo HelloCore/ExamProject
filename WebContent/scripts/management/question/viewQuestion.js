@@ -38,12 +38,12 @@ viewQuestion.addAnswer = function(){
 											+'</div>'
 											+'<div class="pagination-centered button-group">'
 												+'<input type="hidden" id="answer-score-'+data.answerId+'" value="'+data.answerScore+'">'
-												+'<button class="btn btn-info" onclick="editAnswer('+data.answerId+')"><i class="icon-edit icon-white"></i> Edit</button>'
+												+'<button class="btn btn-info" onclick="editAnswer('+data.answerId+')"><i class="icon-edit icon-white"></i> แก้ไข</button>'
 												+'&nbsp;'
-												+'<button class="btn btn-danger" onclick="deleteAnswer('+data.answerId+')"><i class="icon-trash icon-white"></i> Delete</button>'
+												+'<button class="btn btn-danger" onclick="deleteAnswer('+data.answerId+')"><i class="icon-trash icon-white"></i> ลบ</button>'
 											+'</div>'
 										+'</div>');
-			$('#answerTabNav').append('<li id="answer-menu-'+data.answerId+'"><a href="#answer-'+data.answerId+'" data-toggle="tab">Answer</a></li>');
+			$('#answerTabNav').append('<li id="answer-menu-'+data.answerId+'"><a href="#answer-'+data.answerId+'" data-toggle="tab">คำตอบ</a></li>');
 			$('#answerTabNav a:last').tab('show');
 			applicationScript.saveComplete();
 			$("#editAnswerModal").modal('hide');
@@ -99,7 +99,7 @@ viewQuestion.editAnswer = function(){
 			}
 		});
 	}else{
-		applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+		applicationScript.alertNoDataChange();
 
 		$("#saveAnswerButton").button('reset');
 		$("#editAnswerModal").modal('hide');
@@ -218,7 +218,7 @@ $(document).ready(function(){
 				}
 			});
 		}else{
-			applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+			applicationScript.alertNoDataChange();
 			$("#saveParentButton").hide();
 			$("#cancelParentButton").hide();
 			$("#editParentButton").show();
@@ -255,7 +255,7 @@ $(document).ready(function(){
 				});
 			}else{
 				viewQuestion.saveQuestionButton.button('reset');
-				applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+				applicationScript.alertNoDataChange();
 				$("#editQuestionModal").modal("hide");
 			}
 		}
@@ -289,7 +289,7 @@ $(document).ready(function(){
 		$("#answerText").val('');
 		$("#answerScoreFool").attr('checked',true).attr('disabled',false);
 		$("#answerScoreCorrect").attr('disabled',false);
-		$("#editAnswerModal .modal-header h3").text("Add Answer").closest('.modal').modal('show');
+		$("#editAnswerModal .modal-header h3").text("เพิ่มคำตอบ").closest('.modal').modal('show');
 	});
 	$("#saveAnswerButton").click(function(){
 		if($("#answerText").val().length==0){
@@ -326,7 +326,7 @@ editAnswer = function(answerId){
 	}else{
 		$("input[name=answerScore]").attr('disabled',false);
 	}
-	$("#editAnswerModal .modal-header h3").text("Edit Answer").closest('.modal').modal('show');
+	$("#editAnswerModal .modal-header h3").text("แก้ไขคำตอบ").closest('.modal').modal('show');
 };
 
 deleteAnswer = function(answerId){

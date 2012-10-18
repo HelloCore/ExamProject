@@ -21,15 +21,15 @@
 					</div>	
 				</div>
 				<div class="control-group pagination-centered grid-bar">
-					<div class="grid-info" id="gridInfo"> Record 1-5 of 12 Records</div>
+					<div class="grid-info" id="gridInfo"></div>
 				</div>
 				<div class="clear"></div>
 				<div class="control-group btn-holder-div">
 					<div class="btn-holder">
-						<button class="btn btn-primary btn-block " id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</button>
+						<button class="btn btn-primary btn-block " id="searchButton"><i class="icon-zoom-in icon-white"></i> ค้นหา</button>
 					</div>
 					<div class="btn-holder">
-						<button class="btn btn-info btn-block " id="addButton"><i class="icon-plus icon-white"></i> Add</button>
+						<button class="btn btn-info btn-block " id="addButton"><i class="icon-plus icon-white"></i> สร้าง</button>
 					</div>
 					<div class="btn-holder">
 						<button class="btn btn-success btn-block " id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
@@ -49,7 +49,7 @@
 					 	<option value="10">10</option>
 					 	<option value="20">20</option>
 					 	<option value="50">50</option>
-				 	</select> records per page
+				 	</select> รายการต่อหน้า
 				</div>
 				<div class="span7">
 					<div class="grid-pagination pagination pagination-centered ">
@@ -67,14 +67,14 @@
 
 <div class="modal hide fade" id="confirmDelete">
 	<div class="modal-header">
-		<h3>Delete Exam ?</h3>
+		<h3>ลบการสอบ ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการลบการสอบใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ลบ</a>
   	</div>
 </div>
 <form id="viewExamForm" action="${contextPath}/management/exam/view.html" method="POST" style="display:none;">

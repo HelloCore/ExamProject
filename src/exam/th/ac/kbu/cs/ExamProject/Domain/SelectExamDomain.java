@@ -38,24 +38,28 @@ public class SelectExamDomain extends ExamPrototype{
 						.append(" JOIN examSection.exam exam ")
 						.append(" JOIN exam.course course ")
 						.append(" WHERE exam.flag=? ")
-							.append(" AND (exam.examLimit > (SELECT COUNT(examResult.examResultId) ")
-								.append(" FROM ExamResult examResult")
-								.append(" WHERE examResult.examId = exam.examId ")
-								.append(" AND examResult.username = ? ")
-								.append(" ) )")
-							.append(" AND examSection.sectionId in ( ")
-								.append(" SELECT studentSection.sectionId ")
-								.append(" FROM StudentSection studentSection ")
-								.append(" WHERE studentSection.username = ? ")
-							.append(" ) ")
+							.append(" AND ")
+								.append(" ( ")
+									.append(" exam.examLimit > ")
+										.append(" (SELECT COUNT(examResult.examResultId) ")
+											.append(" FROM ExamResult examResult")
+											.append(" WHERE examResult.examId = exam.examId ")
+											.append(" AND examResult.username = ? ")
+										.append(" ) ")
+								.append(" ) ")
 							.append(" AND ( exam.endDate>? OR exam.endDate is null) ")
+							.append(" AND ( exam.isCalScore = 1 AND examSection.sectionId in ")
+									.append(" ( SELECT studentSection.sectionId ")
+										.append(" FROM StudentSection studentSection ")
+										.append(" WHERE studentSection.username = ? ")
+									.append(" ) ) ")
 						.append(" ORDER BY exam.isCalScore desc,exam.endDate asc");
 		Object[] params = {
 				SecurityUtils.getUsername(),
 				true,
 				SecurityUtils.getUsername(),
-				SecurityUtils.getUsername(),
-				new Date()
+				new Date(),
+				SecurityUtils.getUsername()
 		};
 		return basicFinderService.find(queryString.toString(), params);
 	}
@@ -91,5 +95,47 @@ public class SelectExamDomain extends ExamPrototype{
 		};
 		return basicFinderService.find(queryString.toString(), params);
 	}
-	
+
+	public List<Object[]> getSampleExam(){
+		StringBuilder queryString = new StringBuilder();
+		queryString.append(" SELECT ")
+						.append("course.courseCode as courseCode")
+						.append(",exam.examHeader as examHeader")
+						.append(",exam.endDate as endDate")
+						.append(",(SELECT COUNT(examResult.examResultId) ")
+							.append(" FROM ExamResult examResult")
+							.append(" WHERE examResult.examId = exam.examId ")
+							.append(" AND examResult.username = ? ")
+						.append(" ) as examCount ")
+						.append(",exam.examLimit  as examLimit ")
+						.append(",exam.minQuestion as minQuestion")
+						.append(",exam.maxQuestion as maxQuestion")
+						.append(",exam.examId as examId")
+						.append(",exam.startDate as startDate")
+						.append(",exam.isCalScore as isCalScore")
+						.append(",exam.maxScore as maxScore")
+						.append(" FROM Exam exam ")
+						.append(" JOIN exam.course course ")
+						.append(" WHERE exam.flag=? ")
+							.append(" AND exam.courseId IN ( SELECT course.courseId FROM StudentSection studentSection JOIN studentSection.section section JOIN section.course course WHERE studentSection.username = ? )")
+							.append(" AND ")
+								.append(" ( ")
+									.append(" exam.examLimit > ")
+										.append(" (SELECT COUNT(examResult.examResultId) ")
+											.append(" FROM ExamResult examResult")
+											.append(" WHERE examResult.examId = exam.examId ")
+											.append(" AND examResult.username = ? ")
+										.append(" ) ")
+								.append(" ) ")
+							.append(" AND ( exam.endDate>? OR exam.endDate is null) ")
+							.append(" AND ( exam.isCalScore = 0)");
+		Object[] params = {
+				SecurityUtils.getUsername(),
+				true,
+				SecurityUtils.getUsername(),
+				SecurityUtils.getUsername(),
+				new Date()
+		};
+		return basicFinderService.find(queryString.toString(), params);
+	}
 }

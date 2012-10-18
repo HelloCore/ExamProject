@@ -72,25 +72,21 @@ examManagement.getGrid = function(){
 									+'<td class="sub-column1">จำนวนคำถาม : '+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
 									+'<td class="sub-column2">วันหมดเขตสอบ : '+endDateStr+'</td>'
 									+'<td class="sub-column3">'
-										+'<button class="btn btn-info btn-block" onClick="viewExam('+data.records[keyArray].examId+')"><i class="icon-edit icon-white"></i> View</button> '
+										+'<button class="btn btn-info btn-block" onClick="viewExam('+data.records[keyArray].examId+')"><i class="icon-edit icon-white"></i> ดูรายละเอียด</button> '
 									+'</td>'
 								+'</tr>'
 								+'<tr>'
 									+'<td class="sub-column1">คะแนนเต็ม : '+data.records[keyArray].maxScore+' คะแนน</td>'
 									+'<td class="sub-column2">จำกัดการสอบ : '+data.records[keyArray].examLimit+' ครั้ง</td>'
 									+'<td class="sub-column3">'
-										+'<button class="btn btn-danger btn-block" onClick="deleteExam('+data.records[keyArray].examId+')"><i class="icon-trash icon-white"></i> Delete</button>'
+										+'<button class="btn btn-danger btn-block" onClick="deleteExam('+data.records[keyArray].examId+')"><i class="icon-trash icon-white"></i> ลบ</button>'
 									+'</td>'
 								+'</tr>'
 							+'</table>';
 				$("#examDivHolder").append(strHtml);
 			}
 			var startRecord = (((examManagement.rows)*(examManagement.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
-			}			
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
 			examManagement.lastPage = data.totalPages;
 			applicationScript.setPagination(examManagement.page,examManagement.lastPage);
 			$("#examDivHolder").unblock();

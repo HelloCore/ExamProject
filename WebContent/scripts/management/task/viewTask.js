@@ -280,7 +280,7 @@ $(document).ready(function(){
 			if(viewTask.checkDirty()){
 				$("#editTaskConfirmModal").modal('show');
 			}else{
-				applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+				applicationScript.alertNoDataChange();
 			}
 		}
 	});

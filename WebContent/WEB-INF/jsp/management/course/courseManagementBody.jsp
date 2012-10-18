@@ -103,7 +103,7 @@
     	<div class="control-group">
 	     	<label class="control-label" for="courseNameSearch">ชื่อวิชา</label>
 	      	<div class="controls">
-	        	<input type="text" class="input-xlarge" id="courseNameSearch" name="courseName">
+	        	<input type="text" class="input-xlarge" id="courseNameSearch" name="courseName" />
 	        </div>
 	    </div>
     </form>
@@ -113,3 +113,8 @@
     <a href="#" class="btn btn-primary" id="searchButton"><i class="icon-zoom-in icon-white"></i> Search</a>
   </div>
 </div>
+
+<form id="viewDetailCourseForm" action="${contextPath}/management/course/view.html" method="POST">
+	<input type="hidden" id="viewCourseId" name="courseId" />
+	<input type="hidden" name="method" value="viewCourseDetail" />
+</form>

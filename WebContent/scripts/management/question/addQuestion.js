@@ -161,8 +161,7 @@ $(document).ready(function(){
 												+'</tr>'
 											+'</table>'
 										+'</div>');
-		$('#questionTabNav').append('<li id="answer-tab-content'+addQuestion.tabCounter+'"><a href="#answer-tab'+addQuestion.tabCounter+'" data-toggle="tab" >Answer <button class="close" onClick="closeTab('+addQuestion.tabCounter+')">×</button></a></li>');
-//		$('#answerTextArea'+addQuestion.tabCounter).ckeditor(ckOptions);
+		$('#questionTabNav').append('<li id="answer-tab-content'+addQuestion.tabCounter+'"><a href="#answer-tab'+addQuestion.tabCounter+'" data-toggle="tab" >คำตอบ <button class="close" onClick="closeTab('+addQuestion.tabCounter+')">×</button></a></li>');
 		$('#answerTextArea'+addQuestion.tabCounter).ckeditor();
 		$('#questionTabNav a:last').tab('show');
 		addQuestion.tabCounter++;

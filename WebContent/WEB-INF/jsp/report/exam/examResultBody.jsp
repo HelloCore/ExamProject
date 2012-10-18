@@ -6,7 +6,7 @@
 	<div class="page-header pagination-centered" id="pageHeader">
 		<h2><font class="red-color">ผล</font> การสอบ</h2>
 	</div>
-	<button class="btn" style="margin-top:-10px;" onclick="history.back();"><i class="icon-chevron-left"></i> Back</button>
+	<button class="btn" style="margin-top:-10px;" onclick="history.back();"><i class="icon-chevron-left"></i> กลับ</button>
 	<hr>
 	<div class="row-fluid">
 		<div class="span6 offset3 ">
@@ -66,7 +66,7 @@
 				</dl>
 				<dl class="dl-horizontal">
 				  <dt>ได้คะแนน : </dt>
-				  <dd>${examResultData.examScore} คะแนน</dd>
+				  <dd><fmt:formatNumber value="${examResultData.examScore}" maxFractionDigits="2"/> คะแนน</dd>
 				</dl>
 			</div>
 		</div>
@@ -94,14 +94,14 @@
 								<td><p>${data.questionText}</p></td>
 								<td><p>${data.answerText}</p></td>
 								<c:if test="${empty data.answerScore}">
-									<td><span class="label label-warning"><i class="icon-ban-circle icon-white"></i> None</span></td>
+									<td><span class="label label-warning"><i class="icon-ban-circle icon-white"></i> ไม่ตอบ</span></td>
 								</c:if>
 								<c:if test="${not empty data.answerScore}">
 									<c:if test="${data.answerScore<=0}">
-										<td><span class="label label-important"><i class="icon-remove icon-white"></i> Incorrect</span></td>
+										<td><span class="label label-important"><i class="icon-remove icon-white"></i> ตอบผิด</span></td>
 									</c:if>
 									<c:if test="${data.answerScore>0}">
-										<td><span class="label label-success"><i class="icon-ok icon-white"></i> Correct</span></td>
+										<td><span class="label label-success"><i class="icon-ok icon-white"></i> ตอบถูก</span></td>
 									</c:if>
 								</c:if>
 							</tr>
@@ -113,5 +113,5 @@
 	</div>
 </div>
 <hr>
-<button class="btn"  onclick="history.back();"><i class="icon-chevron-left"></i> Back</button>
+<button class="btn"  onclick="history.back();"><i class="icon-chevron-left"></i> กลับ</button>
 

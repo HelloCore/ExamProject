@@ -34,15 +34,15 @@ examReport.getGrid = function(){
 								+ '<td style="text-align:right;">'+data.records[keyArray].numOfQuestion+' ข้อ</td>'
 								+ '<td style="text-align:right;">'+usedTimeStr+'</td>'
 								+ '<td style="text-align:right;">'+data.records[keyArray].maxScore+' คะแนน</td>'
-								+ '<td style="text-align:right;">'+data.records[keyArray].examScore+' คะแนน</td>'
+								+ '<td style="text-align:right;">'+Math.round(data.records[keyArray].examScore*100)/100+' คะแนน</td>'
 							+'</tr>';
 				$("#examReportGrid tbody").append(strHtml);
 			}
 			var startRecord = (((examReport.rows)*(examReport.page-1))+1);
 			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 Records ');		
+				$("#gridInfo").text('รายการที่ 0 - 0 จากทั้งหมด 0 รายการ ');		
 			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords+' Records ');
+				$("#gridInfo").text('รายการที่ '+startRecord+' - '+(startRecord+data.records.length -1)+' จากทั้งหมด '+data.totalRecords+' รายการ ');
 			}
 			examReport.lastPage = data.totalPages;
 			applicationScript.setPagination(examReport.page,examReport.lastPage);
