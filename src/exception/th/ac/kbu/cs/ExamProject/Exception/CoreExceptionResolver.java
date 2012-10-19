@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateSystemException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,6 +48,9 @@ public class CoreExceptionResolver implements HandlerExceptionResolver{
 			mv.addObject("message", ex.getMessage());
 		}else if(ex instanceof AccessDeniedException){
 			mv = new ModelAndView("redirect:/errors/access-denied.html");
+		}else if(ex instanceof BindException){
+			mv = new ModelAndView("errorJson");
+			mv.addObject("message", "ไม่พบข้อมูล");
 		}
 		
 		

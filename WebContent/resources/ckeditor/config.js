@@ -26,6 +26,7 @@ CKEDITOR.editorConfig = function( config )
 	];
 	config.filebrowserBrowseUrl = application.contextPath+'/resources/ckfinder/ckfinder.htm';
 	config.filebrowserImageBrowseUrl =  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Images';
+	config.filebrowserImageBrowseLinkUrl =  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Images';
 	config.filebrowserFlashBrowseUrl =  application.contextPath+'/resources/ckfinder/ckfinder.htm?type=Flash';
 	config.filebrowserUploadUrl =  application.contextPath+'/resources/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files';
 	config.filebrowserImageUploadUrl =   application.contextPath+'/resources/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images';

@@ -40,6 +40,7 @@ addExam.initFunction = function(){
 	$("#examHeader").val('');
 	$("#minQuestion").val('');
 	$("#maxQuestion").val('');
+	$("#maxScore").val('');
 	$("#startTime").val('00:00');
 	$("#endTime").val('00:00');
 	$('input:checkbox:checked').attr('checked',false);

@@ -55,8 +55,8 @@
 	    	</div>
 	  	</div>
 	  	<div class="button-holder pagination-centered">
-	  		<button class="btn" id="cancelButton"> Cancel</button>
-	  		<button class="btn btn-info" id="editButton"><i class="icon-edit icon-white"></i> Edit</button>
+	  		<button class="btn" id="cancelButton"> ปิด</button>
+	  		<button class="btn btn-info" id="editButton"><i class="icon-pencil icon-white"></i> แก้ไข</button>
 	  	</div>
 	</div>
 </div>
@@ -64,13 +64,13 @@
 
 <div class="modal hide fade" id="confirmEditNewsModal">
 	<div class="modal-header">
-		<h3>Edit News ?</h3>
+		<h3>แก้ไขข่าว ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการแก้ไขข่าวประชาสัมพันธ์ใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-info" id="confirmEditButton" data-loading-text="Edit..." ><i class="icon-edit icon-white"></i> Edit</a>
+    	<a href="#" class="btn btn-info" id="confirmEditButton" data-loading-text="กำลังแก้ไข..." ><i class="icon-pencil icon-white"></i> แก้ไข</a>
   	</div>
 </div>

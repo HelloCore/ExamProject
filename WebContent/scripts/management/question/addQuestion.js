@@ -137,9 +137,10 @@ $(document).ready(function(){
 	$("#courseId").chosen();
 	$("#questionGroupId").chosen();
 	addQuestion.initFunction();
-	$("input[name^=answerScore]:radio").on("change",function(){
+	$(".tab-content").on("change",'input[name^=answerScore]:radio',function(){
 		addQuestion.calAnswer();
 	});
+	
 	$("#addAnswer").click(function(e){
 		e.preventDefault();
 		$('#questionTabNav li.active').removeClass('active');

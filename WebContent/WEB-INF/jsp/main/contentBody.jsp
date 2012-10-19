@@ -101,6 +101,7 @@
 			     		<label class="control-label" for="folderName">ชื่อโฟลเดอร์</label>
 			      		<div class="controls">
 			        		<input type="text" class="input-medium" id="folderName" name="folderName" />
+        					<span class="help-block">* อนุญาติให้ใช้ภาษาอังกฤษ และตัวเลข และเครื่องหมาย _ เท่านั้น</span>
 			        	</div>
 				    </div>
 			    	<div class="control-group">

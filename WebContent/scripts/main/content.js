@@ -1,9 +1,13 @@
 var isValidUpload = false;
+application.folderNameRule = /^[a-zA-z0-9_]+$/;
 
 validateNewFolder = function(){
 	var isValid = true;
-	if($("#folderName").val().length < 4){
-		applicationScript.errorAlertWithStringTH("กรุณากรอกชื่อ Folder จำนวน 4 ตัวอักษรขึ้นไป");
+	if($("#folderName").val().length < 4 || $("#folderName").val().length > 25){
+		applicationScript.errorAlertWithStringTH("กรุณากรอกชื่อ Folder จำนวน 4 ถึง 25 ตัวอักษรขึ้นไป");
+		isValid=false;
+	}else if(!application.folderNameRule.test($("#folderName").val())){
+		applicationScript.errorAlertWithStringTH("ชื่อ Folder ต้องเป็นภาษาอังกฤษหรือตัวเลขหรือเครื่องหมาย _ เท่านั้น");
 		isValid=false;
 	}
 	return isValid;
@@ -38,12 +42,14 @@ $(document).ready(function(){
 	
 	$("#uploadFileConfirm").click(function(){
 		if(validateUploadFile()){
+			$(this).button('loading');
 			$("#uploadFileForm").submit();
 		}
 	});
 	
 	$("#newFolderConfirm").click(function(){
 		if(validateNewFolder()){
+			$(this).button('loading');
 			$("#newFolderForm").submit();
 		}
 	});

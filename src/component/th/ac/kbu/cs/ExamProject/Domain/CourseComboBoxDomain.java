@@ -38,6 +38,7 @@ public class CourseComboBoxDomain extends ComboBox{
 		criteria.setProjection(projectionList);
 		
 		criteria.add(Restrictions.eq("teacherCourse.username",username));
+		criteria.add(Restrictions.eq("course.flag", true));
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 
 		return basicFinderService.findByCriteria(criteria);

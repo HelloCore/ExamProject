@@ -54,14 +54,14 @@
 
 <div class="modal hide fade" id="viewReportConfirmModal">
 	<div class="modal-header">
-		<h3>View Report ?</h3>
+		<h3>ดูรายงาน ?</h3>
 	</div>
 	<div class="modal-body">
 		คุณต้องการดูรายงานใช่หรือไม่ โปรดยืนยัน ?
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-info" id="viewReportConfirmButton" data-loading-text="loading..." ><i class="icon-file icon-white"></i> ดูรายงาน</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-info" id="viewReportConfirmButton" data-loading-text="โหลดข้อมูล..." ><i class="icon-file icon-white"></i> ดูรายงาน</a>
   	</div>
 </div>
 
