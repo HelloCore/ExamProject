@@ -15,13 +15,13 @@
 		<input type="hidden" id="courseId" name="courseId" value="${courseData.courseId}" />
 		<div class="button-holder">
 			<div class="form-inline" id="add-user-button-holder" style="display:none;">
-				<label class="control-label" for="username">User</label>
+				<label class="control-label" for="username">อาจารย์</label>
 				<select id="username" class="input-xxlarge" data-placeholder="Choose a user..." name="username"></select>
-		      	<button class="btn btn-primary" id="addTeacherButton"><i class="icon-pencil icon-white"></i> Add</button>
-		      	<button class="btn" id="cancelButton">Cancel</button>
+		      	<button class="btn btn-primary" id="addTeacherButton"><i class="icon-pencil icon-white"></i> เพิ่ม</button>
+		      	<button class="btn" id="cancelButton">ยกเลิก</button>
 			</div>
 			<div id="normal-button-holder">
-		      	<button class="btn btn-info" id="addButon"><i class="icon-plus icon-white"></i> Add</button>
+		      	<button class="btn btn-info" id="addButon"><i class="icon-plus icon-white"></i> เพิ่มอาจารย์ผู้สอน</button>
 			</div>
 		</div>
 		<table class="table table-striped table-bordered table-grid" id="teacherGrid">
@@ -42,26 +42,26 @@
 
 <div class="modal hide fade" id="confirmDelete">
 	<div class="modal-header">
-		<h3>Remove Teacher ?</h3>
+		<h3>ลบอาจารย์ผู้สอน ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการลบอาจารย์ผู้สอนออกจากวิชานี้ใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="Deleting..." ><i class="icon-trash icon-white"></i> Delete</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-danger" id="deleteButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ลบ</a>
   	</div>
 </div>
 
 <div class="modal hide fade" id="addTeacherConfirmModal">
 	<div class="modal-header">
-		<h3>Add Teacher ?</h3>
+		<h3>เพิ่มอาจารย์ผู้สอน ?</h3>
 	</div>
 	<div class="modal-body">
-		please confirm
+		คุณต้องการเพิ่มอาจารย์ผู้สอนไปยังวิชานี้ใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-primary" id="addTeacherConfirmButton" data-loading-text="Add..." ><i class="icon-pencil icon-white"></i> Add</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-primary" id="addTeacherConfirmButton" data-loading-text="กำลังเพิ่ม..." ><i class="icon-pencil icon-white"></i> เพิ่ม</a>
   	</div>
 </div>

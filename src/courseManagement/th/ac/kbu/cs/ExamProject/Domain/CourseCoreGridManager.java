@@ -1,5 +1,7 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
+import java.io.Serializable;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -12,6 +14,11 @@ import th.ac.kbu.cs.ExamProject.Entity.Course;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
 public class CourseCoreGridManager extends CoreGridManager<CourseDomain> {
+	
+	public Serializable saveAndReturn(CourseDomain domain) {
+		Object entity = this.toEntity(domain);
+		return this.basicEntityService.save(entity);
+	}
 	
 	@Override
 	public Object toEntityDelete(CourseDomain domain) {

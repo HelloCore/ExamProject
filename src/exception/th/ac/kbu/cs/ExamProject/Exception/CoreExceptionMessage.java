@@ -83,7 +83,7 @@ public class CoreExceptionMessage {
 		
 		DUPLICATE_EMAIL = new CoreExceptionMessage("DUPLICATE_EMAIL");
 		
-		DUPLICATE_STUDENT_ID_OR_EMAIL = new CoreExceptionMessage("DUPLICATE_STUDENT_ID_OR_EMAIL");
+		DUPLICATE_STUDENT_ID_OR_EMAIL = new CoreExceptionMessage("รหัสนักศึกษาหรืออีเมลล์นี้ มีผู้ใช้งานแล้ว");
 		
 		FILE_NOT_FOUND = new CoreExceptionMessage("FILE_NOT_FOUND");
 		FOLDER_IS_EXISTS = new CoreExceptionMessage("FOLDER_IS_EXISTS");

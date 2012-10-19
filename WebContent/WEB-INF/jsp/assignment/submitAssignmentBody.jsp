@@ -117,7 +117,7 @@
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-primary" id="submitButton" data-loading-text="submit..." ><i class="icon-pencil icon-white"></i> ส่งงาน</a>
+    	<a href="#" class="btn btn-primary" id="submitButton" data-loading-text="กำลังอัพโหลดไฟล์..." ><i class="icon-pencil icon-white"></i> ส่งงาน</a>
   	</div>
 </div>		
 	</c:if>

@@ -1,8 +1,13 @@
 package th.ac.kbu.cs.ExamProject.Domain;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.FileUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -13,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGrid;
+import th.ac.kbu.cs.ExamProject.Entity.ContentPath;
 import th.ac.kbu.cs.ExamProject.Entity.Course;
 import th.ac.kbu.cs.ExamProject.Entity.TeacherCourse;
 import th.ac.kbu.cs.ExamProject.Exception.CoreException;
@@ -37,8 +43,25 @@ public class CourseDomain extends CoursePrototype{
 		return gridManager.search(this, SecurityUtils.getUsername());
 	}
 
-	public void save(CourseCoreGridManager gridManager) {
-		gridManager.save(this);
+	public void save(CourseCoreGridManager gridManager,HttpServletRequest request) {
+		if(BeanUtils.isNull(this.getCourseId())){
+			Long courseId = BeanUtils.toLong(gridManager.saveAndReturn(this));
+			
+			ContentPath contentPath = new ContentPath();
+			contentPath.setContentPathName(this.getCourseCode());
+			contentPath.setContentPathLocation("resources/"+this.getCourseCode()+"/");
+			contentPath.setContentPathDesc("เอกสารวิชา "+this.getCourseName());
+			contentPath.setParentPathId(1L);
+			contentPath.setViewCount(0);
+			contentPath.setCourseId(courseId);
+			
+			String realPath = request.getSession().getServletContext().getRealPath(contentPath.getContentPathLocation());
+			
+			new File(realPath).mkdirs();
+			this.basicEntityService.save(contentPath);
+		}else{
+			gridManager.save(this);
+		}
 	}
 
 	public void delete(CourseCoreGridManager gridManager) {

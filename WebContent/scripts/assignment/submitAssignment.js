@@ -38,6 +38,8 @@ $(document).ready(function(){
 		}
 	});
 	$("#submitButton").click(function(){
+		$(this).button('loading');
+		$("body").block(application.blockOption);
 		$("#submitAssignmentForm").submit();
 	});
 	$(".upload-file").fileValidator({

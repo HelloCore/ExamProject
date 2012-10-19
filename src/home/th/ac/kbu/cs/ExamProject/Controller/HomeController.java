@@ -20,6 +20,7 @@ import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.ChangeUserDataDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ForgotPasswordDomain;
 import th.ac.kbu.cs.ExamProject.Domain.ViewNewsDomain;
+import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 @Controller
 public class HomeController {
@@ -74,7 +75,20 @@ public class HomeController {
 	public void changePassword(@ModelAttribute ChangeUserDataDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.changePassword();
 	}
-
+	
+	@RequestMapping(value="/member/editPersonalData.html",method=RequestMethod.GET)
+	@PreAuthorize(RoleDescription.HAS_ALL_ROLE)
+	public ModelAndView initEditPersnonalData(@ModelAttribute ChangeUserDataDomain domain,ModelAndView mv){
+		mv.addObject("userData", domain.getUserData(SecurityUtils.getUsername()));
+		return mv;
+	}
+	
+	@RequestMapping(value="/member/editPersonalData.html",method=RequestMethod.POST)
+	@PreAuthorize(RoleDescription.HAS_ALL_ROLE)
+	public void editPersonalData(@ModelAttribute ChangeUserDataDomain domain,HttpServletRequest request,HttpServletResponse response){
+		domain.editPersnoalData(SecurityUtils.getUsername());
+	}
+	
 	@PreAuthorize("isAnonymous()")
 	@RequestMapping(value="/main/forgotPassword.html",method=RequestMethod.GET)
 	public ModelAndView initForgotPassword(@RequestParam(value="studentId",required=false)String studentId,ModelAndView mv){

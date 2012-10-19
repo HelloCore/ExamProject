@@ -149,6 +149,13 @@
 								</div>
 							</div>
 							<div class="control-group">
+								<label class="control-label" for="maxScore">คะแนนเต็ม :</label>
+								<div class="controls">
+									<input class="span7" size="25"  id="maxScore" type="text" value="${examData.maxScore}" disabled="disabled"/>
+									<button class="btn btn-info" disabled="disabled"><i class="icon-ban-circle icon-white"></i> แก้ไข</button>
+							    </div>
+							</div>
+							<div class="control-group">
 								<label class="control-label" for="examSequence">การเรียงคำถาม :</label>
 								<div class="controls normal-exam-sequence-button" >
 									<input id="examSequenceStr" class="span7" size="25" name="examSequenceStr" type="text" disabled="disabled" />

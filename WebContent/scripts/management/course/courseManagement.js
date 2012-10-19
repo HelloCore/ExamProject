@@ -46,19 +46,15 @@ courseManagement.getGrid = function(){
 								+'<td id="course-code-'+data.records[keyArray].courseId+'">'+data.records[keyArray].courseCode+'</td>'
 								+'<td id="course-name-'+data.records[keyArray].courseId+'">'+data.records[keyArray].courseName+'</td>'
 								+'<td>'
-									+'<button class="btn btn-success btn-in-table" onClick="viewCourse('+data.records[keyArray].courseId+')"><i class="icon-zoom-in icon-white"></i> View</button> '
-									+'<button class="btn btn-info btn-in-table" onClick="editCourse('+data.records[keyArray].courseId+')"><i class="icon-edit icon-white"></i> Edit</button> '
-									+'<button class="btn btn-danger btn-in-table" onClick="deleteCourse('+data.records[keyArray].courseId+')"><i class="icon-trash icon-white"></i> Delete</button> '
+									+'<button class="btn btn-success btn-in-table" onClick="viewCourse('+data.records[keyArray].courseId+')"><i class="icon-zoom-in icon-white"></i> ดูรายละเอียด</button> '
+									//+'<button class="btn btn-info btn-in-table" onClick="editCourse('+data.records[keyArray].courseId+')"><i class="icon-edit icon-white"></i> Edit</button> '
+									+'<button class="btn btn-danger btn-in-table" onClick="deleteCourse('+data.records[keyArray].courseId+')"><i class="icon-trash icon-white"></i> ลบ</button> '
 								+'</td>'
 							+'</tr>';
 				$("#courseGrid tbody").append(strHtml);
 			}
 			var startRecord = (((courseManagement.rows)*(courseManagement.page-1))+1);
-			if(data.totalRecords==0){
-				$("#gridInfo").text('Record 0 - 0 of 0 ');		
-			}else{
-				$("#gridInfo").text('Record '+startRecord+' - '+(startRecord+data.records.length -1)+' of '+data.totalRecords);
-			}
+			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
 			courseManagement.lastPage = data.totalPages;
 			applicationScript.setPagination(courseManagement.page,courseManagement.lastPage);
 			$("#courseGrid").unblock();
@@ -149,6 +145,7 @@ $(document).ready(function(){
 		$("#courseModal input:text").val('');
 		$('#courseForm').validate().resetForm();
 		$('#courseForm .control-group').removeClass('success').removeClass('error');
+		$("#courseModal h3").text("เพิ่มวิชา");
 		$("#courseModal").modal('show');
 	});
 	$('#courseForm').validate({
@@ -190,7 +187,7 @@ $(document).ready(function(){
 				});
 			}else{
 				$('#courseModal').modal('hide');
-				applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+				applicationScript.alertNoDataChange();
 				$("#saveButton").button('reset');
 			}
 		}
@@ -247,7 +244,7 @@ editCourse = function(courseId){
 	$("#courseId").val(courseId);
 	$("#courseCode").val(courseManagement.currentCourse.courseCode);
 	$("#courseName").val(courseManagement.currentCourse.courseName);
-	$("#courseModal h3").text("Edit Course");
+	$("#courseModal h3").text("แก้ไขวิชา");
 	$("#courseModal").modal('show');
 };
 

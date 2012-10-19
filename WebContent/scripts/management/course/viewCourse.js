@@ -29,7 +29,7 @@ viewCourse.getGrid = function(){
 								+'<td>'+data[keyArray].email+'</td>'
 								+'<td>'
 									+'<button class="btn btn-danger" onClick="removeTeacher(\''+data[keyArray].username+'\')">'
-										+'<i class="icon-white icon-trash"></i> Remove'
+										+'<i class="icon-white icon-trash"></i> ลบ'
 									+'</button>'
 								+'</td>'
 						+'</tr>';
@@ -60,8 +60,8 @@ viewCourse.getUser = function(callback){
 				var strHtml;
 				for(keyArray in data){
 					strHtml = '<option value="'+data[keyArray].username+'">'
-									+'Username [ '+data[keyArray].username+' ] '
-									+'Name [ '+data[keyArray].prefixNameTh+' '+data[keyArray].firstName+' '+data[keyArray].lastName
+									+'ชื่อผู้ใช้ [ '+data[keyArray].username+' ] '
+									+'ชื่อ-นามสกุล [ '+data[keyArray].prefixNameTh+' '+data[keyArray].firstName+' '+data[keyArray].lastName
 									+' ]</option>';
 					$("#username").append(strHtml);
 				}

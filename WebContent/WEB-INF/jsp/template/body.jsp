@@ -22,7 +22,7 @@
 			            <span class="icon-bar"></span>
 			            <span class="icon-bar"></span>
 	          		</a>
-	          		<a class="brand" href="${contextPath}/main/home.html">ExamProject</a>
+	          		<%-- <a class="brand" href="${contextPath}/main/home.html">ExamProject</a> --%>
 					<sec:authorize access="isAnonymous()">
 		          		<ul class="nav pull-right">
 		          			<li class="signUp"><a href="${contextPath}/main/signUp.html">สมัครสมาชิก</a></li>
@@ -66,7 +66,7 @@
 					          		<sec:authorize access="hasRole('ROLE_STUDENT')" >
 				             	 		<li><a  href="${contextPath}/member/register.html">ลงทะเบียน</a></li>
 					          		</sec:authorize>
-							        <li><a  href="#">ข้อมูลส่วนตัว</a></li>
+							        <li><a  href="${contextPath}/member/editPersonalData.html">ข้อมูลส่วนตัว</a></li>
 							        <li><a  href="${contextPath}/member/changePassword.html">เปลี่ยนรหัสผ่าน</a></li>
 							        <li class="divider"></li>
 				              		<li><a  href="${contextPath}/main/logout.do">ออกจากระบบ</a></li>
@@ -192,7 +192,7 @@
 		   	<hr>
 
 	      	<footer class="pagination-centered footer">
-	        	<p>&copy; 2012 นาย อัครวรรธน์ ชยาภิวัฒน์ คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยเกษมบัณฑิต</p>
+	        	<p>&copy; 2012 คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยเกษมบัณฑิต </p>
 	      	</footer>
 		</div> <!-- /container -->
 		<div id="loadMask" style="display:none"></div>

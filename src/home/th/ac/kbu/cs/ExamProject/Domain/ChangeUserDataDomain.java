@@ -56,7 +56,45 @@ public class ChangeUserDataDomain extends ChangeUserDataPrototype{
 			this.basicEntityService.save(user);
 		}else{
 			throw new CoreException(CoreExceptionMessage.PASSWORD_IS_INVALID);
+		}	
+	}
+	
+	
+	public User getUserData(String username){
+		DetachedCriteria criteria = DetachedCriteria.forClass(User.class,"user");
+		criteria.add(Restrictions.eq("user.username",username));
+		
+		return this.basicFinderService.findUniqueByCriteria(criteria);
+	}
+	
+	private void validateEditPersonalData(){
+		if(BeanUtils.isEmpty(this.getEmail())
+				|| BeanUtils.isEmpty(this.getFirstName())
+				|| BeanUtils.isEmpty(this.getLastName())
+				|| BeanUtils.isEmpty(this.getPassword())
+				|| BeanUtils.isEmpty(this.getPrefixName())){
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
+		}		
+	}
+	
+	private void validateUserData(User user){
+		PasswordEncoder encoder = new Md5PasswordEncoder();
+		if(!user.getPassword().equals(encoder.encodePassword(this.getPassword(), null))){
+			throw new CoreException(CoreExceptionMessage.PASSWORD_IS_INVALID);
 		}
+	}
+
+	public void editPersnoalData(String username) {
+		this.validateEditPersonalData();
+		User user = this.getUserData(username);
+		
+		this.validateUserData(user);
+		user.setEmail(this.getEmail());
+		user.setFirstName(this.getFirstName());
+		user.setLastName(this.getLastName());
+		user.setPrefixNameId(this.getPrefixName());
+		
+		this.basicEntityService.update(user);
 		
 	}
 	

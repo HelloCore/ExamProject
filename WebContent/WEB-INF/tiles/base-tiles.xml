@@ -346,7 +346,13 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/member/changePasswordBody.jsp"/>
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/member/changePasswordFooter.jsp"/>
 	</definition>
+
 	
+	<definition name="/member/editPersonalData.page" extends=".template">
+		<put-attribute name="title" value="Edit Personal Data"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/member/editPersonalDataBody.jsp"/>
+		<put-attribute name="footerFile" value="/WEB-INF/jsp/member/editPersonalDataFooter.jsp"/>
+	</definition>
 	
 	
 	

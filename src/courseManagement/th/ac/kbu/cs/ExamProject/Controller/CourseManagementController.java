@@ -38,7 +38,8 @@ public class CourseManagementController {
 	@PreAuthorize(RoleDescription.hasRole.ADMIN)
 	@RequestMapping(value="/management/course/save.html" ,method=RequestMethod.POST)
 	public void save(@ModelAttribute CourseDomain domain,@ModelAttribute CourseCoreGridManager gridManager,HttpServletResponse reponse,HttpServletRequest request) {
-		domain.save(gridManager);
+		domain.save(gridManager,request);
+		
 	}
 	
 	@PreAuthorize(RoleDescription.hasRole.ADMIN)
