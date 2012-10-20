@@ -390,7 +390,7 @@ viewExam.questionGroup.initQuestionGroupComboBoxModal = function(){
 		$("#questionGroupId").empty().append(result.toString()).trigger('liszt:updated');
 		$("#questionGroupModal").modal("show");
 	}else{
-		applicationScript.errorAlertWithStringTH("ไม่พบข้อมูลกลุ่มคำถาม");
+		applicationScript.errorAlertWithStringTH("ไม่พบข้อมูลบทเรียน");
 	}
 };
 viewExam.questionGroup.setEditable = function(questionGroupId){

@@ -9,7 +9,7 @@
 	<div class="well form-inline parent-holder">
 		<input type="hidden" id="questionId" name="questionId" value="${questionData.questionId}">
 		<label for="courseCode">วิชา : </label><select id="courseId" name="courseId" class="select-box course-select-box" disabled="disabled"><option value="${questionData.courseId}" selected="selected">${questionData.courseCode}</option></select>
-		<label for="questionGroupName">กลุ่มคำถาม : </label><select  id="questionGroupId" name="questionGroupId" class="select-box" disabled="disabled"><option value="${questionData.questionGroupId}" selected="selected">${questionData.questionGroupName}</option></select>
+		<label for="questionGroupName">บทเรียน : </label><select  id="questionGroupId" name="questionGroupId" class="select-box" disabled="disabled"><option value="${questionData.questionGroupId}" selected="selected">${questionData.questionGroupName}</option></select>
 		<button class="btn btn-info" id="editParentButton"><i class="icon-edit icon-white"></i> แก้ไข</button>
 		<button class="btn btn-primary hide" id="saveParentButton"><i class=" icon-pencil icon-white"></i> บันทึก</button>
 		<button class="btn hide" id="cancelParentButton">ยกเลิก</button>

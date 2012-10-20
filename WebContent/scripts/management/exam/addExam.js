@@ -204,7 +204,7 @@ addExam.validateQuestionGroup = function(){
 	$("#questionGroupError").remove();
 	if(!$("#questionGroupId").val()){
 		$("#questionGroup").addClass("error");
-		$('<label class="generate-label error" id="questionGroupError">กรุณาเลือกกลุ่มคำถาม</label>').insertAfter('#questionGroupId_chzn');
+		$('<label class="generate-label error" id="questionGroupError">กรุณาเลือกบทเรียน</label>').insertAfter('#questionGroupId_chzn');
 		haveError = true;
 	}else{
 		$("#questionGroup").addClass("success");
@@ -335,7 +335,7 @@ addExam.tab3Data = function(){
 	var str = '',groupName= '';
 	$.each(addExam.questionGroupId,function(index,value){
 		groupName = $("#questionGroupId option[value="+value+"]").text();
-		str+= '<li>กลุ่มคำถาม '
+		str+= '<li>บทเรียน '
 				+'<span class="input-small uneditable-input">'
 					+groupName
 				+'</span>'

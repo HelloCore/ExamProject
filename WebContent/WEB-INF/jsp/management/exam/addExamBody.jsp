@@ -78,7 +78,7 @@
 		</div>
 		<div id="tab2" class="tab-content form-horizontal hide tab-overflow">
 			<div class="control-group" id="questionGroup">
-      			<label class="control-label" for="questionGroupId">กลุ่มคำถาม</label>
+      			<label class="control-label" for="questionGroupId">บทเรียน</label>
       			<div class="controls">
         			<select id="questionGroupId" name="questionGroupId" multiple="multiple">
         			</select>
@@ -168,12 +168,12 @@
       			</div>
     		</div>
     		<div class="question-group-div pagination-centered">
-    			<h2>กลุ่มคำถาม</h2>
+    			<h2>บทเรียน</h2>
     			<table class="table table-striped table-bordered question-group-table">
     				<thead>
     					<tr>
     						<th>ลำดัับ</th>
-    						<th>กลุ่มคำถาม</th>
+    						<th>บทเรียน</th>
     						<th>เปอร์เซ็นต์คำถาม</th>
     						<th>เวลาสอบ(วินาที ต่อ1ข้อ)</th>
     					</tr>

@@ -72,7 +72,7 @@
 		คุณต้องการสมัครสมาชิกใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
     	<a href="#" class="btn btn-primary" id="confirmSignUpButton" data-loading-text="กำลังสมัคร..." ><i class="icon-pencil icon-white"></i> สมัครสมาชิก</a>
   	</div>
 </div>

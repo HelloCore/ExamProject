@@ -35,12 +35,13 @@ assignmentResult.getGrid = function(){
 				if(data.records[keyArray].status == 0){
 					strHtml += '<td><span class="label label-warning"><i class="icon-refresh icon-white"></i> รอตรวจ</span></td>'
 							+ '<td></td>'
+							+ '<td></td>'
 							+ '<td></td>';
 				}else{
 					evaluateDate = Globalize.format(new Date(data.records[keyArray].evaluateDate),'dd-MM-yyyy HH:mm');
 					strHtml += '<td><span class="label label-success"><i class="icon-ok icon-white"></i> ตรวจแล้ว</span></td>'
-							+ '<td>'+data.records[keyArray].score+' คะแนน</td>'
 							+ '<td>'+data.records[keyArray].maxScore+' คะแนน</td>'
+							+ '<td>'+data.records[keyArray].score+' คะแนน</td>'
 							+ '<td>'+ evaluateDate +'</td>';
 				}
 				strHtml+= '</tr>';

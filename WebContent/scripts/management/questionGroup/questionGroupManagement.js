@@ -150,7 +150,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		questionGroupManagement.currentQuestionGroup = {};
 		$("#questionGroupModal input").val('');
-		$("#questionGroupModal h3").text("เพิ่มกลุ่มคำถาม");
+		$("#questionGroupModal h3").text("เพิ่มบทเรียน");
 		$('#questionGroupForm').validate().resetForm();
 		$('#questionGroupForm .control-group').removeClass('success').removeClass('error');
 		$("#questionGroupModal").modal('show');
@@ -260,6 +260,6 @@ editQuestionGroup = function(questionGroupId){
 	$("#questionGroupId").val(questionGroupId);
 	$("#questionGroupName").val(questionGroupManagement.currentQuestionGroup.questionGroupName);
 	
-	$("#questionGroupModal h3").text("แก้ไขกลุ่มคำถาม");
+	$("#questionGroupModal h3").text("แก้ไขบทเรียน");
 	$("#questionGroupModal").modal('show');
 };

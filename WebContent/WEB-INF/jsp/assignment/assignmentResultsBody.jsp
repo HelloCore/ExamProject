@@ -11,7 +11,7 @@
 		<c:if test="${not empty success}">
 			<div style="width:500px;margin:auto;text-align:center;">
 				<div class="alert alert-success">
-					<strong>Success !</strong> ${success} 
+					<strong>สำเร็จ !</strong> ${success} 
 				</div>
 			</div>
 		</c:if>

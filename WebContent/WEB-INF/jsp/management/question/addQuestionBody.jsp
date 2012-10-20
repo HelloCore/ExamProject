@@ -8,7 +8,7 @@
 	</div>
 	<div class="pagging-menu" id="menuHeader">
 		<label for="courseId">วิชา&nbsp;:&nbsp;</label><select id="courseId" name="courseId" style="width:220px"></select>
-		<label for="questionGroupId">กลุ่มคำถาม&nbsp;:&nbsp;</label><select id="questionGroupId" name="questionGroupId" style="width:220px"></select>
+		<label for="questionGroupId">บทเรียน&nbsp;:&nbsp;</label><select id="questionGroupId" name="questionGroupId" style="width:220px"></select>
 		<button class="btn btn-info" id="addAnswer"><i class="icon-plus icon-white"></i> เพิ่มคำตอบ</button>
 	</div>
 	<ul class="nav nav-tabs" id="questionTabNav">

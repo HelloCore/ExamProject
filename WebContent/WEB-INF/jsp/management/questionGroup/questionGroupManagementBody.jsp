@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="${contextPath}/css/management/questionGroup/questionGroupManagement.css">
 		
 	<div class="page-header pagination-centered" id="pageHeader">
-		<h2><font class="red-color">จัดการ</font> กลุ่มคำถาม</h2>
+		<h2><font class="red-color">จัดการ</font> บทเรียน</h2>
 	</div>
 	<div class="row-fluid">
 		<div class="span12">
@@ -19,7 +19,7 @@
 				<thead>
 					<tr>
 						<th class="sort-both sortable" id="questionGroupIdHeader">#<i></i></th>
-						<th class="sort-both sortable" id="questionGroupNameHeader">ชื่อกลุ่มคำถาม<i></i></th>
+						<th class="sort-both sortable" id="questionGroupNameHeader">ชื่อบทเรียน<i></i></th>
 						<th class="sort-both sortable" id="courseCodeHeader">วิชา<i></i></th>
 						<th class="action-column"></th>
 					</tr>
@@ -55,10 +55,10 @@
 
 <div class="modal hide fade" id="confirmDelete">
 	<div class="modal-header">
-		<h3>ลบกลุ่มคำถาม ?</h3>
+		<h3>ลบบทเรียน ?</h3>
 	</div>
 	<div class="modal-body">
-		คุณต้องการลบกลุ่มคำถามใช่หรือไม่ โปรดยืนยัน
+		คุณต้องการลบบทเรียนใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
@@ -69,7 +69,7 @@
 <div class="modal hide fade" id="questionGroupModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>เพิ่มกลุ่มคำถาม</h3>
+    <h3>เพิ่มบทเรียน</h3>
   </div>
   <div class="modal-body">
     <form class="form-horizontal" id="questionGroupForm">
@@ -81,7 +81,7 @@
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="questionGroupName">ชื่อกลุ่มคำถาม</label>
+	     	<label class="control-label" for="questionGroupName">ชื่อบทเรียน</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium" id="questionGroupName" name="questionGroupName">
 	        </div>
@@ -97,7 +97,7 @@
 <div class="modal hide fade" id="searchQuestionGroupModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>ค้นหากลุ่มคำถาม</h3>
+    <h3>ค้นหาบทเรียน</h3>
   </div>
   <div class="modal-body">
     <form class="form-horizontal" id="searchQuestionGroupForm">
@@ -108,7 +108,7 @@
 	        </div>
 	    </div>
     	<div class="control-group">
-	     	<label class="control-label" for="questionGroupNameSearch">ชื่อกลุ่มคำถาม</label>
+	     	<label class="control-label" for="questionGroupNameSearch">ชื่อบทเรียน</label>
 	      	<div class="controls">
 	        	<input type="text" class="input-medium" id="questionGroupNameSearch" name="questionGroupNameSearch">
 	        </div>

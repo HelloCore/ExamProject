@@ -139,7 +139,7 @@
 								          <b class="caret"></b>
 								    </a>
 								    <ul class="dropdown-menu">
-	    								<li><a  href="${contextPath}/management/questionGroup.html">จัดการกลุ่มคำถาม</a></li>
+	    								<li><a  href="${contextPath}/management/questionGroup.html">จัดการบทเรียน</a></li>
 	    								<li><a  href="${contextPath}/management/question.html">จัดการคำถาม</a></li>
 	    								<li><a  href="${contextPath}/management/question/add.html">เพิ่มคำถาม</a></li>
 	    								<li><a  href="${contextPath}/management/exam.html">จัดการการสอบ</a></li>

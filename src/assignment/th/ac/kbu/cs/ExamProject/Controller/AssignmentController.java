@@ -48,7 +48,7 @@ public class AssignmentController {
 	@PreAuthorize(RoleDescription.hasRole.STUDENT)
 	public ModelAndView submitFile(@ModelAttribute SubmitAssignmentDomain domain,HttpServletRequest request,HttpServletResponse response){
 		domain.submitAssignment();
-		return new ModelAndView("redirect:/assignment/result.html?success=submit assignment complete");
+		return new ModelAndView("redirect:/assignment/result.html?success=ส่งงานสำเร็จ");
 	}
 	
 	@RequestMapping(value="/assignment/result.html")

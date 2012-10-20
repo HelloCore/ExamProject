@@ -38,7 +38,7 @@ questionManagement.getGrid = function(){
 									+'<td class="sub-column">วิชา : '+data.records[keyArray].courseCode+'</td>'
 									+'<td class="sub-column">มีจำนวนคำตอบที่ถูกต้อง '+data.records[keyArray].numOfAnswer+' คำตอบ</td>'
 								+'</tr><tr>'
-									+'<td class="sub-column">กลุ่มคำถาม : '+data.records[keyArray].questionGroupName+'</td>'
+									+'<td class="sub-column">บทเรียน : '+data.records[keyArray].questionGroupName+'</td>'
 									+'<td class="sub-column">'
 										+'<button class="btn btn-info" onclick="viewQuestion('+data.records[keyArray].questionId+')"><i class="icon-edit icon-white"></i> ดูรายละเอียด</button> '
 										+'<button class="btn btn-danger" onclick="deleteQuestion('+data.records[keyArray].questionId+')"><i class="icon-trash icon-white"></i> ลบ</button>'

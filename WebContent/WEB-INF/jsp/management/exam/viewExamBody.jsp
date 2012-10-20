@@ -44,7 +44,7 @@
 						<ul class="nav nav-list">
 							<li class="nav-header">เมนู</li>
 							<li class="active"><a href='#tab1' data-toggle="tab">การสอบ</a></li>
-							<li><a href='#tab2' data-toggle="tab">กลุ่มคำถาม</a></li>
+							<li><a href='#tab2' data-toggle="tab">บทเรียน</a></li>
 							<li><a href='#tab3' data-toggle="tab">Section</a></li>					
 						</ul>
 					</div>
@@ -175,13 +175,13 @@
 						</div>
 					</div>
 					<div class="tab-pane" id="tab2">
-						<h3>กลุ่มคำถาม</h3>
+						<h3>บทเรียน</h3>
 						<hr>
 						<table class="table table-striped table-bordered editable-question">
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>กลุ่มคำถาม</th>
+									<th>บทเรียน</th>
 									<th>% คำถาม</th>
 									<th>เวลา (วินาที)</th>
 								</tr>
@@ -247,14 +247,14 @@
 <div class="modal hide fade" id="questionGroupModal" tabindex="-1" >
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>เลือกกลุ่มคำถาม</h3>
+    <h3>เลือกบทเรียน</h3>
   </div>
   <div class="modal-body">
     <form class="form-horizontal" id="searchQuestionGroupForm">	
     	<div class="control-group">
-	     	<label class="control-label" for="questionGroupId">กลุ่มคำถาม</label>
+	     	<label class="control-label" for="questionGroupId">บทเรียน</label>
 	      	<div class="controls">
-	        	<select id="questionGroupId" class="input-medium" data-placeholder="กรุณาเลือกกลุ่มคำถาม..." name="questionGroupId"></select>
+	        	<select id="questionGroupId" class="input-medium" data-placeholder="กรุณาเลือกบทเรียน" name="questionGroupId"></select>
 	        </div>
 	    </div>
 	  </form>
@@ -303,10 +303,10 @@
 <div class="modal hide fade" id="confirmQuestionGroupModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>แก้ไขกลุ่มคำถาม?</h3>
+    <h3>แก้ไขบทเรียน?</h3>
   </div>
   <div class="modal-body">
-    <p>ต้องการแก้ไขกลุ่มคำถามใช่หรือไม่ โปรดยืนยัน</p>
+    <p>ต้องการแก้ไขบทเรียนใช่หรือไม่ โปรดยืนยัน</p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">ปิด</a>

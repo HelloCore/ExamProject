@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${contextPath}/css/main/activeUser.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">ยืนยัน</font> ผู้ใช้</h2>
+	<h2><font class="red-color">ยืนยัน</font> การสมัครสมาชิก</h2>
 </div>
 
 <div class="row-fluid">
@@ -23,8 +23,8 @@
 			    </div>
 			 </div>
 			 <div class="form-actions">
-			  <button type="submit" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Active</button>
-			  <button type="reset" class="btn">Cancel</button>
+			  <button type="submit" class="btn btn-primary"><i class="icon-pencil icon-white"></i> ยืนยัน</button>
+			  <button type="reset" class="btn">ยกเลิก</button>
 			  <div class="link-holder">
 				 <sec:authorize access="isAuthenticated()">
 			 	     <a href="${contextPath}/main/requestActiveCode.html?studentId=<sec:authentication property="principal.user.username" />">ขอรหัสยืนยันอีกครั้ง</a>

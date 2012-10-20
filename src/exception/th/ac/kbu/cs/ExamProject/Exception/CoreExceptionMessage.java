@@ -69,7 +69,7 @@ public class CoreExceptionMessage {
 		EXAM_EXPIRED = new CoreExceptionMessage("EXAM_EXPIRED");
 		EXAM_NOT_STARTED = new CoreExceptionMessage("EXAM_NOT_STARTED");
 		CANT_DO_EXAM_ANYMORE = new CoreExceptionMessage("CANT_DO_EXAM_ANYMORE");
-		QUESTION_NOT_ENOUGH = new CoreExceptionMessage("QUESTION_NOT_ENOUGH");
+		QUESTION_NOT_ENOUGH = new CoreExceptionMessage("จำนวนคำถามไม่พอ");
 		EXAM_NOT_COMPLETE = new CoreExceptionMessage("EXAM_NOT_COMPLETE");
 		
 		DUPLICATE_COURSE = new CoreExceptionMessage("DUPLICATE_COURSE");

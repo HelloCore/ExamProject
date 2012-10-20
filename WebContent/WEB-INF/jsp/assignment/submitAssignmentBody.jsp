@@ -86,7 +86,7 @@
 			<div class="span12">
 				<div class="fixed-content">
 					<div class="page-header">
-						<h3>ส่งงาน</h3>
+						<h3>ส่ง Assignment</h3>
 					</div>
 					<div class="form-horizontal">
 						<form  id="submitAssignmentForm" enctype="multipart/form-data" accept-charset="UTF-8" method="POST" action="${contextPath}/assignment/submitFile.html">
@@ -101,7 +101,7 @@
 							</c:forEach>
 						</form>
 						<div class="form-actions">
-					  		<button class="btn btn-primary" id="submitAssignmentButton"><i class="icon-pencil icon-white"></i> ส่งงาน</button>
+					  		<button class="btn btn-primary" id="submitAssignmentButton"><i class="icon-pencil icon-white"></i> ส่ง Assignment</button>
 						</div>
 					</div>
 				</div>
@@ -110,14 +110,14 @@
 		
 <div class="modal hide fade" id="confirmSubmit">
 	<div class="modal-header">
-		<h3>ส่งงาน ?</h3>
+		<h3>ส่ง Assignment ?</h3>
 	</div>
 	<div class="modal-body">
-		<font class="error" id="errorItem"></font> คุณต้องการส่งงานใช่หรือไม โปรดยืนยัน ?
+		<font class="error" id="errorItem"></font> คุณต้องการส่ง Assignment ใช่หรือไม่ โปรดยืนยัน ?
 	</div>
   	<div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal">Close</a>
-    	<a href="#" class="btn btn-primary" id="submitButton" data-loading-text="กำลังอัพโหลดไฟล์..." ><i class="icon-pencil icon-white"></i> ส่งงาน</a>
+    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
+    	<a href="#" class="btn btn-primary" id="submitButton" data-loading-text="กำลังอัพโหลดไฟล์..." ><i class="icon-pencil icon-white"></i> ส่ง Assignment</a>
   	</div>
 </div>		
 	</c:if>

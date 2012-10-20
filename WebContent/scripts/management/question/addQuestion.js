@@ -23,7 +23,7 @@ addQuestion.validateForm = function(){
 	var haveError = false;
 	if($("#courseId").val() ==0 || $("#questionGroupId").val()==0)
 	{
-		applicationScript.errorAlertWithStringTH("คุณยังไม่ได้เลือกวิชาหรือกลุ่มคำถาม");
+		applicationScript.errorAlertWithStringTH("คุณยังไม่ได้เลือกวิชาหรือบทเรียน");
 		haveError = true;
 	}else if ($("#questionTextArea").val().length==0){
 		applicationScript.errorAlertWithStringTH("กรุณากรอกคำถาม");
