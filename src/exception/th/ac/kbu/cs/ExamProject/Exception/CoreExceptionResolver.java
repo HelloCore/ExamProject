@@ -51,30 +51,12 @@ public class CoreExceptionResolver implements HandlerExceptionResolver{
 		}else if(ex instanceof BindException){
 			mv = new ModelAndView("errorJson");
 			mv.addObject("message", "ไม่พบข้อมูล");
+		}else if(ex instanceof NullPointerException){
+			mv = new ModelAndView("errorJson");
+			mv.addObject("message", "null pointer exception");
 		}
 		
 		
-//		if(ex instanceof AccessDeniedException){
-//			mv = new ModelAndView("redirect:/errors/access-denied.html");
-//		}else if (ex instanceof ContentFileException){
-//			ContentFileException cfe = (ContentFileException) ex;
-//			mv = new ModelAndView("redirect:/main/content.html?path="+cfe.getFolderId()+"&error="+cfe.getMessage());
-//		}else if (ex instanceof AssignmentException){
-//			AssignmentException ae = (AssignmentException) ex;
-//			mv = new ModelAndView("redirect:/assignment/select.html?error="+ae.getMessage());
-//		}else if (ex instanceof TaskManagementException){
-//			TaskManagementException tme = (TaskManagementException) ex;
-//			mv = new ModelAndView("redirect:/management/task/taskList.html?error="+tme.getMessage());
-//		}else if (ex instanceof HibernateException){
-//			mv = new ModelAndView("errorJson");
-//			mv.addObject("message", ex.getMessage());
-//		}else if (ex instanceof MainException){
-//			mv = new ModelAndView("errorJson");
-//			mv.addObject("message", ex.getMessage());
-//		}else if (ex instanceof NullPointerException){
-//			mv = new ModelAndView("errorJson");
-//			mv.addObject("message", ex.getMessage());
-//		}
 		response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
 		return mv;
 	}

@@ -68,9 +68,11 @@ examReport.getGrid = function(){
 							+'<td>'+endDateStr+'</td>'
 							+'<td style="text-align:right">'+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
 							+'<td style="text-align:right">'+data.records[keyArray].maxScore+' คะแนน</td>'
-							+'<td><button class="btn btn-success" onclick="viewExamReport('+data.records[keyArray].examId+')"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button> '
-							+' <button class="btn btn-info" onclick="viewExamGraph('+data.records[keyArray].examId+')"><i class=" icon-eye-open icon-white"></i> ดูกราฟ</button></td>'
-						+'</tr>';
+							+'<td><button class="btn btn-success" onclick="viewExamReport('+data.records[keyArray].examId+')"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button> ';
+				if(data.records[keyArray].isCalScore){
+					strHtml += ' <button class="btn btn-info" onclick="viewExamGraph('+data.records[keyArray].examId+')"><i class=" icon-eye-open icon-white"></i> ดูกราฟ</button></td>';
+				}
+				strHtml	+= '</tr>';
 				$("#examTable tbody").append(strHtml);
 			}
 			var startRecord = (((examReport.rows)*(examReport.page-1))+1);

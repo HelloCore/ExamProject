@@ -104,7 +104,7 @@
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">ปิด</a>
-    	<a href="#" class="btn btn-danger" id="deleteAnswerButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ปิด</a>
+    	<a href="#" class="btn btn-danger" id="deleteAnswerButton" data-loading-text="กำลังลบ..." ><i class="icon-trash icon-white"></i> ลบ</a>
   	</div>
 </div>
 

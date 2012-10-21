@@ -38,8 +38,8 @@ avgScore.drawGraph = function(){
 									+'</div>'
 								+'</div>');
 				
-				  tempVal = parseFloat((data[keyArray][2]*100/data[keyArray][3]).toFixed(2));
-				  tempVal2 = 100-tempVal;
+				  tempVal = Math.round(((data[keyArray][2]*100)/data[keyArray][3])*100)/100;
+				  tempVal2 = Math.round((100-tempVal)*100)/100;
 				  tempData[tempData.length] = [data[keyArray][1]+' ตอบถูก '+tempVal+'% \nตอบผิด '+tempVal2+'%',tempVal];
 				  tempSelect = $("#chapter"+data[keyArray][0]+"Div");
 				  tempGague = new google.visualization.Gauge(tempSelect[0]);

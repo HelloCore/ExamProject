@@ -51,6 +51,7 @@ public class QuestionGroupComboBoxDomain extends ComboBox{
 		criteria.setProjection(projectionList);
 		criteria.addOrder(Order.asc("questionGroup.questionGroupName"));
 		criteria.add(Restrictions.in("questionGroup.courseId",this.teacherService.getCourseId(SecurityUtils.getUsername())));
+		criteria.add(Restrictions.eq("questionGroup.flag", true));
 		if(BeanUtils.isNotEmpty(this.getCourseId())){
 			criteria.add(Restrictions.eq("questionGroup.courseId", this.getCourseId()));
 		}
