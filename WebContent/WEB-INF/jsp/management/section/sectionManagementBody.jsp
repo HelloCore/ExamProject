@@ -14,10 +14,10 @@
 			<table class="table table-striped table-bordered table-grid" id="sectionGrid">
 				<thead>
 					<tr>
-						<th class="sort-both sortable" id="sectionNameHeader">Section<i></i></th>
 						<th class="sort-both sortable" id="sectionYearHeader">ปีการศึกษา<i></i></th>
 						<th class="sort-both sortable" id="sectionSemesterHeader">ภาคเรียน<i></i></th>
 						<th class="sort-both sortable" id="courseCodeHeader">วิชา<i></i></th>
+						<th class="sort-both sortable" id="sectionNameHeader">Section<i></i></th>
 						<th class="sort-both sortable" id="statusHeader">สถานะ<i></i></th>
 						<th class="action-column" ></th>
 					</tr>

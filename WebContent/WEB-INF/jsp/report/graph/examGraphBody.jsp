@@ -7,6 +7,7 @@
 <script>
 	application.examScoreData = ${examScoreData};
 	application.sectionData = ${sectionData};
+	application.maxScore = ${maxScore};
 </script>
 <div class="page-header pagination-centered" id="pageHeader">
 	<h2><font class="red-color">กราฟ</font> คะแนนสอบ</h2>
