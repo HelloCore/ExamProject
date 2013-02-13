@@ -153,43 +153,11 @@ editStartDate = function(){
 			$("#confirmGenericModal").modal('hide');
 			$("#tab1").unblock();
 		}
-		,error: function(){
-			applicationScript.errorAlert();
+		,error: function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
 			$("#tab1").unblock();
 			$("#confirmGenericButton").button('reset');
 			$("#confirmGenericModal").modal('hide');
 		}
 	});
 };
-
-//editHeader = function(){
-//	$("#tab1").block(application.blockOption);
-//	$("#confirmGenericButton").button('loading');
-//	$.ajax({
-//		url: application.contextPath+'/management/exam/view.html'
-//		,data: {
-//			method: 'editExamHeader'
-//			,examId: application.exam.examId
-//			,examHeader: $("#examHeader").val()
-//		}
-//		,type: 'POST'
-//		,success: function(data){
-//			applicationScript.saveComplete();
-//			viewExam.examHeader.examHeader = $("#examHeader").val();
-//			$("#examHeader").attr("disabled",true).closest('.control-group').removeClass('success').removeClass('error');
-//			$("#examHeaderError").remove();
-//			$(".normal-header-button").show();
-//			$(".edit-header-button").hide();
-//			delete viewExam.examHeader.backupExamHeader;
-//			$("#confirmGenericButton").button('reset');
-//			$("#confirmGenericModal").modal('hide');
-//			$("#tab1").unblock();
-//		}
-//		,error: function(){
-//			applicationScript.errorAlert();
-//			$("#tab1").unblock();
-//			$("#confirmGenericButton").button('reset');
-//			$("#confirmGenericModal").modal('hide');
-//		}
-//	});
-//};

@@ -43,6 +43,7 @@ addExam.initFunction = function(){
 	$("#maxScore").val('');
 	$("#startTime").val('00:00');
 	$("#endTime").val('00:00');
+	$("#TimeLimitSecond").val('00:00');
 	$('input:checkbox:checked').attr('checked',false);
 	$("#courseId").chosen();
 	addExam.initCourseComboBox();
@@ -63,6 +64,7 @@ addExam.initToday = function(){
 
 	$("#startTime").timepicker({showMeridian:false,showSeconds:false,defaultTime:'value'});
 	$("#endTime").timepicker({showMeridian:false,showSeconds:false,defaultTime:'value'});
+	$("#timeLimitSecond").timepicker({showMeridian:false,showSeconds:false,defaultTime:'value'});
 };
 
 addExam.validateTab1 = function(){
@@ -79,8 +81,10 @@ addExam.validateTab1 = function(){
 	if(!addExam.validateMaxScore()){
 		validatePass = validatePass && false;
 	}
-
 	if(!addExam.validateExamLimit()){
+		validatePass = validatePass && false;
+	}
+	if(!addExam.validateTimeLimitSecond()){
 		validatePass = validatePass && false;
 	}
 	return validatePass;
@@ -99,11 +103,29 @@ addExam.validateTab3 = function(){
 	var validatePass = true;
 	if(!addExam.validateQuestionPercent()){
 		validatePass = validatePass && false;
+		applicationScript.errorAlertWithStringTH("ไม่สามารถกำหนดคำถาม 0% ได้ และ เปอร์เซ็นต์รวมต้องเป็น 100%");
 	}
 	if(!addExam.validateSecondPerQuestion()){
 		validatePass = validatePass && false;
+		applicationScript.errorAlertWithStringTH("กรุณากำหนดเวลาสอบ");
 	}
 	return validatePass;
+};
+
+addExam.validateTimeLimitSecond = function(){
+	$("#timeLimitSecondError").remove();
+	$("#timeLimitSecond").closest('.control-group').removeClass('success').removeClass('error');
+	var haveError = false;
+	if($("#isCalScore option:selected").val() == "1"){
+		if($("#timeLimitSecond").val().length <0 ||$("#timeLimitSecond").val() == "00:00" ){
+			$('<label for="timeLimitSecond" class="generate-label error" id="timeLimitSecondError">กรุณากำหนดเวลาสอบ</label>').insertAfter('#limitTimeIcon');
+			$("#timeLimitSecond").closest('.control-group').addClass('error');
+			return false;
+		}else{
+			$("#timeLimitSecond").closest('.control-group').addClass('success');
+		}
+	}
+	return !haveError;
 };
 
 addExam.validateExamHeader = function(){
@@ -276,14 +298,16 @@ addExam.validateSecondPerQuestion = function(){
 	 $(".question-group-second").removeClass("success").removeClass("error");
 
 	var haveError = false;
-	$(".question-group-second").each(function(){
-		if($(this).val().length==0 || $(this).val() == 0){
-			haveError = true;
-			$(this).addClass("error");
-		}else{
-			$(this).addClass("success");
-		}
-	});
+	if(addExam.isCalScore == 0){
+		$(".question-group-second").each(function(){
+			if($(this).val().length==0 || $(this).val() == 0){
+				haveError = true;
+				$(this).addClass("error");
+			}else{
+				$(this).addClass("success");
+			}
+		});
+	}
 	return !haveError;
 };
 
@@ -339,9 +363,11 @@ addExam.tab3Data = function(){
 				+'<span class="input-small uneditable-input">'
 					+groupName
 				+'</span>'
-				+' เปอร์เซ็นต์คำถาม <input type="text" class="input-xmini input-percent" value="0" id="question-group-'+value+'-percent" questionGroupId="'+value+'" questionGroupName="'+groupName+'"> %'
-				+' เวลาสอบ <input type="text" class="input-xmini have-popover question-group-second" value="60" id="question-group-'+value+'-second" rel="popover" data-content="ให้เวลาสอบ...วินาที ต่อ 1 ข้อ" data-original-title="คำอธิบาย"> วินาที '
-				+'</li>';
+				+' เปอร์เซ็นต์คำถาม <input type="text" class="input-xmini input-percent" value="0" id="question-group-'+value+'-percent" questionGroupId="'+value+'" questionGroupName="'+groupName+'"> %';
+		if(addExam.isCalScore == 0){
+			str+=' เวลาสอบ <input type="text" class="input-xmini have-popover question-group-second" value="60" id="question-group-'+value+'-second" rel="popover" data-content="ให้เวลาสอบ...วินาที ต่อ 1 ข้อ" data-original-title="คำอธิบาย"> วินาที ';
+		}
+		str+='</li>';
 	});
 	$("#questionGroupSort").empty().html(str);
 	$(".input-percent,.question-group-second").numeric({ decimal: false, negative: false });
@@ -363,6 +389,7 @@ addExam.tab4Data = function(){
 	}
 	
 
+	$("#limitTimeSecondConfirm").text($("#timeLimitSecond").val());
 	$("#maxScoreConfirm").text(addExam.maxScore+' คะแนน');
 	$("#rangeQuestionConfirm").text(addExam.minQuestion + ' ถึง ' + addExam.maxQuestion+ ' ข้อ');
 	$("#examLimitConfirm").text(addExam.examLimit);
@@ -373,7 +400,11 @@ addExam.tab4Data = function(){
 	}
 	$(".question-group-table tbody").empty();
 	$.each(addExam.questionGroupData,function(index,value){
-		$(".question-group-table tbody").append('<tr><td>'+value.ordinal+'</td><td>'+value.questionGroupName+'</td><td>'+value.questionPercent+'</td><td>'+value.secondPerQuestion+'</td></tr>');
+		if(addExam.isCalScore == 0){
+			$(".question-group-table tbody").append('<tr><td>'+value.ordinal+'</td><td>'+value.questionGroupName+'</td><td>'+value.questionPercent+'</td><td>'+value.secondPerQuestion+'</td></tr>');
+		}else{
+			$(".question-group-table tbody").append('<tr><td>'+value.ordinal+'</td><td>'+value.questionGroupName+'</td><td>'+value.questionPercent+'</td></tr>');
+		}
 	});
 
 
@@ -434,7 +465,7 @@ addExam.sendData = function(){
 	}
 	parameter.questionGroupData = JSON.stringify(addExam.convertQuestionGroupData(addExam.questionGroupData));
 	parameter.examSequence = addExam.examSequence;
-	
+	parameter.timeLimitSecond = addExam.timeLimitSecond;
 	$.ajax({
 		url: application.contextPath + '/management/exam/add.html',
 		type: 'POST',
@@ -476,8 +507,13 @@ $(document).ready(function(){
 			addExam.isCalScore = $("#isCalScore").val();
 			if(addExam.isCalScore == 0){
 				$("#sectionId").attr('disabled',true);
+				addExam.timeLimitSecond = 0;
 			}else{
 				$("#sectionId").attr('disabled',false);
+				var timeLimitSecondStr = $("#timeLimitSecond").val();
+				var hour = parseInt(timeLimitSecondStr.substring(0,2),10);
+				var min = parseInt(timeLimitSecondStr.substring(3,5),10);
+				addExam.timeLimitSecond = (hour * 60 * 60) + (min * 60);
 			}
 			
 			$("#tab1").hide();
@@ -524,7 +560,11 @@ $(document).ready(function(){
 				addExam.questionGroupData[numCount].questionGroupId = questionGroupId;
 				addExam.questionGroupData[numCount].questionGroupName = $(this).attr('questionGroupName');
 				addExam.questionGroupData[numCount].questionPercent = $(this).val();
-				addExam.questionGroupData[numCount].secondPerQuestion = $('#question-group-'+questionGroupId+'-second').val();
+				if(addExam.isCalScore == 0){
+					addExam.questionGroupData[numCount].secondPerQuestion = $('#question-group-'+questionGroupId+'-second').val();
+				}else{
+					addExam.questionGroupData[numCount].secondPerQuestion = 0;
+				}
 				addExam.questionGroupData[numCount].ordinal = (numCount+1);
 				numCount++;
 			});
@@ -561,7 +601,13 @@ $(document).ready(function(){
 		if($(this).val() == 0){
 			$("#maxQuestion").attr('disabled',false);
 			$('#maxQuestion').tooltip('destroy');
+			$("#timeLimitSecondGroup").hide();
+			$("#limitTimeSecondConfirmGroup").hide();
+			$("#limitTimeSecondHeader").show();
 		}else{
+			$("#timeLimitSecondGroup").show();
+			$("#limitTimeSecondConfirmGroup").show();
+			$("#limitTimeSecondHeader").hide();
 			$("#maxQuestion").attr('disabled',true);
 			$("#maxQuestion").val($("#minQuestion").val());
 			$('#maxQuestion').tooltip({

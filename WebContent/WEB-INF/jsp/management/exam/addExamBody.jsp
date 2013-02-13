@@ -72,6 +72,12 @@
         			<input type="text" class="input-xmini" id="examLimit" name="examLimit" value="1">
       			</div>
     		</div>
+			<div class="control-group"  id="timeLimitSecondGroup" style="display:none;">
+      			<label class="control-label" for="timeLimitSecond">จำกัดเวลาสอบ</label>
+      			<div class="controls">
+        			<input type="text" class="input-mini"  id="timeLimitSecond" name="timeLimitSecond" value="00:00"><i class="icon-time" style="margin: 2px 0 0 -22.5px; pointer-events: none; position: relative;" id="limitTimeIcon"></i>
+      			</div>
+    		</div>
 	   		<div class="control-button pagination-centered">
 	   				<button class="btn btn-primary" id="tab1NextButton">ถัดไป <i class="icon-chevron-right icon-white"></i></button>
 	   		</div>
@@ -161,6 +167,12 @@
       				<span class="input-mini uneditable-input" id="examLimitConfirm"></span>
       			</div>
     		</div>
+			<div class="control-group" id="limitTimeSecondConfirmGroup">
+      			<label class="control-label" for="limitTimeSecondConfirm">จำกัดเวลาสอบ</label>
+      			<div class="controls">
+      				<span class="input-small uneditable-input" id="limitTimeSecondConfirm"></span>
+      			</div>
+    		</div>
 			<div class="control-group">
       			<label class="control-label" for="examSequenceConfirm">การเรียงคำถาม</label>
       			<div class="controls">
@@ -175,7 +187,7 @@
     						<th>ลำดัับ</th>
     						<th>บทเรียน</th>
     						<th>เปอร์เซ็นต์คำถาม</th>
-    						<th>เวลาสอบ(วินาที ต่อ1ข้อ)</th>
+    						<th id="limitTimeSecondHeader">เวลาสอบ(วินาที ต่อ1ข้อ)</th>
     					</tr>
     				</thead>
     				<tbody>

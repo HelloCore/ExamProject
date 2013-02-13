@@ -38,17 +38,18 @@ public class SectionComboBoxDomain extends ComboBox{
 
 	public List<HashMap<String,Object>> getSectionComboBox() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
+		criteria.createAlias("section.masterSection", "masterSection");
 		
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("section.sectionId"),"sectionId");
 		projectionList.add(Projections.property("section.sectionName"),"sectionName");
-		projectionList.add(Projections.property("section.sectionYear"),"sectionYear");
-		projectionList.add(Projections.property("section.sectionSemester"),"sectionSemester");
+		projectionList.add(Projections.property("masterSection.sectionYear"),"sectionYear");
+		projectionList.add(Projections.property("masterSection.sectionSemester"),"sectionSemester");
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("section.flag",true));
 		
 		if(BeanUtils.isNull(this.getDontCheckStatus())){
-			criteria.add(Restrictions.eq("section.status", 1));
+			criteria.add(Restrictions.eq("masterSection.status", 1));
 		}
 		criteria.add(Restrictions.in("section.courseId", this.teacherService.getCourseId(SecurityUtils.getUsername())));
 		if(BeanUtils.isNotEmpty(this.getCourseId())){

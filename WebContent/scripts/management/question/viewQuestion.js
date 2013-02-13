@@ -48,9 +48,9 @@ viewQuestion.addAnswer = function(){
 			applicationScript.saveComplete();
 			$("#editAnswerModal").modal('hide');
 			viewQuestion.calAnswer();
-		},error: function(){
+		},error: function(data){
 			$("#saveAnswerButton").button('reset');
-			applicationScript.errorAlert();
+			applicationScript.errorAlertWithStringTH(data.responseText);
 			$("#editAnswerModal").modal('hide');
 		}
 	});
@@ -92,9 +92,9 @@ viewQuestion.editAnswer = function(){
 				applicationScript.saveComplete();
 				$("#editAnswerModal").modal('hide');
 				viewQuestion.calAnswer();
-			},error: function(){
+			},error: function(data){
 				$("#saveAnswerButton").button('reset');
-				applicationScript.errorAlert();
+				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#editAnswerModal").modal('hide');
 			}
 		});
@@ -212,9 +212,9 @@ $(document).ready(function(){
 					$("#saveParentButton").hide();
 					$("#cancelParentButton").hide();
 					$("#editParentButton").show();
-				},error: function(){
+				},error: function(data){
 					$('.parent-holder').unblock();
-					applicationScript.errorAlert();
+					applicationScript.errorAlertWithStringTH(data.responseText);
 				}
 			});
 		}else{
@@ -246,9 +246,9 @@ $(document).ready(function(){
 						$("#editQuestionModal").modal("hide");
 						$(".question-panel").html($("#questionText").val());
 						$("#questionHolder").unblock();
-					},error: function(){
+					},error: function(data){
 						viewQuestion.saveQuestionButton.button('reset');
-						applicationScript.errorAlert();
+						applicationScript.errorAlertWithStringTH(data.responseText);
 						$("#editQuestionModal").modal("hide");
 						$("#questionHolder").unblock();
 					}
@@ -276,8 +276,8 @@ $(document).ready(function(){
 				$("#answer-menu-"+viewQuestion.currentAnswerId).remove();
 				$('#answerTabNav a:first').tab('show');
 				viewQuestion.calAnswer();
-			},error: function(){
-				applicationScript.errorAlert();
+			},error: function(data){
+				applicationScript.errorAlertWithStringTH(data.responseText);
 				$("#deleteAnswerButton").button('reset');
 				$("#confirmDelete").modal('hide');
 			}

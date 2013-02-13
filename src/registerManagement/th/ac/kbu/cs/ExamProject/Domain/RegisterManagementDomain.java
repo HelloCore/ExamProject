@@ -50,6 +50,7 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		DetachedCriteria criteria = DetachedCriteria.forClass(Register.class,"register");
 		criteria.createAlias("register.section", "section");
 		criteria.createAlias("section.course", "course");
+		criteria.createAlias("section.masterSection", "masterSection");
 		criteria.createAlias("register.user", "user");
 		criteria.createAlias("user.prefixName", "prefixName");
 		
@@ -58,8 +59,8 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		projectionList.add(Projections.property("register.sectionId"),"sectionId");
 		projectionList.add(Projections.property("register.requestDate"),"requestDate");
 		projectionList.add(Projections.property("section.sectionName"),"sectionName");
-		projectionList.add(Projections.property("section.sectionYear"),"sectionYear");
-		projectionList.add(Projections.property("section.sectionSemester"),"sectionSemester");
+		projectionList.add(Projections.property("masterSection.sectionYear"),"sectionYear");
+		projectionList.add(Projections.property("masterSection.sectionSemester"),"sectionSemester");
 		projectionList.add(Projections.property("user.username"),"studentId");
 		projectionList.add(Projections.property("prefixName.prefixNameTh"),"prefixNameTh");
 		projectionList.add(Projections.property("user.firstName"),"firstName");

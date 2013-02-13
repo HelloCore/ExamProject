@@ -1,16 +1,12 @@
 package th.ac.kbu.cs.ExamProject.Entity;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -40,18 +36,6 @@ public class Course implements Serializable{
 	public void setFlag(Boolean flag) {
 		this.flag = flag;
 	}
-
-//	@OneToMany(cascade={CascadeType.ALL})
-//    @JoinColumn(name="COURSE_ID")
-//	private List<Section> section;
-//	
-//	public List<Section> getSection() {
-//		return section;
-//	}
-//
-//	public void setSection(List<Section> section) {
-//		this.section = section;
-//	}
 
 	public Long getCourseId() {
 		return courseId;

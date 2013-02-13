@@ -26,22 +26,41 @@ public class Section implements Serializable{
 
 	@Column(name = "SECTION_NAME",length=10)
 	private String sectionName;
-	
-	@Column(name = "SECTION_YEAR",length=4)
-	private Integer sectionYear;
-
-	@Column(name = "SECTION_SEMESTER",length=1)
-	private Integer sectionSemester;
 
 	@Column(name = "COURSE_ID")
 	private Long courseId;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "COURSE_ID", insertable = false, updatable = false)
+	private Course course;
+	
 	@Column(name = "FLAG")
 	private Boolean flag;
 
-	@Column(name = "STATUS")
-	private Integer status;
+
+	@Column(name = "MASTER_SECTION_ID")
+	private Long masterSectionId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MASTER_SECTION_ID", insertable = false, updatable = false)
+	private MasterSection masterSection;
 	
+	public Long getMasterSectionId() {
+		return masterSectionId;
+	}
+
+	public void setMasterSectionId(Long masterSectionId) {
+		this.masterSectionId = masterSectionId;
+	}
+
+	public MasterSection getMasterSection() {
+		return masterSection;
+	}
+
+	public void setMasterSection(MasterSection masterSection) {
+		this.masterSection = masterSection;
+	}
+
 	public Boolean getFlag() {
 		return flag;
 	}
@@ -49,11 +68,6 @@ public class Section implements Serializable{
 	public void setFlag(Boolean flag) {
 		this.flag = flag;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COURSE_ID", insertable = false, updatable = false)
-	private Course course;
-	
 	public Long getCourseId() {
 		return courseId;
 	}
@@ -86,28 +100,5 @@ public class Section implements Serializable{
 		this.sectionName = sectionName;
 	}
 
-	public Integer getSectionYear() {
-		return sectionYear;
-	}
-
-	public void setSectionYear(Integer sectionYear) {
-		this.sectionYear = sectionYear;
-	}
-
-	public Integer getSectionSemester() {
-		return sectionSemester;
-	}
-
-	public void setSectionSemester(Integer sectionSemester) {
-		this.sectionSemester = sectionSemester;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
 	
 }

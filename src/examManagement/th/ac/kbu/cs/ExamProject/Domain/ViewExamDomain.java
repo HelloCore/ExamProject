@@ -97,16 +97,17 @@ public class ViewExamDomain extends ExamPrototype{
 
 	public List<HashMap<String,Object>> getSectionData(Long courseId) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
+		criteria.createAlias("section.masterSection", "masterSection");
 
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("section.sectionId"), "sectionId");
 		projectionList.add(Projections.property("section.sectionName"), "sectionName");
-		projectionList.add(Projections.property("section.sectionYear"), "sectionYear");
-		projectionList.add(Projections.property("section.sectionSemester"), "sectionSemester");
+		projectionList.add(Projections.property("masterSection.sectionYear"), "sectionYear");
+		projectionList.add(Projections.property("masterSection.sectionSemester"), "sectionSemester");
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("section.courseId", courseId));
 		criteria.add(Restrictions.eq("section.flag", true));
-		criteria.add(Restrictions.eq("section.status", 1));
+		criteria.add(Restrictions.eq("masterSection.status", 1));
 		
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		return basicFinderService.findByCriteria(criteria);
@@ -116,18 +117,19 @@ public class ViewExamDomain extends ExamPrototype{
 	public List<HashMap<String,Object>> getExamSectionData(){
 		DetachedCriteria criteria = DetachedCriteria.forClass(ExamSection.class,"examSection");
 		criteria.createAlias("examSection.section", "section");
+		criteria.createAlias("section.masterSection", "masterSection");
 
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("examSection.examSectionId"),"examSectionId");
 		projectionList.add(Projections.property("section.sectionId"), "sectionId");
 		projectionList.add(Projections.property("section.sectionName"), "sectionName");
-		projectionList.add(Projections.property("section.sectionYear"), "sectionYear");
-		projectionList.add(Projections.property("section.sectionSemester"), "sectionSemester");
+		projectionList.add(Projections.property("masterSection.sectionYear"), "sectionYear");
+		projectionList.add(Projections.property("masterSection.sectionSemester"), "sectionSemester");
 		criteria.setProjection(projectionList);
 		criteria.add(Restrictions.eq("examSection.examId", this.getExamId()));
 		
-		criteria.addOrder(Order.desc("section.sectionYear"));
-		criteria.addOrder(Order.desc("section.sectionSemester"));
+		criteria.addOrder(Order.desc("masterSection.sectionYear"));
+		criteria.addOrder(Order.desc("masterSection.sectionSemester"));
 		
 		criteria.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		return basicFinderService.findByCriteria(criteria);
@@ -295,6 +297,20 @@ public class ViewExamDomain extends ExamPrototype{
 		exam.setExamSequence(this.getExamSequence());
 		
 		examService.updateExam(exam);
+	}
+
+	public void editTimeLimitSecond() {
+		if(BeanUtils.isEmpty(this.getExamId())
+				|| BeanUtils.isNull(this.getTimeLimitSecond())){
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
+		}
+
+		Exam exam = getExamAndValidate(this.getExamId());
+		exam.setTimeLimitSecond(this.getTimeLimitSecond());
+		
+		examService.updateExam(exam);
+		
+		
 	}
 
 	

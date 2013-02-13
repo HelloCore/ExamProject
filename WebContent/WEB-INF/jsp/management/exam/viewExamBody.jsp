@@ -21,6 +21,7 @@
 	application.exam.courseId = ${examData.courseId};
 	application.exam.examSequence = ${examData.examSequence};
 	application.exam.isCalScore = ${examData.isCalScore};
+	application.exam.timeLimitSecond = ${examData.timeLimitSecond};
 	
 	if(application.exam.startDateStr == ''){
 		application.exam.startDate = null;
@@ -32,6 +33,8 @@
 	}else{
 		application.exam.endDate = new Date(application.exam.endDateStr);
 	}
+
+	
 </script>
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
@@ -58,7 +61,7 @@
 							<div class="control-group">
 								<label class="control-label" for="examType">ประเภท :</label>
 								<div class="controls">
-									<input class="span7" size="25"  id="examType" type="text" value="<c:if test="${examDetail.isCalScore}" >สอบจริง</c:if><c:if test="${not examDetail.isCalScore}" >ทดลองสอบ</c:if>" disabled="disabled"/>
+									<input class="span7" size="25"  id="examType" type="text" value="<c:if test="${examData.isCalScore}" >สอบจริง</c:if><c:if test="${not examData.isCalScore}" >ทดลองสอบ</c:if>" disabled="disabled"/>
 									<button class="btn btn-info" disabled="disabled"><i class="icon-ban-circle icon-white"></i> แก้ไข</button>
 							    </div>
 							</div>
@@ -148,6 +151,25 @@
 									</div>
 								</div>
 							</div>
+							<c:if test="${examData.isCalScore}" >
+							<div class="control-group" id="examTimeLimitSecondGroup">
+								<label class="control-label" for="examTimeLimitSecond ">จำกัดเวลาสอบ :</label>
+								<div class="controls" id="examTimeLimitSecondControls ">
+									<div class="normal-time-limit-second-button edit-time-limit-second ">
+										<input id="examTimeLimitSecond" class="span7" size="25" name="examTimeLimitSecond" type="text" value="" disabled="disabled"/>
+										<button class="btn btn-info " id="editTimeLimitSecondButton"><i class="icon-edit icon-white"></i> แก้ไข</button>
+									</div>
+									<div class="edit-time-limit-second-button edit-time-limit-second hide ">
+					        			<input type="text" class="input-mini date-check time-box" id="editTimeLimitSecond" name="editTimeLimitSecond" value="00:00"><i class="icon-time" style="margin: 2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
+					        			<div class="wrapper" id="editTimeLimitSecondButtonGroup">
+											<button class="btn btn-primary save-end-date-button" id="saveTimeLimitSecondButton"><i class="icon-pencil icon-white"></i> บันทึก</button>
+											<button class="btn" id="cancelTimeLimitSecondButton"> ยกเลิก</button>
+										</div>
+									</div>
+							    </div>
+							</div>
+							</c:if>
+							
 							<div class="control-group">
 								<label class="control-label" for="maxScore">คะแนนเต็ม :</label>
 								<div class="controls">
@@ -183,7 +205,9 @@
 									<th>#</th>
 									<th>บทเรียน</th>
 									<th>% คำถาม</th>
-									<th>เวลา (วินาที)</th>
+									<c:if test="${not examData.isCalScore}" >
+										<th>เวลา (วินาที)</th>
+									</c:if>
 								</tr>
 							</thead>
 							<tbody >

@@ -23,7 +23,8 @@ public class SectionManagementController {
 
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/section.html")
-	public ModelMap init(ModelMap modelMap){
+	public ModelMap init(SectionDomain domain,ModelMap modelMap){
+		modelMap.addAttribute("masterSectionData", domain.getMasterSection());
 		return modelMap;
 	}
 	
@@ -45,9 +46,4 @@ public class SectionManagementController {
 		domain.delete(gridManager);
 	}
 
-//	@ExceptionHandler(RuntimeException.class)
-//	@ResponseStatus(value=HttpStatus.NOT_ACCEPTABLE)
-//	public @ResponseBody String runtimeException(RuntimeException ex,HttpServletRequest request,HttpServletResponse response){
-//		return ex.getMessage();
-//	}
 }

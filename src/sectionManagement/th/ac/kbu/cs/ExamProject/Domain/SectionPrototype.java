@@ -8,6 +8,13 @@ public class SectionPrototype {
 	private String sectionName;
 	private Integer sectionYear;
 	private Integer sectionSemester;
+	private Long masterSectionId;
+	public Long getMasterSectionId() {
+		return masterSectionId;
+	}
+	public void setMasterSectionId(Long masterSectionId) {
+		this.masterSectionId = masterSectionId;
+	}
 	private Integer status;
 	public Integer getStatus() {
 		return status;

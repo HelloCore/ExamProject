@@ -17,13 +17,7 @@ sectionManagement.checkDirty = function(){
 	if(sectionManagement.currentSection.sectionId){
 		if($("#sectionName").val() != sectionManagement.currentSection.sectionName){
 			isDirty = true;
-		}else if ($("#sectionYear").val() != sectionManagement.currentSection.sectionYear){
-			isDirty = true;
-		}else if ($("#sectionSemester").val() != sectionManagement.currentSection.sectionSemester){
-			isDirty = true;
 		}else if ($("#courseId").val() != sectionManagement.currentSection.courseId){
-			isDirty = true;
-		}else if ($("input[name=status]:checked").val() != sectionManagement.currentSection.status){
 			isDirty = true;
 		}
 	}else{
@@ -67,7 +61,7 @@ sectionManagement.getGrid = function(){
 				}	
 				strHtml += '</td>'+
 							'<td>'+
-								'<button class="btn btn-info" onClick="editSection('+data.records[keyArray].sectionId+')"><i class="icon-edit icon-white"></i> แก้ไข</button> '+
+								'<button class="btn btn-info" onClick="editSection('+data.records[keyArray].sectionId+','+data.records[keyArray].masterSectionId+')"><i class="icon-edit icon-white"></i> แก้ไข</button> '+
 								'<button class="btn btn-danger" onClick="deleteSection('+data.records[keyArray].sectionId+')"><i class="icon-trash icon-white"></i> ลบ</button> '+
 							'</td>'+
 							'</tr>';
@@ -174,20 +168,16 @@ $(document).ready(function(){
 		$('#sectionForm').validate().resetForm();
 		$("#statusActive").attr("checked",true);
 		$('#sectionForm .control-group').removeClass('success').removeClass('error');
+		$("#masterSectionId").val(application.masterSectionId);
+		$("#sectionYear").text(application.sectionYear);
+		$("#sectionSemester").text(application.sectionSemester);
+		$("#sectionId").val('');
 		$("#sectionModal").modal('show');
 	});
 	$('#sectionForm').validate({
 		rules: {
 			sectionName: {
 				rangelength: [3,4],
-		        required: true
-			},
-			sectionYear: {
-				range: [2555,2565],
-		        required: true
-			},
-			sectionSemester: {
-				range: [1,3],
 		        required: true
 			},
 			courseId: {
@@ -207,7 +197,6 @@ $(document).ready(function(){
 				$(form).ajaxSubmit({
 					type:'post',
 					url: application.contextPath + '/management/section/save.html',
-					clearForm: true,
 					success: function(){
 						$('#sectionModal').modal('hide');
 						applicationScript.saveComplete();
@@ -267,7 +256,7 @@ deleteSection = function(sectionId){
 	sectionManagement.sectionId = sectionId;
 };
 
-editSection = function(sectionId){
+editSection = function(sectionId,masterSectionId){
 	var optionText = $("#course-code-"+sectionId).text();
 	$("#courseId option").filter(function() {
 	    return $(this).text() == optionText; 
@@ -276,6 +265,7 @@ editSection = function(sectionId){
 	
 	sectionManagement.currentSection = {
 		sectionId:	sectionId,
+		masterSectionId: masterSectionId,
 		sectionName: $("#section-name-"+sectionId).text(),
 		sectionYear: $("#section-year-"+sectionId).text(),
 		sectionSemester: $("#section-semester-"+sectionId).text(),
@@ -288,8 +278,9 @@ editSection = function(sectionId){
 	$('#sectionForm .control-group').removeClass('success').removeClass('error');
 	$("#sectionId").val(sectionId);
 	$("#sectionName").val(sectionManagement.currentSection.sectionName);
-	$("#sectionYear").val(sectionManagement.currentSection.sectionYear);
-	$("#sectionSemester").val(sectionManagement.currentSection.sectionSemester);
+	$("#sectionYear").text(sectionManagement.currentSection.sectionYear);
+	$("#sectionSemester").text(sectionManagement.currentSection.sectionSemester);
+	$("#masterSectionId").val(masterSectionId);
 	if(sectionManagement.currentSection.status==0){
 		$("#statusInActive").attr("checked",true);
 	}else{

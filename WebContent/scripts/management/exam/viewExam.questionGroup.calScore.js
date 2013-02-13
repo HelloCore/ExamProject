@@ -74,7 +74,7 @@ viewExam.questionGroup.getExamQuestionGroupString = function(){
 			examQuestionGroupTemp[arrayPos].questionPercent
 				= viewExam.questionGroup.examQuestionGroupData[key].questionPercent;
 			examQuestionGroupTemp[arrayPos].secondPerQuestion 
-				= viewExam.questionGroup.examQuestionGroupData[key].secondPerQuestion;
+				= 0;
 			if(viewExam.questionGroup.examQuestionGroupData[key].examQuestionGroupId){
 				examQuestionGroupTemp[arrayPos].examQuestionGroupId 
 					= viewExam.questionGroup.examQuestionGroupData[key].examQuestionGroupId;
@@ -156,7 +156,7 @@ viewExam.questionGroup.setData = function(callback){
 		questionGroupId = questionGroupIdStr.substring(15,questionGroupIdStr.legth);
 		viewExam.questionGroup.examQuestionGroupData[questionGroupId].ordinal = num;
 		viewExam.questionGroup.examQuestionGroupData[questionGroupId].questionPercent = $(this).find('.questionPercent').text(); 
-		viewExam.questionGroup.examQuestionGroupData[questionGroupId].secondPerQuestion = $(this).find('.secondPerQuestion').text();
+		//viewExam.questionGroup.examQuestionGroupData[questionGroupId].secondPerQuestion = $(this).find('.secondPerQuestion').text();
 		num++;
 	});
 	
@@ -248,7 +248,7 @@ viewExam.questionGroup.validateTotalPercent = function(){
 };
 viewExam.questionGroup.createQuestionGroupTable = function(){
 	$(".editable-question").block(application.blockOption);
-	$(".editable-question thead tr th:eq(4)").remove();
+	$(".editable-question thead tr th:eq(3)").remove();
 	$(".editable-question tbody").empty().removeClass('sortable');
 	$("#normal-question-group-panel").show();
 	$("#edit-question-group-panel").hide();
@@ -259,7 +259,6 @@ viewExam.questionGroup.createQuestionGroupTable = function(){
 				+'<td>'+nowData.ordinal+'</td>'
 				+'<td>'+nowData.questionGroupName+'</td>'
 				+'<td class="questionPercent">'+nowData.questionPercent+'</td>'
-				+'<td class="secondPerQuestion">'+nowData.secondPerQuestion+'</td>'
 			+'</tr>';
 	}
 	
@@ -287,7 +286,6 @@ viewExam.questionGroup.beginEdit = function(){
 					+'<td class="number-ordinal">'+nowData.ordinal+'</td>'
 					+'<td>'+nowData.questionGroupName+'</td>'
 					+'<td class="questionPercent">'+nowData.questionPercent+'</td>'
-					+'<td class="secondPerQuestion">'+nowData.secondPerQuestion+'</td>'
 					+'<td><button class="btn btn-danger" onClick="removeQuestionGroup('+nowData.questionGroupId+')"><i class="icon-trash icon-white" ></i> Delete</button></td>'
 				+'</tr>';
 	}
@@ -345,7 +343,6 @@ viewExam.questionGroup.addQuestionGroup = function(questionGroupId){
 			+'<td class="number-ordinal">'+result.ordinal+'</td>'
 			+'<td>'+result.questionGroupName+'</td>'
 			+'<td class="questionPercent">'+result.questionPercent+'</td>'
-			+'<td class="secondPerQuestion">'+result.secondPerQuestion+'</td>'
 			+'<td><button class="btn btn-danger" onClick="removeQuestionGroup('+result.questionGroupId+')"><i class="icon-trash icon-white" ></i> Delete</button></td>'
 		+'</tr>';
 		$(".editable-question tbody").append(strHtml);
@@ -355,14 +352,12 @@ viewExam.questionGroup.addQuestionGroup = function(questionGroupId){
 			viewExam.questionGroup.examQuestionGroupData[result.questionGroupId] = {
 				questionGroupId: result.questionGroupId,
 				questionGroupName: result.questionGroupName,
-				questionPercent: 0,
-				secondPerQuestion: 60
+				questionPercent: 0
 			};
 			strHtml = '<tr id="question-group-'+result.questionGroupId+'">'
 				+'<td class="number-ordinal">0</td>'
 				+'<td>'+result.questionGroupName+'</td>'
 				+'<td class="questionPercent">0</td>'
-				+'<td class="secondPerQuestion">60</td>'
 				+'<td><button class="btn btn-danger" onClick="removeQuestionGroup('+result.questionGroupId+')"><i class="icon-trash icon-white" ></i> Delete</button></td>'
 			+'</tr>';
 			$(".editable-question tbody").append(strHtml);
@@ -396,25 +391,12 @@ viewExam.questionGroup.initQuestionGroupComboBoxModal = function(){
 	}
 };
 viewExam.questionGroup.setEditable = function(questionGroupId){
-	var percentId = '.questionPercent',
-		secondId = '.secondPerQuestion';
+	var percentId = '.questionPercent';
 	if(questionGroupId){
 		percentId = '#question-group-'+questionGroupId+' .questionPercent';
-		secondId = '#question-group-'+questionGroupId+' .secondPerQuestion';
 	}
 	$(percentId).editable({
 		onSubmit:updatePercent,
-		editClass: 'numeric',
-		onEdit:function(){
-			$('.numeric').numeric({ decimal: false, negative: false });
-		}
-	});
-	$(secondId).editable({
-		onSubmit:function(content){
-			if(content.current.length==0 || parseInt(content.current,10) ==0 ){
-				$(this).text(content.previous);
-			}
-		},
 		editClass: 'numeric',
 		onEdit:function(){
 			$('.numeric').numeric({ decimal: false, negative: false });

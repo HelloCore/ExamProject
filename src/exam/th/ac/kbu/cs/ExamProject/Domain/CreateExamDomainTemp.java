@@ -65,7 +65,7 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 		Exam exam = getAndCheckExam(nowToday.getTime());
 		
 		HashMap<Long,Integer> requestNumOfQuestion = getAndCheckRequestNumOfQuestion(this.getExamId(),this.getNumOfQuestion());
-		Date expireDate = this.calExapireDateNew(nowToday, exam.getEndDate());
+		Date expireDate = this.calExapireDateNew(nowToday, exam);
 		
 		List<Object[]> questionData = queryQuestion(requestNumOfQuestion);
 		if(!exam.getExamSequence()){
@@ -322,9 +322,14 @@ public class CreateExamDomainTemp extends DoExamPrototype{
 		return requestNumOfQuestion;
 	}
 	
-	private Date calExapireDateNew(Calendar nowToday,Date endDate) {
+	private Date calExapireDateNew(Calendar nowToday,Exam exam) {
 		Date expireDate;
-		nowToday.add(Calendar.SECOND, this.getTimeLimitSec());
+		Date endDate = exam.getEndDate();
+		if(exam.getIsCalScore()){
+			nowToday.add(Calendar.SECOND, exam.getTimeLimitSecond().intValue());
+		}else{
+			nowToday.add(Calendar.SECOND, this.getTimeLimitSec());
+		}
 		if(BeanUtils.isNotEmpty(endDate) && endDate.before(nowToday.getTime())){
 			expireDate = endDate;	
 		}else{

@@ -96,6 +96,13 @@ public class AddExamDomain extends AddExamPrototype {
 		if(BeanUtils.isNotEmpty(this.getMaxScore())){
 			exam.setMaxScore(this.getMaxScore());
 		}
+		
+		if(exam.getIsCalScore()){
+			exam.setTimeLimitSecond(this.getTimeLimitSecond());
+		}else{
+			exam.setTimeLimitSecond(0L);
+		}
+		
 		exam.setFlag(true);
 		return exam;
 	}
@@ -113,7 +120,8 @@ public class AddExamDomain extends AddExamPrototype {
 			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 		}
 		if (this.getIsCalScore()){
-			if(BeanUtils.isEmpty(this.getSectionData())){
+			if(BeanUtils.isEmpty(this.getSectionData())
+					|| BeanUtils.isEmpty(this.getTimeLimitSecond())){
 				throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
 			}
 		}

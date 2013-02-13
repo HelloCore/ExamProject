@@ -14,8 +14,14 @@ public class AddExamPrototype {
 	private Boolean examSequence;
 	private Boolean isCalScore;
 	private Float maxScore;
+	private Long timeLimitSecond;
 	
-	
+	public Long getTimeLimitSecond() {
+		return timeLimitSecond;
+	}
+	public void setTimeLimitSecond(Long timeLimitSecond) {
+		this.timeLimitSecond = timeLimitSecond;
+	}
 	public Boolean getIsCalScore() {
 		return isCalScore;
 	}

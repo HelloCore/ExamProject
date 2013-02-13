@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
-<link rel="stylesheet" href="${contextPath}/css/management/section/sectionManagement.css">		
+<link rel="stylesheet" href="${contextPath}/css/management/section/sectionManagement.css">
+<script>
+	application.masterSectionId = ${masterSectionData.masterSectionId};
+	application.sectionSemester = ${masterSectionData.sectionSemester};
+	application.sectionYear = ${masterSectionData.sectionYear};
+</script>
+		
 	<div class="page-header pagination-centered" id="pageHeader">
 		<h2><font class="red-color">จัดการ</font> Section</h2>
 	</div>
@@ -71,6 +77,7 @@
   <div class="modal-body">
     <form class="form-horizontal" id="sectionForm">
     	<input type="hidden" id="sectionId" name="sectionId" />
+    	<input type="hidden" id="masterSectionId" name="masterSectionId" value="${masterSectionData.masterSectionId}"/>
     	<div class="control-group withComboBox">
 	     	<label class="control-label" for="courseId">วิชา</label>
 	      	<div class="controls">
@@ -86,20 +93,13 @@
     	<div class="control-group">
 	     	<label class="control-label" for="sectionYear">ปีการศึกษา</label>
 	      	<div class="controls">
-	        	<input type="text" class="input-medium numeric" id="sectionYear" name="sectionYear">
+	      		<span class="input-medium uneditable-input" id="sectionYear">${masterSectionData.sectionYear}</span>
 	        </div>
 	    </div>
     	<div class="control-group">
 	     	<label class="control-label" for="sectionSemester">ภาคเรียนที่</label>
 	      	<div class="controls">
-	        	<input type="text" class="input-medium numeric" id="sectionSemester" name="sectionSemester">
-	        </div>
-	    </div>
-    	<div class="control-group">
-	     	<label class="control-label" for="status">สถานะ</label>
-	      	<div class="controls status-controls">
-	        	<label for="statusInActive" ><input type="radio" name="status" id="statusInActive" value="0"/> ปิดการใช้งาน</label>
-	        	<label for="statusActive" ><input type="radio" name="status" id="statusActive" value="1" checked="checked" /> เปิดใช้งาน</label>
+	      		<span class="input-medium uneditable-input" id="sectionSemester">${masterSectionData.sectionSemester}</span>
 	        </div>
 	    </div>
     </form>

@@ -70,6 +70,13 @@ public class ExamManagementController {
 	}
 
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editTimeLimitSecond")
+	public void editTimeLimitSecond(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response){
+		domain.editTimeLimitSecond();
+	}
+	
+	
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/exam/view.html" ,method=RequestMethod.POST,params="method=editStartDate")
 	public void editStartDate(@ModelAttribute ViewExamDomain domain,HttpServletRequest request,HttpServletResponse response) throws ParseException{
 		domain.editStartDate();

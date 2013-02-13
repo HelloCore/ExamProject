@@ -7,7 +7,6 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.hibernate.impl.CriteriaImpl.Subcriteria;
 
 import th.ac.kbu.cs.ExamProject.CoreGrid.CoreGridManager;
 import th.ac.kbu.cs.ExamProject.Entity.Section;
@@ -21,9 +20,10 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 			SectionDomain domain) {
 		projectionList.add(Projections.property("section.sectionId"),"sectionId");
 		projectionList.add(Projections.property("section.sectionName"),"sectionName");
-		projectionList.add(Projections.property("section.sectionYear"),"sectionYear");
-		projectionList.add(Projections.property("section.sectionSemester"),"sectionSemester");
-		projectionList.add(Projections.property("section.status"),"status");
+		projectionList.add(Projections.property("masterSection.masterSectionId"),"masterSectionId");
+		projectionList.add(Projections.property("masterSection.sectionYear"),"sectionYear");
+		projectionList.add(Projections.property("masterSection.sectionSemester"),"sectionSemester");
+		projectionList.add(Projections.property("masterSection.status"),"status");
 		projectionList.add(Projections.property("course.courseCode"),"courseCode");
 	}
 
@@ -32,6 +32,7 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 	
 		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
 		criteria.createAlias("section.course", "course");
+		criteria.createAlias("section.masterSection", "masterSection");
 		
 		return criteria;
 	}
@@ -42,10 +43,10 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 			criteria.add(Restrictions.ilike("section.sectionName", domain.getSectionNameSearch(), MatchMode.ANYWHERE));
 		}
 		if(BeanUtils.isNotEmpty(domain.getSectionSemesterSearch())){
-			criteria.add(Restrictions.eq("section.sectionSemester", BeanUtils.toInteger(domain.getSectionSemesterSearch())));
+			criteria.add(Restrictions.eq("masterSection.sectionSemester", BeanUtils.toInteger(domain.getSectionSemesterSearch())));
 		}
 		if(BeanUtils.isNotEmpty(domain.getSectionYearSearch())){
-			criteria.add(Restrictions.eq("section.sectionYear", BeanUtils.toInteger(domain.getSectionYearSearch())));
+			criteria.add(Restrictions.eq("masterSection.sectionYear", BeanUtils.toInteger(domain.getSectionYearSearch())));
 		}
 		if(BeanUtils.isNotEmpty(domain.getCourseCodeSearch())){
 			criteria.add(Restrictions.ilike("course.courseCode", domain.getCourseCodeSearch(), MatchMode.ANYWHERE));
@@ -87,19 +88,12 @@ public class SectionCoreGridManager extends CoreGridManager<SectionDomain>{
 			section.setSectionName(domain.getSectionName());
 		}
 
-		if(BeanUtils.isNotNull(domain.getSectionSemester())){
-			section.setSectionSemester(domain.getSectionSemester());
-		}
-
-		if(BeanUtils.isNotNull(domain.getSectionYear())){
-			section.setSectionYear(domain.getSectionYear());
+		if(BeanUtils.isNotNull(domain.getMasterSectionId())){
+			section.setMasterSectionId(domain.getMasterSectionId());
 		}
 
 		if(BeanUtils.isNotNull(domain.getCourseId())){
 			section.setCourseId(domain.getCourseId());
-		}
-		if(BeanUtils.isNotNull(domain.getStatus())){
-			section.setStatus(domain.getStatus());
 		}
 		section.setFlag(true);
 		return section;

@@ -13,7 +13,15 @@ public class ExamPrototype {
 	private String examHeader;
 	private String examQuestionGroupSaveStr;
 	private String examQuestionGroupDeleteStr;
-	
+	private Long timeLimitSecond;
+	public Long getTimeLimitSecond() {
+		return timeLimitSecond;
+	}
+
+	public void setTimeLimitSecond(Long timeLimitSecond) {
+		this.timeLimitSecond = timeLimitSecond;
+	}
+
 	private String saveSectionDataStr;
 	private String deletedSectionDataStr;
 	

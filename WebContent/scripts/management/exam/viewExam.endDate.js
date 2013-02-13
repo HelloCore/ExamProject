@@ -158,8 +158,8 @@ editEndDate = function(){
 			$("#confirmGenericModal").modal('hide');
 			$("#tab1").unblock();
 		}
-		,error: function(){
-			applicationScript.errorAlert();
+		,error: function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
 			$("#tab1").unblock();
 			$("#confirmGenericButton").button('reset');
 			$("#confirmGenericModal").modal('hide');

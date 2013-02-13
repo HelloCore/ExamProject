@@ -77,8 +77,8 @@ viewExam.section.sendData = function(){
 			$("#confirmSectionButton").button('reset');
 			$("#confirmSectionModal").modal('hide');
 		}
-		,error: function(){
-			applicationScript.errorAlert();
+		,error: function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
 
 			$(".editable-section").unblock();
 			$("#confirmSectionButton").button('reset');
