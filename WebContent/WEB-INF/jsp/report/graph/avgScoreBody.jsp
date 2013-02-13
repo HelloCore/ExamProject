@@ -16,17 +16,7 @@
 <div class="row">
 	<div class="span12" id="mainLoader" style="display:none;">
 		<hr>
-		
-		<div class="page-header" id="pageHeader">
-			<h4>กราฟคะแนนเฉลี่ยโดยรวม</h4>
-		</div>
-		<div class="row">
-			<div class="span12">
-				<div id="mainDiv" style="height:500px;margin-top:0px;text-align:center;">
-				</div>
-			</div>
-		</div>
-		
+			
 		<div class="page-header" id="pageHeader">
 			<h4>กราฟคะแนนเฉลี่ยแต่ละบทเรียน</h4>
 		</div>
@@ -36,5 +26,15 @@
 				</div>
 			</div>
 		</div>
+		<div class="page-header" id="pageHeader">
+			<h4>กราฟคะแนนเฉลี่ยโดยรวม</h4>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<div id="mainDiv" style="height:500px;margin-top:0px;text-align:center;">
+				</div>
+			</div>
+		</div>
+	
 	</div>
 </div>

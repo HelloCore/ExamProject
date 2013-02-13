@@ -38,6 +38,7 @@ registerManagement.getRegisterTable = function(){
 						  '</tr>';
 				$("#registerTable tbody").append(strHtml);
 			}
+			registerManagement.getRegisterSectionData();
 			$("#registerTable").trigger("update").unblock();
 		},
 		error: function(data){
@@ -53,6 +54,35 @@ registerManagement.initCourseComboBox = function(callback){
 		$("#courseId_chzn").unblock();
 		if(typeof(callback)=='function'){
 			callback();
+		}
+	});
+};
+
+registerManagement.getRegisterSectionData = function(callback){
+	$("#sectionData").block(application.blockOption);
+	$.ajax({
+		url: application.contextPath+ "/management/register.html",
+		type: "POST",
+		dataType: 'json',
+		data:{
+			method: "getRegisterSectionData",
+			sectionId : $('#sectionId').val()
+		},
+		success : function(data){
+			$("#sectionData").empty().html('มีนักศึกษารอลงทะเบียนทั้งหมด '
+											+'<span class="badge badge-info">'+data.totalList+'</span>'
+											+' คน รออนุมัติ '
+											+'<span class="badge badge-warning">'
+											+data.pendingList
+											+'</span> คน อนุมัติแล้ว <span class="badge badge-success">'
+											+data.acceptList
+											+'</span> คน ไม่อนุมัติ <span class="badge badge-important">'
+											+data.deniedList
+											+'</span> คน');
+			$("#sectionData").unblock();
+		},
+		error: function(data){
+			applicationScript.errorAlertWithStringTH(data.responseText);
 		}
 	});
 };
@@ -86,7 +116,7 @@ registerManagement.initSectionComboBox = function(callback){
 				+' sectionName="'+data[key][1]+'"'
 				+'>เทอม '+data[key][3]+' ปี '+data[key][2]+' ['+data[key][1]+']</option>';
 			}
-			$("#sectionId").empty().append('<option value="0">ทั้งหมด</option>').append(newData).trigger("liszt:updated");
+			$("#sectionId").empty().append(newData).trigger("liszt:updated");
 			$("#sectionId_chzn").unblock();
 			if(typeof(callback)=='function'){
 				callback();

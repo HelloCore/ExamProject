@@ -127,6 +127,7 @@ public class ReportController {
 			List<HashMap<String,Object>> sectionList = domain.getSectionList();
 			String examScoreData = om.writeValueAsString(domain.getExamScoreData(sectionList));
 			String sectionData = om.writeValueAsString(sectionList);
+			mv.addObject("maxScore", domain.getExam().getMaxScore());
 			mv.addObject("sectionData", sectionData);
 			mv.addObject("examScoreData", examScoreData);
 		}catch(Exception ex){

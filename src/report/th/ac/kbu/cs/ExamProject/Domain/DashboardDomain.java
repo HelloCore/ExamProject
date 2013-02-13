@@ -2,6 +2,7 @@ package th.ac.kbu.cs.ExamProject.Domain;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import th.ac.kbu.cs.ExamProject.Entity.Course;
+import th.ac.kbu.cs.ExamProject.Entity.Exam;
 import th.ac.kbu.cs.ExamProject.Entity.ExamSection;
 import th.ac.kbu.cs.ExamProject.Exception.CoreException;
 import th.ac.kbu.cs.ExamProject.Exception.CoreExceptionMessage;
@@ -67,6 +69,16 @@ public class DashboardDomain extends DashboardPrototype{
 		return this.basicFinderService.find(queryString.toString(), new Object[]{this.getCourseId(),true});
 	}
 	
+	public Exam getExam(){
+		if(BeanUtils.isNull(this.getExamId())){
+			throw new  CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
+		}
+		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
+		criteria.add(Restrictions.eq("exam.examId", this.getExamId()));
+		
+		return this.basicFinderService.findUniqueByCriteria(criteria);
+	}
+	
 	public List<HashMap<String,Object>> getSectionList(){
 		if(BeanUtils.isNull(this.getExamId())){
 			throw new  CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
@@ -99,7 +111,7 @@ public class DashboardDomain extends DashboardPrototype{
 					.append(" examResult.EXAM_RESULT_ID ")
 					.append(" ,examResult.NUM_OF_QUESTION ")
 					.append(" ,examResult.EXAM_COUNT ")
-					.append(" ,examResult.EXAM_USED_TIME ")
+					.append(" ,examResult.EXAM_START_DATE ")
 					.append(" ,examResult.EXAM_SCORE ")
 					.append(" ,user.USERNAME ")
 					.append(" ,user.FIRST_NAME ")
@@ -108,6 +120,7 @@ public class DashboardDomain extends DashboardPrototype{
 					.append(" ,section.SECTION_YEAR ")
 					.append(" ,section.SECTION_SEMESTER ")
 					.append(" ,exam.MAX_SCORE ")
+					.append(" ,examResult.EXAM_COMPLETE_DATE ")
 					
 					.append(" FROM EXAM_RESULT examResult ")
 					.append(" INNER JOIN EXAM exam ON exam.EXAM_ID = examResult.EXAM_ID ")
@@ -115,6 +128,7 @@ public class DashboardDomain extends DashboardPrototype{
 					.append(" INNER JOIN STUDENT_SECTION studentSection ON examResult.USERNAME = studentSection.USERNAME ")
 					.append(" INNER JOIN SECTION section ON studentSection.SECTION_ID = section.SECTION_ID ")
 					.append(" WHERE studentSection.SECTION_ID IN (SELECT examSection.SECTION_ID FROM EXAM_SECTION examSection WHERE examSection.EXAM_ID = ? ) ")
+					.append(" AND examResult.EXAM_COMPLETED = 1 ")
 					.append(" AND examResult.EXAM_ID = ? ");
 		
 		final Long examId = this.getExamId();
@@ -142,7 +156,10 @@ public class DashboardDomain extends DashboardPrototype{
 			currentIndex = keyList.indexOf(record[8].toString()+record[10].toString()+record[9].toString());
 			for(int i=0;i<keyList.size();i++){
 				if(currentIndex.equals(i)){
-					strList.add(record[3]);
+					Date startDate = (Date)record[3];
+					Date endDate = (Date)record[12];
+					Long usedTime = endDate.getTime() - startDate.getTime();
+					strList.add(usedTime);
 					tooltipData.append("รหัสนักศึกษา ")
 									.append(record[5].toString())
 								.append(" ชื่อ ")
@@ -152,7 +169,7 @@ public class DashboardDomain extends DashboardPrototype{
 								.append(" สอบครั้งที่ ")
 									.append(record[2].toString())
 								.append(" ใช้เวลาสอบ ")
-									.append(record[3].toString())
+									.append(usedTime.doubleValue()/1000)
 								.append(" วินาที จำนวนคำถาม ")
 									.append(record[1].toString())
 								.append(" ข้อ ได้คะแนน ")

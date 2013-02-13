@@ -26,7 +26,6 @@
 					<th class="sort-both sortable" id="examHeaderHeader">หัวข้อการสอบ <i></i></th>
 					<th class="sort-both sortable" id="startDateHeader">เริ่มสอบ <i></i></th>
 					<th class="sort-both sortable" id="endDateHeader">หมดเขตสอบ <i></i></th>
-					<th class="sort-both sortable" id="maxQuestionHeader">จำนวนคำถาม <i></i></th>
 					<th class="sort-both sortable" id="maxScoreHeader">คะแนนเต็ม <i></i></th>
 					<th></th>
 				</tr>

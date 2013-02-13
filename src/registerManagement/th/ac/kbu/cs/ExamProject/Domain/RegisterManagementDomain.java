@@ -152,6 +152,46 @@ public class RegisterManagementDomain extends RegisterManagementPrototype{
 		return gridManager.search(this,SecurityUtils.getUsername());
 	}
 
+	public HashMap<String, Long> getRegisterSectionData() {
+		if(BeanUtils.isEmpty(this.getSectionId())){
+			throw new CoreException(CoreExceptionMessage.PARAMETER_NOT_FOUND);
+		}
+		
+		HashMap<String, Long> registerSectionData = new HashMap<String, Long>();
+		
+
+		DetachedCriteria totalCriteria = DetachedCriteria.forClass(Register.class,"register");
+		totalCriteria.setProjection(Projections.rowCount());
+		totalCriteria.add(Restrictions.eq("register.sectionId",this.getSectionId() ));
+		
+		registerSectionData.put("totalList", BeanUtils.toLong(this.basicFinderService.findUniqueByCriteria(totalCriteria)));
+		
+		DetachedCriteria pendingCriteria = DetachedCriteria.forClass(Register.class,"register");
+		pendingCriteria.setProjection(Projections.rowCount());
+		pendingCriteria.add(Restrictions.eq("register.sectionId",this.getSectionId() ));
+		pendingCriteria.add(Restrictions.eq("register.status", 0));
+		
+		registerSectionData.put("pendingList", BeanUtils.toLong(this.basicFinderService.findUniqueByCriteria(pendingCriteria)));
+		
+
+		DetachedCriteria acceptCriteria = DetachedCriteria.forClass(Register.class,"register");
+		acceptCriteria.setProjection(Projections.rowCount());
+		acceptCriteria.add(Restrictions.eq("register.sectionId",this.getSectionId() ));
+		acceptCriteria.add(Restrictions.eq("register.status", 1));
+
+		registerSectionData.put("acceptList", BeanUtils.toLong(this.basicFinderService.findUniqueByCriteria(acceptCriteria)));
+		
+
+		DetachedCriteria deniedCriteria = DetachedCriteria.forClass(Register.class,"register");
+		deniedCriteria.setProjection(Projections.rowCount());
+		deniedCriteria.add(Restrictions.eq("register.sectionId",this.getSectionId() ));
+		deniedCriteria.add(Restrictions.eq("register.status", 2));
+		
+		registerSectionData.put("deniedList", BeanUtils.toLong(this.basicFinderService.findUniqueByCriteria(deniedCriteria)));
+		
+		return registerSectionData;
+	}
+
 	
 	
 	

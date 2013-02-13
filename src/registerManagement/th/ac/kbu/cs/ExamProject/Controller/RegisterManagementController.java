@@ -40,6 +40,12 @@ public class RegisterManagementController {
 	}
 
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)
+	@RequestMapping(value="/management/register.html" ,method=RequestMethod.POST,params={"method=getRegisterSectionData"})
+	public @ResponseBody HashMap<String,Long> getRegisterSectionData(@ModelAttribute RegisterManagementDomain domain ,HttpServletRequest request,HttpServletResponse response){
+		return domain.getRegisterSectionData();
+	}
+	
+	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/register.html" ,method=RequestMethod.POST,params={"method=acceptSection"})
 	public void acceptSection(@ModelAttribute RegisterManagementDomain domain ,HttpServletRequest request,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException{
 		domain.acceptSection(SecurityUtils.getUsername());

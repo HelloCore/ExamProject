@@ -55,10 +55,10 @@ sectionManagement.getGrid = function(){
 					,labelInActive = '<span class="label label-important"><i class="icon-ban-circle icon-white"></i> ปิดการใช้งาน</span>';
 			for(keyArray in data.records){
 				strHtml = '<tr>'+
-							'<td id="section-name-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionName+'</td>'+
 							'<td id="section-year-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionYear+'</td>'+
 							'<td id="section-semester-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionSemester+'</td>'+
 							'<td id="course-code-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].courseCode+'</td>'+
+							'<td id="section-name-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionName+'</td>'+
 							'<td><input type="hidden" id="status-'+data.records[keyArray].sectionId+'" value="'+data.records[keyArray].status+'" />';
 				if(data.records[keyArray].status==0){
 					strHtml+=labelInActive;

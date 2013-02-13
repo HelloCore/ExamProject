@@ -16,6 +16,9 @@
 				<select id="sectionId" name="sectionId"></select>
 				<button class="btn btn-info" id="filterButton"><i class="icon-filter icon-white"></i> กรอง</button>
 			</div>
+			<p id="sectionData">
+				มีนักศึกษารอลงทะเบียนทั้งหมด <span class="badge badge-info">0</span> คน รออนุมัติ <span class="badge badge-warning">0</span> คน อนุมัติแล้ว <span class="badge badge-success">0</span> คน ไม่อนุมัติ <span class="badge badge-important">0</span> คน
+			</p>
 			<hr>
 			<table class="table table-striped table-bordered table-hover table-grid table-condensed" id="registerTable">
 				<thead>

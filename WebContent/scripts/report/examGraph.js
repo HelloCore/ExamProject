@@ -14,8 +14,8 @@ examScore.drawGraph = function(){
 	data.addRows(application.examScoreData);
 	var chart = new google.visualization.ScatterChart($("#mainDiv")[0]);
 	chart.draw(data,{
-        vAxis: {title: 'เวลา (วินาที)'},
-        hAxis: {title: 'ได้คะแนน (คะแนน)'},
+        vAxis: {title: 'เวลา (มิลลิวินาที)'},
+        hAxis: { title: 'ได้คะแนน (คะแนน)' , maxValue: application.maxScore ,minValue: 0 },
 	});
 	$("html").unblock();
 };
