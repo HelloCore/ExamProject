@@ -7,18 +7,18 @@ if(typeof($.jGrowl)!='undefined'){
 		$.jGrowl('Auto Save Complete.',{header:'<i class="cus-icon-accept"></i> Success',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.saveCompleteTH = function(){
-		$.jGrowl('บันทึกสำเร็จ',{header:'<i class="cus-icon-accept"></i> Success',theme:'alert alert-block alert-success'});
+		$.jGrowl('บันทึกข้อมูลสำเร็จ',{header:'<i class="cus-icon-accept"></i> สำเร็จ',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.deleteComplete = function(){
 		$.jGrowl('Delete Complete.',{header:'<i class="cus-icon-accept"></i> Success',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.deleteCompleteTH = function(){
-		$.jGrowl('ลบสำเร็จ',{header:'<i class="cus-icon-accept"></i> Success',theme:'alert alert-block alert-success'});
+		$.jGrowl('ลบข้อมูลสำเร็จ',{header:'<i class="cus-icon-accept"></i> สำเร็จ',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.errorAlert = function(){
 		$.jGrowl('Please contact to admin.',{header:'<i class="cus-action-stop"></i> Error',theme:'alert alert-block alert-error'});
 	};
-	applicationScript.errorAlertTh = function(){
+	applicationScript.errorAlertTH = function(){
 		$.jGrowl('กรุณาติดต่อผู้ดูแลระบบ',{header:'<i class="cus-action-stop"></i> เกิดข้อผิดพลาด',theme:'alert alert-block alert-error'});
 	};
 	applicationScript.errorAlertWithString = function(str){

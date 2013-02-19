@@ -1,24 +1,13 @@
 application.page='genericManagement';
 
-sectionManagement = {};
-sectionManagement.rows = 5;
-sectionManagement.page = 1;
-sectionManagement.lastPage = 1;
-sectionManagement.sectionId = '';
-sectionManagement.sectionName = '';
-sectionManagement.sectionYear = '';
-sectionManagement.sectionSemester = '';
-sectionManagement.courseCode = '';
-sectionManagement.orderBy = 'sectionName';
-sectionManagement.order = 'asc';
-sectionManagement.currentSection = {};
+application.currentSection = {};
 
-sectionManagement.checkDirty = function(){
+application.checkDirty = function(){
 	var isDirty = false;
-	if(sectionManagement.currentSection.sectionId){
-		if($("#sectionName").val() != sectionManagement.currentSection.sectionName){
+	if(application.currentSection.sectionId){
+		if($("#sectionName").val() != application.currentSection.sectionName){
 			isDirty = true;
-		}else if ($("#courseId").val() != sectionManagement.currentSection.courseId){
+		}else if ($("#courseId").val() != application.currentSection.courseId){
 			isDirty = true;
 		}
 	}else{
@@ -27,143 +16,46 @@ sectionManagement.checkDirty = function(){
 	return isDirty;
 };
 
-sectionManagement.getGrid = function(){
-	$("#sectionGrid").block(application.blockOption);
-	$.ajax({
+$(document).ready(function(){
+	application.mainGrid = $("#sectionGrid").coreGrid({
 		url: application.contextPath + '/management/section.html',
-		type: 'POST',
 		data: {
 			method: 'getSectionTable'
-			,rows: sectionManagement.rows
-			,page: sectionManagement.page
-			,orderBy: sectionManagement.orderBy
-			,order: sectionManagement.order
-			,sectionNameSearch: sectionManagement.sectionName
-			,sectionYearSearch : sectionManagement.sectionYear
-			,sectionSemesterSearch: sectionManagement.sectionSemester
-			,courseCodeSearch : sectionManagement.courseCode
 		},
-		dataType: 'json',
-		success: function(data,status){
-			$("#sectionGrid tbody").empty();
-			var strHtml,labelActive = '<span class="label label-success"><i class="icon-ok icon-white"></i> เปิดใช้งาน</span>'
-					,labelInActive = '<span class="label label-important"><i class="icon-ban-circle icon-white"></i> ปิดการใช้งาน</span>';
-			for(keyArray in data.records){
-				strHtml = '<tr>'+
-							'<td id="section-year-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionYear+'</td>'+
-							'<td id="section-semester-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionSemester+'</td>'+
-							'<td id="course-code-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].courseCode+'</td>'+
-							'<td id="section-name-'+data.records[keyArray].sectionId+'">'+data.records[keyArray].sectionName+'</td>'+
-							'<td><input type="hidden" id="status-'+data.records[keyArray].sectionId+'" value="'+data.records[keyArray].status+'" />';
-				if(data.records[keyArray].status==0){
-					strHtml+=labelInActive;
-				}else{
-					strHtml+=labelActive;
-				}	
-				strHtml += '</td>'+
-							'<td>'+
-								'<button class="btn btn-info" onClick="editSection('+data.records[keyArray].sectionId+','+data.records[keyArray].masterSectionId+')"><i class="icon-edit icon-white"></i> แก้ไข</button> '+
-								'<button class="btn btn-danger" onClick="deleteSection('+data.records[keyArray].sectionId+')"><i class="icon-trash icon-white"></i> ลบ</button> '+
-							'</td>'+
-							'</tr>';
-				$("#sectionGrid tbody").append(strHtml);
-			}
-			var startRecord = (((sectionManagement.rows)*(sectionManagement.page-1))+1);
-			
-			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
-			
-			
-			sectionManagement.lastPage = data.totalPages;
-			applicationScript.setPagination(sectionManagement.page,sectionManagement.lastPage);
-			$("#sectionGrid").unblock();
+		filter: {
+			sectionIdSearch : '',
+			sectionNameSearch : '',
+			sectionYearSearch : '',
+			sectionSemesterSearch : '',
+			courseCodeSearch : '',
 		},
-		error:function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
-			$("#sectionGrid").unblock();
-		}
-	});
-};
-
-sectionManagement.getDefaultGrid = function(){
-	$('.current-sort').removeClass('sort-asc').removeClass('sort-desc').addClass('sort-both');
-	sectionManagement.orderBy = "";
-	sectionManagement.order = "asc";
-	sectionManagement.getGrid();
-};
-
-changePage = function(page){
-	if(sectionManagement.page != page){
-		sectionManagement.page = page;
-		sectionManagement.getGrid();
-	}
-};
-$(document).ready(function(){
+		orderBy: 'sectionName',
+		tmpl: '#recordTemplate'
+	}).data("plugin_coreGrid");
+	
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){$(this).chosen();});
-	sectionManagement.getDefaultGrid();
-	$("#prevPageButton").click(function(e){
-		e.preventDefault();
-		if(sectionManagement.page > 1){
-			sectionManagement.page--;
-			sectionManagement.getGrid();
-		}
-	});
-	$("#nextPageButton").click(function(e){
-		e.preventDefault();
-		if(sectionManagement.page < sectionManagement.lastPage){
-			sectionManagement.page++;
-			sectionManagement.getGrid();
-		}
-	});
-	$('.sortable').click(function(){
-		var myId = $(this).attr('id').substring(0,$(this).attr('id').indexOf('Header'));
-		$('.current-sort').removeClass('sort-desc').removeClass('sort-asc').addClass('sort-both').removeClass('currentSort');
-		
-		if(sectionManagement.orderBy == myId){
-			if(sectionManagement.order == "asc"){
-				$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-					.addClass('sort-desc');
-				sectionManagement.order = "desc";
-			}else{
-				$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-				.addClass('sort-asc');
-				sectionManagement.order = "asc";
-			}
-		}else{
-			$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-				.addClass('sort-asc');
-			sectionManagement.orderBy = myId;
-			sectionManagement.order = "asc";
-		}
-		sectionManagement.getGrid();
-	});
-	$("#pageSize").change(function(){
-		sectionManagement.page = 1;
-		sectionManagement.rows = $(this).val();
-		sectionManagement.getGrid();
-	});
+	
 	$("#refreshButton").click(function(){
-		sectionManagement.sectionName = '';
-		sectionManagement.sectionYear = '';
-		sectionManagement.sectionSemester = '';
-		sectionManagement.courseCode = '';
 		$("#sectionNameSearch").val('');
 		$("#sectionYearSearch").val('');
 		$("#sectionSemesterSearch").val('');
 		$("#courseCodeSearch").val('');
-		sectionManagement.getDefaultGrid();
+		application.mainGrid.loadDefault();
 	});
+
 	$('#searchButton').click(function(){
-		sectionManagement.page =1;
-		sectionManagement.sectionName = $("#sectionNameSearch").val();
-		sectionManagement.sectionYear = $("#sectionYearSearch").val();
-		sectionManagement.sectionSemester = $("#sectionSemesterSearch").val();
-		sectionManagement.courseCode = $("#courseCodeSearch").val();
-		sectionManagement.getGrid();
+		application.mainGrid.search({
+			sectionNameSearch : $("#sectionNameSearch").val(),
+			sectionYearSearch : $("#sectionYearSearch").val(),
+			sectionSemesterSearch : $("#sectionSemesterSearch").val(),
+			courseCodeSearch : $("#courseCodeSearch").val()
+		});
 		$("#searchSectionModal").modal('hide');
 	});
+	
 	$("#addButton").click(function(e){
 		e.preventDefault();
-		sectionManagement.currentSection = {};
+		application.currentSection = {};
 		$("#sectionModal input:text").val('');
 		$("#sectionModal h3").text("เพิ่ม Section");
 		$('#sectionForm').validate().resetForm();
@@ -175,6 +67,8 @@ $(document).ready(function(){
 		$("#sectionId").val('');
 		$("#sectionModal").modal('show');
 	});
+	
+
 	$('#sectionForm').validate({
 		rules: {
 			sectionName: {
@@ -194,14 +88,14 @@ $(document).ready(function(){
 	    		.closest('.control-group').removeClass('error').addClass('success');
 	    },
 		submitHandler: function(form) {
-			if(sectionManagement.checkDirty()){
+			if(application.checkDirty()){
 				$(form).ajaxSubmit({
 					type:'post',
 					url: application.contextPath + '/management/section/save.html',
 					success: function(){
 						$('#sectionModal').modal('hide');
-						applicationScript.saveComplete();
-						sectionManagement.getGrid();
+						applicationScript.saveCompleteTH();
+						application.mainGrid.load();
 						$("#saveButton").button('reset');
 					},
 					error: function(data){
@@ -212,7 +106,7 @@ $(document).ready(function(){
 				});
 			}else{
 				$('#sectionModal').modal('hide');
-				applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+				applicationScript.alertNoDataChange();
 				$("#saveButton").button('reset');
 			}
 		}
@@ -225,7 +119,7 @@ $(document).ready(function(){
 			$("#sectionForm").submit();		
 		}
 	});
-	
+
 	$("#deleteButton").click(function(e){
 		$("#deleteButton").button('loading');
 		e.preventDefault();
@@ -233,12 +127,12 @@ $(document).ready(function(){
 			url: application.contextPath + '/management/section/delete.html',
 			type: 'POST',
 			data: {
-				sectionId: sectionManagement.sectionId
+				sectionId: application.sectionId
 			},
 			success: function(){
 				$("#confirmDelete").modal('hide');
-				applicationScript.deleteComplete();
-				sectionManagement.getGrid();
+				applicationScript.deleteCompleteTH();
+				application.mainGrid.load();
 				$("#deleteButton").button('reset');
 			},
 			error: function(data){
@@ -250,11 +144,13 @@ $(document).ready(function(){
 	});
 	
 	$('.numeric').numeric();
+	
 });
+
 
 deleteSection = function(sectionId){
 	$("#confirmDelete").modal();
-	sectionManagement.sectionId = sectionId;
+	application.sectionId = sectionId;
 };
 
 editSection = function(sectionId,masterSectionId){
@@ -264,7 +160,7 @@ editSection = function(sectionId,masterSectionId){
 	}).attr('selected', true);
 	$("#courseId").trigger("liszt:updated");
 	
-	sectionManagement.currentSection = {
+	application.currentSection = {
 		sectionId:	sectionId,
 		masterSectionId: masterSectionId,
 		sectionName: $("#section-name-"+sectionId).text(),
@@ -274,15 +170,15 @@ editSection = function(sectionId,masterSectionId){
 		status: $("#status-"+sectionId).val()
 	};
 	
-	sectionManagement.sectionId = sectionId;
+	application.sectionId = sectionId;
 	$('#sectionForm').validate().resetForm();
 	$('#sectionForm .control-group').removeClass('success').removeClass('error');
 	$("#sectionId").val(sectionId);
-	$("#sectionName").val(sectionManagement.currentSection.sectionName);
-	$("#sectionYear").text(sectionManagement.currentSection.sectionYear);
-	$("#sectionSemester").text(sectionManagement.currentSection.sectionSemester);
+	$("#sectionName").val(application.currentSection.sectionName);
+	$("#sectionYear").text(application.currentSection.sectionYear);
+	$("#sectionSemester").text(application.currentSection.sectionSemester);
 	$("#masterSectionId").val(masterSectionId);
-	if(sectionManagement.currentSection.status==0){
+	if(application.currentSection.status==0){
 		$("#statusInActive").attr("checked",true);
 	}else{
 		$("#statusActive").attr("checked",true);		

@@ -29,6 +29,26 @@
 					</tr>
 				</thead>
 				<tbody>
+					<script id="recordTemplate" type="text/x-jquery-tmpl">
+						<tr>
+							<td id="section-year-{{= sectionId}}">{{= sectionYear}}</td>
+							<td id="section-semester-{{= sectionId}}">{{= sectionSemester}}</td>
+							<td id="course-code-{{= sectionId}}">{{= courseCode}}</td>
+							<td id="section-name-{{= sectionId}}">{{= sectionName}}</td>
+							<td>
+								<input type="hidden" id="status-{{= sectionId}}" value="{{= status}}">
+								{{if status==0}}
+									<span class="label label-important"><i class="icon-ban-circle icon-white"></i> ปิดการใช้งาน</span>
+								{{else}}
+									<span class="label label-success"><i class="icon-ok icon-white"></i> เปิดใช้งาน</span>
+								{{/if}}
+							</td>
+							<td>
+								<button class="btn btn-info" onclick="editSection({{= sectionId}},{{= masterSectionId}})"><i class="icon-edit icon-white"></i> แก้ไข</button>
+								 <button class="btn btn-danger" onclick="deleteSection({{= sectionId}})"><i class="icon-trash icon-white"></i> ลบ</button> 
+							</td>
+						</tr>	
+					</script>
 				</tbody>
 			</table>
 			<div class="row-fluid">

@@ -104,6 +104,7 @@
 				            <sec:authorize access="hasRole('ROLE_ADMIN')">
 				            	<li class="courseManagement"><a href="${contextPath}/management/course.html">จัดการข้อมูลวิชา</a></li>
 				            	<li class="addTeacher"><a href="${contextPath}/main/signUpTeacher.html">ลงทะเบียนอาจารย์</a></li>
+				            	<li class="masterSectionManagement"><a href="${contextPath}/management/masterSection.html">จัดการ Section</a></li>
 				            </sec:authorize>
 				            <sec:authorize access="hasRole('ROLE_TEACHER')">
 								<li class="dropdown genericManagement">

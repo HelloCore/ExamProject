@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="${contextPath}/css/member/editPersonalData.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
-	<h2><font class="red-color">สมัคร</font> สมาชิก</h2>
+	<h2><font class="red-color">แก้ไข</font> ข้อมูลส่วนตัว</h2>
 </div>
 <div class="row-fluid">
 	<div class="span12">
@@ -24,7 +24,6 @@
 			    <label class="control-label" for="prefixName">คำนำหน้าชื่ิอ</label>
 			    <div class="controls">
 			    	<select id="prefixName" name="prefixName">
-			    		<option></option>
 			    		<c:if test="${userData.prefixNameId == 1}">
 			    			<option value="1" selected="selected" >นาย</option>
 			    			<option value="2">นาง</option>
@@ -39,6 +38,9 @@
 			    			<option value="1" >นาย</option>
 			    			<option value="2">นาง</option>
 			    			<option value="3" selected="selected" >นางสาว</option>
+			    		</c:if>
+			    		<c:if test="${userData.prefixNameId == 4}">
+			    			<option value="4" selected="selected" >อาจารย์</option>
 			    		</c:if>
 			    	</select>
 				</div>

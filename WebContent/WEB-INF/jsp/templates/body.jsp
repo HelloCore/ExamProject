@@ -37,6 +37,7 @@
 		<script src="${contextPath}/resources/jquery.jgrowl.js"></script>
 		<script src="${contextPath}/resources/jquery.blockUI.js"></script>
 		<script src="${contextPath}/resources/spin.min.js"></script>
+		<script src="${contextPath}/resources/jquery.tmpl.min.js"></script>
 		<script src="${contextPath}/resources/jquery.spin.js"></script>
 		<script src="${contextPath}/scripts/applicationScript.js"></script>
 		<script src="${contextPath}/scripts/mainScript.js"></script>
