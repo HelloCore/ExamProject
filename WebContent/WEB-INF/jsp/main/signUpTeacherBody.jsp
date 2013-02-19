@@ -46,7 +46,7 @@
 			 </div>
 			 <div class="form-actions">
 			  <button type="submit" class="btn btn-primary"><i class="icon-pencil icon-white"></i> ลงทะเบียน</button>
-			  <button type="reset" class="btn">ปิด</button>
+			  <button type="reset" class="btn">ยกเลิก</button>
 			</div>
 		</form>
 	</div>

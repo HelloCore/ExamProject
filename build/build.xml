@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project default="main" basedir=".">
+	<property file="resources.properties"/>
+	
+	<target name="merge db file" >
+		<concat destfile="${build.db.destPath}">
+			<path>
+				<fileset dir="${build.db.sourcePath}" includes="${build.db.include}"/>
+			</path>
+		</concat>
+  	</target>
+	<target name="main">
+	</target>
+</project>

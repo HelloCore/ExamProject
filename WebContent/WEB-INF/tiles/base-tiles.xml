@@ -2,8 +2,10 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 	
-	<definition name=".template" template="/WEB-INF/jsp/template/body.jsp">
-		<put-attribute name="head" value="/WEB-INF/jsp/template/head.jsp"/>
+	<definition name=".template" template="/WEB-INF/jsp/templates/body.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/templates/head.jsp"/>
+		<put-attribute name="navbar" value="/WEB-INF/jsp/templates/layouts/navbar.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/jsp/templates/layouts/footer.jsp"/>
 	</definition>
 	
 	<definition name="/main/home.page" extends=".template">
@@ -306,7 +308,7 @@
 	
 	
 	
-	<definition name=".emptyTemplate" template="/WEB-INF/jsp/template/empty.jsp">
+	<definition name=".emptyTemplate" template="/WEB-INF/jsp/templates/empty.jsp">
 	</definition>
 	
 	
@@ -407,8 +409,8 @@
 		<put-attribute name="footerFile" value="/WEB-INF/jsp/assignment/assignmentResultsFooter.jsp"/>
 	</definition>
 	
-	<definition name="/errorJson.page" template="/WEB-INF/jsp/template/error.jsp"/>
-	<definition name="/otherError.page"  template="/WEB-INF/jsp/template/otherError.jsp" />
+	<definition name="/errorJson.page" template="/WEB-INF/jsp/templates/error.jsp"/>
+	<definition name="/otherError.page"  template="/WEB-INF/jsp/templates/otherError.jsp" />
 	<definition name="/404.page" template="/404.html" />
 	
 	<definition name="/errors/access-denied.page" extends=".template">

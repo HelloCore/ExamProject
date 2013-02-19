@@ -149,29 +149,25 @@ div.jGrowl div.alert-warning{
 	border-color:#FBEED5;
 	color: #C09853;
 }
+
+div.jGrowl div.jGrowl-closer {
+	color: #3A87AD;
+	background-color: #D9EDF7;
+	border-color: #BCE8F1;
+}
+
 div.jGrowl div.alert div.jGrowl-message{
 	font-size:13px;
 }
 div.jGrowl div.alert div.jGrowl-header { 
 	font-size:13px;
-	background-repeat: no-repeat;
-	background-position: left;
+	background-color: transparent;
 	font-weight: bold;
-	padding-left:20px;
 }
 div.jGrowl div.alert div.jGrowl-close {
 	font-size:20px;
 	color:black;
 	opacity: 0.2;
-}
-div.jGrowl div.alert-success div.jGrowl-header { 
-	background-image: url('../img/famfamfam/accept.png');
-}
-div.jGrowl div.alert-error div.jGrowl-header { 
-	background-image: url('../img/famfamfam/cancel.png');
-}
-div.jGrowl div.alert-warning div.jGrowl-header { 
-	background-image: url('../img/famfamfam/error.png');
 }
 
 

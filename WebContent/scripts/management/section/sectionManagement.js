@@ -1,4 +1,5 @@
 application.page='genericManagement';
+
 sectionManagement = {};
 sectionManagement.rows = 5;
 sectionManagement.page = 1;

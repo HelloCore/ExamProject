@@ -12,7 +12,7 @@
 <c:set var="contextPath" scope="request" value="${pageContext.request.contextPath}"></c:set>
 
 <link rel="stylesheet" href="${contextPath}/css/bootstrap.min.css">
-<link rel="stylesheet" href="${contextPath}/css/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="${contextPath}/css/icons.css">
 <link rel="stylesheet" href="${contextPath}/resources/jquery.jgrowl.css">
 <link rel="stylesheet" href="${contextPath}/css/style.css">
 
