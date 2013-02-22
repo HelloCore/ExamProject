@@ -33,12 +33,14 @@ public class CoreExceptionResolver implements HandlerExceptionResolver{
 			mv = new ModelAndView(modelStr.toString());
 		}else if (ex instanceof CoreException){
 			mv = new ModelAndView("errorJson");
+			mv.addObject("type","CoreException");
 			mv.addObject("message", ex.getMessage());
 		}else if (ex instanceof HibernateSystemException){
 			System.out.println("--------------------------------------------------");
 			ex.printStackTrace();
 			System.out.println("--------------------------------------------------");
 			mv = new ModelAndView("errorJson");
+			mv.addObject("type","HibernateException");
 			mv.addObject("message", ex.getMessage());
 		}else if (ex instanceof DataAccessException){
 			System.out.println("--------------------------------------------------");
@@ -50,13 +52,19 @@ public class CoreExceptionResolver implements HandlerExceptionResolver{
 			mv = new ModelAndView("redirect:/errors/access-denied.html");
 		}else if(ex instanceof BindException){
 			mv = new ModelAndView("errorJson");
+			mv.addObject("type","BindException");
 			mv.addObject("message", "ไม่พบข้อมูล");
 		}else if(ex instanceof NullPointerException){
 			mv = new ModelAndView("errorJson");
+			mv.addObject("type","NullPointerException");
 			mv.addObject("message", "null pointer exception");
+		}else{
+			mv = new ModelAndView("errorJson");
+			mv.addObject("type","UnknowException");
+			mv.addObject("message", ex.getMessage());
 		}
 		
-		
+
 		response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
 		return mv;
 	}

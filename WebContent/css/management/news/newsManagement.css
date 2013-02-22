@@ -1,2 +1,12 @@
 @CHARSET "UTF-8";
 .fixed-content { width:700px; margin:auto;}
+
+
+@media  (max-width:480px){
+
+	.action-column{ width: 60px;}
+}
+
+@media  (min-width:481px) and (max-width: 767px){
+	.action-column{width: 140px;}
+}

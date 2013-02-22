@@ -40,6 +40,7 @@
 		<script src="${contextPath}/resources/jquery.tmpl.min.js"></script>
 		<script src="${contextPath}/resources/jquery.spin.js"></script>
 		<script src="${contextPath}/scripts/applicationScript.js"></script>
+		<script src="${contextPath}/scripts/errorMessage.js"></script>
 		<script src="${contextPath}/scripts/mainScript.js"></script>
 		
 		<sec:authorize access="isAuthenticated()">

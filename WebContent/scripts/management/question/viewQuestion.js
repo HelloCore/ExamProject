@@ -45,12 +45,12 @@ viewQuestion.addAnswer = function(){
 										+'</div>');
 			$('#answerTabNav').append('<li id="answer-menu-'+data.answerId+'"><a href="#answer-'+data.answerId+'" data-toggle="tab">คำตอบ</a></li>');
 			$('#answerTabNav a:last').tab('show');
-			applicationScript.saveComplete();
+			applicationScript.saveCompleteTH();
 			$("#editAnswerModal").modal('hide');
 			viewQuestion.calAnswer();
 		},error: function(data){
 			$("#saveAnswerButton").button('reset');
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 			$("#editAnswerModal").modal('hide');
 		}
 	});
@@ -89,12 +89,12 @@ viewQuestion.editAnswer = function(){
 					$("#answer-score-"+viewQuestion.currentAnswerId).val(1);
 				}
 	
-				applicationScript.saveComplete();
+				applicationScript.saveCompleteTH();
 				$("#editAnswerModal").modal('hide');
 				viewQuestion.calAnswer();
 			},error: function(data){
 				$("#saveAnswerButton").button('reset');
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#editAnswerModal").modal('hide');
 			}
 		});
@@ -135,8 +135,8 @@ viewQuestion.enableComboBox = function(refresh){
 	}
 };
 viewQuestion.refreshComboBox = function(){
-	$("#courseId").trigger("liszt:updated");
-	$("#questionGroupId").trigger("liszt:updated");
+	$("#courseId").select2();
+	$("#questionGroupId").select2();
 };
 viewQuestion.initQuestionGroupComboBox = function(questionGroupName){
 	$("#questionGroupId").load(application.contextPath+"/management/questionGroupComboBox.html",{courseId:$("#courseId").val()},function(){
@@ -145,7 +145,7 @@ viewQuestion.initQuestionGroupComboBox = function(questionGroupName){
 			    return $(this).text() == questionGroupName; 
 			}).attr('selected', true);
 		}
-		$(this).trigger("liszt:updated");
+		$(this).select2();
 		$('.parent-holder').unblock();
 	});
 };
@@ -155,7 +155,7 @@ viewQuestion.initComboBoxWithValue = function(courseCode,questionGroupName){
 		$("#courseId option").filter(function() {
 		    return $(this).text() == courseCode; 
 		}).attr('selected', true);
-		$(this).trigger("liszt:updated");
+		$(this).select2();
 		viewQuestion.initQuestionGroupComboBox(questionGroupName);
 	});
 };
@@ -163,8 +163,8 @@ viewQuestion.initComboBoxWithValue = function(courseCode,questionGroupName){
 $(document).ready(function(){
 	viewQuestion.saveQuestionButton = $("#saveQuestionButton");
 	$('#answerTabNav a:first').tab('show');
-	$('#questionGroupId').chosen();
-	$('#courseId').chosen().change(function(){
+	$('#questionGroupId').select2();
+	$('#courseId').select2().change(function(){
 		$('.parent-holder').block(application.blockOption);
 		viewQuestion.initQuestionGroupComboBox(null);
 	});
@@ -208,13 +208,13 @@ $(document).ready(function(){
 				},success: function(){
 					viewQuestion.disableComboBox(true);
 					$('.parent-holder').unblock();
-					applicationScript.saveComplete();
+					applicationScript.saveCompleteTH();
 					$("#saveParentButton").hide();
 					$("#cancelParentButton").hide();
 					$("#editParentButton").show();
 				},error: function(data){
 					$('.parent-holder').unblock();
-					applicationScript.errorAlertWithStringTH(data.responseText);
+					applicationScript.resolveError(data.responseText);
 				}
 			});
 		}else{
@@ -242,13 +242,13 @@ $(document).ready(function(){
 						,questionText: $("#questionText").val()
 					},success: function(){
 						viewQuestion.saveQuestionButton.button('reset');
-						applicationScript.saveComplete();
+						applicationScript.saveCompleteTH();
 						$("#editQuestionModal").modal("hide");
 						$(".question-panel").html($("#questionText").val());
 						$("#questionHolder").unblock();
 					},error: function(data){
 						viewQuestion.saveQuestionButton.button('reset');
-						applicationScript.errorAlertWithStringTH(data.responseText);
+						applicationScript.resolveError(data.responseText);
 						$("#editQuestionModal").modal("hide");
 						$("#questionHolder").unblock();
 					}
@@ -269,7 +269,7 @@ $(document).ready(function(){
 				method: 'deleteAnswer',
 				answerId: viewQuestion.currentAnswerId
 			},success: function(){
-				applicationScript.deleteComplete();
+				applicationScript.deleteCompleteTH();
 				$("#deleteAnswerButton").button('reset');
 				$("#confirmDelete").modal('hide');
 				$("#answer-"+viewQuestion.currentAnswerId).remove();
@@ -277,7 +277,7 @@ $(document).ready(function(){
 				$('#answerTabNav a:first').tab('show');
 				viewQuestion.calAnswer();
 			},error: function(data){
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#deleteAnswerButton").button('reset');
 				$("#confirmDelete").modal('hide');
 			}

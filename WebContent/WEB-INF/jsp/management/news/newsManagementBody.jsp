@@ -21,10 +21,28 @@
 					</tr>
 				</thead>
 				<tbody>
+					<script id="recordTemplate" type="text/x-jquery-tmpl">
+						<tr>
+							<td>{{= Globalize.format(new Date(updateDate),'dd-MM-yyyy HH:mm:ss')}}</td>
+							<td>
+								{{if courseCode}}
+									{{= courseCode}}
+								{{else}}
+									ไม่มี
+								{{/if}}
+							</td>
+							<td>{{= newsHeader}}</td>
+							<td>{{= firstName}} {{= lastName}}</td>
+							<td>
+								<button class="btn btn-info" onClick="viewNews({{= newsId}})"><i class="icon-edit icon-white"></i> แก้ไข</button>
+								<button class="btn btn-danger" onClick="deleteNews({{= newsId}})"><i class="icon-trash icon-white"></i> ลบ</button>
+							</td>
+						</tr>
+					</script>
 				</tbody>
 			</table>
 			<div class="row-fluid">
-				<div class="span3">
+				<div class="span4">
 					<div class="grid-info" id="gridInfo"></div>
 				</div>
 				<div class="span4 page-size-div">
@@ -35,7 +53,7 @@
 				 		<option value="50">50</option>
 				 	</select> รายการต่อหน้า
 				</div>
-				<div class="span5">
+				<div class="span4">
 					<div class="grid-pagination pagination pagination-centered">
 						<ul>
 							<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>

@@ -92,13 +92,14 @@ public class RegisterDomain extends RegisterPrototype{
 		DetachedCriteria criteria = DetachedCriteria.forClass(Register.class,"register");
 		criteria.createAlias("register.section", "section");
 		criteria.createAlias("section.course","course");
+		criteria.createAlias("section.masterSection","masterSection");
 		
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("register.registerId"),"registerId");
 		projectionList.add(Projections.property("register.sectionId"),"sectionId");
 		projectionList.add(Projections.property("section.sectionName"),"sectionName");
-		projectionList.add(Projections.property("section.sectionSemester"),"sectionSemester");
-		projectionList.add(Projections.property("section.sectionYear"),"sectionYear");
+		projectionList.add(Projections.property("masterSection.sectionSemester"),"sectionSemester");
+		projectionList.add(Projections.property("masterSection.sectionYear"),"sectionYear");
 		projectionList.add(Projections.property("register.requestDate"),"requestDate");
 		projectionList.add(Projections.property("register.status"),"status");
 		projectionList.add(Projections.property("course.courseId"),"courseId");

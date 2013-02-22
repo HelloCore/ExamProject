@@ -23,6 +23,34 @@ $(document).ready(function(){
 			min: jQuery.validator.format("โปรดระบุค่ามากกว่าหรือเท่ากับ {0}")
 		});
 	}
+	
+	$.ajaxSetup({
+		error: function(data,status,error){
+			console.log("error > data");
+			console.log(data);
+			console.log("error > status");
+			console.log(status);
+			console.log("error > throw");
+			console.log(error);
+		},
+		statusCode: {
+			401: function(){
+				alert("Session Timeout");
+				var newPath;
+				if(application.customPath){
+					newPath = application.customPath;
+				}else{
+					var currentPath = window.location.pathname
+						,indexOfSlash = currentPath.indexOf("/",1);
+						
+					newPath = curentPath.substr(indexOfSlash,currentPath.length);
+				}
+				
+				window.location = application.contextPath+'/main/login.html?target='+encodeURIComponent(newPath);
+			}
+		}
+	});
+	
 });
 application.blockOption = {
 		message:$("#loadMask"),

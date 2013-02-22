@@ -3,12 +3,13 @@ application.page='genericManagement';
 addNews = {};
 
 $(document).ready(function(){
-	$("#courseId").chosen();
+	$("#courseId").select2();
 	$(".ckeditorarea").ckeditor();
-	$("#courseId_chzn").block(application.blockOption);
+	
+	$("#s2id_courseId").block(application.blockOption);
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html?optionAll=1",function(){
-		$(this).trigger("liszt:updated");
-		$("#courseId_chzn").unblock();
+		$(this).select2();
+		$("#s2id_courseId").unblock();
 	});
 	$("#addButton").click(function(){
 		$('.control-group').removeClass('success').removeClass('error');
@@ -52,13 +53,13 @@ $(document).ready(function(){
 			success: function(){
 				$("#newsHeader").val('');
 				$("#newsContent").val('');
-				applicationScript.saveComplete();
+				applicationScript.saveCompleteTH();
 				thisButton.button('reset');
 				$("#confirmAddNewsModal").modal('hide');
 				$("body").unblock();
 			},
 			error: function(data){
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#confirmAddNewsModal").modal('hide');
 				thisButton.button('reset');
 				$("body").unblock();

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/question/questionManagement.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
@@ -49,6 +49,22 @@
 		</div>
 		<div class="span9">
 			<div class="main-data" id="questionDivHolder">
+				<script id="recordTemplate" type="text/x-jquery-tmpl">
+					<table class="table table-bordered question-table">
+						<tr>
+							<td colspan="2">{{html questionText}}</td>
+						</tr><tr>
+							<td class="sub-column">วิชา : {{= courseCode}}</td>
+							<td class="sub-column">มีจำนวนคำตอบที่ถูกต้อง {{= numOfAnswer}} คำตอบ</td>
+						</tr><tr>
+							<td class="sub-column">บทเรียน : {{= questionGroupName}}</td>
+							<td class="sub-column">
+								<button class="btn btn-info" onclick="viewQuestion({{= questionId}})"><i class="icon-edit icon-white"></i> ดูรายละเอียด</button> 
+								<button class="btn btn-danger" onclick="deleteQuestion({{= questionId}})"><i class="icon-trash icon-white"></i> ลบ</button>
+							</td>
+						</tr>
+					</table>
+				</script>
 			
 			</div>
 			<div class="row-fluid">

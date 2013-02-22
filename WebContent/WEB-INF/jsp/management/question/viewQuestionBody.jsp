@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/question/viewQuestion.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
@@ -8,8 +8,8 @@
 	</div>
 	<div class="well form-inline parent-holder">
 		<input type="hidden" id="questionId" name="questionId" value="${questionData.questionId}">
-		<label for="courseCode">วิชา : </label><select id="courseId" name="courseId" class="select-box course-select-box" disabled="disabled"><option value="${questionData.courseId}" selected="selected">${questionData.courseCode}</option></select>
-		<label for="questionGroupName">บทเรียน : </label><select  id="questionGroupId" name="questionGroupId" class="select-box" disabled="disabled"><option value="${questionData.questionGroupId}" selected="selected">${questionData.questionGroupName}</option></select>
+		<label for="courseCode">วิชา :&nbsp;</label><select id="courseId" name="courseId" class="select-box course-select-box" disabled="disabled"><option value="${questionData.courseId}" selected="selected">${questionData.courseCode}</option></select>
+		<label for="questionGroupName">บทเรียน : &nbsp;</label><select  id="questionGroupId" name="questionGroupId" class="select-box" disabled="disabled"><option value="${questionData.questionGroupId}" selected="selected">${questionData.questionGroupName}</option></select>
 		<button class="btn btn-info" id="editParentButton"><i class="icon-edit icon-white"></i> แก้ไข</button>
 		<button class="btn btn-primary hide" id="saveParentButton"><i class=" icon-pencil icon-white"></i> บันทึก</button>
 		<button class="btn hide" id="cancelParentButton">ยกเลิก</button>
@@ -55,8 +55,8 @@
 	  </c:forEach>
 	</div>
 	<div class="tab-footer pagination-centered">
-		<label for="numOfCorrentAnswer">มีคำตอบที่ถูกต้อง </label><span id="numOfCorrectAnswer" class="input-mini uneditable-input">0</span><label for="numOfCorrentAnswer">คำตอบ</label>
-		และ <label for="numOfFoolAnswer">มีคำตอบหลอก </label><span id="numOfFoolAnswer" class="input-mini uneditable-input">0</span><label for="numOfFoolAnswer">คำตอบ</label>
+		<label for="numOfCorrentAnswer">มีคำตอบที่ถูกต้อง </label><span id="numOfCorrectAnswer" class="input-mini uneditable-input">0</span> <label for="numOfCorrentAnswer">คำตอบ</label>
+		และ <label for="numOfFoolAnswer">มีคำตอบหลอก </label><span id="numOfFoolAnswer" class="input-mini uneditable-input">0</span> <label for="numOfFoolAnswer">คำตอบ</label>
 	</div>
 </div>
 

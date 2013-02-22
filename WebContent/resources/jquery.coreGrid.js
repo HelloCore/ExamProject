@@ -39,7 +39,10 @@
             prevPageButton: '#prevPageButton',
             nextPageButton: '#nextPageButton',
             sortable: '.sortable',
-            pageSize: '#pageSize'
+            pageSize: '#pageSize',
+            autoLoad: true,
+            subData: 'records',
+            isPagging: true
         };
 
     // The actual plugin constructor
@@ -80,7 +83,9 @@
         		var myId = $(this).attr('id').substring(0,$(this).attr('id').indexOf('Header'));
         		grid.sort(myId,this);
         	});
-        	this.loadDefault();
+        	if(this.options.autoLoad){
+        		this.loadDefault();
+        	}
         },
 
         load: function() {
@@ -105,15 +110,20 @@
         			grid.$element.find('tbody tr').remove();
         			
         			if(grid.options.tmpl){
-        				$(grid.options.tmpl).tmpl(data.records).appendTo(grid.$element.find('tbody'));
+        				if(grid.options.subData){
+        					$(grid.options.tmpl).tmpl(data[subData]).appendTo(grid.$element.find('tbody'));
+        				}else{
+        					$(grid.options.tmpl).tmpl(data).appendTo(grid.$element.find('tbody'));	
+        				}
         			}
-        			
-        			var startRecord = (((grid.options.rows)*(grid.options.page-1))+1);
-        			
-        			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
-        			
-        			grid.options.lastPage = data.totalPages;
-        			applicationScript.setPagination(grid.options.page,grid.options.lastPage);
+        			if(grid.options.isPagging){
+	        			var startRecord = (((grid.options.rows)*(grid.options.page-1))+1);
+	        			
+	        			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
+	        			
+	        			grid.options.lastPage = data.totalPages;
+	        			applicationScript.setPagination(grid.options.page,grid.options.lastPage);
+        			}
         			grid.$element.unblock();
         			
         			if(typeof(grid.options.loadComplete) == 'function'){

@@ -233,7 +233,7 @@ $(document).ready(function(){
 				toSectionId : $("#courseSectionId").val()
 			},
 			success: function(data,status){
-				applicationScript.successAlertWithStringHeader("ย้าย Section สำเร็จ กรุณารออาจารย์ผู้สอนอนุมัติ","Success");
+				applicationScript.successAlertWithStringTH("ย้าย Section สำเร็จ กรุณารออาจารย์ผู้สอนอนุมัติ");
 				$("#confirmChangeSectionModal").modal('hide');
 				thisButton.button('reset');
 				register.getGrid();

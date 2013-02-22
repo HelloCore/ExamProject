@@ -1,13 +1,24 @@
 application.page='genericManagement';
 
-application.currentSection = {};
+sectionManagement = {};
+sectionManagement.rows = 5;
+sectionManagement.page = 1;
+sectionManagement.lastPage = 1;
+sectionManagement.sectionId = '';
+sectionManagement.sectionName = '';
+sectionManagement.sectionYear = '';
+sectionManagement.sectionSemester = '';
+sectionManagement.courseCode = '';
+sectionManagement.orderBy = 'sectionName';
+sectionManagement.order = 'asc';
+sectionManagement.currentSection = {};
 
-application.checkDirty = function(){
+sectionManagement.checkDirty = function(){
 	var isDirty = false;
-	if(application.currentSection.sectionId){
-		if($("#sectionName").val() != application.currentSection.sectionName){
+	if(sectionManagement.currentSection.sectionId){
+		if($("#sectionName").val() != sectionManagement.currentSection.sectionName){
 			isDirty = true;
-		}else if ($("#courseId").val() != application.currentSection.courseId){
+		}else if ($("#courseId").val() != sectionManagement.currentSection.courseId){
 			isDirty = true;
 		}
 	}else{
@@ -16,46 +27,73 @@ application.checkDirty = function(){
 	return isDirty;
 };
 
-$(document).ready(function(){
-	application.mainGrid = $("#sectionGrid").coreGrid({
+sectionManagement.getGrid = function(){
+	$("#sectionGrid").block(application.blockOption);
+	$.ajax({
 		url: application.contextPath + '/management/section.html',
+		type: 'POST',
 		data: {
 			method: 'getSectionTable'
+			,rows: sectionManagement.rows
+			,page: sectionManagement.page
+			,orderBy: sectionManagement.orderBy
+			,order: sectionManagement.order
+			,sectionNameSearch: sectionManagement.sectionName
+			,sectionYearSearch : sectionManagement.sectionYear
+			,sectionSemesterSearch: sectionManagement.sectionSemester
+			,courseCodeSearch : sectionManagement.courseCode
 		},
-		filter: {
-			sectionIdSearch : '',
-			sectionNameSearch : '',
-			sectionYearSearch : '',
-			sectionSemesterSearch : '',
-			courseCodeSearch : '',
+		dataType: 'json',
+		success: function(data,status){
+			$("#sectionGrid tbody tr").remove();
+			$("#recordTemplate").tmpl(data.records).appendTo("#sectionGrid tbody");
+			applicationScript.calPaging(data,sectionManagement);
+			$("#sectionGrid").unblock();
 		},
-		orderBy: 'sectionName',
-		tmpl: '#recordTemplate'
-	}).data("plugin_coreGrid");
-	
-	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){$(this).chosen();});
+		error:function(data){
+			applicationScript.resolveError(data.responseText);
+			$("#sectionGrid").unblock();
+		}
+	});
+};
+
+sectionManagement.getDefaultGrid = function(){
+	$('.current-sort').removeClass('sort-asc').removeClass('sort-desc').addClass('sort-both');
+	sectionManagement.orderBy = "";
+	sectionManagement.order = "asc";
+	sectionManagement.getGrid();
+};
+
+$(document).ready(function(){
+	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){$(this).select2();});
+	sectionManagement.getDefaultGrid();
+	applicationScript.setUpGrid(sectionManagement);
 	
 	$("#refreshButton").click(function(){
+		sectionManagement.sectionName = '';
+		sectionManagement.sectionYear = '';
+		sectionManagement.sectionSemester = '';
+		sectionManagement.courseCode = '';
 		$("#sectionNameSearch").val('');
 		$("#sectionYearSearch").val('');
 		$("#sectionSemesterSearch").val('');
 		$("#courseCodeSearch").val('');
-		application.mainGrid.loadDefault();
+		sectionManagement.getDefaultGrid();
 	});
-
+	
 	$('#searchButton').click(function(){
-		application.mainGrid.search({
-			sectionNameSearch : $("#sectionNameSearch").val(),
-			sectionYearSearch : $("#sectionYearSearch").val(),
-			sectionSemesterSearch : $("#sectionSemesterSearch").val(),
-			courseCodeSearch : $("#courseCodeSearch").val()
-		});
+		sectionManagement.page =1;
+		sectionManagement.sectionName = $("#sectionNameSearch").val();
+		sectionManagement.sectionYear = $("#sectionYearSearch").val();
+		sectionManagement.sectionSemester = $("#sectionSemesterSearch").val();
+		sectionManagement.courseCode = $("#courseCodeSearch").val();
+		sectionManagement.getGrid();
 		$("#searchSectionModal").modal('hide');
 	});
 	
 	$("#addButton").click(function(e){
 		e.preventDefault();
-		application.currentSection = {};
+		sectionManagement.currentSection = {};
 		$("#sectionModal input:text").val('');
 		$("#sectionModal h3").text("เพิ่ม Section");
 		$('#sectionForm').validate().resetForm();
@@ -68,7 +106,6 @@ $(document).ready(function(){
 		$("#sectionModal").modal('show');
 	});
 	
-
 	$('#sectionForm').validate({
 		rules: {
 			sectionName: {
@@ -88,19 +125,19 @@ $(document).ready(function(){
 	    		.closest('.control-group').removeClass('error').addClass('success');
 	    },
 		submitHandler: function(form) {
-			if(application.checkDirty()){
+			if(sectionManagement.checkDirty()){
 				$(form).ajaxSubmit({
 					type:'post',
 					url: application.contextPath + '/management/section/save.html',
 					success: function(){
 						$('#sectionModal').modal('hide');
 						applicationScript.saveCompleteTH();
-						application.mainGrid.load();
+						sectionManagement.getGrid();
 						$("#saveButton").button('reset');
 					},
 					error: function(data){
 						$('#sectionModal').modal('hide');
-						applicationScript.errorAlertWithStringTH(data.responseText);
+						applicationScript.resolveError(data.responseText);
 						$("#saveButton").button('reset');
 					}
 				});
@@ -119,7 +156,7 @@ $(document).ready(function(){
 			$("#sectionForm").submit();		
 		}
 	});
-
+	
 	$("#deleteButton").click(function(e){
 		$("#deleteButton").button('loading');
 		e.preventDefault();
@@ -127,30 +164,28 @@ $(document).ready(function(){
 			url: application.contextPath + '/management/section/delete.html',
 			type: 'POST',
 			data: {
-				sectionId: application.sectionId
+				sectionId: sectionManagement.sectionId
 			},
 			success: function(){
 				$("#confirmDelete").modal('hide');
 				applicationScript.deleteCompleteTH();
-				application.mainGrid.load();
+				sectionManagement.getGrid();
 				$("#deleteButton").button('reset');
 			},
 			error: function(data){
 				$("#confirmDelete").modal('hide');
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#deleteButton").button('reset');
 			}
 		});
 	});
 	
 	$('.numeric').numeric();
-	
 });
-
 
 deleteSection = function(sectionId){
 	$("#confirmDelete").modal();
-	application.sectionId = sectionId;
+	sectionManagement.sectionId = sectionId;
 };
 
 editSection = function(sectionId,masterSectionId){
@@ -160,7 +195,7 @@ editSection = function(sectionId,masterSectionId){
 	}).attr('selected', true);
 	$("#courseId").trigger("liszt:updated");
 	
-	application.currentSection = {
+	sectionManagement.currentSection = {
 		sectionId:	sectionId,
 		masterSectionId: masterSectionId,
 		sectionName: $("#section-name-"+sectionId).text(),
@@ -170,15 +205,15 @@ editSection = function(sectionId,masterSectionId){
 		status: $("#status-"+sectionId).val()
 	};
 	
-	application.sectionId = sectionId;
+	sectionManagement.sectionId = sectionId;
 	$('#sectionForm').validate().resetForm();
 	$('#sectionForm .control-group').removeClass('success').removeClass('error');
 	$("#sectionId").val(sectionId);
-	$("#sectionName").val(application.currentSection.sectionName);
-	$("#sectionYear").text(application.currentSection.sectionYear);
-	$("#sectionSemester").text(application.currentSection.sectionSemester);
+	$("#sectionName").val(sectionManagement.currentSection.sectionName);
+	$("#sectionYear").text(sectionManagement.currentSection.sectionYear);
+	$("#sectionSemester").text(sectionManagement.currentSection.sectionSemester);
 	$("#masterSectionId").val(masterSectionId);
-	if(application.currentSection.status==0){
+	if(sectionManagement.currentSection.status==0){
 		$("#statusInActive").attr("checked",true);
 	}else{
 		$("#statusActive").attr("checked",true);		

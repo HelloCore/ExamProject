@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/news/addNews.css">
 <div>
 	<div class="page-header pagination-centered" id="pageHeader">
@@ -9,7 +9,7 @@
 		<div class="control-group">
 	    	<label class="control-label" for="courseId">วิชา</label>
 	    	<div class="controls">
-				<select id="courseId" name="courseId"></select>
+				<select id="courseId" name="courseId" class="input-large"></select>
 	    	</div>
 	  	</div>
 		<div class="control-group">

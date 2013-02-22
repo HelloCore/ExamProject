@@ -4,7 +4,7 @@ package th.ac.kbu.cs.ExamProject.Exception;
 public class CoreExceptionMessage {
 	
 	private String message;
-	
+
 	public String getMessage() {
 		return message;
 	}
@@ -69,7 +69,7 @@ public class CoreExceptionMessage {
 		EXAM_EXPIRED = new CoreExceptionMessage("EXAM_EXPIRED");
 		EXAM_NOT_STARTED = new CoreExceptionMessage("EXAM_NOT_STARTED");
 		CANT_DO_EXAM_ANYMORE = new CoreExceptionMessage("CANT_DO_EXAM_ANYMORE");
-		QUESTION_NOT_ENOUGH = new CoreExceptionMessage("จำนวนคำถามไม่พอ");
+		QUESTION_NOT_ENOUGH = new CoreExceptionMessage("QUESTION_NOT_ENOUGH");
 		EXAM_NOT_COMPLETE = new CoreExceptionMessage("EXAM_NOT_COMPLETE");
 		
 		DUPLICATE_COURSE = new CoreExceptionMessage("DUPLICATE_COURSE");
@@ -83,7 +83,7 @@ public class CoreExceptionMessage {
 		
 		DUPLICATE_EMAIL = new CoreExceptionMessage("DUPLICATE_EMAIL");
 		
-		DUPLICATE_STUDENT_ID_OR_EMAIL = new CoreExceptionMessage("รหัสนักศึกษาหรืออีเมลล์นี้ มีผู้ใช้งานแล้ว");
+		DUPLICATE_STUDENT_ID_OR_EMAIL = new CoreExceptionMessage("DUPLICATE_STUDENT_ID_OR_EMAIL");
 		
 		FILE_NOT_FOUND = new CoreExceptionMessage("FILE_NOT_FOUND");
 		FOLDER_IS_EXISTS = new CoreExceptionMessage("FOLDER_IS_EXISTS");

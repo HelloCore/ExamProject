@@ -1,9 +1,5 @@
 @CHARSET "UTF-8";
 
-
-#courseId_chzn {position: absolute;}
-
-
 @media  (max-width:480px){
 	.withComboBox {
 		padding-bottom:25px;
@@ -13,6 +9,7 @@
 		margin-left:-125px;
 		width:250px;
 	}
+	.action-column{ width: 60px;}
 
 }
 
@@ -27,6 +24,7 @@
 		margin-left:-185px;
 		width:340px;
 	}
+	.action-column{ width: 140px;}
 }
 
 @media (min-width: 768px){

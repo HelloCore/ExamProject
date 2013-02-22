@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/questionGroup/questionGroupManagement.css">
 		
 	<div class="page-header pagination-centered" id="pageHeader">
@@ -15,7 +15,7 @@
 				<a class="btn btn-primary" data-toggle="modal" href="#searchQuestionGroupModal"><i class="icon-zoom-in icon-white"></i> ค้นหา</a>
 				<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
 			</div>
-			<table class="table table-striped table-bordered table-grid" id="questionGroupGrid">
+			<table class="table table-striped table-bordered table-grid table-hover" id="questionGroupGrid">
 				<thead>
 					<tr>
 						<th class="sort-both sortable" id="questionGroupIdHeader">#<i></i></th>
@@ -25,10 +25,21 @@
 					</tr>
 				</thead>
 				<tbody>
+					<script id="recordTemplate" type="text/x-jquery-tmpl">
+						<tr>
+							<td id="question-group-id-{{= questionGroupId}}">{{= questionGroupId}}</td>
+							<td id="question-group-name-{{= questionGroupId}}">{{= questionGroupName}}</td>
+							<td id="course-code-{{= questionGroupId}}">{{= courseCode}}</td>
+							<td>
+								<button class="btn btn-info" onClick="editQuestionGroup({{= questionGroupId}})"><i class="icon-edit icon-white"></i> แก้ไข</button> 
+								<button class="btn btn-danger" onClick="deleteQuestionGroup({{= questionGroupId}})"><i class="icon-trash icon-white"></i> ลบ</button> 
+							</td>
+							</tr>
+					</script>
 				</tbody>
 			</table>
 			<div class="row-fluid">
-				<div class="span3">
+				<div class="span4">
 					<div class="grid-info" id="gridInfo"></div>
 				</div>
 				<div class="span4 page-size-div">
@@ -39,7 +50,7 @@
 				 		<option value="50">50</option>
 				 	</select> รายการต่อหน้า
 				</div>
-				<div class="span5">
+				<div class="span4">
 					<div class="grid-pagination pagination pagination-centered">
 						<ul>
 							<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>

@@ -3,5 +3,5 @@
 <script src="${contextPath}/resources/jquery.validate.js"></script>
 <script src="${contextPath}/resources/jquery.form.js"></script>
 <script src="${contextPath}/resources/jquery.numeric.js"></script>
-<script src="${contextPath}/resources/chosen/chosen.jquery.js"></script>
+<script src="${contextPath}/resources/select2/select2.js"></script>
 <script src="${contextPath}/scripts/management/questionGroup/questionGroupManagement.js"></script>

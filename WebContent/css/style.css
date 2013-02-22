@@ -20,6 +20,9 @@ body {
 		text-align:center;
 		margin-bottom:15px;
 	}
+	.header-logo{
+		width:200px;
+	}
 }
 @media  (min-width:481px) and (max-width: 767px){
 	body {
@@ -42,6 +45,9 @@ body {
 		text-align:center;
 		margin-bottom:15px;
 	}
+	.header-logo{
+		width:250px;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 979px){
@@ -54,6 +60,9 @@ body {
 	.action-column {
 		width:170px;
 	}
+	.header-logo{
+		width:300px;
+	}
 }
 
 @media (min-width: 980px){
@@ -64,6 +73,9 @@ body {
 	div.jGrowl.top-right {
 		right: 				0px;
 		top: 				40px;
+	}
+	.header-logo{
+		width:300px;
 	}
 }
 .button-holder{

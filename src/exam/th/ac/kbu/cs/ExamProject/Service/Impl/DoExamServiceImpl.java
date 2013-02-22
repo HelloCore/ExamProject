@@ -34,11 +34,13 @@ public class DoExamServiceImpl implements DoExamService{
 	private BasicFinderService basicFinderService;
 	
 	public Serializable saveExamResult(ExamResult examResult) {
+		System.out.println("saveExamResult");
 		return basicEntityService.save(examResult);
 	}
 
 	@Transactional(rollbackFor=Exception.class)
 	public Long createExamResult(ExamResult examResult,List<HashMap<String, Object>> questionData) {
+		System.out.println("createExamResult");
 		Long examResultId = BeanUtils.toLong(this.saveExamResult(examResult));
 		Long examResultAnswerId ;
 		List<ExamResultAnswer> examResultAnswerList = new ArrayList<ExamResultAnswer>();
@@ -57,6 +59,7 @@ public class DoExamServiceImpl implements DoExamService{
 
 	@SuppressWarnings("unchecked")
 	private ExamResultAnswer toExamResultAnswer(Long examResultId,HashMap<String,Object> question){
+		System.out.println("toExamResultAnswer");
 		ExamResultAnswer examResultAnswer = new ExamResultAnswer();
 		examResultAnswer.setExamResultId(examResultId);
 		examResultAnswer.setQuestionId(BeanUtils.toLong(question.get("questionId")));
@@ -75,6 +78,7 @@ public class DoExamServiceImpl implements DoExamService{
 	}
 	
 	public void updateExamResultAnswer(ExamResultAnswer examResultAnswer) {
+		System.out.println("updateExamResultAnswer");
 		basicEntityService.update(examResultAnswer);
 	}
 
@@ -83,6 +87,7 @@ public class DoExamServiceImpl implements DoExamService{
 			List<ExamResultAnswer> examResultAnswers,
 			Boolean isExpired,
 			Boolean isAutoSave) {
+		System.out.println("updateExamResult");
 		if(!isExpired){
 //			String queryString = "UPDATE ExamResultAnswer examResultAnswer SET examResultAnswer.answerId=null WHERE examResultAnswer.examResultId = ?";
 //			basicEntityService.bulkUpdate(queryString, examResult.getExamResultId());
@@ -98,11 +103,13 @@ public class DoExamServiceImpl implements DoExamService{
 	}
 
 	public void insertExamTempTable(List<ExamTempTable> examTempTableList) {
+		System.out.println("saveExamResult");
 		basicEntityService.save(examTempTableList);
 	}
 
 	@Transactional(rollbackFor=Exception.class)
 	public void setCompleteExamFromSelect(ExamResult examResult,Boolean isExpired){	
+		System.out.println("setCompleteExamFromSelect");
 //		if(isExpired){
 //			String queryString = "UPDATE ExamResultAnswer examResultAnswer SET examResultAnswer.answerId=null WHERE examResultAnswer.examResultId = ?";
 //			basicEntityService.bulkUpdate(queryString, examResult.getExamResultId());
@@ -112,12 +119,14 @@ public class DoExamServiceImpl implements DoExamService{
 	}
 	
 	public <T> T execute(HibernateCallback<T> action){
+		System.out.println("execute");
 		return basicEntityService.execute(action);
 	}
 
 	@Transactional(rollbackFor=Exception.class)
 	public Long createExamResultObj(ExamResult examResult,
 			List<Object[]> questionData) {
+		System.out.println("createExamResultObj");
 		Long examResultId = BeanUtils.toLong(this.saveExamResult(examResult));
 		Long examResultAnswerId ;
 		List<ExamResultAnswer> examResultAnswerList = new ArrayList<ExamResultAnswer>();
@@ -134,12 +143,14 @@ public class DoExamServiceImpl implements DoExamService{
 		return examResultId;
 	}
 	private Exam getExamData(Long examId){
+		System.out.println("getExamData");
 		DetachedCriteria criteria = DetachedCriteria.forClass(Exam.class,"exam");
 		criteria.add(Restrictions.eq("exam.examId",examId));
 		return this.basicFinderService.findUniqueByCriteria(criteria);
 	}
 	
 	private void calScore(ExamResult examResult,Boolean isExpired){
+		System.out.println("calScore");
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(ExamResultAnswer.class,"examResultAnswer");
 		criteria.createAlias("examResultAnswer.answer","answer");
@@ -167,6 +178,7 @@ public class DoExamServiceImpl implements DoExamService{
 	}
 	
 	private ExamResultAnswer toExamResultAnswerObj(Long examResultId,Object[] questionData){
+		System.out.println("toExamResultAnswerObj");
 		ExamResultAnswer examResultAnswer = new ExamResultAnswer();
 		examResultAnswer.setExamResultId(examResultId);
 		examResultAnswer.setQuestionId(BeanUtils.toLong(questionData[0]));

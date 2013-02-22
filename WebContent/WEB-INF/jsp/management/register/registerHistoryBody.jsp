@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/register/registerHistory.css">
 		
 	<div class="page-header pagination-centered" id="pageHeader">
@@ -11,7 +11,7 @@
 		<div class="span12">
 			<div class="button-holder form-inline" >
 				<label for="courseId"> วิชา </label>
-				<select id="courseId" name="courseId"></select>
+				<select id="courseId" name="courseId" class="input-medium"></select>
 				<button class="btn btn-info" id="filterButton"><i class="icon-filter icon-white"></i> กรอง</button>
 			</div>
 			<hr>
@@ -29,7 +29,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					<script id="recordTemplate" type="text/x-jquery-tmpl">
+						<tr>
+							<td>{{= Globalize.format( new Date(requestDate),"dd-MM-yyyy HH:mm:ss")}}</td>
+							<td>{{= Globalize.format( new Date(processDate),"dd-MM-yyyy HH:mm:ss")}}</td>
+							<td>{{= studentId}}</td>
+							<td>{{= prefixNameTh}} {{= firstName}} {{= lastName}}</td>
+							<td>{{= courseCode}}</td>
+							<td>{{= sectionName}} เทอม {{= sectionSemester}}/{{= sectionYear}}</td>
+							<td>
+								{{if status==1}}
+									<span class="label label-success"><i class="icon-ok icon-white"></i> อนุมัติ</span>
+								{{else}}
+									<span class="label label-important"><i class="icon-ban-circle icon-white"></i> ไม่อนุมัติ</span>
+								{{/if}}
+							</td>
+							<td>{{= verifyBy}}</td>
+						</tr>
+					</script>
 				</tbody>
 			</table>
 			<div class="row-fluid">

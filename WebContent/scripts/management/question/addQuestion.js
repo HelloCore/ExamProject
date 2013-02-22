@@ -114,28 +114,28 @@ addQuestion.calAnswer= function()
 
 addQuestion.initFunction = function(){
 	addQuestion.calAnswer();
-	$("#courseId_chzn").block(application.blockOption);
+	$("#s2id_courseId").block(application.blockOption);
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){
-		$(this).trigger("liszt:updated");
-		$("#courseId_chzn").unblock();
-		$("#questionGroupId_chzn").block(application.blockOption);
+		$(this).select2();
+		$("#s2id_courseId").unblock();
+		$("#s2id_questionGroupId").block(application.blockOption);
 		$("#questionGroupId").load(application.contextPath+"/management/questionGroupComboBox.html",{courseId:$("#courseId").val()},function(){
-			$(this).trigger("liszt:updated");
-			$("#questionGroupId_chzn").unblock();
+			$(this).select2();
+			$("#s2id_questionGroupId").unblock();
 		});
 	}).change(function(){
-		$("#questionGroupId_chzn").block(application.blockOption);
+		$("#s2id_questionGroupId").block(application.blockOption);
 		$("#questionGroupId").load(application.contextPath+"/management/questionGroupComboBox.html",{courseId:$("#courseId").val()},function(){
-			$(this).trigger("liszt:updated");
-			$("#questionGroupId_chzn").unblock();
+			$(this).select2();
+			$("#s2id_questionGroupId").unblock();
 		});
 	});
 	$(".ckeditorarea").ckeditor();
 };
 
 $(document).ready(function(){
-	$("#courseId").chosen();
-	$("#questionGroupId").chosen();
+	$("#courseId").select2();
+	$("#questionGroupId").select2();
 	addQuestion.initFunction();
 	$(".tab-content").on("change",'input[name^=answerScore]:radio',function(){
 		addQuestion.calAnswer();
@@ -190,12 +190,12 @@ $(document).ready(function(){
 				thisButton.button('reset');
 				$('#confirmModal').modal('hide');
 				addQuestion.setDefaultForm();
-				applicationScript.saveComplete();
+				applicationScript.saveCompleteTH();
 			}
 			,error: function(data){
 				thisButton.button('reset');
 				$('#confirmModal').modal('hide');
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 			}
 		});
 	});

@@ -1,44 +1,47 @@
 applicationScript = {};
 if(typeof($.jGrowl)!='undefined'){
 	applicationScript.saveComplete = function(){
-		$.jGrowl('Save Complete.',{header:'<i class="cus-icon-accept"></i> Success',theme:'alert alert-block alert-success'});
+		$.jGrowl('Save Complete.',{header:'<i class="fam-accept"></i> Success',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.autoSaveComplete = function(){
-		$.jGrowl('Auto Save Complete.',{header:'<i class="cus-icon-accept"></i> Success',theme:'alert alert-block alert-success'});
+		$.jGrowl('Auto Save Complete.',{header:'<i class="fam-accept"></i> Success',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.saveCompleteTH = function(){
-		$.jGrowl('บันทึกข้อมูลสำเร็จ',{header:'<i class="cus-icon-accept"></i> สำเร็จ',theme:'alert alert-block alert-success'});
+		$.jGrowl('บันทึกข้อมูลสำเร็จ',{header:'<i class="fam-accept"></i> สำเร็จ',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.deleteComplete = function(){
-		$.jGrowl('Delete Complete.',{header:'<i class="cus-icon-accept"></i> Success',theme:'alert alert-block alert-success'});
+		$.jGrowl('Delete Complete.',{header:'<i class="fam-accept"></i> Success',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.deleteCompleteTH = function(){
-		$.jGrowl('ลบข้อมูลสำเร็จ',{header:'<i class="cus-icon-accept"></i> สำเร็จ',theme:'alert alert-block alert-success'});
+		$.jGrowl('ลบข้อมูลสำเร็จ',{header:'<i class="fam-accept"></i> สำเร็จ',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.errorAlert = function(){
-		$.jGrowl('Please contact to admin.',{header:'<i class="cus-action-stop"></i> Error',theme:'alert alert-block alert-error'});
+		$.jGrowl('Please contact to admin.',{header:'<i class="fam-exclamation"></i> Error',theme:'alert alert-block alert-error'});
 	};
 	applicationScript.errorAlertTH = function(){
-		$.jGrowl('กรุณาติดต่อผู้ดูแลระบบ',{header:'<i class="cus-action-stop"></i> เกิดข้อผิดพลาด',theme:'alert alert-block alert-error'});
+		$.jGrowl('กรุณาติดต่อผู้ดูแลระบบ',{header:'<i class="fam-exclamation"></i> เกิดข้อผิดพลาด',theme:'alert alert-block alert-error'});
 	};
 	applicationScript.errorAlertWithString = function(str){
-		$.jGrowl(str,{header:'<i class="cus-action-stop"></i> Error',theme:'alert alert-block alert-error'});
+		$.jGrowl(str,{header:'<i class="fam-exclamation"></i> Error',theme:'alert alert-block alert-error'});
 	};
 	applicationScript.errorAlertWithStringTH = function(str){
-		$.jGrowl(str,{header:'<i class="cus-action-stop"></i> เกิดข้อผิดพลาด',theme:'alert alert-block alert-error'});
+		$.jGrowl(str,{header:'<i class="fam-exclamation"></i> เกิดข้อผิดพลาด',theme:'alert alert-block alert-error'});
 	};
 	applicationScript.errorAlertWithStringHeader = function(str,header){
-		$.jGrowl(str,{header:'<i class="cus-action-stop"></i> '+header,theme:'alert alert-block alert-error'});
+		$.jGrowl(str,{header:'<i class="fam-exclamation"></i> '+header,theme:'alert alert-block alert-error'});
+	};
+	applicationScript.successAlertWithStringTH = function(str){
+		$.jGrowl(str,{header:'<i class="fam-accept"></i> Success',theme:'alert alert-block alert-success'});
 	};
 	applicationScript.successAlertWithStringHeader = function(str,header){
-		$.jGrowl(str,{header:'<i class="cus-action-accept"></i> '+header,theme:'alert alert-block alert-success'});
+		$.jGrowl(str,{header:'<i class="fam-accept"></i> '+header,theme:'alert alert-block alert-success'});
 	};
 	applicationScript.warningAlertWithString = function(str,header){
-		$.jGrowl(str,{header:'<i class="cus-action-alert"></i> Warning ',theme:'alert alert-block alert-warning'});
+		$.jGrowl(str,{header:'<i class="fam-error"></i> Warning ',theme:'alert alert-block alert-warning'});
 	};
 	
 	applicationScript.alertNoDataChange = function(){
-		applicationScript.successAlertWithStringHeader('No data change.','<i class="cus-icon-accept"></i> Save Complete');
+		$.jGrowl('No data change.',{header:'<i class="fam-accept"></i> Save Complete',theme:'alert alert-block alert-success'});
 	};
 	
 	applicationScript.secondsToTime= function(secs){
@@ -48,6 +51,15 @@ if(typeof($.jGrowl)!='undefined'){
 	    if(secs > 86399)
 	        s = Math.floor((t - Date.parse("1/1/70")) / 3600000) + s.substr(2);
 	    return s;
+	};
+	
+	applicationScript.calPaging = function(data,app){
+		var startRecord = (((app.rows)*(app.page-1))+1);
+		
+		applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
+		
+		app.lastPage = data.totalPages;
+		applicationScript.setPagination(app.page,app.lastPage);
 	};
 	
 	applicationScript.setGridInfo = function(startRecord,length,totalRecords){
@@ -86,7 +98,7 @@ if(typeof($.jGrowl)!='undefined'){
 				.insertBefore( $('.grid-pagination li:last')[0] )
 				.bind('click',function(e){
 					e.preventDefault();
-					changePage($(this).text());
+					applicationScript.changePage($(this).text());
 				});
 		}
 		
@@ -100,6 +112,72 @@ if(typeof($.jGrowl)!='undefined'){
 			$('.grid-pagination li:last').addClass('disabled');
 		} else {
 			$('.grid-pagination li:last').removeClass('disabled');
+		}
+	};
+	
+	applicationScript.setUpGrid = function(app){
+		
+		applicationScript.changePage = function(page){
+			if(app.page != page){
+				app.page = page;
+				app.getGrid();
+			}
+		};
+		
+		$("#pageSize").change(function(){
+			app.page = 1;
+			app.rows = $(this).val();
+			app.getGrid();
+		});
+		
+		$("#prevPageButton").click(function(e){
+			e.preventDefault();
+			if(app.page > 1){
+				app.page--;
+				app.getGrid();
+			}
+		});
+		$("#nextPageButton").click(function(e){
+			e.preventDefault();
+			if(app.page < app.lastPage){
+				app.page++;
+				app.getGrid();
+			}
+		});
+		
+		// ------------------ set Sortable
+		$('.sortable').click(function(){
+			var myId = $(this).attr('id').substring(0,$(this).attr('id').indexOf('Header'));
+			$('.current-sort').removeClass('sort-desc').removeClass('sort-asc').addClass('sort-both').removeClass('currentSort');
+			
+			if(app.orderBy == myId){
+				if(app.order == "asc"){
+					$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
+						.addClass('sort-desc');
+					app.order = "desc";
+				}else{
+					$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
+					.addClass('sort-asc');
+					app.order = "asc";
+				}
+			}else{
+				$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
+					.addClass('sort-asc');
+				app.orderBy = myId;
+				app.order = "asc";
+			}
+			app.getGrid();
+		});
+		
+		//--------------------end set sortable
+	};
+	
+	applicationScript.resolveError = function(responseText){
+		var errorObj = eval("("+responseText+")");
+		if(errorObj.type=="CoreException"){
+			applicationScript.errorAlertWithStringTH(application.errorMessage[errorObj.message]);
+		}else{
+			applicationScript.errorAlertTH();
 		}
 	};
 }

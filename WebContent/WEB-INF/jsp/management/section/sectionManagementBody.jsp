@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
+
 <link rel="stylesheet" href="${contextPath}/css/management/section/sectionManagement.css">
 <script>
 	application.masterSectionId = ${masterSectionData.masterSectionId};
@@ -17,7 +18,7 @@
 				<a class="btn btn-primary" data-toggle="modal" href="#searchSectionModal"><i class="icon-zoom-in icon-white"></i> ค้นหา</a>
 				<button class="btn btn-success" id="refreshButton"><i class="icon-refresh icon-white"></i> Refresh</button>
 			</div>
-			<table class="table table-striped table-bordered table-grid" id="sectionGrid">
+			<table class="table table-striped table-hover table-bordered table-grid" id="sectionGrid">
 				<thead>
 					<tr>
 						<th class="sort-both sortable" id="sectionYearHeader">ปีการศึกษา<i></i></th>
@@ -38,9 +39,9 @@
 							<td>
 								<input type="hidden" id="status-{{= sectionId}}" value="{{= status}}">
 								{{if status==0}}
-									<span class="label label-important"><i class="icon-ban-circle icon-white"></i> ปิดการใช้งาน</span>
+									<span class="label label-important"><i class="icon-ban-circle icon-white"></i> ปิด<span class="visible-desktop">การใช้งาน</span></span>
 								{{else}}
-									<span class="label label-success"><i class="icon-ok icon-white"></i> เปิดใช้งาน</span>
+									<span class="label label-success"><i class="icon-ok icon-white"></i> เปิด<span class="visible-desktop">ใช้งาน</span></span>
 								{{/if}}
 							</td>
 							<td>
@@ -52,7 +53,7 @@
 				</tbody>
 			</table>
 			<div class="row-fluid">
-				<div class="span3">
+				<div class="span4">
 					<div class="grid-info" id="gridInfo"></div>
 				</div>
 				<div class="span4 page-size-div">
@@ -63,7 +64,7 @@
 				 		<option value="50">50</option>
 				 	</select> รายการต่อหน้า
 				</div>
-				<div class="span5">
+				<div class="span4">
 					<div class="grid-pagination pagination pagination-centered">
 						<ul>
 							<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>
@@ -107,7 +108,7 @@
     	<div class="control-group">
 	     	<label class="control-label" for="sectionName">ชื่อ Section</label>
 	      	<div class="controls">
-	        	<input type="text" class="input-medium" id="sectionName" name="sectionName">
+	        	<input type="text" class="input-medium input100" id="sectionName" name="sectionName">
 	        </div>
 	    </div>
     	<div class="control-group">

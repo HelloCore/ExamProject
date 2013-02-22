@@ -5,14 +5,13 @@
 .status-controls label {margin-top:4px;display:inline-block;}
 .status-controls input {margin-top:0px;}
 @media  (max-width:480px){
-	.withComboBox {
-		padding-bottom:25px;
-	}
 	#sectionModal ,#searchSectionModal{
 		left:50%;
 		margin-left:-125px;
 		width:250px;
 	}
+	.input100 { width: 100%; box-sizing: border-box; min-height: 30px;}
+	.action-column{ width: 60px;}
 }
 
 @media  (min-width:481px) and (max-width: 767px){
@@ -27,6 +26,7 @@
 		margin-left:-180px;
 		width:360px;
 	}
+	.input100 { width: 100%; box-sizing: border-box; min-height: 30px;}
 }
 @media (min-width: 768px){
 	

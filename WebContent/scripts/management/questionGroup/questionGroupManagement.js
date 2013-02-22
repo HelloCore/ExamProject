@@ -1,4 +1,5 @@
 application.page='examManagement';
+
 questionGroupManagement = {};
 questionGroupManagement.rows = 5;
 questionGroupManagement.page = 1;
@@ -40,30 +41,13 @@ questionGroupManagement.getGrid = function(){
 		},
 		dataType: 'json',
 		success: function(data,status){
-			$("#questionGroupGrid tbody").empty();
-			var strHtml ;
-			for(keyArray in data.records){
-				strHtml = '<tr>'+
-							'<td id="question-group-id-'+data.records[keyArray].questionGroupId+'">'+data.records[keyArray].questionGroupId+'</td>'+
-							'<td id="question-group-name-'+data.records[keyArray].questionGroupId+'">'+data.records[keyArray].questionGroupName+'</td>'+
-							'<td id="course-code-'+data.records[keyArray].questionGroupId+'">'+data.records[keyArray].courseCode+'</td>'+
-							'<td>'+
-								'<button class="btn btn-info" onClick="editQuestionGroup('+data.records[keyArray].questionGroupId+')"><i class="icon-edit icon-white"></i> แก้ไข</button> '+
-								'<button class="btn btn-danger" onClick="deleteQuestionGroup('+data.records[keyArray].questionGroupId+')"><i class="icon-trash icon-white"></i> ลบ</button> '+
-							'</td>'+
-							'</tr>';
-				$("#questionGroupGrid tbody").append(strHtml);
-			}
-			var startRecord = (((questionGroupManagement.rows)*(questionGroupManagement.page-1))+1);
-			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
-			questionGroupManagement.lastPage = data.totalPages;
-
-			applicationScript.setPagination(questionGroupManagement.page,questionGroupManagement.lastPage);
-			
+			$("#questionGroupGrid tbody tr").remove();
+			$("#recordTemplate").tmpl(data.records).appendTo("#questionGroupGrid tbody");
+			applicationScript.calPaging(data,questionGroupManagement);
 			$("#questionGroupGrid").unblock();
 		},
 		error:function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 			$("#questionGroupGrid").unblock();
 		}
 	});
@@ -81,57 +65,13 @@ questionGroupManagement.getDefaultGrid = function(){
 	questionGroupManagement.getGrid();
 };
 
-changePage = function(page){
-	if(questionGroupManagement.page != page){
-		questionGroupManagement.page = page;
-		questionGroupManagement.getGrid();
-	}
-};
 $(document).ready(function(){
 
-	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){$(this).chosen();});
+	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){$(this).select2();});
 	questionGroupManagement.getDefaultGrid();
-	$("#prevPageButton").click(function(e){
-		e.preventDefault();
-		if(questionGroupManagement.page > 1){
-			questionGroupManagement.page--;
-			questionGroupManagement.getGrid();
-		}
-	});
-	$("#nextPageButton").click(function(e){
-		e.preventDefault();
-		if(questionGroupManagement.page < questionGroupManagement.lastPage){
-			questionGroupManagement.page++;
-			questionGroupManagement.getGrid();
-		}
-	});
-	$('.sortable').click(function(){
-		var myId = $(this).attr('id').substring(0,$(this).attr('id').indexOf('Header'));
-		$('.current-sort').removeClass('sort-desc').removeClass('sort-asc').addClass('sort-both').removeClass('currentSort');
-		
-		if(questionGroupManagement.orderBy == myId){
-			if(questionGroupManagement.order == "asc"){
-				$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-					.addClass('sort-desc');
-				questionGroupManagement.order = "desc";
-			}else{
-				$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-				.addClass('sort-asc');
-				questionGroupManagement.order = "asc";
-			}
-		}else{
-			$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-				.addClass('sort-asc');
-			questionGroupManagement.orderBy = myId;
-			questionGroupManagement.order = "asc";
-		}
-		questionGroupManagement.getGrid();
-	});
-	$("#pageSize").change(function(){
-		questionGroupManagement.page = 1;
-		questionGroupManagement.rows = $(this).val();
-		questionGroupManagement.getGrid();
-	});
+
+	applicationScript.setUpGrid(questionGroupManagement);
+	
 	$("#refreshButton").click(function(){
 		questionGroupManagement.questionGroupName = '';
 		questionGroupManagement.courseCode = '';
@@ -179,19 +119,19 @@ $(document).ready(function(){
 					clearForm: true,
 					success: function(){
 						$('#questionGroupModal').modal('hide');
-						applicationScript.saveComplete();
+						applicationScript.saveCompleteTH();
 						questionGroupManagement.getGrid();
 						$("#saveButton").button('reset');
 					},
 					error: function(data){
 						$('#questionGroupModal').modal('hide');
-						applicationScript.errorAlertWithStringTH(data.responseText);
+						applicationScript.resolveError(data.responseText);
 						$("#saveButton").button('reset');
 					}
 				});
 			}else{
 				$('#questionGroupModal').modal('hide');
-				applicationScript.successAlertWithStringHeader('No data change.','Save Complete');
+				applicationScript.alertNoDataChange();
 				$("#saveButton").button('reset');
 				
 			}
@@ -217,7 +157,7 @@ $(document).ready(function(){
 			},
 			success: function(){
 				$("#confirmDelete").modal('hide');
-				applicationScript.deleteComplete();
+				applicationScript.deleteCompleteTH();
 				questionGroupManagement.getGrid();
 				$("#deleteButton").button('reset');
 			},

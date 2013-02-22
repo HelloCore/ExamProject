@@ -1,4 +1,6 @@
 application.page='genericManagement';
+
+
 registerManagement = {};
 
 registerManagement.getRegisterIdArray = function(){
@@ -26,32 +28,22 @@ registerManagement.getRegisterTable = function(){
 		},
 		dataType: 'json',
 		success: function(data,status){
-			$("#registerTable tbody").empty();
-			for(keyArray in data){
-				strHtml = '<tr>'+
-							'<td><input type="checkbox" id="register-id-'+data[keyArray].registerId+'" name="registerId[]" value="'+data[keyArray].registerId+'"/></td>'+
-							'<td>'+data[keyArray].studentId+'</td>'+
-							'<td>'+data[keyArray].prefixNameTh+' '+data[keyArray].firstName+' '+data[keyArray].lastName+'</td>'+
-							'<td>'+data[keyArray].courseCode+'</td>'+
-							'<td>['+data[keyArray].sectionName+'] '+data[keyArray].sectionSemester+'/'+data[keyArray].sectionYear+'</td>'+
-							'<td>'+Globalize.format( new Date(data[keyArray].requestDate),"dd-MM-yyyy HH:mm:ss")+'</td>'+
-						  '</tr>';
-				$("#registerTable tbody").append(strHtml);
-			}
+			$("#registerTable tbody tr").remove();
+			$("#recordTemplate").tmpl(data).appendTo("#registerTable tbody");
 			registerManagement.getRegisterSectionData();
 			$("#registerTable").trigger("update").unblock();
 		},
 		error: function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 		}
 	});
 };
 
 registerManagement.initCourseComboBox = function(callback){
-	$("#courseId_chzn").block(application.blockOption);
+	$("#s2id_courseId").block(application.blockOption);
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){
-		$(this).trigger("liszt:updated");
-		$("#courseId_chzn").unblock();
+		$(this).select2();
+		$("#s2id_courseId").unblock();
 		if(typeof(callback)=='function'){
 			callback();
 		}
@@ -69,26 +61,18 @@ registerManagement.getRegisterSectionData = function(callback){
 			sectionId : $('#sectionId').val()
 		},
 		success : function(data){
-			$("#sectionData").empty().html('มีนักศึกษารอลงทะเบียนทั้งหมด '
-											+'<span class="badge badge-info">'+data.totalList+'</span>'
-											+' คน รออนุมัติ '
-											+'<span class="badge badge-warning">'
-											+data.pendingList
-											+'</span> คน อนุมัติแล้ว <span class="badge badge-success">'
-											+data.acceptList
-											+'</span> คน ไม่อนุมัติ <span class="badge badge-important">'
-											+data.deniedList
-											+'</span> คน');
+			$("#sectionData").empty();
+			$("#infoTemplate").tmpl(data).appendTo("#sectionData");
 			$("#sectionData").unblock();
 		},
 		error: function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 		}
 	});
 };
 
 registerManagement.initSectionComboBox = function(callback){
-	$("#sectionId_chzn").block(application.blockOption);
+	$("#s2id_sectionId").block(application.blockOption);
 	$.ajax({
 		url: application.contextPath+ "/member/registerSectionComboBox.html",
 		type: "POST",
@@ -98,48 +82,35 @@ registerManagement.initSectionComboBox = function(callback){
 			courseId : $('#courseId').val()
 		},
 		success: function(data){
-			var newData = '',nowSemester=null,nowYear=null,isFirst=true;
-			for(key in data){
-				if( nowSemester != data[key][3] || nowYear != data[key][2]){
-					nowSemester = data[key][3];
-					nowYear = data[key][2];
-					if(!isFirst){
-						newData+= '</optgroup>';
-					}else{
-						isFirst = false;
-					}
-					newData += '<optgroup label="เทอม '+nowSemester+' ปี '+nowYear+'">';
-				}
-				newData += '<option value="'+data[key][0]+'"'
-				+' sectionYear="'+data[key][2]+'"'
-				+' sectionSemester="'+data[key][3]+'"'
-				+' sectionName="'+data[key][1]+'"'
-				+'>เทอม '+data[key][3]+' ปี '+data[key][2]+' ['+data[key][1]+']</option>';
-			}
-			$("#sectionId").empty().append(newData).trigger("liszt:updated");
-			$("#sectionId_chzn").unblock();
+			$("#sectionId optgroup").remove();
+			$("#sectionTemplate").tmpl(data).appendTo("#sectionId");
+			$("#sectionId").select2();
+			$("#s2id_sectionId").unblock();
 			if(typeof(callback)=='function'){
 				callback();
 			}
 		},error:function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 		}
 	});
 };
 
 $(document).ready(function(){
-	$("#courseId").chosen().change(function(){
+		
+	$("#courseId").select2().change(function(){
 		registerManagement.initSectionComboBox(function(){
 			registerManagement.getRegisterTable();
 		});
 	});
 	
-	$("#sectionId").chosen();
+	$("#sectionId").select2();
+	
 	registerManagement.initCourseComboBox(function(){
 		registerManagement.initSectionComboBox(function(){
 			registerManagement.getRegisterTable();
 		});
 	});
+	
 	$("#registerTable").tablesorter({ headers: { 0: { sorter: false}}});
 	$("#registerTable tbody").on('click','tr',function(e){
 		$(this).toggleClass('info');
@@ -183,13 +154,13 @@ $(document).ready(function(){
 			},
 			success: function(data,status){
 				thisButton.button('reset');
-				applicationScript.saveComplete();
+				applicationScript.saveCompleteTH();
 				$("#confirmApproveModal").modal('hide');
 				registerManagement.getRegisterTable();
 			},
 			error: function(data){
 				thisButton.button('reset');
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#confirmApproveModal").modal('hide');
 			}
 		});
@@ -206,13 +177,13 @@ $(document).ready(function(){
 			},
 			success: function(data,status){
 				thisButton.button('reset');
-				applicationScript.saveComplete();
+				applicationScript.saveCompleteTH();
 				$("#confirmRejectModal").modal('hide');
 				registerManagement.getRegisterTable();
 			},
 			error: function(data){
 				thisButton.button('reset');
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#confirmRejectModal").modal('hide');
 			}
 		});

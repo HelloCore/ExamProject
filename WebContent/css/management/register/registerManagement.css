@@ -5,3 +5,16 @@
 th.header i{ background: url('../../../img/sort_both.png') no-repeat center right;width:15px;height:15px; float:right; display: inline-block;}
 th.header.headerSortUp i{ background: url('../../../img/sort_asc.png') no-repeat center right;width:15px;height:15px; float:right; display: inline-block; }
 th.header.headerSortDown i{ background: url('../../../img/sort_desc.png') no-repeat center right;width:15px;height:15px; float:right;  display: inline-block;}
+span.group-item {white-space: nowrap;padding:5px;display: inline-block;}
+table.table > thead > tr > th {cursor:pointer;}
+
+@media  (max-width:480px){
+	div.button-holder > div.select2-container { margin-bottom:10px; }
+		
+}
+
+@media  (min-width:481px) and (max-width: 767px){
+	div.button-holder { width: 100%; }
+	div.button-holder > label{ display:block;}
+	div.button-holder > div.select2-container { margin-bottom:10px; }
+}

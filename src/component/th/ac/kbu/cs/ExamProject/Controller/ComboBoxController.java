@@ -1,8 +1,10 @@
 package th.ac.kbu.cs.ExamProject.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.ac.kbu.cs.ExamProject.Bean.RegisterSectionBean;
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.CourseComboBoxDomain;
 import th.ac.kbu.cs.ExamProject.Domain.QuestionGroupComboBoxDomain;
@@ -21,6 +24,7 @@ import th.ac.kbu.cs.ExamProject.Domain.RegisterCourseComboBox;
 import th.ac.kbu.cs.ExamProject.Domain.RegisterSectionComboBox;
 import th.ac.kbu.cs.ExamProject.Domain.SectionComboBoxDomain;
 import th.ac.kbu.cs.ExamProject.Domain.TeacherComboBoxDomain;
+import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 import th.ac.kbu.cs.ExamProject.Util.SecurityUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -76,7 +80,7 @@ public class ComboBoxController {
 	
 	@PreAuthorize(RoleDescription.hasAnyRole.WITHBOTH)
 	@RequestMapping(value="/member/registerSectionComboBox.html" ,method=RequestMethod.POST,params={"method=register"})
-	public @ResponseBody List<Object[]> getRegisterSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+	public @ResponseBody List<RegisterSectionBean> getRegisterSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
 		List<Object[]> result = null;
 		if(request.isUserInRole(RoleDescription.Property.ADMIN)){
 			result = domain.getSectionAdminData();
@@ -85,7 +89,24 @@ public class ComboBoxController {
 		}else{
 			result =  domain.getSectionStudentData(SecurityUtils.getUsername());
 		}
-		return result;
+
+		Map<String,RegisterSectionBean> output = new HashMap<String, RegisterSectionBean>();
+		for(Object[] section: result){
+			String currentKey = section[3].toString()+section[2].toString();
+			if(BeanUtils.isNull(output.get(currentKey))){
+				RegisterSectionBean regBean = new RegisterSectionBean();
+				regBean.setSectionSemester(BeanUtils.toInteger(section[3]));
+				regBean.setSectionYear(BeanUtils.toInteger(section[2]));
+				regBean.addSection(section);
+				
+				output.put(currentKey, regBean);
+			}else{
+				RegisterSectionBean regBean = (RegisterSectionBean)output.get(currentKey);
+				regBean.addSection(section);
+			}
+		}
+		
+		return new ArrayList<RegisterSectionBean>(output.values());
 	}
 	
 	@PreAuthorize(RoleDescription.hasRole.STUDENT)
