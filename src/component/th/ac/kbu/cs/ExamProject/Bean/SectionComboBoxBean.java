@@ -3,19 +3,18 @@ package th.ac.kbu.cs.ExamProject.Bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import th.ac.kbu.cs.ExamProject.Entity.Section;
 import th.ac.kbu.cs.ExamProject.Util.BeanUtils;
 
-public class RegisterSectionBean {
+public class SectionComboBoxBean<T> {
 	
 	private Integer sectionYear;
 	private Integer sectionSemester; 
 	
-	private List<Object[]> sections;
+	private List<T> sections;
 
-	public void addSection(Object[] section){
+	public void addSection(T section){
 		if(BeanUtils.isNull(this.sections)){
-			this.sections = new ArrayList<Object[]>();
+			this.sections = new ArrayList<T>();
 		}
 		this.sections.add(section);
 	}
@@ -24,11 +23,11 @@ public class RegisterSectionBean {
 		return sectionYear;
 	}
 
-	public List<Object[]> getSections() {
+	public List<T> getSections() {
 		return sections;
 	}
 
-	public void setSections(List<Object[]> sections) {
+	public void setSections(List<T> sections) {
 		this.sections = sections;
 	}
 

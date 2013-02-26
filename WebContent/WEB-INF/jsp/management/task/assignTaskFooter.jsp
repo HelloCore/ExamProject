@@ -4,5 +4,5 @@
 <script src="${contextPath}/resources/datepicker/bootstrap-timepicker.js"></script>
 <script src="${contextPath}/resources/jquery.globalize.js"></script>
 <script src="${contextPath}/resources/jquery.numeric.js"></script>
-<script src="${contextPath}/resources/chosen/chosen.jquery.js"></script>
+<script src="${contextPath}/resources/select2/select2.js"></script>
 <script src="${contextPath}/scripts/management/task/assignTask.js"></script>

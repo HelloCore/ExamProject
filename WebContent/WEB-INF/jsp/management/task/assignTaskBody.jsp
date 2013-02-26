@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/resources/datepicker/datepicker.css" />
 <link rel="stylesheet" href="${contextPath}/resources/datepicker/timepicker.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/task/assignTask.css">
@@ -11,19 +11,29 @@
 		<div class="control-group" id="courseIdGroup">
    			<label class="control-label" for="courseId">วิชา</label>
    			<div class="controls">
-     			<select id="courseId" name="courseId" ></select>
+     			<select id="courseId" name="courseId" class="input-large" ></select>
    			</div>
    		</div>
 		<div class="control-group" id="sectionIdGroup">
    			<label class="control-label" for="sectionId">Section</label>
    			<div class="controls">
-     			<select id="sectionId" name="sectionId" multiple="multiple"></select>
+     			<select id="sectionId" name="sectionId" multiple="multiple"  class="input-large">
+					<script id="sectionTemplate" type="text/x-jquery-tmpl">
+						<optgroup label="เทอม {{= sectionSemester}} ปี {{= sectionYear}}">
+							{{each sections}}
+								<option value="{{= $value.sectionId}}" sectionYear="{{= sectionYear}}" sectionSemester="{{= sectionSemester}}" sectionName="{{= $value.sectionName}}">
+									เทอม {{= sectionSemester}} ปี {{= sectionYear}} [{{= $value.sectionName}}]
+								</option>
+							{{/each}}
+						</optgroup>
+					</script>
+				</select>
    			</div>
    		</div>
 		<div class="control-group" id="taskNameGroup">
    			<label class="control-label" for="taskName">หัวข้องาน</label>
    			<div class="controls">
-     			<input type="text" name="taskName" id="taskName" />
+     			<input type="text" name="taskName" id="taskName" class="input-large" />
    			</div>
    		</div>
 		<div class="control-group" id="taskDescGroup">

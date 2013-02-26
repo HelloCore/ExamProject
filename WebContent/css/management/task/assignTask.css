@@ -2,3 +2,33 @@
 
 .main-form {width: 500px;margin:auto;}
 .input-xmini {width:25px;}
+
+div.control-group.error > div.controls > div.select2-container > ul.select2-choices
+,div.control-group.error > div.controls > div.select2-container > a.select2-choice {
+	border-color: #B94A48;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+div.control-group.success > div.controls > div.select2-container > ul.select2-choices
+,div.control-group.success > div.controls > div.select2-container > a.select2-choice {
+	border-color: #468847;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+@media (max-width: 480px){
+	.main-form {width: auto;}
+}
+
+@media (min-width: 481px) and (max-width: 767px){
+	.main-form {width: 400px;}
+	.form-horizontal .control-label {width: 115px; }
+	.form-horizontal .controls { margin-left: 135px; }
+}
+
+@media (min-width: 768px) and (max-width: 979px){
+	
+}

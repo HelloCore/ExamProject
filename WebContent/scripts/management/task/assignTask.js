@@ -16,11 +16,11 @@ assignTask.allValidate = function(){
 };
 
 assignTask.validateCourseId = function(){
-	var isValid = true,courseIdGroup = $("#courseIdGroup").removeClass('error').removeClass('success');
+	var isValid = true,courseIdGroup = $("#courseIdGroup").removeClass('error success');
 	$("#courseIdError").remove();
 	if($("#courseId").val().length == 0){
 		isValid = false;
-		$('<label class="generate-label error" id="courseIdError">กรุณาเลือกวิชา</label>').insertAfter('#courseId_chzn');
+		$('<label class="generate-label error" id="courseIdError"><i class="fam-exclamation"></i> กรุณาเลือกวิชา</label>').insertAfter('#s2id_courseId');
 		courseIdGroup.addClass('error');
 	}else{
 		courseIdGroup.addClass('success');
@@ -29,11 +29,11 @@ assignTask.validateCourseId = function(){
 };
 
 assignTask.validateSectionId = function(){
-	var isValid = true,sectionIdGroup = $("#sectionIdGroup").removeClass('error').removeClass('success');
+	var isValid = true,sectionIdGroup = $("#sectionIdGroup").removeClass('error success');
 	$("#sectionIdError").remove();
 	if(!$("#sectionId").val() || $("#sectionId").val().length == 0){
 		isValid = false;
-		$('<label class="generate-label error" id="sectionIdError">กรุณาเลือก Section</label>').insertAfter('#sectionId_chzn');
+		$('<label class="generate-label error" id="sectionIdError"><i class="fam-exclamation"></i> กรุณาเลือก Section</label>').insertAfter('#s2id_sectionId');
 		sectionIdGroup.addClass('error');
 	}else{
 		sectionIdGroup.addClass('success');
@@ -42,12 +42,12 @@ assignTask.validateSectionId = function(){
 };
 
 assignTask.validateTaskName = function(){
-	var isValid = true,taskNameGroup = $("#taskNameGroup").removeClass('error').removeClass('success');
+	var isValid = true,taskNameGroup = $("#taskNameGroup").removeClass('error success');
 	$("#taskNameError").remove();
 	if($("#taskName").val().length < 4 || $("#taskName").val().length > 50){
 		isValid = false;
 		taskNameGroup.addClass('error');
-		$('<label class="generate-label error" id="taskNameError">หัวข้องานต้องมีความยาว 4 ถึง 50 ตัวอักษร</label>').insertAfter('#taskName');
+		$('<label class="generate-label error" id="taskNameError"><i class="fam-exclamation"></i> หัวข้องานต้องมีความยาว 4 ถึง 50 ตัวอักษร</label>').insertAfter('#taskName');
 	}else{
 		taskNameGroup.addClass('success');
 	}
@@ -55,12 +55,12 @@ assignTask.validateTaskName = function(){
 };
 
 assignTask.validateTaskDesc = function(){
-	var isValid = true,taskDescGroup = $("#taskDescGroup").removeClass('error').removeClass('success');
+	var isValid = true,taskDescGroup = $("#taskDescGroup").removeClass('error success');
 	$("#taskDescError").remove();
 	if($("#taskDesc").val().length < 4 || $("#taskDesc").val().length > 100){
 		isValid = false;
 		taskDescGroup.addClass('error');
-		$('<label class="generate-label error" id="taskDescError">รายละเอียดงานต้องมีความยาว 4 ถึง 100 ตัวอักษร</label>').insertAfter('#taskDesc');
+		$('<label class="generate-label error" id="taskDescError"><i class="fam-exclamation"></i> รายละเอียดงานต้องมีความยาว 4 ถึง 100 ตัวอักษร</label>').insertAfter('#taskDesc');
 	}else{
 		taskDescGroup.addClass('success');
 	}
@@ -71,11 +71,13 @@ assignTask.validateDate = function(){
 	var startDate = Globalize.parseDate( $("#startDate").val() +' '+ $("#startTime").val(), "dd/MM/yyyy HH:mm"),
 		endDate = Globalize.parseDate( $("#endDate").val() +' '+ $("#endTime").val(), "dd/MM/yyyy HH:mm"),isValid = true;
 	$("#dateError").remove();
+	$("#startDateGroup").removeClass('error success');
+	$("#endDateGroup").removeClass('error success');
 	if(startDate >= endDate){
 		isValid = false;
 		$("#startDateGroup").addClass('error');
 		$("#endDateGroup").addClass('error');
-		$('<label class="generate-label error" id="dateError">วันหมดเขตสอบต้องอยู่หลังวันเริ่มสอบ</label>').insertAfter('#endTimeIcon');
+		$('<label class="generate-label error" id="dateError"><i class="fam-exclamation"></i> วันหมดเขตสอบต้องอยู่หลังวันเริ่มสอบ</label>').insertAfter('#endTimeIcon');
 	}else{
 		$("#startDateGroup").addClass('success');
 		$("#endDateGroup").addClass('success');
@@ -84,7 +86,7 @@ assignTask.validateDate = function(){
 };
 
 assignTask.validateNumOfFile = function(){
-	var isValid = true,numOfFileGroup = $("#numOfFileGroup").removeClass('error').removeClass('success');
+	var isValid = true,numOfFileGroup = $("#numOfFileGroup").removeClass('error success');
 	$("#numOfFileError").remove();
 	if($("#numOfFile").val().length == 0){
 		isValid = false;
@@ -101,7 +103,7 @@ assignTask.validateNumOfFile = function(){
 };
 
 assignTask.validateLimitFileSizeKb = function(){
-	var isValid = true,limitFileSizeGroup = $("#limitFileSizeGroup").removeClass('error').removeClass('success');
+	var isValid = true,limitFileSizeGroup = $("#limitFileSizeGroup").removeClass('error success');
 	$("#limitFileSizeKbError").remove();
 	if($("#limitFileSizeKb").val().length == 0){
 		isValid = false;
@@ -118,7 +120,7 @@ assignTask.validateLimitFileSizeKb = function(){
 };
 
 assignTask.validateMaxScore = function(){
-	var isValid = true,maxScoreGroup = $("#maxScoreGroup").removeClass('error').removeClass('success');
+	var isValid = true,maxScoreGroup = $("#maxScoreGroup").removeClass('error success');
 	$("#maxScoreError").remove();
 	if($("#maxScore").val().length == 0){
 		isValid = false;
@@ -148,59 +150,44 @@ assignTask.initToday = function(){
 };
 
 assignTask.initFunction = function(){
-	$("#courseId_chzn").block(application.blockOption);
+	$("#s2id_courseId").block(application.blockOption);
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){
-		$(this).trigger("liszt:updated");
-		$("#courseId_chzn").unblock();
+		$(this).select2();
+		$("#s2id_courseId").unblock();
 		assignTask.loadSectionBox();
 	});
 };
 
 assignTask.loadSectionBox =function(){
-	$("#sectionId_chzn").block(application.blockOption);
+	$("#s2id_sectionId").block(application.blockOption);
 	$.ajax({
 		url: application.contextPath + '/management/sectionComboBox.html',
 		type: 'POST',
 		data: {
+			group: 1,
 			courseId: $("#courseId").val()
 		},
 		dataType: 'json',
 		success: function(data,status){
-			var newData = '',nowSemester=null,nowYear=null,isFirst=true;
-			$.each(data,function(index,value){
-				if( nowSemester != value.sectionSemester || nowYear != value.sectionYear){
-					nowSemester = value.sectionSemester;
-					nowYear = value.sectionYear;
-					if(!isFirst){
-						newData+= '</optgroup>';
-					}else{
-						isFirst = false;
-					}
-					newData += '<optgroup label="เทอม '+nowSemester+' ปี '+nowYear+'">';
-				}
-				newData += '<option value="'+value.sectionId+'"'
-								+' sectionYear="'+value.sectionYear+'"'
-								+' sectionSemester="'+value.sectionSemester+'"'
-								+' sectionName="'+value.sectionName+'"'
-								+'>เทอม '+value.sectionSemester+' ปี '+value.sectionYear+' ['+value.sectionName+']</option>';
-				
-			});
-			$("#sectionId").empty().html(newData).trigger("liszt:updated");
-			$("#sectionId_chzn").unblock();
+			console.log(data);
+			$("#sectionId optgroup").remove();
+			$("#sectionTemplate").tmpl(data).appendTo("#sectionId");
+			$("#s2id_sectionId").unblock();
 		},
 		error: function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
+			$("#s2id_sectionId").unblock();
 		}
 	});
 };
 
 $(document).ready(function(){
 	assignTask.initToday();
-	$("#courseId").chosen().change(function(){
+	$("#courseId").select2().change(function(){
 		assignTask.validateCourseId();
 		assignTask.loadSectionBox();
 	});
-	$("#sectionId").chosen().change(function(){
+	$("#sectionId").select2().change(function(){
 		assignTask.validateSectionId();
 	});
 	assignTask.initFunction();
@@ -236,10 +223,10 @@ $(document).ready(function(){
 			success:function(){
 				$("#assignTaskConfirmModal").modal('hide');
 				thisButton.button('reset');
-				applicationScript.saveComplete();
+				applicationScript.saveCompleteTH();
 				assignTask.initToday();
 				$("#sectionId option:selected").attr('selected',false);
-				$("#sectionId").trigger('liszt:updated');
+				$("#sectionId").select2();
 				$("#taskName").val('');
 				$("#taskDesc").val('');
 				$("#startTime").val('00:00');
@@ -254,7 +241,7 @@ $(document).ready(function(){
 			error : function(data){
 				thisButton.button('reset');
 				$("#assignTaskConfirmModal").modal('hide');
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#mainForm").unblock();
 			}
 		});
