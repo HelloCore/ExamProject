@@ -58,7 +58,7 @@ sectionManagement.getGrid = function(){
 };
 
 sectionManagement.getDefaultGrid = function(){
-	$('.current-sort').removeClass('sort-asc').removeClass('sort-desc').addClass('sort-both');
+	$('.current-sort').removeClass('sort-asc sort-desc').addClass('sort-both');
 	sectionManagement.orderBy = "";
 	sectionManagement.order = "asc";
 	sectionManagement.getGrid();
@@ -193,7 +193,7 @@ editSection = function(sectionId,masterSectionId){
 	$("#courseId option").filter(function() {
 	    return $(this).text() == optionText; 
 	}).attr('selected', true);
-	$("#courseId").trigger("liszt:updated");
+	$("#courseId").select2();
 	
 	sectionManagement.currentSection = {
 		sectionId:	sectionId,

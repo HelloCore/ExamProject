@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/task/sendList.css">
 		
 <div class="page-header pagination-centered" id="pageHeader">
@@ -13,12 +12,12 @@
 	<div class="span12">
 		<a class="btn" href="${contextPath}/management/task/taskList.html"><i class="icon-chevron-left"></i> กลับ</a>
 		<c:if test="${not empty success}">		
-			<div class="alert alert-success" style="width:300px;margin:auto;">
-				<strong>สำเร็จ!</strong> บันทึกข้อมูลสำเร็จ
+			<div class="alert alert-success" id="saveCompleteAlert">
+				<strong><i class="fam-accept"></i> สำเร็จ!</strong> บันทึกข้อมูลสำเร็จ
 			</div>
 		</c:if>
 		<br>
-		<div class="well" style="width:600px;margin:auto;">
+		<div class="well" id="descForm">
 			<div class="form-horizontal">
 				<div class="control-group">
 			    	<label class="control-label" >หัวข้องาน</label>
@@ -52,8 +51,8 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="sendList">
 				<c:if test="${empty sendList}">
-					<div class="alert alert-warning" style="width:300px;margin:auto;">
-						<strong>คำเตือน</strong> ไม่พบข้อมูล
+					<div class="alert alert-warning">
+						<strong><i class="fam-error"></i> ข้ออภัย</strong> ไม่พบข้อมูลที่ค้นหา
 					</div>
 				</c:if>
 				<c:if test="${not empty sendList}">
@@ -83,8 +82,8 @@
 			</div>
 			<div class="tab-pane" id="evaluatedList">
 				<c:if test="${empty evaluatedList}">
-					<div class="alert alert-warning" style="width:300px;margin:auto;">
-						<strong>คำเตือน</strong> ไม่พบข้อมูล
+					<div class="alert alert-warning">
+						<strong><i class="fam-error"></i> ขออภัย</strong> ไม่พบข้อมูลที่ค้นหา
 					</div>
 				</c:if>
 				<c:if test="${not empty evaluatedList}">

@@ -12,7 +12,7 @@
 <hr>
 <div class="row-fluid">
 	<div class="span12">
-		<div class="well" style="width:600px;margin:auto;">
+		<div class="well" style="max-width:600px;margin:auto;">
 			<div class="form-horizontal">
 				<div class="control-group">
 			    	<label class="control-label" >รหัสนักศึกษา</label>
@@ -37,8 +37,8 @@
 			<h4>ข้อมูลการสอบ</h4>
 		</div>
 		<c:if test="${empty examData}">
-			<div class="alert alert-warning" style="width:300px;margin:auto;">
-				<strong>คำเตือน</strong> ไม่พบข้อมูล
+			<div class="alert alert-warning" style="max-width:300px;margin:auto;">
+				<strong><i class="fam-error"></i> ขออภัย</strong> ไม่พบข้อมูลที่ค้นหา
 			</div>
 		</c:if>
 		<c:if test="${not empty examData}">
@@ -84,8 +84,8 @@
 			<h4>ข้อมูลการส่งงาน</h4>
 		</div>
 		<c:if test="${empty evaluatedList}">
-			<div class="alert alert-warning" style="width:300px;margin:auto;">
-				<strong>คำเตือน</strong> ไม่พบข้อมูล
+			<div class="alert alert-warning" style="max-width:300px;margin:auto;">
+				<strong><i class="fam-error"></i> ขออภัย</strong> ไม่พบข้อมูลที่ค้นหา
 			</div>
 		</c:if>
 		<c:if test="${not empty evaluatedList}">

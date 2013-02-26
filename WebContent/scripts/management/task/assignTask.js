@@ -169,9 +169,9 @@ assignTask.loadSectionBox =function(){
 		},
 		dataType: 'json',
 		success: function(data,status){
-			console.log(data);
 			$("#sectionId optgroup").remove();
 			$("#sectionTemplate").tmpl(data).appendTo("#sectionId");
+			$("#sectionId").select2();
 			$("#s2id_sectionId").unblock();
 		},
 		error: function(data){

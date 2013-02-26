@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
 <link rel="stylesheet" href="${contextPath}/css/report/examReportDetail.css">
 <script>
 	application.examId = ${examDetail.examId};
@@ -97,10 +96,22 @@
 				</tr>
 			</thead>
 			<tbody>
+				<script id="recordTemplate" type="text/x-jquery-tmpl">
+					<tr>
+						<td>{{= studentId}}</td>
+						<td>{{= prefixNameTh}} {{= firstName}} {{= lastName}}</td>
+						<td>{{= Globalize.format(new Date(examStartDate),'dd-MM-yyyy HH:mm')}}</td>
+						<td style="text-align:right;">{{= examCount}}</td>
+						<td>{{= Globalize.format(new Date(examCompleteDate),'dd-MM-yyyy HH:mm')}}</td>
+						<td>{{= applicationScript.secondsToTime(examUsedTime)}}</td>
+						<td style="text-align:right;">{{= Math.round(examScore*100)/100}} คะแนน</td>
+						<td><button class="btn btn-info" onclick="viewExamReport({{= examResultId}})"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button></td>
+					</tr>
+				</script>
 			</tbody>
 		</table>
 		<div class="row-fluid">
-			<div class="span3">
+			<div class="span4">
 				<div class="grid-info" id="gridInfo"></div>
 			</div>
 			<div class="span4 page-size-div">
@@ -110,7 +121,7 @@
 			 		<option value="50">100</option>
 			 	</select> รายการต่อหน้า
 			</div>
-			<div class="span5">
+			<div class="span4">
 				<div class="grid-pagination pagination pagination-centered">
 					<ul>
 						<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>

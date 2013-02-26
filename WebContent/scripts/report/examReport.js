@@ -9,22 +9,11 @@ examReport.order = 'desc';
 
 examReport.getDefaultGrid = function(){
 	$('.search-active').removeClass('search-active').addClass('search-inactive');
-	$("#endDateHeader").addClass('current-sort')
-	.removeClass('sort-asc')
-	.removeClass('sort-desc')
-	.removeClass('sort-both')
-	.addClass('sort-desc');
+	$("#endDateHeader").removeClass('sort-asc sort-desc sort-both').addClass('sort-desc current-sort');
 	examReport.orderBy = "endDate";
 	examReport.order = "desc";
 	examReport.getGrid();
 };
-changePage = function(page){
-	if(examReport.page != page){
-		examReport.page = page;
-		examReport.getGrid();
-	}
-};
-
 examReport.getGrid = function(){
 	$("#examTable").block(application.blockOption);
 	
@@ -41,47 +30,13 @@ examReport.getGrid = function(){
 		},
 		dataType: 'json',
 		success: function(data,status){
-			$("#examTable tbody").empty();
-			var strHtml,startDateStr,endDateStr,examTypeStr;
-			for(keyArray in data.records){
-				if(data.records[keyArray].startDate == null){
-					startDateStr = "ไม่กำหนด";
-				}else{
-					startDateStr = Globalize.format(new Date(data.records[keyArray].startDate),'dd-MM-yyyy HH:mm');
-				}
-				if(data.records[keyArray].endDate == null){
-					endDateStr = "ไม่กำหนด";
-				}else{
-					endDateStr = Globalize.format(new Date(data.records[keyArray].endDate),'dd-MM-yyyy HH:mm');
-				}
-
-				if(data.records[keyArray].isCalScore){
-					examTypeStr='สอบจริง';
-				}else{
-					examTypeStr='ทดลองสอบ';
-				}
-				strHtml = '<tr>'
-							+'<td>'+examTypeStr+'</td>'
-							+'<td>'+data.records[keyArray].courseCode+'</td>'
-							+'<td>'+data.records[keyArray].examHeader+'</td>'
-							+'<td>'+startDateStr+'</td>'
-							+'<td>'+endDateStr+'</td>'
-							+'<td style="text-align:right">'+data.records[keyArray].minQuestion+' ถึง '+data.records[keyArray].maxQuestion+' ข้อ</td>'
-							+'<td><button class="btn btn-success" onclick="viewExamReport('+data.records[keyArray].examId+')"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button> ';
-				if(data.records[keyArray].isCalScore){
-					strHtml += ' <button class="btn btn-info" onclick="viewExamGraph('+data.records[keyArray].examId+')"><i class=" icon-eye-open icon-white"></i> ดูกราฟ</button></td>';
-				}
-				strHtml	+= '</tr>';
-				$("#examTable tbody").append(strHtml);
-			}
-			var startRecord = (((examReport.rows)*(examReport.page-1))+1);
-			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
-			examReport.lastPage = data.totalPages;
-			applicationScript.setPagination(examReport.page,examReport.lastPage);
+			$("#examTable tbody tr").remove();
+			$("#recordTemplate").tmpl(data.records).appendTo("#examTable tbody");
+			applicationScript.calPaging(data,examReport);
 			$("#examTable").unblock();
 		},
 		error:function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 			$("#examTable").unblock();
 		}
 	});	
@@ -89,57 +44,20 @@ examReport.getGrid = function(){
 
 $(document).ready(function(){
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html?optionAll=1",function(){
-		$(this).chosen();
+		$(this).select2();
 		examReport.getDefaultGrid();
+		applicationScript.setUpGrid(examReport,function(myId){
+			if(myId == 'exam'){
+				myId = 'examHeader';
+			}
+			return myId;
+		});
 	});
-	$("#prevPageButton").click(function(e){
-		e.preventDefault();
-		if(examReport.page > 1){
-			examReport.page--;
-			examReport.getGrid();
-		}
-	});
+	
 	$("#refreshButton").click(function(){
 		examReport.getGrid();
 	});
-	$("#nextPageButton").click(function(e){
-		e.preventDefault();
-		if(examReport.page < examReport.lastPage){
-			examReport.page++;
-			examReport.getGrid();
-		}
-	});
-	$("#pageSize").change(function(){
-		examReport.page = 1;
-		examReport.rows = $(this).val();
-		examReport.getGrid();
-	});
 	
-	$('.sortable').click(function(){
-		var myId = $(this).attr('id').substring(0,$(this).attr('id').indexOf('Header'));
-		if(myId == 'exam'){
-			myId = 'examHeader';
-		}
-		$('.current-sort').removeClass('sort-desc').removeClass('sort-asc').addClass('sort-both').removeClass('currentSort');
-		
-		if(examReport.orderBy == myId){
-			if(examReport.order == "asc"){
-				$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-					.addClass('sort-desc');
-				examReport.order = "desc";
-			}else{
-				$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-				.addClass('sort-asc');
-				examReport.order = "asc";
-			}
-		}else{
-			$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-				.addClass('sort-asc');
-			examReport.orderBy = myId;
-			examReport.order = "asc";
-		}
-		examReport.getGrid();
-	});
 });
 
 viewExamReport = function(examId){

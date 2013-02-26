@@ -2,3 +2,5 @@
 
 .main-form {width: 500px;margin:auto;}
 .input-xmini {width:25px;}
+#descForm {max-width:600px;margin:auto;}
+.file-controls { padding-top:5px;}

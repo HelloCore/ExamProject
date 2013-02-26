@@ -1,1 +1,3 @@
 @CHARSET "UTF-8";
+label.control-label {line-height:28px;}
+input.inline-choice {margin:0px;height:20px;}

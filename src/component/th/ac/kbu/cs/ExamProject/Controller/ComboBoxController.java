@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import th.ac.kbu.cs.ExamProject.Bean.CourseSectionComboBoxBean;
 import th.ac.kbu.cs.ExamProject.Bean.SectionComboBoxBean;
 import th.ac.kbu.cs.ExamProject.Description.RoleDescription;
 import th.ac.kbu.cs.ExamProject.Domain.CourseComboBoxDomain;
@@ -86,8 +87,25 @@ public class ComboBoxController {
 
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)
 	@RequestMapping(value="/management/courseSectionComboBox.html" ,method=RequestMethod.GET)
-	public @ResponseBody List<Object[]> getCourseSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
-		return domain.getCourseSectionDataTeacher(SecurityUtils.getUsername());
+	public @ResponseBody List<CourseSectionComboBoxBean<Object[]>> getCourseSectionComboBox(@ModelAttribute RegisterSectionComboBox domain,ModelMap modelMap,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		List<Object[]> result =  domain.getCourseSectionDataTeacher(SecurityUtils.getUsername());
+		Map<String,CourseSectionComboBoxBean<Object[]>> output = new HashMap<String, CourseSectionComboBoxBean<Object[]>>();
+		
+		for(Object[] section : result){
+			if(BeanUtils.isNull(output.get(section[4].toString()))){
+				CourseSectionComboBoxBean<Object[]> bean = new CourseSectionComboBoxBean<Object[]>();
+				bean.setCourseCode(section[5].toString());
+				bean.addSection(section);
+				
+				output.put(section[4].toString(), bean);
+			}else{
+				CourseSectionComboBoxBean<Object[]> bean = (CourseSectionComboBoxBean<Object[]>) output.get(section[4].toString());
+				bean.addSection(section);
+				
+			}
+		}
+		
+		return new ArrayList<CourseSectionComboBoxBean<Object[]>>(output.values());
 	}
 
 	@PreAuthorize(RoleDescription.hasRole.TEACHER)

@@ -1,1 +1,4 @@
 @CHARSET "UTF-8";
+html,body{ height:100%;}
+
+div.alert {max-width: 300px;margin:auto;}

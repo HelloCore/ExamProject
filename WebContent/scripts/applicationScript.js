@@ -64,9 +64,9 @@ if(typeof($.jGrowl)!='undefined'){
 	
 	applicationScript.setGridInfo = function(startRecord,length,totalRecords){
 		if(totalRecords==0){
-			$("#gridInfo").text('รายการที่ 0 - 0 จากทั้งหมด 0 รายการ');		
+			$("#gridInfo").html('<span class="group-item">รายการที่ 0 - 0</span> <span class="group-item">จากทั้งหมด 0 รายการ</span>');		
 		}else{
-			$("#gridInfo").text('รายการที่ '+startRecord+' - '+(startRecord+length -1)+' จากทั้งหมด '+totalRecords+' รายการ');
+			$("#gridInfo").html('<span class="group-item">รายการที่ '+startRecord+' - '+(startRecord+length -1)+'</span> <span class="group-item">จากทั้งหมด '+totalRecords+' รายการ</span>');
 		}
 	};
 	
@@ -115,7 +115,7 @@ if(typeof($.jGrowl)!='undefined'){
 		}
 	};
 	
-	applicationScript.setUpGrid = function(app){
+	applicationScript.setUpGrid = function(app,customSortFilter){
 		
 		applicationScript.changePage = function(page){
 			if(app.page != page){
@@ -148,21 +148,21 @@ if(typeof($.jGrowl)!='undefined'){
 		// ------------------ set Sortable
 		$('.sortable').click(function(){
 			var myId = $(this).attr('id').substring(0,$(this).attr('id').indexOf('Header'));
-			$('.current-sort').removeClass('sort-desc').removeClass('sort-asc').addClass('sort-both').removeClass('currentSort');
+			if(typeof(customSortFilter) == 'function'){
+				myId = customSortFilter(myId);
+			}
+			$('.current-sort').removeClass('sort-desc sort-asc current-sort').addClass('sort-both');
 			
 			if(app.orderBy == myId){
 				if(app.order == "asc"){
-					$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-						.addClass('sort-desc');
+					$(this).removeClass('current-sort sort-desc sort-both sort-asc').addClass('current-sort sort-desc');
 					app.order = "desc";
 				}else{
-					$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-					.addClass('sort-asc');
+					$(this).removeClass('current-sort sort-desc sort-both sort-asc').addClass('current-sort sort-asc');
 					app.order = "asc";
 				}
 			}else{
-				$(this).addClass('current-sort').removeClass('sort-desc').removeClass('sort-both').removeClass('sort-asc')
-					.addClass('sort-asc');
+				$(this).removeClass('current-sort sort-desc sort-both sort-asc').addClass('current-sort sort-asc');
 				app.orderBy = myId;
 				app.order = "asc";
 			}
@@ -176,6 +176,8 @@ if(typeof($.jGrowl)!='undefined'){
 		var errorObj = eval("("+responseText+")");
 		if(errorObj.type=="CoreException"){
 			applicationScript.errorAlertWithStringTH(application.errorMessage[errorObj.message]);
+		}else if(errorObj.type=="BindException"){
+			applicationScript.errorAlertWithStringTH(errorObj.message);
 		}else{
 			applicationScript.errorAlertTH();
 		}

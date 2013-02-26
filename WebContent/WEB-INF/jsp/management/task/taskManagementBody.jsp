@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/css/management/task/taskManagement.css">
 		
 <div class="page-header pagination-centered" id="pageHeader">
@@ -10,11 +10,9 @@
 	<div class="span3">
 		<div id="leftBar">
 			<div class="form-inline search-bar courseBox">
-				<div class="control-group ">
-					<label for="courseId" class="label-group">วิชา : </label>	
-					<select id="courseId" name="courseId" class="combobox">
-					</select>
-				</div>
+				<label for="courseId" class="label-group courseId-label">วิชา : </label>	
+				<select id="courseId" name="courseId" class="combobox">
+				</select>
 			</div><div class="clear"></div>			
 			<div class="control-group  text-bar">
 				<div class="input-prepend  task-text-div">
@@ -45,7 +43,38 @@
 	<div class="span9">
 			
 		<div class="main-data" id="taskDivHolder">
-			
+			<script id="recordTemplate" type="text/x-jquery-tmpl">
+				<table class="table table-bordered exam-table pagination-centered">
+					<tr>
+						<td colspan="2">{{= taskName}}</td>
+					</tr>
+					<tr>
+						<td colspan="2"><pre>{{= taskDesc}}</pre></td>
+					</tr>
+					<tr>
+						<td>วันเริ่มส่งงาน: {{= Globalize.format(new Date(startDate),'dd-MM-yyyy HH:mm')}}</td>
+						<td>หมดเขตส่ง: {{= Globalize.format(new Date(endDate),'dd-MM-yyyy HH:mm')}}</td>
+					</tr>
+					<tr>	
+						<td>วิชา: {{= courseCode}}</td>
+						<td>ขนาดไฟล์: {{= limitFileSizeKb}}KB</td>
+					</tr>
+					<tr>
+						<td>จำนวนไฟล์: {{= numOfFile}} ไฟล์</td>
+						<td>คะแนนเต็็ม: {{= maxScore}} คะแนน</td>
+					</tr>
+					<tr>
+						<td>สั่งโดย: {{= firstName}} {{= lastName}}</td>
+						<td>สั่งเมื่อ: {{= Globalize.format(new Date(createDate),'dd-MM-yyyy HH:mm')}}</td>
+					</tr><tr>
+						<td colspan="2" style="text-align:center;">
+							<button class="btn btn-primary" onClick="evaluateComplete({{= taskId}})"><i class="icon-ok icon-white"></i> ตรวจเสร็จแล้ว</button>
+							 <button class="btn btn-info" onClick="viewTask({{= taskId}})"><i class="icon-edit icon-white"></i> แก้ไข</button>
+							 <button class="btn btn-danger" onClick="deleteTask({{= taskId}})"><i class="icon-trash icon-white"></i> ลบ</button>
+						</td>
+					</tr>
+				</table>
+			</script>
 		</div>
 		
 		<div class="row-fluid">
@@ -74,7 +103,7 @@
 		<h3>ตรวจเสร็จแล้ว ?</h3>
 	</div>
 	<div class="modal-body">
-		งานนี้ตรวจเสร็จแล้ว โปรดยืนยัน
+		งานนี้ตรวจเสร็จแล้วใช่หรือไม่ โปรดยืนยัน
 	</div>
   	<div class="modal-footer">
     	<a href="#" class="btn" data-dismiss="modal">ปิด</a>

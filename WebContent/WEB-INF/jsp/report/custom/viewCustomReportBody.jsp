@@ -4,7 +4,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
 <link rel="stylesheet" href="${contextPath}/css/report/customReport.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
@@ -13,7 +12,7 @@
 
 <div class="row-fluid">
 	<div class="span12">
-		<h4> ข้อมูล วิชา ${sectionData.course.courseCode} Section ${sectionData.sectionName} เทอม ${sectionData.sectionSemester} ปี ${sectionData.sectionYear}</h4>
+		<h4> ข้อมูล วิชา ${sectionData.course.courseCode} Section ${sectionData.sectionName} เทอม ${sectionData.masterSection.sectionSemester} ปี ${sectionData.masterSection.sectionYear}</h4>
 		<table class="table table-bordered table-hover table-condensed">
 		<c:set var="maxScore" scope="page" value="0"/>
 			<thead>

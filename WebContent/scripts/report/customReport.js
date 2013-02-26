@@ -3,41 +3,35 @@ application.page="report";
 
 customReport = {};
 customReport.getSectionComboBox = function(){
-	$("#sectionId_chzn").block(application.blockOption);
 	$.ajax({
 		url: application.contextPath + '/management/sectionComboBox.html',
 		type: 'POST',
 		data: {
+			group: 1,
 			courseId: $("#courseId").val(),
 			dontCheckStatus: 1
 		},
 		dataType: 'json',
+		beforeSend: function(){
+			$("#s2id_sectionId").block(application.blockOption);
+		},
 		success: function(data,status){
-			var newData = '',nowSemester=null,nowYear=null,isFirst=true;
-			$.each(data,function(index,value){
-				if( nowSemester != value.sectionSemester || nowYear != value.sectionYear){
-					nowSemester = value.sectionSemester;
-					nowYear = value.sectionYear;
-					if(!isFirst){
-						newData+= '</optgroup>';
-					}else{
-						isFirst = false;
-					}
-					newData += '<optgroup label="เทอม '+nowSemester+' ปี '+nowYear+'">';
-				}
-				newData += '<option value="'+value.sectionId+'"'
-								+' sectionYear="'+value.sectionYear+'"'
-								+' sectionSemester="'+value.sectionSemester+'"'
-								+' sectionName="'+value.sectionName+'"'
-								+'>เทอม '+value.sectionSemester+' ปี '+value.sectionYear+' ['+value.sectionName+']</option>';
-				
-			});
-			$("#sectionId").empty().html(newData).trigger("liszt:updated");
-			$("#sectionId_chzn").unblock();
-			customReport.loadData();
+			$("#sectionId optgroup").remove();
+			$("#sectionTemplate").tmpl(data).appendTo("#sectionId");
+			$("#sectionId").select2();
+			$("#s2id_sectionId").unblock();
+			if(data.length > 0){
+				$("#choiceBody").show();
+				$("#errorSection").hide();
+				customReport.loadData();
+			}else{
+				$("#s2id_sectionId").block(application.blockOption);
+				$("#errorSection").show();
+				$("#choiceBody").hide();
+			}
 		},
 		error: function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 		}
 	});
 };
@@ -54,35 +48,35 @@ customReport.loadData = function(){
 		type :'POST',
 		dataType: 'json',
 		success: function(data){
-			$("#examChoice").empty();
 			
-			var strHtml,startDateStr,endDateStr;
+//			var strHtml,startDateStr,endDateStr;
+//			for(keyArray in data){
+//				if(data[keyArray].startDate == null){
+//					startDateStr = "ไม่กำหนด";
+//				}else{
+//					startDateStr = Globalize.format(new Date(data[keyArray].startDate),'dd-MM-yyyy HH:mm');
+//				}
+//				if(data[keyArray].endDate == null){
+//					endDateStr = "ไม่กำหนด";
+//				}else{
+//					endDateStr = Globalize.format(new Date(data[keyArray].endDate),'dd-MM-yyyy HH:mm');
+//				}
+//				strHtml = '<li>'
+//								+'<label for="exam'+data[keyArray].examId+'" style="display:inline-block;">'
+//									+'<input type="checkbox" id="exam'+data[keyArray].examId+'" name="examId[]" value="'+data[keyArray].examId+'" title="'+data[keyArray].examHeader+'" maxScore="'+data[keyArray].maxScore+'">&nbsp;&nbsp;'
+//									+data[keyArray].examHeader
+//									+' เริ่มสอบ '+startDateStr
+//									+' หมดเขตสอบ '+endDateStr
+//									+' คะแนนเต็ม '+data[keyArray].maxScore+'คะแนน'
+//								+' </label>'
+//							+'</li>';
+//				$("#examChoice").append(strHtml);
+//			}
+			$("#examChoice li").remove();
 			if(data.length ==0){
-				$("#examChoice").append('<div class="alert alert-warning" style="width:300px;"><strong>คำเตือน</strong>'
-									+'ไม่พบข้อมูลการสอบ'
-								+'</div>');
-			}
-			for(keyArray in data){
-				if(data[keyArray].startDate == null){
-					startDateStr = "ไม่กำหนด";
-				}else{
-					startDateStr = Globalize.format(new Date(data[keyArray].startDate),'dd-MM-yyyy HH:mm');
-				}
-				if(data[keyArray].endDate == null){
-					endDateStr = "ไม่กำหนด";
-				}else{
-					endDateStr = Globalize.format(new Date(data[keyArray].endDate),'dd-MM-yyyy HH:mm');
-				}
-				strHtml = '<li>'
-								+'<label for="exam'+data[keyArray].examId+'" style="display:inline-block;">'
-									+'<input type="checkbox" id="exam'+data[keyArray].examId+'" name="examId[]" value="'+data[keyArray].examId+'" title="'+data[keyArray].examHeader+'" maxScore="'+data[keyArray].maxScore+'">&nbsp;&nbsp;'
-									+data[keyArray].examHeader
-									+' เริ่มสอบ '+startDateStr
-									+' หมดเขตสอบ '+endDateStr
-									+' คะแนนเต็ม '+data[keyArray].maxScore+'คะแนน'
-								+' </label>'
-							+'</li>';
-				$("#examChoice").append(strHtml);
+				$("#examChoice").append('<div class="alert alert-warning" style="width:300px;"><strong><i class="fam-error"></i> ขออภัย</strong> ไม่พบข้อมูลการสอบ</div>');
+			}else{
+				$("#examChoiceTemplate").tmpl(data).appendTo("#examChoice");
 			}
 			counter++;
 			if(counter==2){
@@ -91,7 +85,7 @@ customReport.loadData = function(){
 			$(".exam-score").tooltip();
 		},
 		error: function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 		}
 	});
 	$.ajax({
@@ -103,33 +97,11 @@ customReport.loadData = function(){
 		type :'POST',
 		dataType: 'json',
 		success: function(data){
-			$("#assignmentChoice").empty();
+			$("#assignmentChoice li").remove();
 			if(data.length ==0){
-				$("#assignmentChoice").append('<div class="alert alert-warning" style="width:300px;"><strong>คำเตือน</strong>'
-									+'ไม่พบข้อมูล Assignment'
-								+'</div>');
-			}
-			var strHtml,statusStr;
-			for(keyArray in data){
-				
-				if(data[keyArray].isEvaluateComplete){
-					statusStr = '<span class="label label-success"><i class="icon-ok icon-white"></i> ตรวจเสร็จแล้ว</span>';
-				}else{
-					statusStr = '<span class="label label-warning"><i class="icon-pencil icon-white"></i> ยังตรวจไม่เสร็จ</span>';
-				}
-				
-				strHtml = '<li>'
-								+'<label for="assignment'+data[keyArray].assignmentTaskId+'">'
-									+'<input maxScore="'+data[keyArray].maxScore+'" title="'+data[keyArray].assignmentTaskName+'" type="checkbox" id="assignment'+data[keyArray].assignmentTaskId+'" name="assignmentId[]" value="'+data[keyArray].assignmentTaskId+'">&nbsp;&nbsp;'
-									+data[keyArray].assignmentTaskName
-									+' เริ่มส่ง '+Globalize.format(new Date(data[keyArray].startDate),'dd-MM-yyyy HH:mm')
-									+' หมดเขตส่ง '+Globalize.format(new Date(data[keyArray].endDate),'dd-MM-yyyy HH:mm')
-									+' สถานะ '+statusStr
-									+' คะแนนเต็ม '+data[keyArray].maxScore
-									+' คะแนน'
-								+'</label>'
-						+'</li>';
-				$("#assignmentChoice").append(strHtml);
+				$("#assignmentChoice").append('<div class="alert alert-warning" style="width:300px;"><strong><i class="fam-error"></i> ขออภัย</strong> ไม่พบข้อมูล Assignment</div>');
+			}else{
+				$("#assignmentChoiceTemplate").tmpl(data).appendTo("#assignmentChoice");
 			}
 			
 			counter++;
@@ -138,7 +110,7 @@ customReport.loadData = function(){
 			}
 		},
 		error: function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 		}
 	});
 };
@@ -172,9 +144,9 @@ customReport.calDataAndSubmit = function(){
 			assignmentData = [];
 			$('input[name^=assignmentId]:checked').each(function(){
 				assignmentData[assignmentData.length] = {
-						assignmentTaskId: $(this).val(),
-						assignmentTaskName: $(this).attr('title'),
-						maxScore: $(this).attr('maxScore')
+					assignmentTaskId: $(this).val(),
+					assignmentTaskName: $(this).attr('title'),
+					maxScore: $(this).attr('maxScore')
 				};
 			});
 		}
@@ -187,11 +159,11 @@ customReport.calDataAndSubmit = function(){
 };
 
 $(document).ready(function(){
-	$("#courseId,#sectionId").chosen();
-	$("#courseId_chzn").block(application.blockOption);
+	$("#courseId,#sectionId").select2();
+	$("#s2id_courseId").block(application.blockOption);
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){
-		$(this).trigger("liszt:updated");
-		$("#courseId_chzn").unblock();
+		$(this).select2();
+		$("#s2id_courseId").unblock();
 		customReport.getSectionComboBox();
 	}).change(function(){
 		customReport.getSectionComboBox();

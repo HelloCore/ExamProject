@@ -14,7 +14,6 @@ taskManagement.getDefaultGrid = function(){
 };
 
 taskManagement.getGrid = function(){
-	$("#taskDivHolder").empty();
 	$("#taskDivHolder").block(application.blockOption);
 	$.ajax({
 		url: application.contextPath + '/management/task.html',
@@ -29,50 +28,13 @@ taskManagement.getGrid = function(){
 		},
 		dataType: 'json',
 		success: function(data,status){
-			var strHtml ;
-			for(keyArray in data.records){
-				strHtml = '<table class="table table-bordered exam-table pagination-centered">'
-								+'<tr>'
-									+'<td colspan="2">'+data.records[keyArray].taskName+'</td>'
-								+'</tr>'
-								+'<tr>'
-									+'<td colspan="2"><pre>'+data.records[keyArray].taskDesc+'</pre></td>'
-								+'</tr>'
-								+'<tr>'
-									+'<td>วันเริ่มส่งงาน: '+Globalize.format(new Date(data.records[keyArray].startDate),'dd-MM-yyyy HH:mm')+'</td>'
-									+'<td>หมดเขตส่ง: '+Globalize.format(new Date(data.records[keyArray].endDate),'dd-MM-yyyy HH:mm')+'</td>'
-								+'</tr>'
-								+'<tr>'	
-									+'<td>วิชา: '+data.records[keyArray].courseCode+'</td>'
-									+'<td>ขนาดไฟล์: '+data.records[keyArray].limitFileSizeKb+'KB</td>'
-								+'</tr>'
-								+'<tr>'
-									+'<td>จำนวนไฟล์: '+data.records[keyArray].numOfFile+' ไฟล์</td>'
-									+'<td>คะแนนเต็็ม: '+data.records[keyArray].maxScore+' คะแนน</td>'
-								+'</tr>'
-								+'<tr>'
-									+'<td>สั่งโดย: '+data.records[keyArray].firstName+' '+data.records[keyArray].lastName+'</td>'
-									+'<td>สั่งเมื่อ: '+Globalize.format(new Date(data.records[keyArray].createDate),'dd-MM-yyyy HH:mm')+'</td>'
-								+'</tr><tr>'
-									+'<td colspan="2" style="text-align:center;">'
-										+' <button class="btn btn-primary" onClick="evaluateComplete('+data.records[keyArray].taskId+')"><i class="icon-ok icon-white"></i> ตรวจเสร็จแล้ว</button>'
-										+' <button class="btn btn-info" onClick="viewTask('+data.records[keyArray].taskId+')"><i class="icon-edit icon-white"></i> ดูรายละเอียด</button>'
-										+' <button class="btn btn-danger" onClick="deleteTask('+data.records[keyArray].taskId+')"><i class="icon-trash icon-white"></i> ลบ</button>'
-									+'</td>'
-								+'</tr>'
-							+'</table>';
-				$("#taskDivHolder").append(strHtml);
-			}
-			var startRecord = (((taskManagement.rows)*(taskManagement.page-1))+1);
-			applicationScript.setGridInfo(startRecord,data.records.length,data.totalRecords);
-			taskManagement.lastPage = data.totalPages;
-			
-			applicationScript.setPagination(taskManagement.page,taskManagement.lastPage);
-
+			$("#taskDivHolder table").remove();
+			$("#recordTemplate").tmpl(data.records).appendTo("#taskDivHolder");
+			applicationScript.calPaging(data,taskManagement);
 			$("#taskDivHolder").unblock();
 		},
 		error: function(data){
-			applicationScript.errorAlertWithStringTH(data.responseText);
+			applicationScript.resolveError(data.responseText);
 			$("#taskDivHolder").unblock();
 		}
 	});
@@ -82,22 +44,18 @@ taskManagement.getGrid = function(){
 taskManagement.initFunction = function(){
 	$("#courseBox").block(application.blockOption);
 	$("#courseId").load(application.contextPath+"/management/courseComboBox.html",function(){
-		$(this).trigger("liszt:updated");
+		$(this).select2();
 		$("#courseBox").unblock();
 		taskManagement.getDefaultGrid();
+		applicationScript.setUpGrid(taskManagement);
+		
 	});
 };
 
 
-changePage = function(page){
-	if(taskManagement.page != page){
-		taskManagement.page = page;
-		taskManagement.getGrid();
-	}
-};
 
 $(document).ready(function(){
-	$("#courseId").chosen();
+	$("#courseId").select2();
 	taskManagement.initFunction();
 
 	$("#refreshButton").click(function(){
@@ -113,26 +71,6 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#prevPageButton").click(function(e){
-		e.preventDefault();
-		if(taskManagement.page > 1){
-			taskManagement.page--;
-			taskManagement.getGrid();
-		}
-	});
-	$("#nextPageButton").click(function(e){
-		e.preventDefault();
-		if(taskManagement.page < taskManagement.lastPage){
-			taskManagement.page++;
-			taskManagement.getGrid();
-		}
-	});
-
-	$("#pageSize").change(function(){
-		taskManagement.page = 1;
-		taskManagement.rows = $(this).val();
-		taskManagement.getGrid();
-	});
 
 	var $window = $(window);
 	$("#leftBar").affix({
@@ -151,13 +89,13 @@ $(document).ready(function(){
 			},
 			success: function(){
 				thisButton.button('reset');
-				applicationScript.deleteComplete();
+				applicationScript.deleteCompleteTH();
 				$("#confirmDeleteTaskModal").modal('hide');
 				taskManagement.getGrid();
 			},
 			error: function(data){
 				thisButton.button('reset');
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#confirmDeleteTaskModal").modal('hide');
 			}
 		});
@@ -173,13 +111,13 @@ $(document).ready(function(){
 			},
 			success: function(){
 				thisButton.button('reset');
-				applicationScript.saveComplete();
+				applicationScript.saveCompleteTH();
 				$("#evaluateCompleteModal").modal('hide');
 				taskManagement.getGrid();
 			},
 			error: function(data){
 				thisButton.button('reset');
-				applicationScript.errorAlertWithStringTH(data.responseText);
+				applicationScript.resolveError(data.responseText);
 				$("#evaluateCompleteModal").modal('hide');
 			}
 		});

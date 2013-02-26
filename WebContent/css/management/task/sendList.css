@@ -2,3 +2,19 @@
 
 .main-form {width: 500px;margin:auto;}
 .input-xmini {width:25px;}
+div.alert {max-width:300px;margin:auto;}
+#descForm {max-width:600px;margin:auto;}
+#saveCompleteAlert {margin-top:20px;}
+@media  (max-width:480px){
+	#descForm{ margin-top:20px;}
+}
+
+
+@media  (min-width:481px) and (max-width: 767px){
+	#descForm{ margin-top:20px;}	
+}
+
+
+@media (min-width: 768px) and (max-width: 979px){
+	#descForm{ margin-top:20px;}	
+}

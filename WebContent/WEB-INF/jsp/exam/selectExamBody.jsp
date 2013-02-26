@@ -13,7 +13,7 @@
 			<c:if test="${empty examData and empty examResult and empty sampleExamData}">
 				<div style="width:500px;margin:auto;text-align:center;">
 					<div class="alert alert-warning">
-						<strong>คำเตือน !</strong> ไม่มีข้อสอบที่คุณสามารถสอบได้ 
+						<strong><i class="fam-error"></i> ขออภัย</strong> ไม่มีข้อสอบที่คุณสามารถสอบได้ 
 					</div>
 					<a class="btn" href="${contextPath}/main/home.html"><i class=" icon-chevron-left "></i> กลับ</a>
 				</div> 

@@ -111,7 +111,7 @@ body {
 .icon-doc-5 { width:16px;height:16px;background: url('../img/famfamfam/page_white_cup.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
 .icon-doc-6 { width:16px;height:16px;background: url('../img/famfamfam/page_white_compressed.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
 .icon-doc-7 { width:16px;height:16px;background: url('../img/famfamfam/page_white.png') center center no-repeat;display: inline-block;text-indent: -9999px; }
-
+span.group-item {white-space: nowrap; }
 label.valid {
   width: 16px;
   height: 16px;

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/css/report/avgScore.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
@@ -10,13 +10,20 @@
 </div>
 <div class="btn-holder form-inline">
 	<label> วิชา </label>
-	<select id="courseId" name="courseId"></select>
+	<select id="courseId" name="courseId" class="input-medium"></select>
 	<button class="btn btn-info" id="drawGraphButton"><i class="icon-zoom-in icon-white"></i> ดูข้อมูล</button>
 </div>
 <div class="row">
-	<div class="span12" id="mainLoader" style="display:none;">
+	<div class="span12" id="alertWarning" style="display:none;">
 		<hr>
-			
+		<div class="alert alert-warning">
+			<strong><i class="fam-error"></i> ขออภัย</strong> ไม่พบข้อมูลที่ค้นหา
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="span12" id="mainLoader" style="display:none;">
+		<hr>	
 		<div class="page-header" id="pageHeader">
 			<h4>กราฟคะแนนเฉลี่ยแต่ละบทเรียน</h4>
 		</div>

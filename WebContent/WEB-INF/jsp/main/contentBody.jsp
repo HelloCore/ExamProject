@@ -14,14 +14,14 @@
 		<c:if test="${not empty error}">
 			<div class="alert alert-error" style="width:400px;margin:auto;">
 				<a class="close" data-dismiss="alert" href="#">&times;</a>
-				<strong>เกิดข้อผิดพลาด! </strong> ${error}
+				<strong><i class="fam-exclamation"></i> เกิดข้อผิดพลาด! </strong> ${error}
 			</div>
 		</c:if>
 		<c:if test="${canEdit}">
 			<c:if test="${not empty success}">
 				<div class="alert alert-success" style="width:400px;margin:auto;">
 					<a class="close" data-dismiss="alert" href="#">&times;</a>
-					<strong>สำเร็จ !</strong> บันทึกข้อมูลสำเร็จ
+					<strong><i class="fam-accept"></i> สำเร็จ !</strong> บันทึกข้อมูลสำเร็จ
 				</div>
 			</c:if>
 		</c:if>
@@ -35,7 +35,7 @@
 		<c:if test="${fn:length(folderData)+fn:length(fileData) ==0}">
 			<div class="alert alert-error" style="width:400px;margin:auto;">
 				<a class="close" data-dismiss="alert" href="#">&times;</a>
-				<strong>คำเตือน!</strong> ไม่มีข้อมูลในโฟลเดอร์นี้
+				<strong><i class="fam-exclamation"></i> ขออภัย</strong> ไม่มีข้อมูลในโฟลเดอร์นี้
 			</div>
 		</c:if>
 		<c:if test="${fn:length(folderData)+fn:length(fileData) > 0}">
@@ -170,7 +170,7 @@
 				<h3>ลบโฟลเดอร์ ?</h3>
 			</div>
 			<div class="modal-body">
-				<font class="error" id="errorItem">คำเตือน หากลบโฟลเดอร์ ไฟล์ข้างในจะถูกลบทั้งหมด</font>โปรดยืนยัน
+				<font class="error" id="errorItem">คำเตือน! หากลบโฟลเดอร์ ไฟล์ข้างในจะถูกลบทั้งหมด</font>โปรดยืนยัน
 			</div>
 		  	<div class="modal-footer">
 		    	<a href="#" class="btn" data-dismiss="modal">ปิด</a>

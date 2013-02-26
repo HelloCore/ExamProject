@@ -11,7 +11,7 @@
 </div>
 <div class="row-fluid">
 	<div class="span12">
-		<div class="well" style="width:600px;margin:auto;">
+		<div class="well" id="descForm">
 			<div class="form-horizontal">
 				<div class="control-group">
 			    	<label class="control-label" >หัวข้องาน</label>
@@ -47,7 +47,7 @@
 			  	<div class="control-group">
 			  		<label class="control-label"> ไฟล์งาน </label>
 			  		<div class="controls">
-			  			<ol>
+			  			<ol class="file-controls">
 			  				<c:if test="${not empty fileList}">
 								<c:forEach items="${fileList}" var="data">
 									<li><a href="${contextPath}/management/task/getFile.html?file=${data.assignmentFileId}">${data.fileName}</a></li>

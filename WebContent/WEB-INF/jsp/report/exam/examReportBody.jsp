@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<link rel="stylesheet" href="${contextPath}/resources/chosen/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/resources/select2/select2.css" />
 <link rel="stylesheet" href="${contextPath}/css/report/examReport.css">
 
 <div class="page-header pagination-centered" id="pageHeader">
@@ -31,10 +31,32 @@
 				</tr>
 			</thead>
 			<tbody>
+				<script id="recordTemplate" type="text/x-jquery-tmpl">
+					<tr>
+						<td>{{if isCalScore}}สอบจริง{{else}}ทดลองสอบ{{/if}}</td>
+						<td>{{= courseCode}}</td>
+						<td>{{= examHeader}}</td>
+						{{if startDate}}
+							<td>{{Globalize.format(new Date(startDate),'dd-MM-yyyy HH:mm')}}</td>
+						{{else}}
+							<td>ไม่กำหนด</td>
+						{{/if}}
+						{{if endDate}}
+							<td>{{Globalize.format(new Date(endDate),'dd-MM-yyyy HH:mm')}}</td>
+						{{else}}
+							<td>ไม่กำหนด</td>
+						{{/if}}
+						<td style="text-align:right">{{= minQuestion}} ถึง {{= maxQuestion}} ข้อ</td>
+						<td><button class="btn btn-success" onclick="viewExamReport({{= examId}})"><i class="icon-zoom-in icon-white"></i> ดูผลการสอบ</button> 
+						{{if isCalScore}}
+							<button class="btn btn-info" onclick="viewExamGraph({{= examId}})"><i class=" icon-eye-open icon-white"></i> ดูกราฟ</button></td>
+						{{/if}}
+					</tr>
+				</script>
 			</tbody>
 		</table>
 		<div class="row-fluid">
-			<div class="span3">
+			<div class="span4">
 				<div class="grid-info" id="gridInfo"></div>
 			</div>
 			<div class="span4 page-size-div">
@@ -44,7 +66,7 @@
 			 		<option value="50">100</option>
 			 	</select> รายการต่อหน้า
 			</div>
-			<div class="span5">
+			<div class="span4">
 				<div class="grid-pagination pagination pagination-centered">
 					<ul>
 						<li class="prev disabled"><a href="#" id="prevPageButton">«</a></li>

@@ -11,14 +11,14 @@
 		<c:if test="${not empty error}">
 			<div style="width:500px;margin:auto;text-align:center;">
 				<div class="alert alert-error">
-					<strong>เกิดข้อผิดพลาด !</strong> ${error} 
+					<strong><i class="fam-exclamation"></i> เกิดข้อผิดพลาด !</strong> ${error} 
 				</div>
 			</div>
 		</c:if>
 		<c:if test="${empty assignmentData}">
 			<div style="width:500px;margin:auto;text-align:center;">
 				<div class="alert alert-warning">
-					<strong>คำเตือน !</strong> ไม่พบงานที่คุณสามารถส่งได้ 
+					<strong><i class="fam-error"></i> ขออภัย</strong> ไม่พบงานที่คุณสามารถส่งได้ 
 				</div>
 				<a class="btn" href="${contextPath}/main/home.html"><i class=" icon-chevron-left "></i> กลับ</a>
 			</div> 

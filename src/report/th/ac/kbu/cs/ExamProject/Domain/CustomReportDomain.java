@@ -127,6 +127,7 @@ public class CustomReportDomain extends CustomReportPrototype{
 	public Section getSection(){
 		DetachedCriteria criteria = DetachedCriteria.forClass(Section.class,"section");
 		criteria.createAlias("section.course", "course");
+		criteria.createAlias("section.masterSection", "masterSection");
 		criteria.add(Restrictions.eq("section.sectionId", this.getSectionId()));
 		
 		return this.basicFinderService.findUniqueByCriteria(criteria);
