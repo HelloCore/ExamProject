@@ -1,4 +1,9 @@
-ExamProject
+#ExamProject
 ===========
-https://docs.google.com/document/d/1TV7TtixeWWH0llLC-rwZLgOk_J0aeucixAKAyyvjTcQ/edit
+Hello,
+
+This is my final project that I made in university.
+I developed by using Spring Framework, Hibernate, JQuery, Bootstrap.
+
+Thank You.
 ===========
